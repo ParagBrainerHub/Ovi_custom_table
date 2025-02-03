@@ -1,0 +1,55 @@
+<!-- <div>
+  <app-calendar-component></app-calendar-component>
+</div> -->
+
+<!-- <app-card-component [cardConfigs]="cardConfigs" [isGrid]="checked" [width]="maxWidth"></app-card-component> -->
+
+<div [ngClass]="isDarkTheme ? 'dark-theme' : 'light-theme'">
+  <div *ngIf="loadingData; else tableTemplate">
+    <ngx-skeleton-loader count="5" appearance="line"></ngx-skeleton-loader>
+  </div>
+
+  <div style="margin: 20px 20px;">
+    <div class="button-container" [ngClass]="buttonAlignment">
+      <app-custom-button [text]="popupType.charAt(0).toUpperCase() + popupType.slice(1) + ' Popup'"
+        [shape]="'rectangle'" [corners]="'rounded'" [foreground]="'white'" [background]="getButtonBackground()"
+        [shadow]="true" (click)="openPopup()">
+      </app-custom-button>
+
+      <!-- Toggle Button for Theme -->
+      <app-custom-button [text]="isDarkTheme ? 'Light Theme' : 'Dark Theme'" [shape]="'rectangle'" [corners]="'rounded'"
+        [foreground]="'white'" [background]="isDarkTheme ? '#333' : '#666'" [shadow]="true" (click)="toggleTheme()">
+      </app-custom-button>
+    </div>
+
+    <app-popup *ngIf="isPopupVisible" (popupClosed)="closePopup()" [popupConfig]="popupConfig"
+      [showEmailField]="popupType === 'subscribe'" [formConfig]="formConfig">
+    </app-popup>
+  </div>
+
+  <ng-template #tableTemplate>
+    <app-navbar [config]="navbarConfig"></app-navbar>
+
+    <app-form-component [formConfig]="formConfig"></app-form-component>
+
+    <div class="row">
+      <div class="col-12 text-center">
+        <div class="btn-group">
+          <button type="button" (click)="isNewTable = false" class="btn">Old Component</button>
+          <button type="button" (click)="isNewTable = true" class="btn">New Component</button>
+        </div>
+      </div>
+    </div>
+    <app-custom-table *ngIf="!isNewTable" [data]="users" [config]="tableConfig"></app-custom-table>
+
+    <app-custom-material-table *ngIf="isNewTable" [data]="users" [config]="tableConfig"></app-custom-material-table>
+
+    <app-card-component [cardConfigs]="cardConfigs" [isGrid]="checked" [width]="maxWidth"></app-card-component>
+
+    <app-footer [footerConfig]="footerConfig"></app-footer>
+
+    <div>
+      <app-calendar-component></app-calendar-component>
+    </div>
+  </ng-template>
+</div>

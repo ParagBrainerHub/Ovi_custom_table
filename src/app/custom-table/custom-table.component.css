@@ -1,0 +1,128 @@
+/* Table container styling */
+.custom-table-container {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* Header row styling */
+.table-header {
+  background-color: #2c3e50; /* Dark blue background */
+  color: #ecf0f1; /* Light gray text */
+}
+
+/* Header cell styling */
+.table-header-cell {
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid #34495e; /* Darker blue border */
+  cursor: pointer;
+}
+
+/* Header cell sorting indicator */
+.table-header-cell span {
+  margin-left: 5px;
+  font-size: 0.8em;
+}
+
+/* Body row styling */
+.table-row {
+  transition: background-color 0.3s ease;
+}
+
+/* Alternate row background */
+.table-row:nth-child(even) {
+  background-color: #f8f9fa; /* Light gray background */
+}
+
+/* Row hover effect */
+.table-row:hover {
+  background-color: #e9ecef; /* Slightly darker gray on hover */
+}
+
+/* Cell styling */
+.table-cell {
+  padding: 15px;
+  border-bottom: 1px solid #dee2e6; /* Light gray border */
+  text-align: left;
+}
+
+/* Input field in editable cells */
+.table-cell input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #ced4da; /* Light gray border */
+  border-radius: 4px;
+  padding: 8px;
+}
+
+/* Button styling */
+.table-cell button {
+  background-color: #3498db; /* Blue background */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
+}
+
+.table-cell button:hover {
+  background-color: #2980b9; /* Darker blue on hover */
+}
+
+/* Pagination controls */
+.pagination-controls {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination-controls button {
+  background-color: #3498db; /* Blue background */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-controls button:hover {
+  background-color: #2980b9; /* Darker blue on hover */
+}
+
+.pagination-controls select {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ced4da; /* Light gray border */
+  font-size: 0.9em;
+}
+
+/* Filter input styling */
+.search-container input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ced4da; /* Light gray border */
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* Skeleton loader styling */
+.skeleton-loader {
+  display: inline-flex;
+  background: linear-gradient(90deg, #f0f0f0, #e0e0e0, #f0f0f0);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

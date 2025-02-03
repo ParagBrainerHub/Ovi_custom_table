@@ -1,0 +1,274 @@
+.example-card.list-layout {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.list-image-container {
+  width: 150px;
+  margin-right: 16px;
+}
+
+.content-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header CSS */
+.example-card {
+  max-width: 75%;
+  margin: 20px;
+}
+
+.header-container {
+  /* position: relative; */
+  width: 100%;
+}
+
+.header-title {
+  margin-bottom: 16px;
+}
+
+.header-title.left {
+  text-align: left;
+}
+
+.header-title.center {
+  text-align: center;
+}
+
+.header-title.right {
+  text-align: right;
+}
+
+.header-buttons {
+  /* position: absolute; */
+  margin-bottom: 8px !important;
+}
+
+.header-buttons.left {
+  left: 0;
+  text-align: left;
+}
+
+.header-buttons.center {
+  /* left: 50%;
+  transform: translateX(-50%); */
+  text-align: center;
+}
+
+.header-buttons.right {
+  right: 0;
+  text-align: right;
+}
+
+
+/* Image CSS */
+.card-container {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.card-image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hover-effect .hover-content {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hover-effect:hover .hover-content {
+  display: flex;
+  opacity: 1;
+  flex-direction: column;
+}
+
+.image-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+.image-top-half {
+  height: 50%;
+}
+
+.image-middle {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-bottom-half {
+  height: 50%;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.image-square-under-title {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.image-rectangle-under-title {
+  width: 100%;
+  height: 200px;
+}
+
+.image-dark-background-title {
+  position: relative;
+}
+
+.dark-background-title {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
+
+.image-title {
+  margin: 0;
+}
+
+
+/* Card Content CSS*/
+.card-content {
+  padding: 16px;
+}
+
+.card-details {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card-details.left {
+  justify-content: flex-start;
+}
+
+.card-details.center {
+  justify-content: center;
+}
+
+.card-details.right {
+  justify-content: flex-end;
+}
+
+.card-details.multi-column {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  /* grid-template-columns: repeat(3, 1fr); */
+  gap: 10px;
+}
+
+.details-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.details-cell {
+  display: flex;
+  align-items: center;
+}
+
+.details-cell .cell-icon {
+  margin-right: 8px;
+}
+
+
+/* Body CSS */
+.body-content.left {
+  text-align: left;
+}
+
+.body-content.center {
+  text-align: center;
+}
+
+.body-content.right {
+  text-align: right;
+}
+
+
+/* Footer CSS */
+/* .example-card-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}
+*/
+
+.example-card-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 8px;
+}
+
+.footer-group {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.footer-group.left {
+  justify-content: flex-start;
+}
+
+.footer-group.right {
+  justify-content: flex-end;
+}
+
+.footer-text-left {
+  text-align: left;
+  flex: 1;
+}
+
+.footer-text-center {
+  text-align: center;
+  flex: 1;
+}
+
+.footer-text-right {
+  text-align: right;
+  flex: 1;
+}
+
+.multi-column .footer-group {
+  flex-basis: 100%;
+}

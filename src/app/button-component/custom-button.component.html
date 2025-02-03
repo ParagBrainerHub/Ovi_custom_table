@@ -1,0 +1,101 @@
+<!-- <button (click)="handleClick()">
+  <span *ngIf="iconPosition !== 'full' && iconPosition === 'right'">{{ text }}</span>
+  <span *ngIf="showIcon && !loading">
+    <ng-container [ngSwitch]="iconPosition">
+      <span *ngSwitchCase="'left'">{{ icon }}</span>
+      <span *ngSwitchCase="'center'">{{ icon }}</span>
+      <span *ngSwitchCase="'right'">{{ icon }}</span>
+      <span *ngSwitchCase="'full'">{{ icon }}</span>
+    </ng-container>
+  </span>
+  <span *ngIf="iconPosition !== 'full' && iconPosition === 'left'">{{ text }}</span>
+  <span *ngIf="loading" class="spinner"></span>
+</button> -->
+
+<!-- <div *ngIf="isPageLoading" class="skeleton-loader"></div>
+
+<button *ngIf="!isPageLoading" (click)="handleClick()" class="custom-button">
+  <span *ngIf="iconPosition === 'left'">
+    <ng-container *ngIf="loading; else showIconContent">
+      <span class="spinner"></span>
+    </ng-container>
+    <ng-template #showIconContent>
+      <span>{{ icon }}</span>
+    </ng-template>
+  </span>
+
+  <span *ngIf="iconPosition === 'center'">
+    <ng-container *ngIf="loading; else showIconContent">
+      <span class="spinner"></span>
+    </ng-container>
+    <ng-template #showIconContent>
+      <span>{{ icon }}</span>
+    </ng-template>
+  </span>
+
+  <span *ngIf="iconPosition !== 'full'">{{ text }}</span>
+
+  <span *ngIf="iconPosition === 'right'">
+    <ng-container *ngIf="loading; else showIconContent">
+      <span class="spinner"></span>
+    </ng-container>
+    <ng-template #showIconContent>
+      <span>{{ icon }}</span>
+    </ng-template>
+  </span>
+
+  <span *ngIf="iconPosition === 'full'">
+    <ng-container *ngIf="loading; else showIconContent">
+      <span class="spinner"></span>
+    </ng-container>
+    <ng-template #showIconContent>
+      <span>{{ icon }}</span>
+    </ng-template>
+  </span>
+</button> -->
+
+
+<div *ngIf="isPageLoading" class="skeleton-loader"></div>
+
+<button *ngIf="!isPageLoading" (click)="handleClick()" class="custom-button mat-button" [ngStyle]="{
+    'color': foreground || primaryColor,
+    'background-color': background || secondaryColor,
+    'border-radius': getBorderRadius(),
+    'box-shadow': shadow ? '0 2px 4px rgba(0, 0, 0, 0.2)' : 'none',
+    'width': shape === 'circle' ? '50px' : shape === 'rectangle' ? 'auto' : '100px',
+    'height': shape === 'circle' ? '50px' : 'auto'
+  }" [ngClass]="{
+    'elevated': shadow,
+    'flat': !shadow,
+    'transparent': transparent
+  }">
+  <!-- Left-aligned icon or spinner -->
+  <span *ngIf="iconPosition === 'left'" class="button-content">
+    <ng-container *ngIf="loading; else showIconContent">
+      <mat-progress-spinner class="spinner" mode="indeterminate" [diameter]="24"
+        [strokeWidth]="3"></mat-progress-spinner>
+    </ng-container>
+    <ng-template #showIconContent>
+      <mat-icon *ngIf="showIcon">{{ icon }}</mat-icon>
+    </ng-template>
+  </span>
+
+  <!-- Button text -->
+  <span *ngIf="iconPosition !== 'full'" class="button-text">{{ text }}</span>
+
+  <!-- Right-aligned icon or spinner -->
+  <span *ngIf="iconPosition === 'right'" class="button-content">
+    <ng-container *ngIf="loading; else showIconContent">
+      <mat-progress-spinner class="spinner" mode="indeterminate" [diameter]="24"
+        [strokeWidth]="3"></mat-progress-spinner>
+    </ng-container>
+    <ng-template #showIconContent>
+      <mat-icon *ngIf="showIcon">{{ icon }}</mat-icon>
+    </ng-template>
+  </span>
+</button>
+
+<!-- Validation message (optional) -->
+<!-- <div *ngIf="!isValid" class="validation-error">
+  Button must contain either an icon or text.
+</div> -->

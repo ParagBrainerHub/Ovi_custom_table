@@ -1,0 +1,309 @@
+import { CommonModule } from '@angular/common';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { FormConfig, FormFieldConfig } from './form-modal';
+import {
+  MatDatepicker,
+  MatDatepickerModule,
+} from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { Subscription } from 'rxjs';
+import { QuillModule } from 'ngx-quill';
+import { CustomButtonComponent } from '../button-component/custom-button.component';
+
+@Component({
+  selector: 'app-form-component',
+  standalone: true,
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule,
+    MatDatepickerModule,
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    QuillModule,
+    CustomButtonComponent,
+  ],
+  templateUrl: './form-component.component.html',
+  styleUrl: './form-component.component.css',
+  providers: [provideNativeDateAdapter()],
+})
+export class FormComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit
+{
+  private readonly _currentYear = new Date().getFullYear();
+  readonly minDate = new Date(this._currentYear - 20, 0, 1);
+  readonly maxDate = new Date(this._currentYear + 1, 11, 31);
+
+  selectedImage: string | null = null;
+  selectedFileName: string | null = null;
+
+  form: FormGroup = new FormGroup({});
+
+  @Input() formConfig!: FormConfig;
+
+  private subscriptions: Subscription[] = [];
+
+  @ViewChildren(MatDatepicker) datepickers!: QueryList<MatDatepicker<any>>;
+  pickerRefs: MatDatepicker<any>[] = [];
+
+  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef) {}
+
+  formWidth = 60;
+
+  rightSideImage = 'https://picsum.photos/id/238/900/600';
+
+  updateFormWidth(width: number) {
+    this.formWidth = Math.min(Math.max(width, 20), 80); // Keeps width between 20% and 80%
+  }
+
+  ngOnInit() {
+    this.buildForm();
+    this.subscribeToFormChanges();
+  }
+
+  ngAfterViewInit() {
+    // Populate pickerRefs after the view is initialized
+    this.pickerRefs = this.datepickers.toArray();
+    this.cdr.detectChanges(); // Ensure change detection runs
+  }
+
+  buildForm() {
+    const formControls: { [key: string]: FormControl } = {};
+
+    this.formConfig.fields.forEach((field) => {
+      field.hide = field.hide ?? false;
+
+      const controlValidators = [];
+      if (field.required) {
+        controlValidators.push(Validators.required);
+      }
+      if (field.validation?.minLength) {
+        controlValidators.push(
+          Validators.minLength(field.validation.minLength)
+        );
+      }
+      if (field.validation?.maxLength) {
+        controlValidators.push(
+          Validators.maxLength(field.validation.maxLength)
+        );
+      }
+      if (field.validation?.minValue) {
+        controlValidators.push(Validators.min(field.validation.minValue));
+      }
+      if (field.validation?.maxValue) {
+        controlValidators.push(Validators.max(field.validation.maxValue));
+      }
+      if (field.type === 'date') {
+        controlValidators.push(
+          this.dateRangeValidator(this.minDate, this.maxDate)
+        );
+      }
+
+      formControls[field.label] = this.fb.control(
+        field.value || '',
+        controlValidators
+      );
+    });
+
+    this.form = this.fb.group(formControls);
+  }
+
+  // Handle checkbox change to show/hide fields
+  toggleFieldVisibility(field: any) {
+    field.hide = !field.hide;
+    this.cdr.detectChanges();
+  }
+
+  // Subscribe to form value changes for real-time updates
+  subscribeToFormChanges() {
+    this.formConfig.fields.forEach((field) => {
+      const control = this.form.get(field.label);
+      if (control) {
+        const sub = control.valueChanges.subscribe((value) => {
+          console.log(`${field.label} changed: `, value);
+
+          switch (field.type) {
+            case 'text':
+              if (
+                field.validation?.maxLength &&
+                value.length > field.validation.maxLength
+              ) {
+                console.warn(
+                  `${field.label} exceeds maximum length of ${field.validation.maxLength}.`
+                );
+              }
+              break;
+
+            case 'number':
+              if (field.validation) {
+                if (
+                  field.validation?.minValue !== undefined &&
+                  value < field.validation.minValue
+                ) {
+                  console.warn(
+                    `${field.label} is less than the minimum allowed value of ${field.validation.minValue}.`
+                  );
+                }
+                if (
+                  field.validation?.maxValue !== undefined &&
+                  value > field.validation.maxValue
+                ) {
+                  console.warn(
+                    `${field.label} exceeds the maximum allowed value of ${field.validation.maxValue}.`
+                  );
+                }
+              }
+              break;
+
+            case 'date':
+              if (value && new Date(value) > this.maxDate) {
+                console.warn(`${field.label} cannot be a future date.`);
+              }
+              break;
+
+            case 'file':
+              // Handle file-specific logic.
+              const file = control.value as File;
+              if (file && field.fileConfig?.allowedTypes) {
+                if (!field.fileConfig.allowedTypes.includes(file.type)) {
+                  console.warn(`${field.label}: Invalid file type uploaded.`);
+                  control.setErrors({ invalidFileType: true });
+                } else {
+                  console.log(`${field.label}: Valid file type uploaded.`);
+                }
+              }
+              break;
+
+            case 'textarea':
+              if (
+                field.validation?.minLength &&
+                value.length < field.validation.minLength
+              ) {
+                console.warn(
+                  `${field.label} must be at least ${field.validation.minLength} characters long.`
+                );
+              }
+              break;
+
+            default:
+              console.log(`${field.label}: No specific logic applied.`);
+          }
+        });
+        this.subscriptions.push(sub);
+      }
+    });
+  }
+
+  onSubmit() {
+    if (this.form.invalid) {
+      return;
+    }
+    console.log(this.form.value);
+  }
+
+  // Validator function:
+  dateRangeValidator(minDate: Date, maxDate: Date): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const selectedDate = new Date(control.value);
+      if (selectedDate < minDate || selectedDate > maxDate) {
+        return { dateRange: { valid: false } };
+      }
+      return null;
+    };
+  }
+
+  //Error Messages
+  getErrorMessage(field: FormFieldConfig) {
+    const control = this.form.get(field.label);
+    if (control?.hasError('required')) {
+      return field.errorMessages?.required || `${field.label} is required.`;
+    }
+    if (control?.hasError('minlength')) {
+      return (
+        field.errorMessages?.minLength ||
+        `${field.label} must be at least ${field.validation?.minLength} characters.`
+      );
+    }
+    if (control?.hasError('maxlength')) {
+      return (
+        field.errorMessages?.maxLength ||
+        `${field.label} cannot exceed ${field.validation?.maxLength} characters.`
+      );
+    }
+    if (control?.hasError('min')) {
+      return (
+        field.errorMessages?.minValue ||
+        `${field.label} must be at least ${field.validation?.minValue}.`
+      );
+    }
+    if (control?.hasError('max')) {
+      return (
+        field.errorMessages?.maxValue ||
+        `${field.label} must be at most ${field.validation?.maxValue}.`
+      );
+    }
+    if (control?.hasError('pattern')) {
+      return (
+        field.errorMessages?.pattern || `Invalid format for ${field.label}.`
+      );
+    }
+    return `Invalid ${field.label}.`;
+  }
+
+  //File Select
+  onFileSelect(event: Event, field: any): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files?.length) {
+      const file = input.files[0];
+      this.selectedFileName = file.name;
+
+      if (
+        field.fileConfig.allowedTypes.includes(file.type) &&
+        file.type.startsWith('image/')
+      ) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.selectedImage = reader.result as string;
+        };
+        reader.readAsDataURL(file);
+      }
+      this.form.get(field.label)?.setValue(file);
+    }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+  }
+}

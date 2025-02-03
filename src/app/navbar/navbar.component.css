@@ -1,0 +1,164 @@
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  max-height: 50px; /* Adjust as needed */
+}
+
+.button-group {
+  gap: 40px; /* Add 40px spacing between buttons */
+}
+
+/* Button hover effect */
+.button-group button:hover {
+  color: orange !important;
+}
+
+/* Toolbar styles */
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px; /* Adjust this based on your preference */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0 320px; /* Adds a gap of 320px on both left and right sides */
+}
+
+.mat-menu-panel {
+  position: absolute;
+  z-index: 1000;
+}
+
+.logo-title-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  order: 1; /* Fixed order for the container */
+}
+
+.logo-title-container,
+.button-group {
+  display: flex;
+  align-items: center;
+}
+
+/* Logo positions */
+.logo-left {
+  order: 1;
+}
+
+/* .logo-center {
+  order: 2;
+  margin: 0 auto;
+} */
+
+.logo-right {
+  order: 2;
+}
+
+/* Title positions */
+.title-left {
+  order: 1;
+  margin-left: 16px;
+}
+
+.title-right {
+  order: 2;
+  margin-right: 16px;
+}
+
+/* Button group positions */
+/* .buttons-left {
+  order: 4;
+  margin-left: auto;
+} */
+
+.buttons-center {
+  order: 2;
+  margin: 0 auto;
+}
+
+.buttons-right {
+  order: 3;
+  margin-right: auto;
+}
+
+/* Align buttons and logo together if required */
+.align-logo {
+  display: flex;
+  align-items: center;
+}
+
+
+/* Banner styles */
+.banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 16px;
+}
+
+
+.banner.specific {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.banner-image {
+  width: 100%;
+  height: auto;
+}
+
+iframe {
+  border: none;
+}
+
+
+.banner-iframe {
+  width: 100%;
+  border: none;
+}
+
+.carousel {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.iframe-container {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  padding: 100px 320px; /* 100px top & bottom, 320px left & right */
+}
+
+.styled-iframe {
+  width: 100%;
+  height: 500px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  mat-toolbar {
+    padding: 0 16px;
+    height: 60px;
+  }
+
+  .logo img {
+    max-height: 40px;
+  }
+
+  .title {
+    font-size: 1.2rem;
+  }
+
+  .button-group {
+    gap: 20px;
+  }
+}

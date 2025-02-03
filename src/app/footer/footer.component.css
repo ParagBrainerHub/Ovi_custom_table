@@ -1,0 +1,137 @@
+.footer-content {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: 20px;
+}
+
+.columns {
+  display: flex;
+  gap: 20px;
+}
+
+.single-column .column {
+  flex: 1;
+}
+
+.double-column .column {
+  flex: 1;
+}
+
+.column h3 {
+  font-size: 18px;
+  margin: 0 0 10px;
+}
+
+.column p {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.column .icon-buttons a {
+  margin-right: 8px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.column .icon-buttons mat-icon {
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+.iframe-container {
+  flex: 1;
+}
+
+.iframe-container iframe {
+  width: 100%;
+  border: none;
+}
+
+/* .bottom-bar {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  justify-content: space-between;
+} */
+
+.bottom-bar-logo-wrapper {
+  flex: 1;
+}
+/*
+.bottom-bar-text {
+  flex: 1;
+  text-align: center;
+} */
+
+.align-left {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.align-center {
+  display: flex;
+  justify-content: center;
+}
+
+.align-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.bottom-bar-logo {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.bottom-bar span {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+
+/* testing */
+.bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bottom-bar-text {
+  font-size: 14px;
+  color: white;
+  opacity: 0.8;
+}
+
+.bottom-bar-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.bottom-bar-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid white;
+  border-radius: 50%;
+  transition: background 0.3s;
+}
+
+.bottom-bar-icons a:hover {
+  background: white;
+}
+
+.bottom-bar-icons img {
+  width: 16px;
+  height: 16px;
+  filter: invert(1); /* Makes icons white */
+  transition: filter 0.3s;
+}
+
+.bottom-bar-icons a:hover img {
+  filter: invert(0); /* Makes icons black on hover */
+}

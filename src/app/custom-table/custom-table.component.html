@@ -1,0 +1,86 @@
+<div [ngStyle]="{
+    'display': 'flex',
+    'justify-content': getFlexAlignment(filterAllignment)
+  }">
+  <div class="search-container" [ngStyle]="{ 'width': filterWidth }">
+    <input [(ngModel)]="searchQuery" (input)="filterData()" placeholder="Search..." />
+  </div>
+</div>
+<table class="custom-table" [ngStyle]="{'margin': config.margin || '0px'}">
+  <thead *ngIf="config.isHeader" class="table-header">
+    <tr>
+      <th *ngFor="let column of sortedColumns; trackBy: trackColumn" (click)="onHeaderClick(column)"
+        class="table-header-cell" [style.min-width]="column.minWidth" [style.max-width]="column.maxWidth">
+        {{ column.title || column.key }}
+        <span *ngIf="sortColumnKey === column.key">
+          {{ sortDirection === 'asc' ? '▲' : '▼' }}
+        </span>
+      </th>
+      <th *ngIf="config.actions && config.actions.length > 0" class="table-header-cell">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody class="table-body">
+    <tr *ngFor="let item of paginatedData; let i = index; trackBy: trackItem" class="table-row"
+      [style.height]="config.rowHeight" [style.max-height]="config.maxRowHeight">
+
+      <td *ngFor="let scolumn of sortedColumns; trackBy: trackColumn" class="table-cell"
+        [style.min-width]="scolumn.minWidth" [style.max-width]="scolumn.maxWidth" [ngStyle]="{
+            'text-align': (item.rowAlignments && item.rowAlignments[scolumn.key]) ? item.rowAlignments[scolumn.key] : (config.columnAlignments && config.columnAlignments[scolumn.key]) ? config.columnAlignments[scolumn.key] : 'left'
+          }">
+
+        <ng-container *ngIf="editableCell && editableCell.rowIndex === i; else displayValue">
+          <input [(ngModel)]="item[scolumn.key]" (blur)="saveEdit(i)" />
+        </ng-container>
+
+        <ng-template #displayValue>
+          <ng-container *ngIf="scolumn.type === 'image'; else videoTemplate">
+            <ng-container *ngIf="item.imageLoading; else imageContent">
+              <ngx-skeleton-loader count="1" appearance="circle"></ngx-skeleton-loader>
+            </ng-container>
+            <ng-template #imageContent>
+              <img [src]="item[scolumn.key]" alt="Image" class="cell-image" width="100" height="100" />
+            </ng-template>
+          </ng-container>
+
+          <ng-template #videoTemplate>
+            <ng-container *ngIf="scolumn.type === 'video'">
+              <ng-container *ngIf="item.videoLoading; else videoContent">
+                <ngx-skeleton-loader count="1" appearance="line"></ngx-skeleton-loader>
+              </ng-container>
+              <ng-template #videoContent>
+                <video [src]="item[scolumn.key]" controls class="cell-video" width="100" height="100"></video>
+              </ng-template>
+            </ng-container>
+
+            <ng-container *ngIf="scolumn.type !== 'image' && scolumn.type !== 'video'">
+              {{ item[scolumn.key] }}
+            </ng-container>
+          </ng-template>
+        </ng-template>
+      </td>
+
+      <td *ngIf="config.actions && config.actions.length > 0" class="table-cell">
+        <app-custom-button *ngFor="let action of (item.actions || config.actions)"
+          [ngStyle]="{ 'margin-right': config.elementSpacing || '0px' }" [text]="action.text" [icon]="action.icon || ''"
+          [showIcon]="action.showIcon !== undefined ? action.showIcon : true"
+          [iconPosition]="action.iconPosition || 'left'"
+          (click)="action.text === 'Edit' ? startEditing(i) : handleActionClick(action, item)">
+        </app-custom-button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="pagination-controls">
+  <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
+  <span>Page {{ currentPage }} of {{ totalPages }}</span>
+  <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
+
+  <select (change)="onItemsPerPageChange($event)">
+    <option *ngFor="let option of config.maxItemsOptions; trackBy: trackItem" [value]="option"
+      [selected]="option === itemsPerPage">
+      {{ option }} items per page
+    </option>
+  </select>
+</div>

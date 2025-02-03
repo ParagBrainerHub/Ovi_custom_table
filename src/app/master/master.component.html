@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-12 text-center">
+    <div class="btn-group">
+      <button type="button" (click)="changeTab('Roles')" class="btn">Old Component</button>
+      <button type="button" (click)="changeTab('Roles')" class="btn">New Component</button>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12" *ngIf="currentComponent == 'CustomTableComponent'">
+    <app-custom-button></app-custom-button>
+  </div>
+  <div class="col-12" >
+    <app-custom-material-table></app-custom-material-table>
+  </div>
+</div>

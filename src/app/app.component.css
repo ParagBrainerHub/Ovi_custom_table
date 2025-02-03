@@ -1,0 +1,69 @@
+/* Light Theme */
+.light-theme {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Dark Theme */
+.dark-theme {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+/* Additional styles for dark theme */
+.dark-theme .button-container button {
+  background-color: #444;
+  color: #fff;
+}
+
+.dark-theme .skeleton-loader {
+  background: linear-gradient(90deg, #444, #555, #444);
+}
+
+/* .dark-theme h1,
+.dark-theme h2,
+.dark-theme h3,
+.dark-theme h4,
+.dark-theme h5,
+.dark-theme h6,
+.dark-theme p,
+.dark-theme span,
+.dark-theme div,
+.dark-theme a {
+  color: #ffffff;
+} */
+
+
+.skeleton-loader {
+  display: inline-flex;
+  background: linear-gradient(90deg, #f0f0f0, #e0e0e0, #f0f0f0);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+}
+
+.left {
+  justify-content: flex-start;
+}
+
+.center {
+  justify-content: center;
+}
+
+.right {
+  justify-content: flex-end;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

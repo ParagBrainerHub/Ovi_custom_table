@@ -1,0 +1,34 @@
+.view-toggle {
+  display: flex;
+  border: 2px solid green;
+  border-radius: 30px;
+  overflow: hidden;
+  background-color: white;
+  padding: 4px;
+  gap: 4px;
+}
+
+.toggle-button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: green;
+  border-radius: 30px;
+  padding: 10px 20px;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: rgba(0, 128, 0, 0.2);
+  }
+}
+
+.toggle-icon {
+  margin-right: 6px;
+}
+
+.toggle-button.mat-button-toggle-checked {
+  background-color: green;
+  color: white;
+}

@@ -7,6 +7,8 @@ import {
   ViewChildren,
   ViewChild,
 } from '@angular/core';
+import { MatMenuPanel } from '@angular/material/menu';
+
 import {
   ButtonGroupConfig,
   NavBarConfig,
@@ -18,6 +20,7 @@ import { RouterModule } from '@angular/router';
 import { ImageCarouselComponent } from '../image-carousel/image-carousel.component';
 import { MatButtonModule } from '@angular/material/button';
 import { SafeUrlPipe } from '../safe-url.pipe';
+import { CustomButtonComponent } from '../button-component/custom-button.component';
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -29,13 +32,13 @@ import { SafeUrlPipe } from '../safe-url.pipe';
     ImageCarouselComponent,
     MatButtonModule,
     SafeUrlPipe,
+    CustomButtonComponent,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
   @Input() config!: NavBarConfig;
-
   // menuRefs = new Map();
   // menuRefs = new Map<string, any>();
   @ViewChildren(MatMenuTrigger) menuTriggers!: QueryList<MatMenuTrigger>;
@@ -43,10 +46,24 @@ export class NavbarComponent {
   menuRefs = new Map<string, MatMenuTrigger>();
   iframeMargin: any;
 
+  setMenuRef(
+    groupIndex: number,
+    buttonIndex: number,
+    menuTrigger: MatMenuTrigger
+  ) {
+    this.menuRefs.set(`${groupIndex}-${buttonIndex}`, menuTrigger);
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['config']) {
       this.updateBannerSettings();
     }
+  }
+
+  ngAfterViewInit() {
+    this.menuTriggers.forEach((trigger, index) => {
+      this.menuRefs.set(index.toString(), trigger);
+    });
   }
 
   // Update banner settings dynamically
@@ -84,6 +101,26 @@ export class NavbarComponent {
   //   return this.config.title.position === 'left' ? 'title-left' : 'title-right';
   // }
 
+  getButtonTypeClass(button: NavButtonConfig): string {
+    switch (button.type) {
+      case 'normal':
+        return 'button-normal';
+      case 'primary':
+        return 'button-primary';
+      case 'secondary':
+        return 'button-secondary';
+      case 'bordered':
+        return 'button-bordered';
+      default:
+        return '';
+    }
+  }
+
+  onButtonClick(buttonText: string) {
+    console.log('buttonText: ', buttonText);
+    console.log(`${buttonText} clicked!`);
+  }
+
   getButtonGroupClass(buttonGroup: ButtonGroupConfig): string {
     const position =
       buttonGroup.position === 'left'
@@ -110,12 +147,9 @@ export class NavbarComponent {
   //     : 'buttons-right';
   // }
 
-  getMenu(groupIndex: number, buttonIndex: number): MatMenuTrigger {
+  getMenu(groupIndex: number, buttonIndex: number): MatMenuPanel<any> | null {
     const key = `${groupIndex}-${buttonIndex}`;
-    if (!this.menuRefs.has(key)) {
-      const trigger = this.menuTriggers.toArray()[this.menuRefs.size];
-      this.menuRefs.set(key, trigger);
-    }
-    return this.menuRefs.get(key)!;
+    const trigger = this.menuRefs.get(key);
+    return trigger ? trigger.menu : null; // ✅ Ensure to return the menu, not the trigger
   }
 }

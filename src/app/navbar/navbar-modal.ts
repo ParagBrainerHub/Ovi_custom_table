@@ -1,4 +1,5 @@
 // import { CarouselButtonsConfig } from "../image-carousel/image-carousel.modal";
+import { ButtonConfig } from '../modals';
 
 export interface NavBarConfig {
   logo?: LogoConfig | null;
@@ -34,8 +35,25 @@ export interface NavButtonConfig {
   text?: string;
   url?: string;
   subMenu?: SubMenuConfig[];
-}
+  type?: 'normal' | 'primary' | 'secondary' | 'bordered';
 
+  // Add these properties directly in NavButtonConfig
+  icon?: string;
+  showIcon?: boolean;
+  iconPosition?: 'left' | 'center' | 'right' | 'full' | 'top' | 'bottom';
+  shape?: 'circle' | 'square' | 'rectangle';
+  corners?: 'rounded' | 'squared';
+  transparent?: boolean;
+  foreground?: string;
+  background?: string;
+  shadow?: boolean;
+  border?: boolean;
+  navigate?: boolean;
+  primaryColor?: string;
+  secondaryColor?: string;
+  onClick?: (row: any) => void;
+  validate?: () => boolean;
+}
 export interface SubMenuConfig {
   text?: string;
   url?: string;

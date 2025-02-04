@@ -68,6 +68,7 @@ export interface User {
     PopupComponent,
     CustomButtonComponent,
     CalendarComponentComponent,
+    RouterOutlet,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -114,6 +115,13 @@ export class AppComponent {
     255, 195, 136, 31, 232, 191, 246, 127, 150, 255, 89, 255, 255, 218, 87, 233,
     159, 228, 58, 14, 255, 165, 251, 125, 254, 143, 220, 71, 198,
   ];
+
+  handleClick(event: Event): void {
+    setTimeout(() => {
+      alert('User Logged Out SuccessFully');
+    }, 3000);
+    console.log('Button clicked!', event);
+  }
 
   //User Config
   users: User[] = [
@@ -776,14 +784,14 @@ export class AppComponent {
   //Nav Config
   navbarConfig: NavBarConfig = {
     logo: {
-      url: 'https://picsum.photos/75/75',
+      url: './light_cycolis_software_logo_2.png',
       position: 'left',
     },
-    title: {
-      text: 'My Application',
-      position: 'right',
-      alignWithLogo: true,
-    },
+    // title: {
+    //   text: 'My Application',
+    //   position: 'right',
+    //   alignWithLogo: true,
+    // },
     buttons: [
       {
         position: 'center',
@@ -791,20 +799,77 @@ export class AppComponent {
         buttonsGroup: [
           {
             text: 'Home',
-            url: 'https://www.google.com/',
+            // icon: 'home',
+            // showIcon: true,
+            // iconPosition: 'left',
+            shape: 'rectangle',
+            corners: 'rounded',
+            foreground: '#ffffff',
+            background: '#1976d2',
+            transparent: true,
+            border: false,
+            shadow: false,
+            navigate: true,
+            url: '/',
           },
           {
-            text: 'About',
-            subMenu: [{ text: 'Option 1' }, { text: 'Option 2' }],
-            url: 'https://www.google.com/',
+            text: 'About Us',
+            // icon: 'info',
+            // showIcon: true,
+            // iconPosition: 'left',
+            shape: 'rectangle',
+            corners: 'rounded',
+            foreground: '#ffffff',
+            background: '#1976d2',
+            transparent: true,
+            border: false,
+            shadow: false,
+            navigate: true,
+            url: '/about_us',
           },
           {
-            text: 'More',
-            subMenu: [{ text: 'Option 1' }, { text: 'Option 2' }],
+            text: 'Blog',
+            icon: 'keyboard_arrow_up',
+            showIcon: true,
+            iconPosition: 'right',
+            shape: 'rectangle',
+            corners: 'rounded',
+            foreground: '#ffffff',
+            background: '#1976d2',
+            transparent: true,
+            border: false,
+            shadow: false,
+            navigate: true,
+            url: '/blog',
           },
           {
-            text: 'Login',
-            url: '/login',
+            text: 'Contact Us',
+            showIcon: false,
+            shape: 'rectangle',
+            corners: 'rounded',
+            foreground: '#ffffff',
+            background: '#ff5722',
+            transparent: true,
+            border: false,
+            shadow: false,
+            navigate: true,
+            url: '/contact',
+          },
+          {
+            text: 'Logout',
+            icon: '',
+            showIcon: false,
+            // iconPosition: 'left',
+            shape: 'rectangle',
+            corners: 'rounded',
+            foreground: '#ffffff',
+            background: '#1976d2',
+            transparent: true,
+            border: true,
+            shadow: false,
+            navigate: true,
+            url: '/logout',
+            onClick: (event: Event) => this.handleClick(event),
           },
         ],
       },

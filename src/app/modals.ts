@@ -19,13 +19,12 @@ export interface User {
   //byteArray?: number[];
 }
 
-
 export interface ButtonConfig {
-  text: string;
+  text?: string;
   icon?: string;
   showIcon?: boolean;
-  iconPosition?: 'left' | 'center' | 'right' | 'full';
-  onClick: (row: any) => void;
+  iconPosition?: 'left' | 'center' | 'right' | 'full' | 'top' | 'bottom';
+  onClick?: (row: any) => void;
   shape?: 'circle' | 'square' | 'rectangle';
   corners?: 'rounded' | 'squared';
   transparent?: boolean;
@@ -34,4 +33,7 @@ export interface ButtonConfig {
   shadow?: boolean;
   textAlign?: 'left' | 'center' | 'right';
   validate?: () => boolean;
+  primaryColor?: string;
+  border?: boolean;
+  secondaryColor?: string;
 }

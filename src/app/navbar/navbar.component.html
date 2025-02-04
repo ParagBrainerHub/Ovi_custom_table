@@ -3,7 +3,7 @@
   <div class="logo-title-container">
     <ng-container *ngIf="config.logo">
       <div class="logo" [ngClass]="getLogoClass()">
-        <img [src]="config.logo.url" alt="Logo">
+        <img [src]="config.logo.url" alt="Logo" />
       </div>
     </ng-container>
 
@@ -15,51 +15,66 @@
   </div>
 
   <!-- Buttons Group -->
-  <ng-container *ngFor="let buttonGroup of config.buttons">
+  <ng-container
+    *ngFor="let buttonGroup of config.buttons; let groupIndex = index"
+  >
     <div class="button-group" [ngClass]="getButtonGroupClass(buttonGroup)">
-      <ng-container *ngFor="let button of buttonGroup.buttonsGroup">
-        <!-- If button has a submenu, show a button with a mat-menu trigger -->
-        <button mat-button *ngIf="button.subMenu?.length; else noSubMenu" [matMenuTriggerFor]="menu">
-          {{ button.text }}
-        </button>
-
-        <!-- Submenu for buttons -->
-        <mat-menu #menu="matMenu">
-          <ng-container *ngFor="let subItem of button.subMenu">
-            <button mat-menu-item [routerLink]="subItem.url">{{ subItem.text }}</button>
-          </ng-container>
-        </mat-menu>
-
-        <!-- Button without submenu -->
-        <ng-template #noSubMenu>
-          <button mat-button [routerLink]="button.url">{{ button.text }}</button>
-        </ng-template>
+      <ng-container
+        *ngFor="let button of buttonGroup.buttonsGroup; let buttonIndex = index"
+      >
+        <app-custom-button
+          [text]="button.text"
+          [icon]="button.icon"
+          [showIcon]="button.showIcon"
+          [iconPosition]="button.iconPosition"
+          [shape]="button.shape"
+          [corners]="button.corners"
+          [foreground]="button.foreground"
+          [background]="button.background"
+          [transparent]="button.transparent"
+          [border]="button.border"
+          [shadow]="button.shadow"
+          [navigate]="button.navigate ?? false"
+          [url]="button.url ?? ''"
+          (buttonClick)="onButtonClick($event)"
+          [onClick]="button.onClick"
+        >
+        </app-custom-button>
       </ng-container>
     </div>
   </ng-container>
 </mat-toolbar>
 
-
 <!-- Banner Section -->
 <div *ngIf="config.banner" [ngClass]="bannerWidth">
-  <!-- Slideshow or Single Image Display -->
-  <ng-container *ngIf="slideshowEnabled && (config.banner.imageSrc?.length ?? 0) > 1">
-    <app-image-carousel [images]="config.banner.imageSrc ?? []" [autoplay]="false"
-      [buttonConfig]="config.carouselButtons" [forcePagination]="config.banner.forcePagination ?? false">
+  <ng-container
+    *ngIf="slideshowEnabled && (config.banner.imageSrc?.length ?? 0) > 1"
+  >
+    <app-image-carousel
+      [images]="config.banner.imageSrc ?? []"
+      [autoplay]="false"
+      [buttonConfig]="config.carouselButtons"
+      [forcePagination]="config.banner.forcePagination ?? false"
+    >
     </app-image-carousel>
   </ng-container>
 
-  <ng-container *ngIf=" !slideshowEnabled || (config.banner.imageSrc?.length ?? 0)===1">
-    <img *ngIf="config.banner.imageSrc && config.banner.imageSrc.length > 0" [src]="config.banner.imageSrc[0]"
-      alt="Banner Image">
+  <ng-container
+    *ngIf="!slideshowEnabled || (config.banner.imageSrc?.length ?? 0) === 1"
+  >
+    <img
+      *ngIf="config.banner.imageSrc && config.banner.imageSrc.length > 0"
+      [src]="config.banner.imageSrc[0]"
+      alt="Banner Image"
+    />
   </ng-container>
-
-  <!-- <iframe *ngIf="config.banner.iframeUrl" [src]="config.banner.iframeUrl | safeUrl" [style.width]="iframeWidth"
-    [style.height]="iframeHeight" frameborder="0">
-  </iframe> -->
   <div class="iframe-container">
-    <iframe *ngIf="config.banner.iframeUrl" [src]="config.banner.iframeUrl | safeUrl" class="styled-iframe"
-      frameborder="0">
+    <iframe
+      *ngIf="config.banner.iframeUrl"
+      [src]="config.banner.iframeUrl | safeUrl"
+      class="styled-iframe"
+      frameborder="0"
+    >
     </iframe>
   </div>
 </div>

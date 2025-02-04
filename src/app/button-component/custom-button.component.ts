@@ -57,6 +57,7 @@ export class CustomButtonComponent {
   loading: boolean = false;
   isValid: boolean = true;
   isPageLoading: boolean = true;
+  hoveredItem: any = null;
 
   primaryColor: string = 'black';
   secondaryColor: string = 'red';
@@ -65,6 +66,7 @@ export class CustomButtonComponent {
 
   ngOnInit() {
     this.validateButton();
+    // this.getBorderRadius();
     setTimeout(() => {
       this.isPageLoading = false;
     }, 2000);
@@ -72,31 +74,26 @@ export class CustomButtonComponent {
 
   async handleClick(event: Event) {
     this.loading = true;
-    debugger;
     try {
       if (this.onClick) {
-        this.onClick(event); // Call the onClick handler
+        this.onClick(event);
       }
 
-      // If a URL is provided, navigate to the URL
       if (this.url) {
         await this.router.navigate([this.url]);
       }
       // Case 1: If both click handler and navigation are needed
       if (this.buttonClick.observed && this.navigate && this.url) {
-        debugger;
         await Promise.resolve(this.buttonClick.emit(this.text || ''));
         console.log('this.url: ', this.url);
         await this.router.navigate([this.url]);
       }
       // Case 2: Only click handler, no navigation
       else if (this.buttonClick.observed && !this.navigate) {
-        debugger;
         await Promise.resolve(this.buttonClick.emit(this.text || ''));
       }
       // Case 3: Only navigation, no click handler
       else if (!this.buttonClick.observed && this.url) {
-        debugger;
         console.log('this.url: ', this.url);
         await this.router.navigate([this.url]);
       }
@@ -107,13 +104,6 @@ export class CustomButtonComponent {
         this.loading = false;
       }, 500);
     }
-  }
-
-  getBorderRadius(): string {
-    if (this.shape === 'circle') {
-      return '50%';
-    }
-    return this.corners === 'rounded' ? '8px' : '0';
   }
 
   validateButton() {
@@ -136,8 +126,17 @@ export class CustomButtonComponent {
     }
   }
 
+  getBorderRadius(): string {
+    if (this.shape === 'circle') {
+      return '50%';
+    }
+    return this.corners === 'rounded' ? '8px' : '0';
+  }
+
   getButtonStyle() {
     const borderColor = this.primaryColor;
+    const borderRadius = this.getBorderRadius();
+
     const backgroundColor = this.transparent
       ? 'transparent'
       : this.primaryColor;
@@ -147,6 +146,7 @@ export class CustomButtonComponent {
         backgroundColor: this.secondaryColor,
         color: this.primaryColor,
         border: 'none',
+        borderRadius: borderRadius,
       };
     }
 
@@ -155,6 +155,7 @@ export class CustomButtonComponent {
         backgroundColor: 'transparent',
         color: this.primaryColor,
         border: 'none',
+        borderRadius: borderRadius,
       };
     }
 
@@ -163,37 +164,44 @@ export class CustomButtonComponent {
         backgroundColor: this.primaryColor,
         color: 'white',
         border: 'none',
+        borderRadius: borderRadius,
       };
     }
     if (this.transparent && this.border) {
       return {
         backgroundColor: 'transparent',
         color: this.primaryColor,
-        border: `1px solid ${borderColor}`,
+        border: `2px solid ${borderColor}`,
+        borderRadius: borderRadius,
+        padding: '9px 30px',
       };
     }
     if (!this.transparent && this.border) {
       return {
         backgroundColor: this.primaryColor,
         color: 'white',
-        border: `1px solid ${borderColor}`,
+        border: `2px solid ${borderColor}`,
+        borderRadius: borderRadius,
+        padding: '9px 30px',
       };
     }
     return {
       backgroundColor: this.primaryColor,
       color: 'white',
       border: 'none',
+      borderRadius: borderRadius,
     };
   }
 
   getHoverStyle() {
     const hoverColor = this.secondaryColor;
-
+    const borderRadius = this.getBorderRadius();
     if (this.icon && !this.text) {
       return {
         backgroundColor: this.primaryColor,
         color: 'white',
         border: 'none',
+        borderRadius: borderRadius,
       };
     }
 
@@ -202,6 +210,7 @@ export class CustomButtonComponent {
         backgroundColor: this.secondaryColor,
         color: this.primaryColor,
         border: 'none',
+        borderRadius: borderRadius,
       };
     }
 
@@ -210,6 +219,7 @@ export class CustomButtonComponent {
         backgroundColor: 'transparent',
         color: hoverColor,
         border: 'none',
+        borderRadius: borderRadius,
       };
     }
 
@@ -218,13 +228,17 @@ export class CustomButtonComponent {
         backgroundColor: hoverColor,
         color: 'white',
         border: 'none',
+        borderRadius: borderRadius,
       };
     }
 
     if (this.transparent && this.border) {
       return {
         backgroundColor: this.primaryColor,
+        border: `2px solid ${this.primaryColor}`,
         color: 'white',
+        borderRadius: borderRadius,
+        padding: '9px 30px',
       };
     }
 
@@ -232,11 +246,16 @@ export class CustomButtonComponent {
       return {
         backgroundColor: hoverColor,
         color: 'white',
+        border: `2px solid ${hoverColor}`,
+        borderRadius: borderRadius,
+        padding: '9px 30px',
       };
     }
     return {
       backgroundColor: hoverColor,
       color: 'white',
+      border: 'none',
+      borderRadius: borderRadius,
     };
   }
 }

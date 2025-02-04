@@ -13,8 +13,10 @@
   (mouseenter)="hover = true"
   (mouseleave)="hover = false"
   [ngStyle]="hover ? getHoverStyle() : getButtonStyle()"
+  [ngStyle]="{ 'border-radius': getBorderRadius() }"
 >
   <!-- Left-aligned icon or spinner -->
+
   <span *ngIf="iconPosition === 'left'" class="button-content left">
     <ng-container *ngIf="loadingData; else showIconContent">
       <mat-progress-spinner
@@ -50,24 +52,27 @@
   </span>
 
   <!-- Recursive Menu -->
-  <div *ngIf="isMenuButton" class="custom-button">
-    <span>{{ text }}</span>
-
-    <div class="menu-dropdown">
-      <ul>
-        <ng-container
-          *ngTemplateOutlet="menuTemplate; context: { items: menuItems }"
-        ></ng-container>
-      </ul>
-    </div>
+  <div *ngIf="isMenuButton">{{ text }}</div>
+  <div *ngIf="isMenuButton" class="menu-dropdown">
+    <ul>
+      <ng-container
+        *ngTemplateOutlet="menuTemplate; context: { items: menuItems }"
+      >
+      </ng-container>
+    </ul>
   </div>
 </button>
 
 <!-- Recursive Template -->
 <ng-template #menuTemplate let-items="items">
   <ng-container *ngFor="let item of items">
-    <li>
-      <a [href]="item.url">{{ item.label }}</a>
+    <li (mouseenter)="hoveredItem = item" (mouseleave)="hoveredItem = null">
+      <a [href]="item.url">
+        {{ item.label }}
+        <span *ngIf="item.children?.length">
+          {{ hoveredItem === item ? "▲" : "▼" }}
+        </span>
+      </a>
 
       <!-- If item has children, recursively call the same template -->
       <ul *ngIf="item.children?.length">

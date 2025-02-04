@@ -799,9 +799,9 @@ export class AppComponent {
         buttonsGroup: [
           {
             text: 'Home',
-            // icon: 'home',
-            // showIcon: true,
-            // iconPosition: 'left',
+            icon: 'home',
+            showIcon: true,
+            iconPosition: 'right',
             shape: 'rectangle',
             corners: 'rounded',
             foreground: '#ffffff',
@@ -816,28 +816,15 @@ export class AppComponent {
                 label: 'Submenu 1',
                 url: '/submenu1',
                 children: [
-                  { label: 'Submenu 3', url: '/submenu1' },
+                  { label: 'Submenu 3', url: '/submenu3' },
                   {
                     label: 'Submenu 4',
-                    url: '/submenu2',
-                    children: [
-                      {
-                        label: 'Submenu 5',
-                        url: '/submenu1',
-                        children: [
-                          { label: 'Submenu 7', url: '/submenu1' },
-                          { label: 'Submenu 8', url: '/submenu2' },
-                        ],
-                      },
-                      {
-                        label: 'Submenu 6',
-                        url: '/submenu2',
-                        children: [
-                          { label: 'Submenu 9', url: '/submenu1' },
-                          { label: 'Submenu 10', url: '/submenu2' },
-                        ],
-                      },
-                    ],
+                    url: '/submenu4',
+                  },
+                  { label: 'Submenu 5', url: '/submenu5' },
+                  {
+                    label: 'Submenu 6',
+                    url: '/submenu6',
                   },
                 ],
               },
@@ -862,9 +849,9 @@ export class AppComponent {
           },
           {
             text: 'Blog',
-            icon: 'keyboard_arrow_up',
-            showIcon: true,
-            iconPosition: 'right',
+            // icon: 'keyboard_arrow_up',
+            // showIcon: true,
+            // iconPosition: 'right',
             shape: 'rectangle',
             corners: 'rounded',
             foreground: '#ffffff',

@@ -1,51 +1,53 @@
-<mat-toolbar color="primary">
-  <!-- Logo -->
-  <div class="logo-title-container">
-    <ng-container *ngIf="config.logo">
-      <div class="logo" [ngClass]="getLogoClass()">
-        <img [src]="config.logo.url" alt="Logo" />
-      </div>
-    </ng-container>
+<header class="header">
+  <mat-toolbar color="primary">
+    <div class="logo-title-container">
+      <ng-container *ngIf="config.logo">
+        <div class="logo" [ngClass]="getLogoClass()">
+          <img [src]="config.logo.url" alt="Logo" />
+        </div>
+      </ng-container>
 
-    <ng-container *ngIf="config.title">
-      <div class="title" [ngClass]="getTitleClass()">
-        {{ config.title.text }}
-      </div>
-    </ng-container>
-  </div>
-
-  <!-- Buttons Group -->
-  <ng-container
-    *ngFor="let buttonGroup of config.buttons; let groupIndex = index"
-  >
-    <div class="button-group" [ngClass]="getButtonGroupClass(buttonGroup)">
-      <ng-container
-        *ngFor="let button of buttonGroup.buttonsGroup; let buttonIndex = index"
-      >
-        <app-custom-button
-          [text]="button.text"
-          [icon]="button.icon"
-          [showIcon]="button.showIcon"
-          [iconPosition]="button.iconPosition"
-          [shape]="button.shape"
-          [corners]="button.corners"
-          [foreground]="button.foreground"
-          [background]="button.background"
-          [transparent]="button.transparent"
-          [border]="button.border"
-          [shadow]="button.shadow"
-          [navigate]="button.navigate ?? false"
-          [url]="button.url ?? ''"
-          (buttonClick)="onButtonClick($event)"
-          [onClick]="button.onClick"
-          [menuItems]="button.menuItems"
-          [isMenuButton]="button.isMenuButton"
-        >
-        </app-custom-button>
+      <ng-container *ngIf="config.title">
+        <div class="title" [ngClass]="getTitleClass()">
+          {{ config.title.text }}
+        </div>
       </ng-container>
     </div>
-  </ng-container>
-</mat-toolbar>
+    <ng-container
+      *ngFor="let buttonGroup of config.buttons; let groupIndex = index"
+    >
+      <div class="button-group" [ngClass]="getButtonGroupClass(buttonGroup)">
+        <ng-container
+          *ngFor="
+            let button of buttonGroup.buttonsGroup;
+            let buttonIndex = index
+          "
+        >
+          <app-custom-button
+            [text]="button.text"
+            [icon]="button.icon"
+            [showIcon]="button.showIcon"
+            [iconPosition]="button.iconPosition"
+            [shape]="button.shape"
+            [corners]="button.corners"
+            [foreground]="button.foreground"
+            [background]="button.background"
+            [transparent]="button.transparent"
+            [border]="button.border"
+            [shadow]="button.shadow"
+            [navigate]="button.navigate ?? false"
+            [url]="button.url ?? ''"
+            (buttonClick)="onButtonClick($event)"
+            [onClick]="button.onClick"
+            [menuItems]="button.menuItems"
+            [isMenuButton]="button.isMenuButton"
+          >
+          </app-custom-button>
+        </ng-container>
+      </div>
+    </ng-container>
+  </mat-toolbar>
+</header>
 
 <!-- Banner Section -->
 <div *ngIf="config.banner" [ngClass]="bannerWidth">

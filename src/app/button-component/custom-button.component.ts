@@ -1,6 +1,6 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { validateButtonProps } from './button.model';
+import { MenuItem, validateButtonProps } from './button.model';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -43,6 +43,9 @@ export class CustomButtonComponent {
   @Input() foreground?: string = '';
   @Input() background?: string = '';
   @Input() shadow?: boolean = true;
+
+  @Input() isMenuButton?: boolean = false; // Add input for menu button
+  @Input() menuItems?: MenuItem[];
 
   @Input() transparent?: boolean = false;
   @Input() border?: boolean = true;

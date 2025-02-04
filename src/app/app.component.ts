@@ -811,6 +811,39 @@ export class AppComponent {
             shadow: false,
             navigate: true,
             url: '/',
+            menuItems: [
+              {
+                label: 'Submenu 1',
+                url: '/submenu1',
+                children: [
+                  { label: 'Submenu 3', url: '/submenu1' },
+                  {
+                    label: 'Submenu 4',
+                    url: '/submenu2',
+                    children: [
+                      {
+                        label: 'Submenu 5',
+                        url: '/submenu1',
+                        children: [
+                          { label: 'Submenu 7', url: '/submenu1' },
+                          { label: 'Submenu 8', url: '/submenu2' },
+                        ],
+                      },
+                      {
+                        label: 'Submenu 6',
+                        url: '/submenu2',
+                        children: [
+                          { label: 'Submenu 9', url: '/submenu1' },
+                          { label: 'Submenu 10', url: '/submenu2' },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+              { label: 'Submenu 2', url: '/submenu2' },
+            ], // Submen
+            isMenuButton: true,
           },
           {
             text: 'About Us',

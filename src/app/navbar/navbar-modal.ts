@@ -1,4 +1,5 @@
 // import { CarouselButtonsConfig } from "../image-carousel/image-carousel.modal";
+import { MenuItem } from '../button-component/button.model';
 import { ButtonConfig } from '../modals';
 
 export interface NavBarConfig {
@@ -53,6 +54,8 @@ export interface NavButtonConfig {
   secondaryColor?: string;
   onClick?: (row: any) => void;
   validate?: () => boolean;
+  menuItems?: MenuItem[];
+  isMenuButton?: boolean;
 }
 export interface SubMenuConfig {
   text?: string;

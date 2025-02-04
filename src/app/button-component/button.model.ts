@@ -19,6 +19,12 @@
 
 // Common properties that are always optional
 // In button.model.ts
+
+export interface MenuItem {
+  label: string;
+  url?: string;
+  children?: MenuItem[]; // submenu
+}
 export interface ButtonConfig {
   text?: string;
   icon?: string;
@@ -38,6 +44,8 @@ export interface ButtonConfig {
   onClick?: (row: any) => void;
   validate?: () => boolean;
   textAlign?: 'left' | 'center' | 'right';
+  menuItems?: MenuItem[];
+  isMenuButton?: boolean;
 }
 
 // Helper validation function for component
@@ -50,6 +58,8 @@ export const validateButtonProps = (props: {
   url?: string;
   validate?: () => boolean;
   textAlign?: 'left' | 'center' | 'right'; // Added textAlign to validation props
+  menuItems?: MenuItem[];
+  isMenuButton?: boolean;
 }): boolean => {
   // Run custom validation if provided
   if (props.validate && !props.validate()) {
@@ -91,6 +101,12 @@ export const validateButtonProps = (props: {
   ) {
     throw new Error(
       'Button validation failed: textAlign must be either "left", "center", or "right"'
+    );
+  }
+
+  if (props.isMenuButton && !props.menuItems) {
+    throw new Error(
+      'Button validation failed: menuItems are required when isMenuButton is true'
     );
   }
 

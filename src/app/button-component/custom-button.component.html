@@ -8,7 +8,7 @@
   [ngClass]="{
     elevated: shadow,
     flat: !shadow,
-    transparent: transparent,
+    transparent: transparent
   }"
   (mouseenter)="hover = true"
   (mouseleave)="hover = false"
@@ -30,7 +30,9 @@
   </span>
 
   <!-- Button text -->
-  <span *ngIf="iconPosition !== 'full'" class="button-text">{{ text }}</span>
+  <span *ngIf="iconPosition !== 'full' && !isMenuButton" class="button-text">
+    {{ text }}
+  </span>
 
   <!-- Right-aligned icon or spinner -->
   <span *ngIf="iconPosition === 'right'" class="button-content right">
@@ -47,36 +49,35 @@
     </ng-template>
   </span>
 
-  <!-- Top-aligned icon or spinner -->
-  <span *ngIf="iconPosition === 'top'" class="button-content top">
-    <ng-container *ngIf="loadingData; else showIconContent">
-      <mat-progress-spinner
-        class="spinner"
-        mode="indeterminate"
-        [diameter]="24"
-        [strokeWidth]="3"
-      ></mat-progress-spinner>
-    </ng-container>
-    <ng-template #showIconContent>
-      <mat-icon *ngIf="showIcon">{{ icon }}</mat-icon>
-    </ng-template>
-  </span>
+  <!-- Recursive Menu -->
+  <div *ngIf="isMenuButton" class="custom-button">
+    <span>{{ text }}</span>
 
-  <!-- Bottom-aligned icon or spinner -->
-  <span *ngIf="iconPosition === 'bottom'" class="button-content bottom">
-    <ng-container *ngIf="loadingData; else showIconContent">
-      <mat-progress-spinner
-        class="spinner"
-        mode="indeterminate"
-        [diameter]="24"
-        [strokeWidth]="3"
-      ></mat-progress-spinner>
-    </ng-container>
-    <ng-template #showIconContent>
-      <mat-icon *ngIf="showIcon">{{ icon }}</mat-icon>
-    </ng-template>
-  </span>
+    <div class="menu-dropdown">
+      <ul>
+        <ng-container
+          *ngTemplateOutlet="menuTemplate; context: { items: menuItems }"
+        ></ng-container>
+      </ul>
+    </div>
+  </div>
 </button>
+
+<!-- Recursive Template -->
+<ng-template #menuTemplate let-items="items">
+  <ng-container *ngFor="let item of items">
+    <li>
+      <a [href]="item.url">{{ item.label }}</a>
+
+      <!-- If item has children, recursively call the same template -->
+      <ul *ngIf="item.children?.length">
+        <ng-container
+          *ngTemplateOutlet="menuTemplate; context: { items: item.children }"
+        ></ng-container>
+      </ul>
+    </li>
+  </ng-container>
+</ng-template>
 
 <!-- Validation message (optional) -->
 <!-- <div *ngIf="!isValid" class="validation-error">

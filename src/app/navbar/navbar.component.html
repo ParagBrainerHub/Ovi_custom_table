@@ -38,6 +38,8 @@
           [url]="button.url ?? ''"
           (buttonClick)="onButtonClick($event)"
           [onClick]="button.onClick"
+          [menuItems]="button.menuItems"
+          [isMenuButton]="button.isMenuButton"
         >
         </app-custom-button>
       </ng-container>

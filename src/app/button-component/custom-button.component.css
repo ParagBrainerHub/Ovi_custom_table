@@ -8,6 +8,60 @@
   font-size: 14px;
   cursor: pointer;
   text-align: center;
+  position: relative;
+}
+
+.menu-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: max-content;
+  z-index: 1000;
+  display: none; /* Hide menu by default */
+}
+
+.custom-button:hover .menu-dropdown {
+  display: block; /* Show menu when hovering over the button */
+}
+
+.menu-dropdown ul {
+  list-style: none;
+  border: 1px solid red;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-dropdown li {
+  padding: 8px 16px;
+  position: relative; /* Needed for positioning child menus */
+}
+
+.menu-dropdown li a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+}
+
+.menu-dropdown li a:hover {
+  background-color: #f0f0f0;
+}
+
+/* Submenu styling (children of items) */
+.menu-dropdown li ul {
+  margin-left: 20px;
+  display: none; /* Hide submenus by default */
+}
+
+.menu-dropdown li:hover > ul {
+  display: block; /* Show submenu when hovering over the parent item */
+}
+
+.menu-dropdown li:hover > a {
+  background-color: #e0e0e0; /* Optional: change color on hover of parent link */
 }
 
 .custom-button:active {

@@ -9,17 +9,18 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuItem, validateButtonProps } from './button.model';
+import { ButtonConfig, MenuItem, validateButtonProps } from './button.model';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-custom-button',
   standalone: true,
   imports: [
+    RouterLink,
     CommonModule,
     NgxSkeletonLoaderModule,
     MatButtonModule,
@@ -30,6 +31,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./custom-button.component.css'],
 })
 export class CustomButtonComponent implements OnInit, OnChanges {
+  hoveredItems: Set<any> = new Set();
   primaryColor: string = 'var(--primary-color)';
   secondaryColor: string = 'var(--secondary-color)';
   router = inject(Router);
@@ -56,7 +58,7 @@ export class CustomButtonComponent implements OnInit, OnChanges {
   @Input() shadow?: boolean = true;
 
   @Input() isMenuButton?: boolean = false; // Add input for menu button
-  @Input() menuItems?: MenuItem[];
+  @Input() menuItems?: ButtonConfig[];
 
   @Input() transparent?: boolean = false;
   @Input() border?: boolean = true;
@@ -77,6 +79,8 @@ export class CustomButtonComponent implements OnInit, OnChanges {
   hover: boolean = false;
 
   ngOnInit() {
+    console.log('this.iconPosition: ', this.iconPosition);
+
     this.validateButton();
     setTimeout(() => {
       this.isPageLoading = false;
@@ -85,6 +89,19 @@ export class CustomButtonComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(this.active, 'wwwwwwwwwwww');
+  }
+
+  isHovered(item: any): boolean {
+    return this.hoveredItems.has(item);
+  }
+  onMouseEnter(item: any) {
+    this.hoveredItems.add(item);
+  }
+
+  onMouseLeave(item: any) {
+    setTimeout(() => {
+      this.hoveredItems.delete(item);
+    }, 300);
   }
 
   async handleClick(event: Event) {

@@ -56,7 +56,7 @@ export interface NavButtonConfig {
   secondaryColor?: string;
   onClick?: (row: any) => void;
   validate?: () => boolean;
-  menuItems?: MenuItem[];
+  menuItems?: NavButtonConfig[];
   isMenuButton?: boolean;
 }
 export interface SubMenuConfig {

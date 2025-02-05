@@ -828,9 +828,9 @@ export class AppComponent {
           {
             id: 'home',
             text: 'Home',
-            icon: 'home',
-            showIcon: true,
-            iconPosition: 'right',
+            // icon: 'home',
+            // showIcon: true,
+            // iconPosition: 'right',
             shape: 'rectangle',
             corners: 'rounded',
             foreground: '#ffffff',
@@ -840,41 +840,6 @@ export class AppComponent {
             shadow: false,
             navigate: true,
             url: '/',
-            menuItems: [
-              {
-                label: 'Submenu 1',
-                url: '/submenu1',
-                children: [
-                  {
-                    label: 'Submenu 3',
-                    url: '/submenu3',
-                    children: [
-                      { label: 'Submenu 3', url: '/submenu3' },
-                      {
-                        label: 'Submenu 4',
-                        url: '/submenu4',
-                      },
-                      { label: 'Submenu 5', url: '/submenu5' },
-                      {
-                        label: 'Submenu 6',
-                        url: '/submenu6',
-                      },
-                    ],
-                  },
-                  {
-                    label: 'Submenu 4',
-                    url: '/submenu4',
-                  },
-                  { label: 'Submenu 5', url: '/submenu5' },
-                  {
-                    label: 'Submenu 6',
-                    url: '/submenu6',
-                  },
-                ],
-              },
-              { label: 'Submenu 2', url: '/submenu2' },
-            ], // Submen
-            isMenuButton: true,
           },
           {
             id: 'about',
@@ -907,6 +872,99 @@ export class AppComponent {
             shadow: false,
             navigate: true,
             url: '/blog',
+            isMenuButton: true,
+            menuItems: [
+              {
+                id: 'submenu1',
+                text: 'Submenu 1',
+                url: '/submenu1',
+                icon: 'menu',
+                showIcon: true,
+                iconPosition: 'left',
+                shape: 'rectangle',
+                corners: 'rounded',
+                foreground: '#ffffff',
+                background: '#1976d2',
+                transparent: true,
+                border: false,
+                shadow: false,
+                navigate: true,
+                menuItems: [
+                  {
+                    id: 'submenu3',
+                    text: 'Submenu 3',
+                    url: '/submenu3',
+                    icon: 'home',
+                    showIcon: true,
+                    iconPosition: 'left', // Adding icon to the left of submenu 3
+                    shape: 'rectangle',
+                    corners: 'rounded',
+                    foreground: '#ffffff',
+                    background: '#1976d2',
+                    transparent: true,
+                    border: false,
+                    shadow: false,
+                    navigate: true,
+                    menuItems: [
+                      {
+                        id: 'submenu3_1',
+                        text: 'Submenu 3.1',
+                        url: '/submenu3',
+                      },
+                      { id: 'submenu4', text: 'Submenu 3.2', url: '/submenu4' },
+                      {
+                        id: 'submenu5',
+                        text: 'Submenu 5',
+                        url: '/submenu5',
+                        icon: 'settings',
+                        showIcon: true,
+                        iconPosition: 'left',
+                      }, // Adding icon to the right of submenu 5
+                      {
+                        id: 'submenu6',
+                        text: 'Submenu 6',
+                        url: '/submenu6',
+                        icon: 'info',
+                        showIcon: true,
+                        iconPosition: 'left',
+                      }, // Adding icon to the left of submenu 6
+                    ],
+                  },
+                  {
+                    id: 'submenu4',
+                    text: 'Submenu 4',
+                    url: '/submenu4',
+                    icon: 'check',
+                    showIcon: true,
+                    iconPosition: 'left',
+                  }, // Adding icon to the right of submenu 4
+                  {
+                    id: 'submenu5',
+                    text: 'Submenu 5',
+                    url: '/submenu5',
+                    icon: 'settings',
+                    showIcon: true,
+                    iconPosition: 'left',
+                  },
+                  {
+                    id: 'submenu6',
+                    text: 'Submenu 6',
+                    url: '/submenu6',
+                    icon: 'info',
+                    showIcon: true,
+                    iconPosition: 'left',
+                  },
+                ],
+              },
+              {
+                id: 'submenu2',
+                text: 'Submenu 2',
+                url: '/submenu2',
+                icon: 'help',
+                showIcon: true,
+                iconPosition: 'left',
+              },
+            ],
           },
           {
             id: 'contact',

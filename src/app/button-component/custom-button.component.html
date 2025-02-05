@@ -6,84 +6,114 @@
   class="custom-button mat-button"
   [ngStyle]="getButtonStyle()"
   [ngClass]="{
-    elevated: shadow,
-    flat: !shadow,
-    transparent: transparent
-  }"
-  [ngClass]="{
     active: active,
     elevated: shadow,
     flat: !shadow,
-    transparent: transparent
+    transparent: transparent,
+    hover: hover
   }"
   (mouseenter)="hover = true"
   (mouseleave)="hover = false"
   [ngStyle]="hover ? getHoverStyle() : getButtonStyle()"
   [ngStyle]="{ 'border-radius': getBorderRadius() }"
 >
-  <!-- Left-aligned icon or spinner -->
+  <div class="menu-content">
+    <!-- Left-aligned icon or spinner -->
 
-  <span *ngIf="iconPosition === 'left'" class="button-content left">
-    <ng-container *ngIf="loadingData; else showIconContent">
-      <mat-progress-spinner
-        class="spinner"
-        mode="indeterminate"
-        [diameter]="24"
-        [strokeWidth]="3"
-      ></mat-progress-spinner>
-    </ng-container>
-    <ng-template #showIconContent>
-      <mat-icon *ngIf="showIcon">{{ icon }}</mat-icon>
-    </ng-template>
-  </span>
-
-  <!-- Button text -->
-  <span *ngIf="iconPosition !== 'full' && !isMenuButton" class="button-text">
-    {{ text }}
-  </span>
-
-  <!-- Right-aligned icon or spinner -->
-  <span *ngIf="iconPosition === 'right'" class="button-content right">
-    <ng-container *ngIf="loadingData; else showIconContent">
-      <mat-progress-spinner
-        class="spinner"
-        mode="indeterminate"
-        [diameter]="24"
-        [strokeWidth]="3"
-      ></mat-progress-spinner>
-    </ng-container>
-    <ng-template #showIconContent>
-      <mat-icon *ngIf="showIcon">{{ icon }}</mat-icon>
-    </ng-template>
-  </span>
-
-  <!-- Recursive Menu -->
-  <div *ngIf="isMenuButton">{{ text }}</div>
-  <div *ngIf="isMenuButton" class="menu-dropdown">
-    <ul>
-      <ng-container
-        *ngTemplateOutlet="menuTemplate; context: { items: menuItems }"
-      >
+    <span *ngIf="iconPosition === 'left'" class="button-content left">
+      <ng-container *ngIf="loadingData; else showIconContent">
+        <mat-progress-spinner
+          class="spinner"
+          mode="indeterminate"
+          [diameter]="24"
+          [strokeWidth]="3"
+        ></mat-progress-spinner>
       </ng-container>
-    </ul>
+      <ng-template #showIconContent>
+        <mat-icon *ngIf="showIcon">{{ icon }}</mat-icon>
+      </ng-template>
+    </span>
+
+    <!-- Button text -->
+    <span *ngIf="iconPosition !== 'full' && !isMenuButton" class="button-text">
+      {{ text }}
+    </span>
+    <span *ngIf="iconPosition !== 'full' && isMenuButton" class="button-text">
+      {{ text }}
+    </span>
+
+    <!-- Right-aligned icon or spinner -->
+    <span *ngIf="iconPosition === 'right'" class="button-content right">
+      <ng-container *ngIf="loadingData; else showIconContent">
+        <mat-progress-spinner
+          class="spinner"
+          mode="indeterminate"
+          [diameter]="24"
+          [strokeWidth]="3"
+        ></mat-progress-spinner>
+      </ng-container>
+      <ng-template #showIconContent>
+        <mat-icon *ngIf="showIcon">{{ icon }}</mat-icon>
+      </ng-template>
+    </span>
+
+    <!-- Recursive Menu -->
+    <!-- <div *ngIf="isMenuButton">{{ text }}</div> -->
+    <div *ngIf="isMenuButton" class="menu-dropdown">
+      <ul>
+        <ng-container
+          *ngTemplateOutlet="menuTemplate; context: { items: menuItems }"
+        >
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+  <div class="menu-arrow" *ngIf="isMenuButton">
+    <mat-icon>
+      {{ !hover ? "expand_less" : "expand_more" }}
+    </mat-icon>
   </div>
 </button>
 
 <!-- Recursive Template -->
 <ng-template #menuTemplate let-items="items">
   <ng-container *ngFor="let item of items">
-    <li (mouseenter)="hoveredItem = item" (mouseleave)="hoveredItem = null">
-      <a [href]="item.url">
-        {{ item.label }}
-        <span *ngIf="item.children?.length">
-          {{ hoveredItem === item ? "▲" : "▼" }}
-        </span>
+    <li
+      class="recursive_li"
+      (mouseenter)="onMouseEnter(item)"
+      (mouseleave)="onMouseLeave(item)"
+    >
+      <a [routerLink]="item.url" class="menu-item">
+        <div class="menu-content">
+          <span
+            *ngIf="item.icon && item.iconPosition === 'left'"
+            class="icon-left"
+          >
+            <mat-icon>{{ item.icon }}</mat-icon>
+          </span>
+
+          <span class="menu-text">{{ item.text }}</span>
+
+          <span
+            *ngIf="item.icon && item.iconPosition === 'right'"
+            class="icon-right"
+          >
+            <mat-icon>{{ item.icon }}</mat-icon>
+          </span>
+        </div>
+
+        <div class="menu-arrow" *ngIf="item.menuItems?.length">
+          <span>
+            <mat-icon>
+              {{ !isHovered(item) ? "expand_less" : "expand_more" }}
+            </mat-icon>
+          </span>
+        </div>
       </a>
 
-      <!-- If item has children, recursively call the same template -->
-      <ul *ngIf="item.children?.length">
+      <ul *ngIf="item.menuItems?.length && isHovered(item)">
         <ng-container
-          *ngTemplateOutlet="menuTemplate; context: { items: item.children }"
+          *ngTemplateOutlet="menuTemplate; context: { items: item.menuItems }"
         ></ng-container>
       </ul>
     </li>

@@ -45,7 +45,7 @@ export interface ButtonConfig {
   onClick?: (row: any) => void;
   validate?: () => boolean;
   textAlign?: 'left' | 'center' | 'right';
-  menuItems?: MenuItem[];
+  menuItems?: ButtonConfig[];
   isMenuButton?: boolean;
 }
 

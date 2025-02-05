@@ -1,27 +1,46 @@
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet"
+/>
 
-<div [ngStyle]="{
-    'display': 'flex',
+<div
+  [ngStyle]="{
+    display: 'flex',
     'justify-content': getFlexAlignment(filterAllignment)
-  }">
-  <mat-form-field *ngIf="showFilter" [ngStyle]="{ 'width': filterWidth }">
+  }"
+>
+  <mat-form-field *ngIf="showFilter" [ngStyle]="{ width: filterWidth }">
     <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. John" #input>
+    <input
+      matInput
+      (keyup)="applyFilter($event)"
+      placeholder="Ex. John"
+      #input
+    />
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Selected Columns</mat-label>
-    <mat-select [formControl]="columnControl" multiple (selectionChange)="onColumnSelectionChange()">
+    <mat-select
+      [formControl]="columnControl"
+      multiple
+      (selectionChange)="onColumnSelectionChange()"
+    >
       @for (column of columnList; track column) {
-      <mat-option [value]="column">{{column}}</mat-option>
+      <mat-option [value]="column">{{ column }}</mat-option>
       }
     </mat-select>
   </mat-form-field>
 </div>
 
-<div class="mat-elevation-z8" [ngStyle]="{'margin': config.margin || '0px'}">
-  <table mat-table [dataSource]="dataSource" matSort cdkDropList (cdkDropListDropped)="dropTable($event)">
-
+<div class="mat-elevation-z8" [ngStyle]="{ margin: '0px' }">
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    matSort
+    cdkDropList
+    (cdkDropListDropped)="dropTable($event)"
+  >
     <ng-container matColumnDef="dragHandle">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let row">
@@ -29,40 +48,80 @@
       </td>
     </ng-container>
 
-    <ng-container *ngFor="let columnKey of selectedColumns" [matColumnDef]="columnKey">
+    <ng-container
+      *ngFor="let columnKey of selectedColumns"
+      [matColumnDef]="columnKey"
+    >
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
         {{ getColumnTitle(columnKey) }}
       </th>
       <td mat-cell *matCellDef="let row; let i = index">
         <ng-container [ngSwitch]="getColumnType(columnKey)">
           <span *ngSwitchCase="'text'">{{ row[columnKey] }}</span>
-          <img *ngSwitchCase="'image'" [src]="row[columnKey]" alt="Image" width="150" height="150" />
-          <video *ngSwitchCase="'video'" [src]="row[columnKey]" width="200" height="200" controls></video>
+          <img
+            *ngSwitchCase="'image'"
+            [src]="row[columnKey]"
+            alt="Image"
+            width="150"
+            height="150"
+          />
+          <video
+            *ngSwitchCase="'video'"
+            [src]="row[columnKey]"
+            width="200"
+            height="200"
+            controls
+          ></video>
         </ng-container>
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="actions" *ngIf="config.actions && config.actions.length > 0">
+    <ng-container
+      matColumnDef="actions"
+      *ngIf="config.actions && config.actions.length > 0"
+    >
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let element; let i = index">
-        <app-custom-button *ngFor="let action of (element.actions || config.actions)"
-          [ngStyle]="{ 'margin-right': config.elementSpacing || '0px' }" [text]="action.text  || ''"
-          [icon]="action.icon || ''" [showIcon]="action.showIcon !== undefined ? action.showIcon : true  || ''"
-          [iconPosition]="action.iconPosition || 'left'" [shape]="action.shape  || ''" [corners]="action.corners  || ''"
-          [foreground]="action.foreground  || ''" [background]="action.background  || ''"
-          [shadow]="action.shadow  || ''" [transparent]="action.transparent  || ''"
-          (click)="action.text === 'Edit' ? startEditing(i) : handleActionClick(action, element)">
+        <app-custom-button
+          *ngFor="let action of element.actions || config.actions"
+          [ngStyle]="{ 'margin-right': config.elementSpacing || '0px' }"
+          [text]="action.text || ''"
+          [icon]="action.icon || ''"
+          [showIcon]="
+            action.showIcon !== undefined ? action.showIcon : true || ''
+          "
+          [iconPosition]="action.iconPosition || 'left'"
+          [shape]="action.shape || ''"
+          [corners]="action.corners || ''"
+          [foreground]="action.foreground || ''"
+          [background]="action.background || ''"
+          [shadow]="action.shadow || ''"
+          [transparent]="action.transparent || ''"
+          (click)="
+            action.text === 'Edit'
+              ? startEditing(i)
+              : handleActionClick(action, element)
+          "
+        >
         </app-custom-button>
       </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" cdkDrag [cdkDragData]="row"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      cdkDrag
+      [cdkDragData]="row"
+    ></tr>
 
     <tr class="mat-row" *matNoDataRow>
       <td class="mat-cell" colspan="4">No data matching the filter ""</td>
     </tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    aria-label="Select page of users"
+  ></mat-paginator>
 </div>

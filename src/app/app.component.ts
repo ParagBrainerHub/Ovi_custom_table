@@ -1,5 +1,5 @@
 import { CustomMaterialTableComponent } from './custom-material-table/custom-material-table.component';
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TableConfig } from './custom-table/table-column.model';
 import { CustomTableComponent } from './custom-table/custom-table.component';
@@ -26,6 +26,7 @@ import { PopupComponent } from './popup/popup.component';
 import { PopupConfig } from './popup/popup-modal';
 import { CustomButtonComponent } from './button-component/custom-button.component';
 import { CalendarComponentComponent } from './calendar-component/calendar-component.component';
+import { ThemeService } from './core/services/theme.service';
 
 interface ColumnItem {
   type: 'button' | 'image' | 'video' | 'text';
@@ -76,6 +77,7 @@ export interface User {
 export class AppComponent {
   checked = true;
   disabled = false;
+  themeService = inject(ThemeService);
 
   @Input() isGrid?: boolean;
 
@@ -89,14 +91,19 @@ export class AppComponent {
   loadingData: boolean = true;
   isNewTable: boolean = true;
 
-  isDarkTheme = false;
+  isDarkTheme!: boolean;
+
+  // toggleTheme() {
+  //   this.isDarkTheme = !this.isDarkTheme;
+  //   this.applyTheme();
+  // }
 
   toggleTheme() {
-    this.isDarkTheme = !this.isDarkTheme;
-    this.applyTheme();
+    this.themeService.toggleTheme();
   }
 
   applyTheme() {
+    const root = document.documentElement;
     const body = document.body;
     if (this.isDarkTheme) {
       body.classList.add('dark-theme');
@@ -104,6 +111,27 @@ export class AppComponent {
     } else {
       body.classList.add('light-theme');
       body.classList.remove('dark-theme');
+    }
+    if (this.isDarkTheme) {
+      root.style.setProperty('--primary-color', '#FFFFFF');
+      root.style.setProperty('--secondary-color', '#7457EE');
+      root.style.setProperty('--primary-border', '#FFFFFF');
+      root.style.setProperty('--secondary-border', '#7457EE');
+      root.style.setProperty('--primary-background-color', '#FFFFFF');
+      root.style.setProperty('--secondary-background-color', '#7457EE');
+      root.style.setProperty('--primary-text-color', '#333333');
+      root.style.setProperty('--secondary-text-color', '#7457EE');
+      root.style.setProperty('--white-text-color', '#FFFFFF');
+    } else {
+      root.style.setProperty('--primary-color', '#333333');
+      root.style.setProperty('--secondary-color', '#800080');
+      root.style.setProperty('--primary-border', '#333333');
+      root.style.setProperty('--secondary-border', '#800080');
+      root.style.setProperty('--primary-background-color', '#333333');
+      root.style.setProperty('--secondary-background-color', '#800080');
+      root.style.setProperty('--primary-text-color', '#333333');
+      root.style.setProperty('--secondary-text-color', '#800080');
+      root.style.setProperty('--white-text-color', '#FFFFFF');
     }
   }
 
@@ -798,6 +826,7 @@ export class AppComponent {
         alignWithLogo: true,
         buttonsGroup: [
           {
+            id: 'home',
             text: 'Home',
             icon: 'home',
             showIcon: true,
@@ -816,7 +845,22 @@ export class AppComponent {
                 label: 'Submenu 1',
                 url: '/submenu1',
                 children: [
-                  { label: 'Submenu 3', url: '/submenu3' },
+                  {
+                    label: 'Submenu 3',
+                    url: '/submenu3',
+                    children: [
+                      { label: 'Submenu 3', url: '/submenu3' },
+                      {
+                        label: 'Submenu 4',
+                        url: '/submenu4',
+                      },
+                      { label: 'Submenu 5', url: '/submenu5' },
+                      {
+                        label: 'Submenu 6',
+                        url: '/submenu6',
+                      },
+                    ],
+                  },
                   {
                     label: 'Submenu 4',
                     url: '/submenu4',
@@ -833,6 +877,7 @@ export class AppComponent {
             isMenuButton: true,
           },
           {
+            id: 'about',
             text: 'About Us',
             // icon: 'info',
             // showIcon: true,
@@ -848,6 +893,7 @@ export class AppComponent {
             url: '/about_us',
           },
           {
+            id: 'blog',
             text: 'Blog',
             // icon: 'keyboard_arrow_up',
             // showIcon: true,
@@ -863,6 +909,7 @@ export class AppComponent {
             url: '/blog',
           },
           {
+            id: 'contact',
             text: 'Contact Us',
             showIcon: false,
             shape: 'rectangle',
@@ -876,6 +923,7 @@ export class AppComponent {
             url: '/contact',
           },
           {
+            id: 'logout',
             text: 'Logout',
             icon: '',
             showIcon: false,
@@ -1065,6 +1113,15 @@ export class AppComponent {
   }
 
   ngOnInit() {
+    // Subscribe to theme changes from the service
+    this.themeService.isDarkTheme$.subscribe((theme) => {
+      this.isDarkTheme = theme;
+      this.applyTheme(); // Apply the theme when it's updated
+    });
+
+    // Initialize the theme when the component is loaded
+    this.isDarkTheme = this.themeService.isDarkThemeValue;
+    this.applyTheme();
     this.loadUsers();
   }
 

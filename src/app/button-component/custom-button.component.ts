@@ -1,4 +1,13 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MenuItem, validateButtonProps } from './button.model';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
@@ -20,7 +29,9 @@ import { Router } from '@angular/router';
   templateUrl: './custom-button.component.html',
   styleUrls: ['./custom-button.component.css'],
 })
-export class CustomButtonComponent {
+export class CustomButtonComponent implements OnInit, OnChanges {
+  primaryColor: string = 'var(--primary-color)';
+  secondaryColor: string = 'var(--secondary-color)';
   router = inject(Router);
   @Input() text?: string = '';
   @Input() textAlign?: 'left' | 'center' | 'right' = 'center';
@@ -54,22 +65,26 @@ export class CustomButtonComponent {
   @Input() navigate: boolean = false;
   @Input() url: string = '';
   @Input() validate?: () => boolean;
+
+  @Input() active: boolean = false;
+  @Input() id: string = '';
+
   loading: boolean = false;
   isValid: boolean = true;
   isPageLoading: boolean = true;
   hoveredItem: any = null;
 
-  primaryColor: string = 'black';
-  secondaryColor: string = 'red';
-
   hover: boolean = false;
 
   ngOnInit() {
     this.validateButton();
-    // this.getBorderRadius();
     setTimeout(() => {
       this.isPageLoading = false;
     }, 2000);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.active, 'wwwwwwwwwwww');
   }
 
   async handleClick(event: Event) {
@@ -84,13 +99,13 @@ export class CustomButtonComponent {
       }
       // Case 1: If both click handler and navigation are needed
       if (this.buttonClick.observed && this.navigate && this.url) {
-        await Promise.resolve(this.buttonClick.emit(this.text || ''));
+        await Promise.resolve(this.buttonClick.emit(this.id || ''));
         console.log('this.url: ', this.url);
         await this.router.navigate([this.url]);
       }
       // Case 2: Only click handler, no navigation
       else if (this.buttonClick.observed && !this.navigate) {
-        await Promise.resolve(this.buttonClick.emit(this.text || ''));
+        await Promise.resolve(this.buttonClick.emit(this.id || ''));
       }
       // Case 3: Only navigation, no click handler
       else if (!this.buttonClick.observed && this.url) {
@@ -134,7 +149,7 @@ export class CustomButtonComponent {
   }
 
   getButtonStyle() {
-    const borderColor = this.primaryColor;
+    const borderColor = this.secondaryColor;
     const borderRadius = this.getBorderRadius();
 
     const backgroundColor = this.transparent
@@ -170,7 +185,7 @@ export class CustomButtonComponent {
     if (this.transparent && this.border) {
       return {
         backgroundColor: 'transparent',
-        color: this.primaryColor,
+        color: this.secondaryColor,
         border: `2px solid ${borderColor}`,
         borderRadius: borderRadius,
         padding: '9px 30px',
@@ -234,9 +249,9 @@ export class CustomButtonComponent {
 
     if (this.transparent && this.border) {
       return {
-        backgroundColor: this.primaryColor,
-        border: `2px solid ${this.primaryColor}`,
-        color: 'white',
+        backgroundColor: this.secondaryColor,
+        border: `2px solid ${this.secondaryColor}`,
+        color: 'var(--white-text-color)',
         borderRadius: borderRadius,
         padding: '9px 30px',
       };

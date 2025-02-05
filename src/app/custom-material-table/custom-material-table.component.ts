@@ -105,6 +105,8 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
   @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit() {
+    console.log(this.config, 'Looooooooooooooo');
+
     var filteredData = this.data.map((user) => ({
       name: user.name,
       role: user.role,

@@ -116,9 +116,10 @@ export class NavbarComponent {
     }
   }
 
-  onButtonClick(buttonText: string) {
-    console.log('buttonText: ', buttonText);
-    console.log(`${buttonText} clicked!`);
+  onButtonClick(buttonId: string) {
+    console.log('buttonId: ', buttonId);
+    this.config.activeButton = buttonId; // Update active button state
+    console.log('this.config.activeButton: ', this.config.activeButton);
   }
 
   getButtonGroupClass(buttonGroup: ButtonGroupConfig): string {

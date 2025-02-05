@@ -8,6 +8,7 @@ export interface NavBarConfig {
   buttons?: ButtonGroupConfig[];
   banner?: BannerConfig;
   carouselButtons?: CarouselButtonsConfig;
+  activeButton?: string;
 }
 
 export interface CarouselButtonsConfig {
@@ -33,6 +34,7 @@ export interface ButtonGroupConfig {
 }
 
 export interface NavButtonConfig {
+  id?: string;
   text?: string;
   url?: string;
   subMenu?: SubMenuConfig[];

@@ -26,6 +26,7 @@ export interface MenuItem {
   children?: MenuItem[]; // submenu
 }
 export interface ButtonConfig {
+  id?: string;
   text?: string;
   icon?: string;
   showIcon?: boolean;

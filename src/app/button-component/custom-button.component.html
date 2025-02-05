@@ -10,6 +10,12 @@
     flat: !shadow,
     transparent: transparent
   }"
+  [ngClass]="{
+    active: active,
+    elevated: shadow,
+    flat: !shadow,
+    transparent: transparent
+  }"
   (mouseenter)="hover = true"
   (mouseleave)="hover = false"
   [ngStyle]="hover ? getHoverStyle() : getButtonStyle()"

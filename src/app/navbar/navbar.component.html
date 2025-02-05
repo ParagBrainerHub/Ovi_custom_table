@@ -37,6 +37,8 @@
             [shadow]="button.shadow"
             [navigate]="button.navigate ?? false"
             [url]="button.url ?? ''"
+            [id]="button.id ?? ''"
+            [active]="(button.id ?? '') === config.activeButton"
             (buttonClick)="onButtonClick($event)"
             [onClick]="button.onClick"
             [menuItems]="button.menuItems"

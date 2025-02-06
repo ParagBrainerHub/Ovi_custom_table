@@ -43,12 +43,11 @@
   margin-top: 20px;
 } */
 
-
 /* calendar.component.css */
 .calendar-container {
   max-width: 800px;
   margin: 0 auto;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
   color: #333;
 }
 

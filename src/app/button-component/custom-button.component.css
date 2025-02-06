@@ -12,7 +12,7 @@
   text-align: center;
   position: relative;
   font-weight: 700;
-  font-family: "Manrope", serif !important;
+  font-family: var(--font-family) !important;
 }
 .custom-button.active {
   transform: translateY(0);
@@ -236,7 +236,6 @@
   text-align: center;
   position: relative;
   font-weight: 700;
-  font-family: "Manrope", serif !important;
   width: 100%;
   box-sizing: border-box;
 }
@@ -252,7 +251,6 @@
   text-align: center;
   position: relative;
   font-weight: 700;
-  font-family: "Manrope", serif !important;
   width: 100%;
   box-sizing: border-box;
   gap: 8px;

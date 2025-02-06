@@ -1,0 +1,32 @@
+<div #swiperContainer class="swiper">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide" *ngFor="let image of images">
+      <div
+        class="slide-container"
+        [style.backgroundImage]="'url(' + image.src + ')'"
+      >
+        <div class="pageContainer">
+          <div class="overlay">
+            <div class="badge">
+              <img src="{{ image.badgeIcon }}" alt="icon" />
+              {{ image.badge }}
+            </div>
+            <h1>
+              {{ image.title }}
+              <span class="highlight">{{ image.highlightedText }}</span>
+            </h1>
+            <p>{{ image.description }}</p>
+            <button class="cta-button">
+              {{ image.buttonText }} <mat-icon>chevron_right</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="swiper-pagination"></div>
+
+  <div class="swiper-button-prev"><mat-icon>chevron_left</mat-icon></div>
+  <div class="swiper-button-next"><mat-icon>chevron_right</mat-icon></div>
+</div>

@@ -1,11 +1,63 @@
 @import "../node_modules/quill/dist/quill.core.css";
 @import "../node_modules/quill/dist/quill.snow.css";
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
+
+/* Apply globally */
+:root {
+  --font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+/* Global font application */
+body.mat-typography {
+  font-family: "Manrope", sans-serif !important;
+}
+
+body.mat-typography h1,
+body.mat-typography h2,
+body.mat-typography h3,
+body.mat-typography h4,
+body.mat-typography h5,
+body.mat-typography h6,
+body.mat-typography p,
+body.mat-typography span,
+body.mat-typography button,
+body.mat-typography a {
+  font-family: "Manrope", sans-serif !important;
+}
+
+/* For Material components */
+.mat-mdc-card,
+.mat-mdc-button,
+.mat-mdc-dialog-container,
+.mat-mdc-form-field,
+.mat-mdc-menu-item,
+.mat-mdc-select,
+.mat-mdc-option {
+  font-family: var(--font-family) !important;
+}
+
+/* For Quill editor */
+.ql-editor {
+  font-family: var(--font-family) !important;
+}
+
+.custom-font {
+  font-family: var(--font-family) !important;
+}
 
 html,
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Manrope", serif !important;
   height: 100%;
+}
+
+.pageContainer {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
 }

@@ -3,10 +3,8 @@ import {
   EventEmitter,
   inject,
   Input,
-  OnChanges,
   OnInit,
   Output,
-  SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonConfig, MenuItem, validateButtonProps } from './button.model';
@@ -30,7 +28,7 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './custom-button.component.html',
   styleUrls: ['./custom-button.component.css'],
 })
-export class CustomButtonComponent implements OnInit, OnChanges {
+export class CustomButtonComponent implements OnInit {
   hoveredItems: Set<any> = new Set();
   primaryColor: string = 'var(--primary-color)';
   secondaryColor: string = 'var(--secondary-color)';
@@ -79,16 +77,10 @@ export class CustomButtonComponent implements OnInit, OnChanges {
   hover: boolean = false;
 
   ngOnInit() {
-    console.log('this.iconPosition: ', this.iconPosition);
-
     this.validateButton();
     setTimeout(() => {
       this.isPageLoading = false;
     }, 2000);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.active, 'wwwwwwwwwwww');
   }
 
   isHovered(item: any): boolean {
@@ -117,7 +109,6 @@ export class CustomButtonComponent implements OnInit, OnChanges {
       // Case 1: If both click handler and navigation are needed
       if (this.buttonClick.observed && this.navigate && this.url) {
         await Promise.resolve(this.buttonClick.emit(this.id || ''));
-        console.log('this.url: ', this.url);
         await this.router.navigate([this.url]);
       }
       // Case 2: Only click handler, no navigation
@@ -126,7 +117,6 @@ export class CustomButtonComponent implements OnInit, OnChanges {
       }
       // Case 3: Only navigation, no click handler
       else if (!this.buttonClick.observed && this.url) {
-        console.log('this.url: ', this.url);
         await this.router.navigate([this.url]);
       }
     } catch (error) {

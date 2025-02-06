@@ -171,7 +171,7 @@ iframe {
   position: sticky;
   top: 0;
   z-index: 9;
-  padding: 11px 16px;
+  padding: 12px 0;
 }
 /* Responsive adjustments */
 @media (max-width: 768px) {

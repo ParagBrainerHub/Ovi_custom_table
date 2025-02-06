@@ -27,6 +27,7 @@ import { PopupConfig } from './popup/popup-modal';
 import { CustomButtonComponent } from './button-component/custom-button.component';
 import { CalendarComponentComponent } from './calendar-component/calendar-component.component';
 import { ThemeService } from './core/services/theme.service';
+import { CarouselComponent } from './carousel/carousel.component';
 
 interface ColumnItem {
   type: 'button' | 'image' | 'video' | 'text';
@@ -70,6 +71,7 @@ export interface User {
     CustomButtonComponent,
     CalendarComponentComponent,
     RouterOutlet,
+    CarouselComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -1000,28 +1002,34 @@ export class AppComponent {
         ],
       },
     ],
-    banner: {
-      position: 'middle',
-      imageSrc: [
-        'https://picsum.photos/id/237/1920/600',
-        'https://picsum.photos/id/238/1920/600',
-        'https://picsum.photos/id/239/1920/600',
-        'https://picsum.photos/id/237/1920/600',
-      ],
-      width: 'full',
-      // iframeUrl: 'https://www.example.com',
-      iframeUrl:
-        'https://www.openstreetmap.org/export/embed.html?bbox=-0.004017949104309083%2C51.47612752641776%2C0.00030577182769775396%2C51.478569861898606&layer=mapnik',
-      // iframeWidth: '100%',
-      iframeWidth: 'calc(100% - 640px)',
-      iframeHeight: '500px',
-      slideshow: true,
-      forcePagination: false,
-    },
-    carouselButtons: {
-      prevIcon: 'chevron_left',
-      nextIcon: 'chevron_right',
-    },
+  };
+
+  carouselConfig = {
+    images: [
+      {
+        src: '/corousel_image_5.jpg',
+        title: 'Welcome To Norc.',
+        highlightedText: 'Construction',
+        description:
+          'Our 25 years working experience make a different construction building. Viverra tristique usto duis vitae diam neque nivamus estan the atin viverra nectow drana setlie.',
+        buttonText: 'Read More',
+        badge: 'Architecture Design',
+        badgeIcon: '/icon_logo_cycolis.png',
+      },
+      {
+        src: '/corousel_image_2.avif',
+        title: 'Innovative Solutions',
+        highlightedText: 'For Your Business',
+        description:
+          'Our 25 years working experience make a different construction building. Viverra tristique usto duis vitae diam neque nivamus estan the atin viverra nectow drana setlie.',
+        buttonText: 'Learn More',
+        badge: 'Business Growth',
+        badgeIcon: '/icon_logo_cycolis.png',
+      },
+    ],
+    autoplay: true,
+    loop: true,
+    speed: 500,
   };
 
   footerConfig: FooterConfig = {

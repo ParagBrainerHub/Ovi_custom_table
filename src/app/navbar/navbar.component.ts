@@ -17,7 +17,7 @@ import {
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
-import { ImageCarouselComponent } from '../image-carousel/image-carousel.component';
+// import { ImageCarouselComponent } from '../image-carousel/image-carousel.component';
 import { MatButtonModule } from '@angular/material/button';
 import { SafeUrlPipe } from '../safe-url.pipe';
 import { CustomButtonComponent } from '../button-component/custom-button.component';
@@ -29,9 +29,9 @@ import { CustomButtonComponent } from '../button-component/custom-button.compone
     MatToolbarModule,
     MatMenuModule,
     RouterModule,
-    ImageCarouselComponent,
+    // ImageCarouselComponent,
     MatButtonModule,
-    SafeUrlPipe,
+    // SafeUrlPipe,
     CustomButtonComponent,
   ],
   templateUrl: './navbar.component.html',
@@ -54,11 +54,11 @@ export class NavbarComponent {
     this.menuRefs.set(`${groupIndex}-${buttonIndex}`, menuTrigger);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['config']) {
-      this.updateBannerSettings();
-    }
-  }
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   if (changes['config']) {
+  //     this.updateBannerSettings();
+  //   }
+  // }
 
   ngAfterViewInit() {
     this.menuTriggers.forEach((trigger, index) => {
@@ -67,18 +67,18 @@ export class NavbarComponent {
   }
 
   // Update banner settings dynamically
-  updateBannerSettings() {
-    if (this.config.banner) {
-      this.bannerWidth =
-        this.config.banner.width === 'specific'
-          ? 'banner-specific'
-          : 'banner-full';
-      this.slideshowEnabled = this.config.banner.slideshow ?? false;
-      this.iframeUrl = this.config.banner.iframeUrl ?? '';
-      this.iframeWidth = this.config.banner.iframeWidth ?? '';
-      this.iframeHeight = this.config.banner.iframeHeight ?? '';
-    }
-  }
+  // updateBannerSettings() {
+  //   if (this.config.banner) {
+  //     this.bannerWidth =
+  //       this.config.banner.width === 'specific'
+  //         ? 'banner-specific'
+  //         : 'banner-full';
+  //     this.slideshowEnabled = this.config.banner.slideshow ?? false;
+  //     this.iframeUrl = this.config.banner.iframeUrl ?? '';
+  //     this.iframeWidth = this.config.banner.iframeWidth ?? '';
+  //     this.iframeHeight = this.config.banner.iframeHeight ?? '';
+  //   }
+  // }
 
   // Banner settings properties
   bannerWidth = '';

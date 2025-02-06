@@ -6,16 +6,8 @@ export interface NavBarConfig {
   logo?: LogoConfig | null;
   title?: TitleConfig | null;
   buttons?: ButtonGroupConfig[];
-  banner?: BannerConfig;
-  carouselButtons?: CarouselButtonsConfig;
   activeButton?: string;
 }
-
-export interface CarouselButtonsConfig {
-  prevIcon?: string;
-  nextIcon?: string;
-}
-
 export interface LogoConfig {
   url?: string;
   position?: 'left' | 'middle' | 'right';
@@ -62,16 +54,4 @@ export interface NavButtonConfig {
 export interface SubMenuConfig {
   text?: string;
   url?: string;
-}
-
-export interface BannerConfig {
-  position: 'top' | 'bottom' | 'middle';
-  slideshow?: boolean;
-  imageSrc?: string[];
-  width?: 'specific' | 'full';
-  iframeUrl?: string;
-  iframeWidth?: string;
-  iframeHeight?: string;
-  forcePagination?: boolean;
-  iframeMargin?: string;
 }

@@ -52,35 +52,3 @@
 </header>
 
 <!-- Banner Section -->
-<div *ngIf="config.banner" [ngClass]="bannerWidth">
-  <ng-container
-    *ngIf="slideshowEnabled && (config.banner.imageSrc?.length ?? 0) > 1"
-  >
-    <app-image-carousel
-      [images]="config.banner.imageSrc ?? []"
-      [autoplay]="false"
-      [buttonConfig]="config.carouselButtons"
-      [forcePagination]="config.banner.forcePagination ?? false"
-    >
-    </app-image-carousel>
-  </ng-container>
-
-  <ng-container
-    *ngIf="!slideshowEnabled || (config.banner.imageSrc?.length ?? 0) === 1"
-  >
-    <img
-      *ngIf="config.banner.imageSrc && config.banner.imageSrc.length > 0"
-      [src]="config.banner.imageSrc[0]"
-      alt="Banner Image"
-    />
-  </ng-container>
-  <div class="iframe-container">
-    <iframe
-      *ngIf="config.banner.iframeUrl"
-      [src]="config.banner.iframeUrl | safeUrl"
-      class="styled-iframe"
-      frameborder="0"
-    >
-    </iframe>
-  </div>
-</div>

@@ -7,6 +7,7 @@ export interface NavBarConfig {
   title?: TitleConfig | null;
   buttons?: ButtonGroupConfig[];
   activeButton?: string;
+  isBorderTop?: boolean;
 }
 export interface LogoConfig {
   url?: string;
@@ -31,8 +32,6 @@ export interface NavButtonConfig {
   url?: string;
   subMenu?: SubMenuConfig[];
   type?: 'normal' | 'primary' | 'secondary' | 'bordered';
-
-  // Add these properties directly in NavButtonConfig
   icon?: string;
   showIcon?: boolean;
   iconPosition?: 'left' | 'center' | 'right' | 'full' | 'top' | 'bottom';

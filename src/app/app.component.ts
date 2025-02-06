@@ -813,6 +813,7 @@ export class AppComponent {
 
   //Nav Config
   navbarConfig: NavBarConfig = {
+    isBorderTop: true,
     logo: {
       url: './light_cycolis_software_logo_2.png',
       position: 'left',

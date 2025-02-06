@@ -1,4 +1,11 @@
-<header class="header">
+<header
+  [ngStyle]="{
+    'border-top': config.isBorderTop
+      ? '3px solid var(--secondary-color)'
+      : 'none'
+  }"
+  class="header"
+>
   <mat-toolbar color="primary">
     <div class="logo-title-container">
       <ng-container *ngIf="config.logo">

@@ -740,6 +740,23 @@ export class AppComponent {
           showCheckbox: true,
         },
         {
+          type: 'time',
+          label: 'Select Time',
+          placeholder: 'Pick a time',
+          required: true,
+          validation: {
+            minTime: '08:00',
+            maxTime: '18:00',
+            customErrorMessage: 'Time must be between 08:00 and 18:00.',
+          },
+          errorMessages: {
+            required: 'Time is required.',
+            minTime: 'Time cannot be earlier than 08:00 AM.',
+            maxTime: 'Time cannot be later than 06:00 PM.',
+          },
+          showCheckbox: true,
+        },
+        {
           type: 'file',
           label: 'Picture',
           fileConfig: {

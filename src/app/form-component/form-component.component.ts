@@ -37,6 +37,7 @@ import {
 import { Subscription } from 'rxjs';
 import { QuillModule } from 'ngx-quill';
 import { CustomButtonComponent } from '../button-component/custom-button.component';
+import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 
 @Component({
   selector: 'app-form-component',
@@ -57,6 +58,7 @@ import { CustomButtonComponent } from '../button-component/custom-button.compone
     MatInputModule,
     QuillModule,
     CustomButtonComponent,
+    NgxMatTimepickerModule,
   ],
   templateUrl: './form-component.component.html',
   styleUrl: './form-component.component.css',
@@ -143,6 +145,37 @@ export class FormComponentComponent
         );
       }
 
+      if (
+        field.type === 'time' &&
+        field.validation?.minTime &&
+        field.validation?.maxTime
+      ) {
+        controlValidators.push((control: AbstractControl) => {
+          console.log(
+            'field.validation?.maxTime: ',
+            field?.validation?.maxTime
+          );
+          console.log('field.validation?.minTime: ', field.validation?.minTime);
+
+          if (!control.value) return null;
+
+          const selectedTime = control.value; // Direct time string (HH:mm)
+          const minTime = field.validation?.minTime;
+          const maxTime = field.validation?.maxTime;
+
+          // Check if minTime and maxTime are defined
+          if (!minTime || !maxTime) {
+            return null;
+          }
+
+          return selectedTime < minTime
+            ? { minTimeError: true }
+            : selectedTime > maxTime
+            ? { maxTimeError: true }
+            : null;
+        });
+      }
+
       formControls[field.label] = this.fb.control(
         field.value || '',
         controlValidators
@@ -202,6 +235,49 @@ export class FormComponentComponent
             case 'date':
               if (value && new Date(value) > this.maxDate) {
                 console.warn(`${field.label} cannot be a future date.`);
+              }
+              break;
+            case 'time':
+              if (field.validation?.minTime && field.validation?.maxTime) {
+                const selectedTime = value;
+                const minTime = field.validation.minTime;
+                const maxTime = field.validation.maxTime;
+
+                const convertToMinutes = (time: string) => {
+                  const timeParts = time.match(
+                    /^(\d{1,2}):(\d{2})(?:\s?(AM|PM))?$/
+                  );
+                  if (!timeParts) return 0;
+
+                  let hours = parseInt(timeParts[1], 10);
+                  const minutes = parseInt(timeParts[2], 10);
+                  const period = timeParts[3];
+                  if (period === 'PM' && hours < 12) {
+                    hours += 12;
+                  }
+                  if (period === 'AM' && hours === 12) {
+                    hours = 0;
+                  }
+
+                  return hours * 60 + minutes;
+                };
+
+                const selectedTimeInMinutes = convertToMinutes(selectedTime);
+                const minTimeInMinutes = convertToMinutes(minTime);
+                const maxTimeInMinutes = convertToMinutes(maxTime);
+
+                if (
+                  selectedTimeInMinutes < minTimeInMinutes ||
+                  selectedTimeInMinutes > maxTimeInMinutes
+                ) {
+                  console.warn(
+                    `${field.label} must be between ${minTime} and ${maxTime}.`
+                  );
+                  control.setErrors({ timeRangeError: true });
+                } else {
+                  console.log(`${field.label}: Valid time selected.`);
+                  control.setErrors(null);
+                }
               }
               break;
 
@@ -336,6 +412,20 @@ export class FormComponentComponent
     if (control?.hasError('pattern')) {
       return (
         field.errorMessages?.pattern || `Invalid format for ${field.label}.`
+      );
+    }
+
+    if (control?.hasError('minTimeError')) {
+      return (
+        field.errorMessages?.minTime ||
+        `Time cannot be earlier than ${field.validation?.minTime}.`
+      );
+    }
+
+    if (control?.hasError('maxTimeError')) {
+      return (
+        field.errorMessages?.maxTime ||
+        `Time cannot be later than ${field.validation?.maxTime}.`
       );
     }
     return `Invalid ${field.label}.`;

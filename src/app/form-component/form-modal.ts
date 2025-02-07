@@ -6,7 +6,7 @@ export interface FormConfig {
 }
 
 export interface FormFieldConfig {
-  type: 'text' | 'number' | 'date' | 'file' | 'textarea';
+  type: 'text' | 'number' | 'date' | 'file' | 'textarea' | 'time';
   label: string;
   placeholder?: string;
   value?: any;
@@ -27,6 +27,8 @@ export interface ValidationConfig {
   minValue?: number;
   maxValue?: number;
   pattern?: string;
+  minTime?: string;
+  maxTime?: string;
   customErrorMessage?: string;
 }
 
@@ -37,6 +39,8 @@ export interface ErrorMessagesConfig {
   minValue?: string;
   maxValue?: string;
   pattern?: string;
+  minTime?: string;
+  maxTime?: string;
 }
 
 export interface FileConfig {

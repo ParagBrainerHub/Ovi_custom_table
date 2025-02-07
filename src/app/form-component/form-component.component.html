@@ -98,6 +98,43 @@
                   </mat-error>
                 </mat-form-field>
 
+                <!-- time picker -->
+                <mat-form-field
+                  *ngIf="field.type === 'time'"
+                  appearance="outline"
+                  [ngStyle]="field.style?.inlineStyles"
+                  [ngClass]="field.style?.class"
+                >
+                  <mat-label>{{ field.label }}</mat-label>
+
+                  <input
+                    matInput
+                    [ngxMatTimepicker]="timepicker"
+                    readonly
+                    formControlName="{{ field.label }}"
+                  />
+
+                  <ngx-mat-timepicker-toggle
+                    matSuffix
+                    [for]="timepicker"
+                  ></ngx-mat-timepicker-toggle>
+
+                  <ngx-mat-timepicker
+                    #timepicker
+                    enableKeyboardInput="true"
+                  ></ngx-mat-timepicker>
+
+                  <mat-error
+                    *ngIf="
+                      form.get(field.label)?.invalid &&
+                      (form.get(field.label)?.dirty ||
+                        form.get(field.label)?.touched)
+                    "
+                  >
+                    {{ getErrorMessage(field) }}
+                  </mat-error>
+                </mat-form-field>
+
                 <!-- File Upload Field -->
                 <div
                   *ngIf="field.type === 'file'"

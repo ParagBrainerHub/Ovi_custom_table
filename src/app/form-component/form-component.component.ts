@@ -69,8 +69,8 @@ export class FormComponentComponent
   readonly minDate = new Date(this._currentYear - 20, 0, 1);
   readonly maxDate = new Date(this._currentYear + 1, 11, 31);
 
-  selectedImage: string | null = null;
-  selectedFileName: string | null = null;
+  selectedImages: string[] = [];
+  selectedFileNames: string[] = [];
 
   form: FormGroup = new FormGroup({});
 
@@ -88,7 +88,7 @@ export class FormComponentComponent
   rightSideImage = 'https://picsum.photos/id/238/900/600';
 
   updateFormWidth(width: number) {
-    this.formWidth = Math.min(Math.max(width, 20), 80); // Keeps width between 20% and 80%
+    this.formWidth = Math.min(Math.max(width, 20), 80);
   }
 
   ngOnInit() {
@@ -99,7 +99,7 @@ export class FormComponentComponent
   ngAfterViewInit() {
     // Populate pickerRefs after the view is initialized
     this.pickerRefs = this.datepickers.toArray();
-    this.cdr.detectChanges(); // Ensure change detection runs
+    this.cdr.detectChanges();
     window.addEventListener('scroll', this.closeDatepickerOnScroll, true);
   }
 
@@ -206,14 +206,51 @@ export class FormComponentComponent
               break;
 
             case 'file':
-              // Handle file-specific logic.
-              const file = control.value as File;
-              if (file && field.fileConfig?.allowedTypes) {
-                if (!field.fileConfig.allowedTypes.includes(file.type)) {
-                  console.warn(`${field.label}: Invalid file type uploaded.`);
-                  control.setErrors({ invalidFileType: true });
-                } else {
-                  console.log(`${field.label}: Valid file type uploaded.`);
+              const files = control.value as (File | string)[];
+              console.log('files: ', files);
+
+              if (files && files.length) {
+                for (let i = 0; i < files.length; i++) {
+                  const file = files[i];
+                  console.log('file: ', file);
+
+                  if (typeof file === 'string' && file.startsWith('data:')) {
+                    const match = file.match(
+                      /^data:([a-zA-Z0-9-+\/]+);base64,/
+                    );
+                    let fileType = '';
+                    if (match) {
+                      fileType = match[1];
+                    }
+                    console.log('file.type (base64): ', fileType);
+                    if (
+                      field.fileConfig?.allowedTypes &&
+                      !field.fileConfig.allowedTypes.includes(fileType)
+                    ) {
+                      console.warn(
+                        `${field.label}: Invalid file type uploaded.`
+                      );
+                      control.setErrors({ invalidFileType: true });
+                      break;
+                    } else {
+                      console.log(`${field.label}: Valid file type uploaded.`);
+                    }
+                  } else if (file instanceof File) {
+                    const fileType = file.type;
+                    console.log('file.type (File): ', fileType);
+                    if (
+                      field.fileConfig?.allowedTypes &&
+                      !field.fileConfig.allowedTypes.includes(fileType)
+                    ) {
+                      console.warn(
+                        `${field.label}: Invalid file type uploaded.`
+                      );
+                      control.setErrors({ invalidFileType: true });
+                      break;
+                    } else {
+                      console.log(`${field.label}: Valid file type uploaded.`);
+                    }
+                  }
                 }
               }
               break;
@@ -240,9 +277,19 @@ export class FormComponentComponent
 
   onSubmit() {
     if (this.form.invalid) {
+      console.log('Form is invalid. Please correct the following errors:');
+
+      Object.keys(this.form.controls).forEach((key) => {
+        const control = this.form.get(key);
+        if (control?.invalid) {
+          console.log(`Field: ${key}, Errors:`, control.errors);
+        }
+      });
+
       return;
     }
-    console.log(this.form.value);
+
+    console.log('Form is valid. Submitting data:', this.form.value);
   }
 
   // Validator function:
@@ -294,25 +341,33 @@ export class FormComponentComponent
     return `Invalid ${field.label}.`;
   }
 
-  //File Select
   onFileSelect(event: Event, field: any): void {
     const input = event.target as HTMLInputElement;
     if (input.files?.length) {
-      const file = input.files[0];
-      this.selectedFileName = file.name;
+      this.selectedImages = [];
+      this.selectedFileNames = [];
 
-      if (
-        field.fileConfig.allowedTypes.includes(file.type) &&
-        file.type.startsWith('image/')
-      ) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.selectedImage = reader.result as string;
-        };
-        reader.readAsDataURL(file);
-      }
-      this.form.get(field.label)?.setValue(file);
+      const files = Array.from(input.files);
+      files.forEach((file) => {
+        this.selectedFileNames.push(file.name);
+
+        if (
+          field.fileConfig.allowedTypes.includes(file.type) &&
+          file.type.startsWith('image/')
+        ) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            this.selectedImages.push(reader.result as string);
+            this.form.get(field.label)?.setValue(this.selectedImages);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
     }
+  }
+
+  removeImage(index: number) {
+    this.selectedImages.splice(index, 1);
   }
 
   ngOnDestroy() {

@@ -742,7 +742,9 @@ export class AppComponent {
         {
           type: 'file',
           label: 'Picture',
-          fileConfig: { allowedTypes: ['image/png'] },
+          fileConfig: {
+            allowedTypes: ['image/png', 'image/jpeg', 'image/gif'],
+          },
           showCheckbox: true,
           buttonConfig: {
             text: 'Upload Image',
@@ -757,6 +759,7 @@ export class AppComponent {
             transparent: false,
           },
         },
+
         {
           type: 'textarea',
           label: 'Bio',

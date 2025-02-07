@@ -114,29 +114,41 @@
                     <p class="upload-text">
                       Drag your {{ field.label }} to start uploading
                     </p>
+
                     <input
                       type="file"
                       (change)="onFileSelect($event, field)"
                       [accept]="field.fileConfig?.allowedTypes?.join(',')"
+                      multiple
                       hidden
                       #fileInput
                     />
-                    <!-- <button mat-flat-button color="primary" (click)="fileInput.click()">Browse files</button> -->
+
                     <app-custom-button
                       [text]="field.buttonConfig?.text || 'Browse'"
-                      [icon]="field.buttonConfig?.icon"
-                      [showIcon]="field.buttonConfig?.showIcon"
-                      [iconPosition]="field.buttonConfig?.iconPosition"
-                      [foreground]="field.buttonConfig?.foreground"
-                      [background]="field.buttonConfig?.background"
-                      [shadow]="field.buttonConfig?.shadow"
-                      [shape]="field.buttonConfig?.shape"
-                      [corners]="field.buttonConfig?.corners"
-                      [transparent]="field.buttonConfig?.transparent"
                       (buttonClick)="fileInput.click()"
                     >
                     </app-custom-button>
                   </div>
+
+                  <!-- Show Uploaded Images -->
+                  <div class="uploaded-images">
+                    <div
+                      class="image-preview"
+                      *ngFor="let img of selectedImages; let i = index"
+                    >
+                      <img
+                        width="50px"
+                        height="50px"
+                        [src]="img"
+                        alt="Uploaded Image"
+                      />
+                      <mat-icon class="mat-icon" (click)="removeImage(i)"
+                        >close</mat-icon
+                      >
+                    </div>
+                  </div>
+
                   <mat-error
                     *ngIf="
                       form.get(field.label)?.invalid &&

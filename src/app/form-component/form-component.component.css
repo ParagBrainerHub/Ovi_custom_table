@@ -1,38 +1,9 @@
-/* .field-container {
-  margin-bottom: 0px;
-}
-
-.example-container {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.example-container mat-form-field {
-  width: 100%;
-  margin-bottom: 16px;
-}
-
-.image-preview {
-  margin-bottom: 16px;
-  max-width: 100%;
-  height: auto;
-  border: 1px solid #ccc;
-  padding: 5px;
-  border-radius: 4px;
-}
-
-.error {
-  color: red;
-} */
-
 .form-wrapper {
-  padding: 100px 320px; /* 100px top/bottom, 320px left/right */
+  padding: 100px 320px;
 }
-
 
 .split-container {
   display: flex;
-  /* min-height: 100vh; */
   background-color: #fff;
   width: 100%;
   max-width: 100%;
@@ -149,7 +120,6 @@ app-custom-button {
   max-width: 100%;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
   .split-container {
     flex-direction: column;
@@ -169,7 +139,6 @@ app-custom-button {
   }
 }
 
-/* Material Design Overrides */
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
   color: #9c27b0;
 }
@@ -178,10 +147,42 @@ app-custom-button {
   color: #9c27b0;
 }
 
-::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+::ng-deep
+  .mat-form-field-appearance-outline.mat-focused
+  .mat-form-field-outline-thick {
   color: #9c27b0;
 }
 
 ::ng-deep .mat-checkbox-checked.mat-primary .mat-checkbox-background {
   background-color: #9c27b0;
+}
+
+/* calender Design */
+::ng-deep .mat-datepicker-content {
+  border-top: 2px solid purple;
+}
+
+::ng-deep .mat-calendar-next-button:hover,
+::ng-deep .mat-calendar-previous-button:hover {
+  color: purple !important;
+}
+
+::ng-deep .mat-calendar-body-cell-content:hover {
+  border: 2px solid purple !important;
+}
+
+::ng-deep .mat-calendar-body-today {
+  border: 2px solid purple !important;
+}
+
+::ng-deep .mat-calendar-body-selected {
+  border: 2px solid purple !important;
+  background: purple !important;
+}
+::ng-deep .mdc-button__label {
+  color: purple !important;
+}
+
+::ng-deep .mat-calendar-arrow polygon {
+  fill: purple !important;
 }

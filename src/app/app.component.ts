@@ -1018,7 +1018,7 @@ export class AppComponent {
         badgeIcon: '/icon_logo_cycolis.png',
       },
       {
-        src: '/corousel_image_2.avif',
+        src: '/corousel_image_4.avif',
         title: 'Innovative Solutions',
         highlightedText: 'For Your Business',
         description:

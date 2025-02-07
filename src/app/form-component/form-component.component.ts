@@ -30,7 +30,10 @@ import {
   MatDatepicker,
   MatDatepickerModule,
 } from '@angular/material/datepicker';
-import { provideNativeDateAdapter } from '@angular/material/core';
+import {
+  MatNativeDateModule,
+  provideNativeDateAdapter,
+} from '@angular/material/core';
 import { Subscription } from 'rxjs';
 import { QuillModule } from 'ngx-quill';
 import { CustomButtonComponent } from '../button-component/custom-button.component';
@@ -40,6 +43,8 @@ import { CustomButtonComponent } from '../button-component/custom-button.compone
   standalone: true,
   imports: [
     FormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     ReactiveFormsModule,
     MatCheckboxModule,
     MatRadioModule,
@@ -47,11 +52,9 @@ import { CustomButtonComponent } from '../button-component/custom-button.compone
     MatInputModule,
     MatSelectModule,
     MatIconModule,
-    MatDatepickerModule,
     CommonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDatepickerModule,
     QuillModule,
     CustomButtonComponent,
   ],
@@ -97,7 +100,16 @@ export class FormComponentComponent
     // Populate pickerRefs after the view is initialized
     this.pickerRefs = this.datepickers.toArray();
     this.cdr.detectChanges(); // Ensure change detection runs
+    window.addEventListener('scroll', this.closeDatepickerOnScroll, true);
   }
+
+  closeDatepickerOnScroll = () => {
+    this.pickerRefs.forEach((picker) => {
+      if (picker.opened) {
+        picker.close();
+      }
+    });
+  };
 
   buildForm() {
     const formControls: { [key: string]: FormControl } = {};
@@ -304,6 +316,7 @@ export class FormComponentComponent
   }
 
   ngOnDestroy() {
+    window.removeEventListener('scroll', this.closeDatepickerOnScroll, true);
     this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 }

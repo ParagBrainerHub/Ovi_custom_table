@@ -74,9 +74,8 @@ export class FormComponentComponent
   selectedImages: string[] = [];
   selectedFileNames: string[] = [];
 
-  form: FormGroup = new FormGroup({});
-
   @Input() formConfig!: FormConfig;
+  form: FormGroup = new FormGroup({});
 
   private subscriptions: Subscription[] = [];
 
@@ -94,6 +93,7 @@ export class FormComponentComponent
   }
 
   ngOnInit() {
+    console.log('this.formConfig: ', this.formConfig);
     this.buildForm();
     this.subscribeToFormChanges();
   }

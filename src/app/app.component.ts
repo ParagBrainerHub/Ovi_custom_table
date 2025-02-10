@@ -701,6 +701,7 @@ export class AppComponent {
           type: 'text',
           label: 'Name',
           placeholder: 'Enter your name',
+          minWidth: 350,
           required: true,
           validation: {
             minLength: 3,
@@ -720,6 +721,7 @@ export class AppComponent {
           type: 'number',
           label: 'Age',
           placeholder: 'Enter your age',
+          minWidth: 350,
           validation: {
             minValue: 18,
             maxValue: 60,
@@ -736,6 +738,7 @@ export class AppComponent {
           type: 'date',
           label: 'Date of Birth',
           placeholder: 'Pick a date',
+          minWidth: 150,
           required: true,
           showCheckbox: true,
         },
@@ -743,6 +746,7 @@ export class AppComponent {
           type: 'time',
           label: 'Select Time',
           placeholder: 'Pick a time',
+          minWidth: 150,
           required: true,
           validation: {
             minTime: '08:00',
@@ -759,6 +763,8 @@ export class AppComponent {
         {
           type: 'file',
           label: 'Picture',
+          minWidth: 150,
+          showFileIcon: false,
           fileConfig: {
             allowedTypes: ['image/png', 'image/jpeg', 'image/gif'],
           },
@@ -781,6 +787,7 @@ export class AppComponent {
           type: 'textarea',
           label: 'Bio',
           placeholder: 'Write your bio',
+          minWidth: 600,
           textareaConfig: {
             rows: 5,
             toolbarOptions: [

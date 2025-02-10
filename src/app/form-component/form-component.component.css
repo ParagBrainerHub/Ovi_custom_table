@@ -1,5 +1,5 @@
 .form-wrapper {
-  padding: 100px 320px;
+  padding: 100px 50px;
 }
 
 .split-container {
@@ -7,12 +7,16 @@
   background-color: #fff;
   width: 100%;
   max-width: 100%;
+  gap: 10px;
 }
 
 .form-section {
   padding: 2rem 3rem;
   background-color: #fff;
   border-radius: 10px;
+  max-width: 100%;
+  width: 100%;
+  border: 2px solid red;
 }
 
 .image-section {
@@ -41,12 +45,20 @@
   margin-bottom: 2rem;
 }
 
-.form-container {
-  max-width: 100%;
+.fields-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: flex-start;
 }
 
 .field-container {
-  margin-bottom: 1.5rem;
+  flex: 1 1 auto;
+  min-width: 150px;
+  /* max-width: calc(33.33% - 16px); */
+}
+::ng-deep .mat-mdc-form-field {
+  width: 100%;
 }
 
 .checkbox-container {

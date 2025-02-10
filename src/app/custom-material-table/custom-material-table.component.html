@@ -33,7 +33,7 @@
   </mat-form-field>
 </div>
 
-<div class="mat-elevation-z8" [ngStyle]="{ margin: '0px' }">
+<div class="mat-elevation-z8" [ngStyle]="{ margin: config.margin || '0px' }">
   <table
     mat-table
     [dataSource]="dataSource"

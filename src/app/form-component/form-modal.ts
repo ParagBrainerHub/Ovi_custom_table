@@ -9,6 +9,8 @@ export interface FormFieldConfig {
   type: 'text' | 'number' | 'date' | 'file' | 'textarea' | 'time';
   label: string;
   placeholder?: string;
+  showFileIcon?: boolean;
+  minWidth: number;
   value?: any;
   required?: boolean;
   validation?: ValidationConfig;
@@ -20,7 +22,6 @@ export interface FormFieldConfig {
   showCheckbox?: boolean;
   buttonConfig?: ButtonConfig;
 }
-
 export interface ValidationConfig {
   minLength?: number;
   maxLength?: number;

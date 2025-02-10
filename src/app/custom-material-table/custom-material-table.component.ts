@@ -149,7 +149,7 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
       )
       .filter((key): key is string => key !== undefined);
 
-    this.displayedColumns = [...this.selectedColumns];
+    this.displayedColumns = ['dragHandle', ...this.selectedColumns]; // Ensure dragHandle is always present
 
     if (this.config.actions && this.config.actions.length > 0) {
       this.displayedColumns.push('actions');

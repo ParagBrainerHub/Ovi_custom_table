@@ -72,3 +72,9 @@ table {
 .mat-cell {
   border-right: 2px solid white !important;
 } */
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

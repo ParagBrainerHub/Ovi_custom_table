@@ -8,8 +8,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { CustomButtonComponent } from '../button-component/custom-button.component';
 import { CustomMaterialTableComponent } from '../custom-material-table/custom-material-table.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-import { TableConfig } from '../custom-table/table-column.model';
+// import { TableConfig } from '../custom-table/table-column.model';
 import { User } from '../app.component';
+import { TableConfig } from '../custom-material-table/material-table-column.model';
 
 @Component({
   selector: 'app-card-grid-component',

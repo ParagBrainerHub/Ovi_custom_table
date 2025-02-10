@@ -1,13 +1,12 @@
 import { Routes } from '@angular/router';
-import { CustomTableComponent } from './custom-table/custom-table.component';
 import { CustomMaterialTableComponent } from './custom-material-table/custom-material-table.component';
 import { LogoutPageComponent } from './logout-page/logout-page.component';
 
 export const routes: Routes = [
-  {
-    path: 'customTable',
-    component: CustomTableComponent,
-  },
+  // {
+  //   path: 'customTable',
+  //   component: CustomTableComponent,
+  // },
   {
     path: 'materialTable',
     component: CustomMaterialTableComponent,

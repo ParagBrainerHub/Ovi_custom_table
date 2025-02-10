@@ -16,7 +16,6 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { CustomButtonComponent } from '../button-component/custom-button.component';
-import { TableColumn, TableConfig } from '../custom-table/table-column.model';
 
 import {
   CdkDragDrop,
@@ -27,6 +26,8 @@ import {
 // import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import { TableColumn, TableConfig } from './material-table-column.model';
+import { MatIconModule } from '@angular/material/icon';
 // import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
@@ -45,6 +46,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatIconModule,
     MatFormFieldModule,
     MatSelectModule,
     FormsModule,
@@ -112,23 +114,19 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
       role: user.role,
       email: user.email,
       imageUrl: user.imageUrl,
-      // imageUrl: this.byteArrayToBase64(user.imageUrl),
       videoUrl: user.videoUrl,
     }));
     this.dataSource = new MatTableDataSource(filteredData);
     this.initializeColumns();
 
     // Populate column list from config
-    // this.columnList = this.config.columns.map((column) => column.title);
     this.columnList = this.config.columns
       .map((column) => column.title)
-      .filter((title): title is string => !!title); // Filter out undefined values
+      .filter((title): title is string => !!title);
 
-    // Initially select all columns
+    // Ensure all columns are selected initially
     this.selectedColumns = this.config.columns.map((column) => column.key);
-    this.columnControl.setValue(this.selectedColumns);
-
-    // Setup data source with initial columns
+    this.columnControl.setValue(this.columnList); // Yahan value set kar di
     this.setupDataSource();
   }
 
@@ -145,23 +143,14 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
   }
 
   onColumnSelectionChange() {
-    // Get selected column keys based on titles
-    // this.selectedColumns = this.columnControl.value
-    //   .map(
-    //     (title) => this.config.columns.find((col) => col.title === title)?.key
-    //   )
-    //   .filter((key) => key !== undefined) as string[];
-
     this.selectedColumns = (this.columnControl.value || [])
       .map(
         (title) => this.config.columns.find((col) => col.title === title)?.key
       )
       .filter((key): key is string => key !== undefined);
 
-    // Update displayed columns
     this.displayedColumns = [...this.selectedColumns];
 
-    // Add actions column if needed
     if (this.config.actions && this.config.actions.length > 0) {
       this.displayedColumns.push('actions');
     }
@@ -195,6 +184,7 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
       'dragHandle',
       ...sortedColumns.map((column) => column.key),
     ];
+    console.log(this.displayedColumns, 'this.displayedColumns');
 
     if (this.config.actions && this.config.actions.length > 0) {
       this.displayedColumns.push('actions');
@@ -223,45 +213,8 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
       this.buttonStyle = {
         'margin-right': this.config.elementSpacing || '0px',
       };
-
-      // console.log('Updated Table Style:', this.tableStyle);
-      // console.log('Updated Button Style:', this.buttonStyle);
     }
   }
-
-  //specific senario when calling the data from the API.--- Start
-  // loadPageData(filter: string = '') {
-  //   this.isPageLoading = true;
-  //   this.yourDataService.getFilteredData(filter, this.currentPage, this.itemsPerPage)
-  //     .subscribe(response => {
-  //       this.dataSource = new MatTableDataSource(response.data);
-  //       this.dataSource.paginator.length = response.totalRecords;
-  //       this.isPageLoading = false;
-  //     });
-  // }
-
-  // applyFilter(event: Event) {
-  //   const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
-  //   this.currentPage = 0;
-  //   this.loadPageData(filterValue);
-  // }
-
-  // export class YourDataService {
-  //   private apiUrl = 'https://your-api-url'; // Replace with your backend API URL
-
-  //   constructor(private http: HttpClient) {}
-
-  //   getFilteredData(filter: string, page: number, pageSize: number): Observable<any> {
-  //     const params = {
-  //       search: filter,
-  //       page: page.toString(),
-  //       pageSize: pageSize.toString()
-  //     };
-
-  //     return this.http.get<any>(`${this.apiUrl}/filtered-data`, { params });
-  //   }
-  // }
-  //specific senario when calling the data from the API.--- End
 
   startEditing(rowIndex: number) {
     this.editableCell = { rowIndex };

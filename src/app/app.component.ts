@@ -1,8 +1,6 @@
 import { CustomMaterialTableComponent } from './custom-material-table/custom-material-table.component';
 import { Component, inject, Input } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TableConfig } from './custom-table/table-column.model';
-import { CustomTableComponent } from './custom-table/custom-table.component';
 import { CommonModule } from '@angular/common';
 import { NgIf } from '@angular/common';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
@@ -28,6 +26,7 @@ import { CustomButtonComponent } from './button-component/custom-button.componen
 import { CalendarComponentComponent } from './calendar-component/calendar-component.component';
 import { ThemeService } from './core/services/theme.service';
 import { CarouselComponent } from './carousel/carousel.component';
+import { TableConfig } from './custom-material-table/material-table-column.model';
 
 interface ColumnItem {
   type: 'button' | 'image' | 'video' | 'text';
@@ -54,7 +53,6 @@ export interface User {
   selector: 'app-root',
   standalone: true,
   imports: [
-    CustomTableComponent,
     CustomMaterialTableComponent,
     CommonModule,
     NgIf,
@@ -230,6 +228,7 @@ export class AppComponent {
   //Table Config
   tableConfig: TableConfig = {
     isHeader: true,
+    tableTitle: 'Custom Table By Parag',
     columns: [
       {
         key: 'name',
@@ -333,7 +332,7 @@ export class AppComponent {
     filterAlignment: 'center',
     showFilter: true,
     filterWidth: '500px',
-    margin: '20px',
+    // margin: '20px',
     elementSpacing: '10px',
   };
 

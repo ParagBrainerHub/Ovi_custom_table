@@ -1,7 +1,74 @@
-mat-form-field {
-  width: 300px;
+.table-container {
+  max-width: 90%;
+  width: 100%;
+  margin: 30px;
+  border-radius: 12px;
+  border: 2px solid purple;
+  overflow: hidden;
+}
+.filter-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0px;
+  margin: 20px 24px;
+}
+.table-title {
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  color: #800080;
 }
 
-.mat-header-cell-new, .mat-cell {
-  border-right: 2px solid white !important;
+.filter-section {
+  display: flex;
+  column-gap: 20px;
+  width: 475;
+  height: 48;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border-width: 1px;
 }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+}
+
+::ng-deep th.mat-mdc-header-cell {
+  background: purple !important;
+  color: white !important;
+  font-weight: bold;
+  text-align: left;
+  padding: 12px !important;
+}
+::ng-deep th.mat-sort-header-arrow {
+  color: white !important;
+}
+
+.name-with-image {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.name-text {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  color: #800080;
+}
+
+/* .mat-header-cell-new,
+.mat-cell {
+  border-right: 2px solid white !important;
+} */

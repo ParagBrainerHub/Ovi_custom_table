@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CardConfig } from '../card-collection-component/card.modal';
 import { User } from '../app.component';
-import { TableConfig } from '../custom-table/table-column.model';
+// import { TableConfig } from '../custom-table/table-column.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CustomButtonComponent } from '../button-component/custom-button.component';
 import { CustomMaterialTableComponent } from '../custom-material-table/custom-material-table.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { TableConfig } from '../custom-material-table/material-table-column.model';
 
 @Component({
   selector: 'app-card-list-component',

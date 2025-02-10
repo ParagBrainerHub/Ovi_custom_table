@@ -14,6 +14,7 @@ export interface TableColumn {
 export interface TableConfig {
   isHeader: boolean;
   columns: TableColumn[];
+  tableTitle?: string;
   itemsPerPage: number;
   maxItemsOptions: number[];
   buttons?: { [key: string]: () => void };
@@ -21,6 +22,8 @@ export interface TableConfig {
   actions?: ButtonConfig[];
   rowHeight?: string;
   maxRowHeight?: string;
+  margin?: string;
+  elementSpacing?: string;
   columnAlignments?: any;
   filterWidth?: string;
   filterAlignment?: 'left' | 'center' | 'right';

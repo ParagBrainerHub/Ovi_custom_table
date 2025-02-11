@@ -47,6 +47,12 @@ table {
 ::ng-deep th.mat-sort-header-arrow {
   color: white !important;
 }
+::ng-deep .mat-pseudo-checkbox-full.mat-pseudo-checkbox-checked {
+  background: purple !important;
+}
+::ng-deep mat-label {
+  color: purple !important;
+}
 
 .name-with-image {
   display: flex;

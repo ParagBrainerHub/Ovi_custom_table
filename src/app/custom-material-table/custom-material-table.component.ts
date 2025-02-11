@@ -154,7 +154,8 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
         return column.length ? column[0].key : undefined;
       })
       .filter((key) => key !== undefined);
-    this.displayedColumns = ['dragHandle', ...updatedColumns];
+    // this.displayedColumns = [...updatedColumns];
+    this.updateDisplayedColumns(updatedColumns);
   }
 
   dropSelectedColumns(event: CdkDragDrop<string[]>) {
@@ -177,7 +178,7 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
       let updatedDisplayArray = this.selectedColumns.filter((item) =>
         (this?.columnControl?.value ?? []).includes(item)
       );
-      this.displayedColumns = ['dragHandle', ...updatedDisplayArray];
+      this.updateDisplayedColumns(updatedDisplayArray);
     } else {
       // If it doesn't exist in columnControl, return or handle accordingly
       console.log('Dragged column is not allowed for drag operation');
@@ -199,8 +200,8 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
     return column ? column.type : 'text';
   }
 
-  updateDisplayedColumns() {
-    this.displayedColumns = ['dragHandle', ...this.selectedColumns];
+  updateDisplayedColumns(UpdatedDisplatList: string[]) {
+    this.displayedColumns = [...UpdatedDisplatList];
 
     if (this.config.actions && this.config.actions.length > 0) {
       this.displayedColumns.push('actions');
@@ -217,10 +218,7 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
     // if (this.config.actions && this.config.actions.length > 0) {
     //   this.displayedColumns.push('actions');
     // }
-    this.displayedColumns = [
-      'dragHandle',
-      ...sortedColumns.map((column) => column.key),
-    ];
+    this.displayedColumns = [...sortedColumns.map((column) => column.key)];
 
     if (this.config.actions && this.config.actions.length > 0) {
       this.displayedColumns.push('actions');

@@ -44,19 +44,13 @@
   </div>
 
   <div class="table-wrapper" [ngStyle]="{ margin: config.margin || '0px' }">
-    <table
-      mat-table
-      [dataSource]="dataSource"
-      matSort
-      cdkDropList
-      (cdkDropListDropped)="dropTable($event)"
-    >
-      <ng-container matColumnDef="dragHandle">
+    <table mat-table [dataSource]="dataSource" matSort>
+      <!-- <ng-container>
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let row">
           <mat-icon>drag_indicator</mat-icon>
         </td>
-      </ng-container>
+      </ng-container> -->
 
       <ng-container
         *ngFor="let columnKey of selectedColumns"

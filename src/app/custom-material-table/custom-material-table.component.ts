@@ -107,8 +107,6 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
   @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit() {
-    console.log(this.config, 'Looooooooooooooo');
-
     var filteredData = this.data.map((user) => ({
       name: user.name,
       role: user.role,
@@ -119,14 +117,22 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
     this.dataSource = new MatTableDataSource(filteredData);
     this.initializeColumns();
 
-    // Populate column list from config
     this.columnList = this.config.columns
       .map((column) => column.title)
       .filter((title): title is string => !!title);
 
-    // Ensure all columns are selected initially
-    this.selectedColumns = this.config.columns.map((column) => column.key);
-    this.columnControl.setValue(this.columnList); // Yahan value set kar di
+    this.selectedColumns = this.config.columns
+      .map((column) => column.key)
+      .filter((key): key is string => !!key);
+
+    this.columnControl.setValue(this.selectedColumns);
+    console.log(
+      'this.columnControl: ',
+      this.columnControl,
+      'this.selectedColumns: ',
+      this.selectedColumns
+    );
+
     this.setupDataSource();
   }
 
@@ -138,22 +144,33 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
       imageUrl: user.imageUrl,
       videoUrl: user.videoUrl,
     }));
-    this.dataSource = new MatTableDataSource(filteredData);
-    this.initializeColumns();
+
+    // Only set data source once, don't overwrite on each column change
+    if (!this.dataSource) {
+      this.dataSource = new MatTableDataSource(filteredData);
+      this.initializeColumns();
+    }
   }
 
   onColumnSelectionChange() {
-    this.selectedColumns = (this.columnControl.value || [])
-      .map(
-        (title) => this.config.columns.find((col) => col.title === title)?.key
-      )
-      .filter((key): key is string => key !== undefined);
+    const updatedColumns = (this?.columnControl.value || [])
+      .map((title) => {
+        console.log('title: ', title);
+        const column = this.config.columns.filter((col) => col.key === title);
+        console.log('column: ', column);
+        return column.length ? column[0].key : undefined;
+      })
+      .filter((key) => key !== undefined);
+    this.displayedColumns = ['dragHandle', ...updatedColumns];
+  }
 
-    this.displayedColumns = ['dragHandle', ...this.selectedColumns]; // Ensure dragHandle is always present
-
-    if (this.config.actions && this.config.actions.length > 0) {
-      this.displayedColumns.push('actions');
-    }
+  dropSelectedColumns(event: CdkDragDrop<string[]>) {
+    moveItemInArray(
+      this.selectedColumns,
+      event.previousIndex,
+      event.currentIndex
+    );
+    this.updateDisplayedColumns();
   }
 
   // Add method for drag and drop
@@ -168,6 +185,16 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
   getColumnType(columnKey: string | any): string | any {
     const column = this.config.columns.find((col) => col.key === columnKey);
     return column ? column.type : 'text';
+  }
+
+  updateDisplayedColumns() {
+    console.log('this.displayedColumns: ', this.displayedColumns);
+    this.displayedColumns = ['dragHandle', ...this.selectedColumns];
+    console.log('this.displayedColumns: ', this.displayedColumns);
+
+    if (this.config.actions && this.config.actions.length > 0) {
+      this.displayedColumns.push('actions');
+    }
   }
 
   initializeColumns() {

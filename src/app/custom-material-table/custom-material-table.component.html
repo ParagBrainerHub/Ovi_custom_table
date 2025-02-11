@@ -24,12 +24,20 @@
         <mat-select
           [formControl]="columnControl"
           multiple
-          [value]="columnList"
           (selectionChange)="onColumnSelectionChange()"
         >
-          <mat-option *ngFor="let column of columnList" [value]="column">
-            {{ column }}
-          </mat-option>
+          <div
+            cdkDropList
+            [cdkDropListData]="selectedColumns"
+            (cdkDropListDropped)="dropSelectedColumns($event)"
+          >
+            <div *ngFor="let column of selectedColumns; let i = index" cdkDrag>
+              <mat-option [value]="column">
+                <mat-icon cdkDragHandle>drag_indicator</mat-icon>
+                {{ getColumnTitle(column) }}
+              </mat-option>
+            </div>
+          </div>
         </mat-select>
       </mat-form-field>
     </div>

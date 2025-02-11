@@ -41,6 +41,7 @@ export class CardGridComponentComponent {
 
   tableConfig: TableConfig = {
     isHeader: true,
+    currentPage: 1,
     columns: [
       {
         key: 'name',

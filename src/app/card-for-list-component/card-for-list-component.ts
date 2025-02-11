@@ -39,6 +39,7 @@ export class CardListComponentComponent {
 
   tableConfig: TableConfig = {
     isHeader: true,
+    currentPage: 1,
     columns: [
       {
         key: 'name',

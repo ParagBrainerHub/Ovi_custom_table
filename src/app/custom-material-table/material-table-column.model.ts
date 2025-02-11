@@ -15,6 +15,7 @@ export interface TableConfig {
   isHeader: boolean;
   columns: TableColumn[];
   tableTitle?: string;
+  currentPage: number;
   itemsPerPage: number;
   maxItemsOptions: number[];
   buttons?: { [key: string]: () => void };

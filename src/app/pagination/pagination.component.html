@@ -1,0 +1,27 @@
+<div class="pagination-controls">
+  <button
+    *ngIf="directionLinks"
+    (click)="prevPage()"
+    [disabled]="currentPage === 1"
+  >
+    Previous
+  </button>
+
+  <ul class="pagination">
+    <li
+      *ngFor="let page of pageNumbers"
+      [class.active]="page === currentPage"
+      (click)="changePage(page)"
+    >
+      {{ page }}
+    </li>
+  </ul>
+
+  <button
+    *ngIf="directionLinks"
+    (click)="nextPage()"
+    [disabled]="currentPage === totalPages"
+  >
+    Next
+  </button>
+</div>

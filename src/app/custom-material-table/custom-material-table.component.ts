@@ -28,6 +28,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { TableColumn, TableConfig } from './material-table-column.model';
 import { MatIconModule } from '@angular/material/icon';
+import { PaginationComponent } from '../pagination/pagination.component';
 // import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
@@ -51,8 +52,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
-
     DragDropModule,
+    PaginationComponent,
   ],
 })
 export class CustomMaterialTableComponent implements OnInit, OnChanges {
@@ -93,7 +94,8 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
   sortDirection: 'asc' | 'desc' = 'asc';
   currentPage: number = 1;
   totalPages: number = 1;
-  itemsPerPage: number = 10;
+  directionLinks: boolean = true;
+  maxSize: number = 7;
   editableCell: { rowIndex: number; columnKey?: string } | null = null;
 
   isPageLoading: boolean = true;
@@ -336,5 +338,8 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
     const byteCharacters = String.fromCharCode(...byteArray);
     const base64String = btoa(byteCharacters);
     return `data:image/png;base64,${base64String}`; // Change image/png to the appropriate type if needed
+  }
+  onPageChange(page: number) {
+    this.config.currentPage = page;
   }
 }

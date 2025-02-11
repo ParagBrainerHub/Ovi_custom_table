@@ -84,3 +84,11 @@ table {
   align-items: center;
   justify-content: center;
 }
+
+/* pagination design  */
+::ng-deep .mat-mdc-paginator-container {
+  background: purple;
+  color: white;
+  margin-top: 10px;
+  overflow: hidden;
+}

@@ -277,6 +277,7 @@ export class AppComponent {
       },
     ],
     itemsPerPage: 5,
+    currentPage: 1,
     maxItemsOptions: [5, 10, 15],
     // actions: [
     //   { text: 'Edit', icon: '✏️', showIcon: true, iconPosition: 'left', onClick: this.editUser.bind(this) },

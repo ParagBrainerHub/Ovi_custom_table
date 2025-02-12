@@ -34,6 +34,7 @@ export interface ButtonConfig {
   shape?: 'circle' | 'square' | 'rectangle';
   corners?: 'rounded' | 'squared';
   transparent?: boolean;
+  width?: string;
   foreground?: string;
   background?: string;
   shadow?: boolean;
@@ -47,6 +48,7 @@ export interface ButtonConfig {
   textAlign?: 'left' | 'center' | 'right';
   menuItems?: ButtonConfig[];
   isMenuButton?: boolean;
+  class?: string;
 }
 
 // Helper validation function for component

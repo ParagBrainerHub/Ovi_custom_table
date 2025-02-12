@@ -33,8 +33,11 @@ export class CustomButtonComponent implements OnInit {
   primaryColor: string = 'var(--primary-color)';
   secondaryColor: string = 'var(--secondary-color)';
   router = inject(Router);
+  @Input() class?: string = '';
+
   @Input() text?: string = '';
   @Input() textAlign?: 'left' | 'center' | 'right' = 'center';
+  @Input() width?: string = '';
   @Input() icon?: string = '';
   @Input() showIcon?: boolean = true;
   @Input() onClick?: (event: Event) => void;
@@ -148,6 +151,15 @@ export class CustomButtonComponent implements OnInit {
     }
   }
 
+  getMergedStyles() {
+    return {
+      ...this.getButtonStyle(),
+      ...(this.hover ? this.getHoverStyle() : {}), // ✅ Hover style conditionally add ho raha hai
+      'border-radius': this.getBorderRadius(),
+      width: this.width ? this.width : 'auto', // ✅ Width apply ho rahi hai
+    };
+  }
+
   getBorderRadius(): string {
     if (this.shape === 'circle') {
       return '50%';
@@ -195,7 +207,7 @@ export class CustomButtonComponent implements OnInit {
         color: this.secondaryColor,
         border: `2px solid ${borderColor}`,
         borderRadius: borderRadius,
-        padding: '9px 30px',
+        // padding: '9px 30px',
       };
     }
     if (!this.transparent && this.border) {
@@ -204,7 +216,7 @@ export class CustomButtonComponent implements OnInit {
         color: 'white',
         border: `2px solid ${borderColor}`,
         borderRadius: borderRadius,
-        padding: '9px 30px',
+        // padding: '9px 30px',
       };
     }
     return {
@@ -260,7 +272,7 @@ export class CustomButtonComponent implements OnInit {
         border: `2px solid ${this.secondaryColor}`,
         color: 'var(--white-text-color)',
         borderRadius: borderRadius,
-        padding: '9px 30px',
+        // padding: '9px 30px',
       };
     }
 
@@ -270,7 +282,7 @@ export class CustomButtonComponent implements OnInit {
         color: 'white',
         border: `2px solid ${hoverColor}`,
         borderRadius: borderRadius,
-        padding: '9px 30px',
+        // padding: '9px 30px',
       };
     }
     return {

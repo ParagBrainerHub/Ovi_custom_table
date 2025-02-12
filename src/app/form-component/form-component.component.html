@@ -1,267 +1,271 @@
-<div class="form-wrapper">
-  <div class="split-container">
-    <!-- Form Section -->
-    <div class="form-section" [style.flex-basis]="formWidth + '%'">
-      <h1 class="form-title">Get a Quote Now</h1>
-      <p class="form-subtitle">Get a Quote Immediately Upon Form Submission</p>
+<div class="pageContainer">
+  <div class="form-wrapper">
+    <div class="split-container">
+      <!-- Form Section -->
+      <div class="form-section" [style.flex-basis]="formWidth + '%'">
+        <h1 class="form-title">Get a Quote Now</h1>
+        <p class="form-subtitle">
+          Get a Quote Immediately Upon Form Submission
+        </p>
 
-      <div class="form-container" *ngIf="formConfig">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <div class="fields-wrapper">
-            <ng-container
-              *ngFor="let field of formConfig.fields; let i = index"
-            >
-              <div
-                class="field-container"
-                [ngStyle]="{
-                  minWidth: field.minWidth ? field.minWidth + 'px' : '150px'
-                }"
+        <div class="form-container" *ngIf="formConfig">
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="fields-wrapper">
+              <ng-container
+                *ngFor="let field of formConfig.fields; let i = index"
               >
-                <!-- Checkbox with label -->
-                <div class="checkbox-container" *ngIf="field.showCheckbox">
-                  <mat-checkbox
-                    [(ngModel)]="field.hide"
-                    (change)="toggleFieldVisibility(field)"
-                  >
-                    Hide {{ field.label }}
-                  </mat-checkbox>
-                </div>
-
-                <ng-container *ngIf="!field.hide">
-                  <!-- Text Field -->
-                  <mat-form-field
-                    *ngIf="field.type === 'text'"
-                    appearance="outline"
-                    [ngStyle]="field.style?.inlineStyles"
-                    [ngClass]="field.style?.class"
-                  >
-                    <mat-label>{{ field.label }}</mat-label>
-                    <input
-                      matInput
-                      [placeholder]="field.placeholder ?? 'Enter value'"
-                      formControlName="{{ field.label }}"
-                    />
-                    <mat-error
-                      *ngIf="
-                        form.get(field.label)?.invalid &&
-                        (form.get(field.label)?.dirty ||
-                          form.get(field.label)?.touched)
-                      "
+                <div
+                  class="field-container"
+                  [ngStyle]="{
+                    minWidth: field.minWidth ? field.minWidth + 'px' : '150px'
+                  }"
+                >
+                  <!-- Checkbox with label -->
+                  <div class="checkbox-container" *ngIf="field.showCheckbox">
+                    <mat-checkbox
+                      [(ngModel)]="field.hide"
+                      (change)="toggleFieldVisibility(field)"
                     >
-                      {{ getErrorMessage(field) }}
-                    </mat-error>
-                  </mat-form-field>
+                      Hide {{ field.label }}
+                    </mat-checkbox>
+                  </div>
 
-                  <!-- Number Field -->
-                  <mat-form-field
-                    *ngIf="field.type === 'number'"
-                    appearance="outline"
-                    [ngStyle]="field.style?.inlineStyles"
-                    [ngClass]="field.style?.class"
-                  >
-                    <mat-label>{{ field.label }}</mat-label>
-                    <input
-                      matInput
-                      type="number"
-                      [placeholder]="field.placeholder ?? 'Enter value'"
-                      formControlName="{{ field.label }}"
-                    />
-                    <mat-error
-                      *ngIf="
-                        form.get(field.label)?.invalid &&
-                        (form.get(field.label)?.dirty ||
-                          form.get(field.label)?.touched)
-                      "
-                    >
-                      {{ getErrorMessage(field) }}
-                    </mat-error>
-                  </mat-form-field>
-
-                  <!-- Date Field -->
-                  <mat-form-field
-                    *ngIf="field.type === 'date'"
-                    appearance="outline"
-                    [ngStyle]="field.style?.inlineStyles"
-                    [ngClass]="field.style?.class"
-                  >
-                    <mat-label>{{ field.label }}</mat-label>
-                    <input
-                      matInput
-                      [matDatepicker]="picker"
-                      formControlName="{{ field.label }}"
-                    />
-                    <mat-datepicker-toggle
-                      matSuffix
-                      [for]="picker"
-                    ></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                    <mat-error
-                      *ngIf="
-                        form.get(field.label)?.invalid &&
-                        (form.get(field.label)?.dirty ||
-                          form.get(field.label)?.touched)
-                      "
-                    >
-                      {{ getErrorMessage(field) }}
-                    </mat-error>
-                  </mat-form-field>
-
-                  <!-- time picker -->
-                  <mat-form-field
-                    *ngIf="field.type === 'time'"
-                    appearance="outline"
-                    [ngStyle]="field.style?.inlineStyles"
-                    [ngClass]="field.style?.class"
-                  >
-                    <mat-label>{{ field.label }}</mat-label>
-
-                    <input
-                      matInput
-                      [ngxMatTimepicker]="timepicker"
-                      readonly
-                      formControlName="{{ field.label }}"
-                    />
-
-                    <ngx-mat-timepicker-toggle
-                      matSuffix
-                      [for]="timepicker"
-                    ></ngx-mat-timepicker-toggle>
-
-                    <ngx-mat-timepicker
-                      #timepicker
-                      enableKeyboardInput="true"
-                    ></ngx-mat-timepicker>
-
-                    <mat-error
-                      *ngIf="
-                        form.get(field.label)?.invalid &&
-                        (form.get(field.label)?.dirty ||
-                          form.get(field.label)?.touched)
-                      "
-                    >
-                      {{ getErrorMessage(field) }}
-                    </mat-error>
-                  </mat-form-field>
-
-                  <!-- File Upload Field -->
-                  <div
-                    *ngIf="field.type === 'file'"
-                    class="file-upload-container"
-                  >
-                    <div
-                      class="upload-area"
+                  <ng-container *ngIf="!field.hide">
+                    <!-- Text Field -->
+                    <mat-form-field
+                      *ngIf="field.type === 'text'"
+                      appearance="outline"
                       [ngStyle]="field.style?.inlineStyles"
                       [ngClass]="field.style?.class"
                     >
-                      <div
-                        class="upload-icon"
+                      <mat-label>{{ field.label }}</mat-label>
+                      <input
+                        matInput
+                        [placeholder]="field.placeholder ?? 'Enter value'"
+                        formControlName="{{ field.label }}"
+                      />
+                      <mat-error
                         *ngIf="
-                          field.showFileIcon && field.buttonConfig?.showIcon
+                          form.get(field.label)?.invalid &&
+                          (form.get(field.label)?.dirty ||
+                            form.get(field.label)?.touched)
                         "
                       >
-                        <mat-icon>cloud_upload</mat-icon>
-                      </div>
-                      <p class="upload-text">
-                        Drag your {{ field.label }} to start uploading
-                      </p>
+                        {{ getErrorMessage(field) }}
+                      </mat-error>
+                    </mat-form-field>
 
-                      <input
-                        type="file"
-                        (change)="onFileSelect($event, field)"
-                        [accept]="field.fileConfig?.allowedTypes?.join(',')"
-                        multiple
-                        hidden
-                        #fileInput
-                      />
-
-                      <app-custom-button
-                        [text]="field.buttonConfig?.text || 'Browse'"
-                        (buttonClick)="fileInput.click()"
-                      >
-                      </app-custom-button>
-                    </div>
-
-                    <!-- Show Uploaded Images -->
-                    <div class="uploaded-images">
-                      <div
-                        class="image-preview"
-                        *ngFor="let img of selectedImages; let i = index"
-                      >
-                        <img
-                          width="50px"
-                          height="50px"
-                          [src]="img"
-                          alt="Uploaded Image"
-                        />
-                        <mat-icon class="mat-icon" (click)="removeImage(i)"
-                          >close</mat-icon
-                        >
-                      </div>
-                    </div>
-
-                    <mat-error
-                      *ngIf="
-                        form.get(field.label)?.invalid &&
-                        (form.get(field.label)?.dirty ||
-                          form.get(field.label)?.touched)
-                      "
-                    >
-                      {{ getErrorMessage(field) }}
-                    </mat-error>
-                  </div>
-
-                  <!-- Textarea Field -->
-                  <div
-                    *ngIf="field.type === 'textarea'"
-                    class="textarea-container"
-                  >
-                    <quill-editor
-                      [formControlName]="field.label"
-                      [modules]="field.textareaConfig?.modules"
+                    <!-- Number Field -->
+                    <mat-form-field
+                      *ngIf="field.type === 'number'"
+                      appearance="outline"
                       [ngStyle]="field.style?.inlineStyles"
                       [ngClass]="field.style?.class"
-                      [placeholder]="field.placeholder ?? 'Write your bio'"
                     >
-                    </quill-editor>
-                    <mat-error
-                      *ngIf="
-                        form.get(field.label)?.invalid &&
-                        (form.get(field.label)?.dirty ||
-                          form.get(field.label)?.touched)
-                      "
-                    >
-                      {{ getErrorMessage(field) }}
-                    </mat-error>
-                  </div>
-                </ng-container>
-              </div>
-            </ng-container>
-          </div>
-          <!-- <button mat-flat-button color="primary" class="submit-button" type="submit">Submit</button> -->
-          <div class="submit-button-container">
-            <app-custom-button
-              *ngIf="formConfig.submitButtonConfig"
-              [text]="formConfig.submitButtonConfig.text"
-              [icon]="formConfig.submitButtonConfig.icon"
-              [showIcon]="formConfig.submitButtonConfig.showIcon"
-              [iconPosition]="formConfig.submitButtonConfig.iconPosition"
-              [foreground]="formConfig.submitButtonConfig.foreground"
-              [background]="formConfig.submitButtonConfig.background"
-              [shadow]="formConfig.submitButtonConfig.shadow"
-              [shape]="formConfig.submitButtonConfig.shape"
-              [corners]="formConfig.submitButtonConfig.corners"
-              [transparent]="formConfig.submitButtonConfig.transparent"
-              (buttonClick)="onSubmit()"
-            >
-            </app-custom-button>
-          </div>
-        </form>
-      </div>
-    </div>
+                      <mat-label>{{ field.label }}</mat-label>
+                      <input
+                        matInput
+                        type="number"
+                        [placeholder]="field.placeholder ?? 'Enter value'"
+                        formControlName="{{ field.label }}"
+                      />
+                      <mat-error
+                        *ngIf="
+                          form.get(field.label)?.invalid &&
+                          (form.get(field.label)?.dirty ||
+                            form.get(field.label)?.touched)
+                        "
+                      >
+                        {{ getErrorMessage(field) }}
+                      </mat-error>
+                    </mat-form-field>
 
-    <!-- Image Section -->
-    <div class="image-section" [style.flex-basis]="100 - formWidth + '%'">
-      <img [src]="rightSideImage" alt="Quote Form Image" />
+                    <!-- Date Field -->
+                    <mat-form-field
+                      *ngIf="field.type === 'date'"
+                      appearance="outline"
+                      [ngStyle]="field.style?.inlineStyles"
+                      [ngClass]="field.style?.class"
+                    >
+                      <mat-label>{{ field.label }}</mat-label>
+                      <input
+                        matInput
+                        [matDatepicker]="picker"
+                        formControlName="{{ field.label }}"
+                      />
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                      <mat-error
+                        *ngIf="
+                          form.get(field.label)?.invalid &&
+                          (form.get(field.label)?.dirty ||
+                            form.get(field.label)?.touched)
+                        "
+                      >
+                        {{ getErrorMessage(field) }}
+                      </mat-error>
+                    </mat-form-field>
+
+                    <!-- time picker -->
+                    <mat-form-field
+                      *ngIf="field.type === 'time'"
+                      appearance="outline"
+                      [ngStyle]="field.style?.inlineStyles"
+                      [ngClass]="field.style?.class"
+                    >
+                      <mat-label>{{ field.label }}</mat-label>
+
+                      <input
+                        matInput
+                        [ngxMatTimepicker]="timepicker"
+                        readonly
+                        formControlName="{{ field.label }}"
+                      />
+
+                      <ngx-mat-timepicker-toggle
+                        matSuffix
+                        [for]="timepicker"
+                      ></ngx-mat-timepicker-toggle>
+
+                      <ngx-mat-timepicker
+                        #timepicker
+                        enableKeyboardInput="true"
+                      ></ngx-mat-timepicker>
+
+                      <mat-error
+                        *ngIf="
+                          form.get(field.label)?.invalid &&
+                          (form.get(field.label)?.dirty ||
+                            form.get(field.label)?.touched)
+                        "
+                      >
+                        {{ getErrorMessage(field) }}
+                      </mat-error>
+                    </mat-form-field>
+
+                    <!-- File Upload Field -->
+                    <div
+                      *ngIf="field.type === 'file'"
+                      class="file-upload-container"
+                    >
+                      <div
+                        class="upload-area"
+                        [ngStyle]="field.style?.inlineStyles"
+                        [ngClass]="field.style?.class"
+                      >
+                        <div
+                          class="upload-icon"
+                          *ngIf="
+                            field.showFileIcon && field.buttonConfig?.showIcon
+                          "
+                        >
+                          <mat-icon>cloud_upload</mat-icon>
+                        </div>
+                        <p class="upload-text">
+                          Drag your {{ field.label }} to start uploading
+                        </p>
+
+                        <input
+                          type="file"
+                          (change)="onFileSelect($event, field)"
+                          [accept]="field.fileConfig?.allowedTypes?.join(',')"
+                          multiple
+                          hidden
+                          #fileInput
+                        />
+
+                        <app-custom-button
+                          [text]="field.buttonConfig?.text || 'Browse'"
+                          (buttonClick)="fileInput.click()"
+                        >
+                        </app-custom-button>
+                      </div>
+
+                      <!-- Show Uploaded Images -->
+                      <div class="uploaded-images">
+                        <div
+                          class="image-preview"
+                          *ngFor="let img of selectedImages; let i = index"
+                        >
+                          <img
+                            width="50px"
+                            height="50px"
+                            [src]="img"
+                            alt="Uploaded Image"
+                          />
+                          <mat-icon class="mat-icon" (click)="removeImage(i)"
+                            >close</mat-icon
+                          >
+                        </div>
+                      </div>
+
+                      <mat-error
+                        *ngIf="
+                          form.get(field.label)?.invalid &&
+                          (form.get(field.label)?.dirty ||
+                            form.get(field.label)?.touched)
+                        "
+                      >
+                        {{ getErrorMessage(field) }}
+                      </mat-error>
+                    </div>
+
+                    <!-- Textarea Field -->
+                    <div
+                      *ngIf="field.type === 'textarea'"
+                      class="textarea-container"
+                    >
+                      <quill-editor
+                        [formControlName]="field.label"
+                        [modules]="field.textareaConfig?.modules"
+                        [ngStyle]="field.style?.inlineStyles"
+                        [ngClass]="field.style?.class"
+                        [placeholder]="field.placeholder ?? 'Write your bio'"
+                      >
+                      </quill-editor>
+                      <mat-error
+                        *ngIf="
+                          form.get(field.label)?.invalid &&
+                          (form.get(field.label)?.dirty ||
+                            form.get(field.label)?.touched)
+                        "
+                      >
+                        {{ getErrorMessage(field) }}
+                      </mat-error>
+                    </div>
+                  </ng-container>
+                </div>
+              </ng-container>
+            </div>
+            <!-- <button mat-flat-button color="primary" class="submit-button" type="submit">Submit</button> -->
+            <div class="submit-button-container">
+              <app-custom-button
+                *ngIf="formConfig.submitButtonConfig"
+                [text]="formConfig.submitButtonConfig.text"
+                [icon]="formConfig.submitButtonConfig.icon"
+                [showIcon]="formConfig.submitButtonConfig.showIcon"
+                [iconPosition]="formConfig.submitButtonConfig.iconPosition"
+                [foreground]="formConfig.submitButtonConfig.foreground"
+                [background]="formConfig.submitButtonConfig.background"
+                [shadow]="formConfig.submitButtonConfig.shadow"
+                [shape]="formConfig.submitButtonConfig.shape"
+                [corners]="formConfig.submitButtonConfig.corners"
+                [transparent]="formConfig.submitButtonConfig.transparent"
+                (buttonClick)="onSubmit()"
+              >
+              </app-custom-button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Image Section -->
+      <div class="image-section" [style.flex-basis]="100 - formWidth + '%'">
+        <img [src]="rightSideImage" alt="Quote Form Image" />
+      </div>
     </div>
   </div>
 </div>

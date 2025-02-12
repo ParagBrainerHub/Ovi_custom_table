@@ -339,12 +339,17 @@ export class AppComponent {
 
   config: any;
 
-  maxWidth = '500px';
+  // maxWidth = '500px';
 
   cardConfigs: CardConfig[] = [
     {
-      //layout: 'grid',
+      // layout: 'list',
       // width: 100,
+      cardActions: [
+        { icon: 'schedule', text: '1 day ago' },
+        { icon: 'comment', text: '3 COMMENTS' },
+        { icon: 'favorite', text: '1 LIKE' },
+      ],
       header: {
         title: 'It is a long established fact that a reader',
         align: 'center',
@@ -362,40 +367,41 @@ export class AppComponent {
         hoverEffect: false,
       },
       content: {
-        description: 'This is the main content description for Chihuahua 1.',
-        customHtml: '<p>Custom HTML content here</p>',
-        details: {
-          align: 'multi-column',
-          columns: 2,
-          rows: 2,
-          content: [
-            [
-              { text: 'Detail 1', icon: '🔍' },
-              { text: 'Detail 2', icon: '📅' },
-            ],
-            // [
-            //   { text: 'Detail 3', icon: '💼' },
-            //   { text: 'Detail 4', icon: '🌍' },
-            // ],
-          ],
-        },
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        // customHtml: '<p>Custom HTML content here</p>',
+        // details: {
+        //   align: 'multi-column',
+        //   columns: 2,
+        //   rows: 2,
+        //   content: [
+        //     [
+        //       { text: 'Detail 1', icon: '🔍' },
+        //       { text: 'Detail 2', icon: '📅' },
+        //     ],
+        //     // [
+        //     //   { text: 'Detail 3', icon: '💼' },
+        //     //   { text: 'Detail 4', icon: '🌍' },
+        //     // ],
+        //   ],
+        // },
       },
       body: {
         type: 'text',
-        align: 'center',
-        content: `The Chihuahua is a Mexican breed of toy dog.`,
-        buttons: [{ text: 'More Info', align: 'center' }],
+        // align: 'center',
+        content: `It is a long established fact that a reader`,
+        // buttons: [{ text: 'More Info', align: 'center' }],
       },
       footer: {
         type: 'buttons',
-        align: 'left',
+        align: 'right',
         text: 'This is a dynamically aligned footer text',
         buttons: [
           {
             text: 'Edit',
             align: 'left',
             group: 'left',
-            icon: '✏️',
+            icon: 'edit',
             showIcon: true,
             iconPosition: 'left',
             shape: 'square',
@@ -405,14 +411,45 @@ export class AppComponent {
             shadow: true,
             transparent: false,
           },
-          { text: 'Cancel', align: 'left', group: 'left' },
-          { text: 'Submit', align: 'right', group: 'right' },
+          {
+            text: 'Done',
+            align: 'left',
+            group: 'left',
+            icon: 'check_circle',
+            showIcon: true,
+            iconPosition: 'left',
+            shape: 'square',
+            corners: 'rounded',
+            foreground: '#ffffff',
+            background: '#1976d2',
+            shadow: true,
+            transparent: false,
+          },
+          {
+            text: 'Delete',
+            align: 'left',
+            group: 'left',
+            icon: 'delete',
+            showIcon: true,
+            iconPosition: 'left',
+            shape: 'square',
+            corners: 'rounded',
+            foreground: '#ffffff',
+            background: '#1976d2',
+            shadow: true,
+            transparent: false,
+          },
         ],
       },
     },
     {
-      //layout: 'list', //Use the list layout
+      // layout: 'list', //Use the list layout
       // width: 100,
+      cardActions: [
+        { icon: 'schedule', text: '1 day ago' },
+        { icon: 'comment', text: '3 COMMENTS' },
+        { icon: 'favorite', text: '1 LIKE' },
+      ],
       header: {
         title: 'Chihuahua 2',
         align: 'center',
@@ -430,28 +467,29 @@ export class AppComponent {
         hoverEffect: false,
       },
       content: {
-        description: 'This is the main content description for Chihuahua 2.',
-        customHtml: '<p>Custom HTML content here</p>',
-        details: {
-          align: 'multi-column',
-          columns: 2,
-          rows: 2,
-          content: [
-            [
-              { text: 'Detail 1', icon: '🔍' },
-              { text: 'Detail 2', icon: '📅' },
-            ],
-            [
-              { text: 'Detail 3', icon: '💼' },
-              { text: 'Detail 4', icon: '🌍' },
-            ],
-          ],
-        },
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        // customHtml: '<p>Custom HTML content here</p>',
+        // details: {
+        //   align: 'multi-column',
+        //   columns: 2,
+        //   rows: 2,
+        //   content: [
+        //     [
+        //       { text: 'Detail 1', icon: '🔍' },
+        //       { text: 'Detail 2', icon: '📅' },
+        //     ],
+        //     // [
+        //     //   { text: 'Detail 3', icon: '💼' },
+        //     //   { text: 'Detail 4', icon: '🌍' },
+        //     // ],
+        //   ],
+        // },
       },
       body: {
         type: 'text',
-        align: 'center',
-        content: `The Chihuahua is a Mexican breed of toy dog.`,
+        align: 'left',
+        content: `It is a long established fact that a reader`,
         buttons: [{ text: 'More Info', align: 'center' }],
       },
       footer: {
@@ -463,7 +501,7 @@ export class AppComponent {
             text: 'Edit',
             align: 'left',
             group: 'left',
-            icon: '✏️',
+            icon: 'edit',
             showIcon: true,
             iconPosition: 'left',
             shape: 'square',
@@ -473,14 +511,45 @@ export class AppComponent {
             shadow: true,
             transparent: false,
           },
-          { text: 'Cancel', align: 'left', group: 'left' },
-          { text: 'Submit', align: 'right', group: 'right' },
+          {
+            text: 'Done',
+            align: 'left',
+            group: 'left',
+            icon: 'check_circle',
+            showIcon: true,
+            iconPosition: 'left',
+            shape: 'square',
+            corners: 'rounded',
+            foreground: '#ffffff',
+            background: '#1976d2',
+            shadow: true,
+            transparent: false,
+          },
+          {
+            text: 'Delete',
+            align: 'left',
+            group: 'left',
+            icon: 'delete',
+            showIcon: true,
+            iconPosition: 'left',
+            shape: 'square',
+            corners: 'rounded',
+            foreground: '#ffffff',
+            background: '#1976d2',
+            shadow: true,
+            transparent: false,
+          },
         ],
       },
     },
     {
-      //layout: 'list', //Use the list layout
+      // layout: 'list', //Use the list layout
       // width: 100,
+      cardActions: [
+        { icon: 'schedule', text: '1 day ago' },
+        { icon: 'comment', text: '3 COMMENTS' },
+        { icon: 'favorite', text: '1 LIKE' },
+      ],
       header: {
         title: 'Chihuahua 2',
         align: 'center',
@@ -498,28 +567,29 @@ export class AppComponent {
         hoverEffect: false,
       },
       content: {
-        description: 'This is the main content description for Chihuahua 2.',
-        customHtml: '<p>Custom HTML content here</p>',
-        details: {
-          align: 'multi-column',
-          columns: 2,
-          rows: 2,
-          content: [
-            [
-              { text: 'Detail 1', icon: '🔍' },
-              { text: 'Detail 2', icon: '📅' },
-            ],
-            [
-              { text: 'Detail 3', icon: '💼' },
-              { text: 'Detail 4', icon: '🌍' },
-            ],
-          ],
-        },
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        // customHtml: '<p>Custom HTML content here</p>',
+        // details: {
+        //   align: 'multi-column',
+        //   columns: 2,
+        //   rows: 2,
+        //   content: [
+        //     [
+        //       { text: 'Detail 1', icon: '🔍' },
+        //       { text: 'Detail 2', icon: '📅' },
+        //     ],
+        //     // [
+        //     //   { text: 'Detail 3', icon: '💼' },
+        //     //   { text: 'Detail 4', icon: '🌍' },
+        //     // ],
+        //   ],
+        // },
       },
       body: {
         type: 'text',
-        align: 'center',
-        content: `The Chihuahua is a Mexican breed of toy dog.`,
+        align: 'left',
+        content: `It is a long established fact that a reader.`,
         buttons: [{ text: 'More Info', align: 'center' }],
       },
       footer: {
@@ -531,7 +601,7 @@ export class AppComponent {
             text: 'Edit',
             align: 'left',
             group: 'left',
-            icon: '✏️',
+            icon: 'edit',
             showIcon: true,
             iconPosition: 'left',
             shape: 'square',
@@ -541,14 +611,45 @@ export class AppComponent {
             shadow: true,
             transparent: false,
           },
-          { text: 'Cancel', align: 'left', group: 'left' },
-          { text: 'Submit', align: 'right', group: 'right' },
+          {
+            text: 'Done',
+            align: 'left',
+            group: 'left',
+            icon: 'check_circle',
+            showIcon: true,
+            iconPosition: 'left',
+            shape: 'square',
+            corners: 'rounded',
+            foreground: '#ffffff',
+            background: '#1976d2',
+            shadow: true,
+            transparent: false,
+          },
+          {
+            text: 'Delete',
+            align: 'left',
+            group: 'left',
+            icon: 'delete',
+            showIcon: true,
+            iconPosition: 'left',
+            shape: 'square',
+            corners: 'rounded',
+            foreground: '#ffffff',
+            background: '#1976d2',
+            shadow: true,
+            transparent: false,
+          },
         ],
       },
     },
     {
-      //layout: 'list', //Use the list layout
+      // layout: 'list', //Use the list layout
       // width: 100,
+      cardActions: [
+        { icon: 'schedule', text: '1 day ago' },
+        { icon: 'comment', text: '3 COMMENTS' },
+        { icon: 'favorite', text: '1 LIKE' },
+      ],
       header: {
         title: 'Chihuahua 2',
         align: 'center',
@@ -566,27 +667,28 @@ export class AppComponent {
         hoverEffect: false,
       },
       content: {
-        description: 'This is the main content description for Chihuahua 2.',
-        customHtml: '<p>Custom HTML content here</p>',
-        details: {
-          align: 'multi-column',
-          columns: 2,
-          rows: 2,
-          content: [
-            [
-              { text: 'Detail 1', icon: '🔍' },
-              { text: 'Detail 2', icon: '📅' },
-            ],
-            [
-              { text: 'Detail 3', icon: '💼' },
-              { text: 'Detail 4', icon: '🌍' },
-            ],
-          ],
-        },
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        //   customHtml: '<p>Custom HTML content here</p>',
+        //   details: {
+        //     align: 'multi-column',
+        //     columns: 2,
+        //     rows: 2,
+        //     content: [
+        //       [
+        //         { text: 'Detail 1', icon: '🔍' },
+        //         { text: 'Detail 2', icon: '📅' },
+        //       ],
+        //       [
+        //         { text: 'Detail 3', icon: '💼' },
+        //         { text: 'Detail 4', icon: '🌍' },
+        //       ],
+        //     ],
+        //   },
       },
       body: {
         type: 'text',
-        align: 'center',
+        align: 'left',
         content: `The Chihuahua is a Mexican breed of toy dog.`,
         buttons: [{ text: 'More Info', align: 'center' }],
       },
@@ -599,7 +701,7 @@ export class AppComponent {
             text: 'Edit',
             align: 'left',
             group: 'left',
-            icon: '✏️',
+            icon: 'edit',
             showIcon: true,
             iconPosition: 'left',
             shape: 'square',
@@ -609,14 +711,45 @@ export class AppComponent {
             shadow: true,
             transparent: false,
           },
-          { text: 'Cancel', align: 'left', group: 'left' },
-          { text: 'Submit', align: 'right', group: 'right' },
+          {
+            text: 'Done',
+            align: 'left',
+            group: 'left',
+            icon: 'check_circle',
+            showIcon: true,
+            iconPosition: 'left',
+            shape: 'square',
+            corners: 'rounded',
+            foreground: '#ffffff',
+            background: '#1976d2',
+            shadow: true,
+            transparent: false,
+          },
+          {
+            text: 'Delete',
+            align: 'left',
+            group: 'left',
+            icon: 'delete',
+            showIcon: true,
+            iconPosition: 'left',
+            shape: 'square',
+            corners: 'rounded',
+            foreground: '#ffffff',
+            background: '#1976d2',
+            shadow: true,
+            transparent: false,
+          },
         ],
       },
     },
     {
-      //layout: 'list', //Use the list layout
+      // layout: 'list', //Use the list layout
       // width: 100,
+      cardActions: [
+        { icon: 'schedule', text: '1 day ago' },
+        { icon: 'comment', text: '3 COMMENTS' },
+        { icon: 'favorite', text: '1 LIKE' },
+      ],
       header: {
         title: 'Chihuahua 2',
         align: 'center',
@@ -634,27 +767,28 @@ export class AppComponent {
         hoverEffect: false,
       },
       content: {
-        description: 'This is the main content description for Chihuahua 2.',
-        customHtml: '<p>Custom HTML content here</p>',
-        details: {
-          align: 'multi-column',
-          columns: 2,
-          rows: 2,
-          content: [
-            [
-              { text: 'Detail 1', icon: '🔍' },
-              { text: 'Detail 2', icon: '📅' },
-            ],
-            [
-              { text: 'Detail 3', icon: '💼' },
-              { text: 'Detail 4', icon: '🌍' },
-            ],
-          ],
-        },
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        // customHtml: '<p>Custom HTML content here</p>',
+        // details: {
+        //   align: 'multi-column',
+        //   columns: 2,
+        //   rows: 2,
+        //   content: [
+        //     [
+        //       { text: 'Detail 1', icon: '🔍' },
+        //       { text: 'Detail 2', icon: '📅' },
+        //     ],
+        //     [
+        //       { text: 'Detail 3', icon: '💼' },
+        //       { text: 'Detail 4', icon: '🌍' },
+        //     ],
+        //   ],
+        // },
       },
       body: {
         type: 'text',
-        align: 'center',
+        align: 'left',
         content: `The Chihuahua is a Mexican breed of toy dog.`,
         buttons: [{ text: 'More Info', align: 'center' }],
       },
@@ -667,7 +801,7 @@ export class AppComponent {
             text: 'Edit',
             align: 'left',
             group: 'left',
-            icon: '✏️',
+            icon: 'edit',
             showIcon: true,
             iconPosition: 'left',
             shape: 'square',
@@ -677,8 +811,34 @@ export class AppComponent {
             shadow: true,
             transparent: false,
           },
-          { text: 'Cancel', align: 'left', group: 'left' },
-          { text: 'Submit', align: 'right', group: 'right' },
+          {
+            text: 'Done',
+            align: 'left',
+            group: 'left',
+            icon: 'check_circle',
+            showIcon: true,
+            iconPosition: 'left',
+            shape: 'square',
+            corners: 'rounded',
+            foreground: '#ffffff',
+            background: '#1976d2',
+            shadow: true,
+            transparent: false,
+          },
+          {
+            text: 'Delete',
+            align: 'left',
+            group: 'left',
+            icon: 'delete',
+            showIcon: true,
+            iconPosition: 'left',
+            shape: 'square',
+            corners: 'rounded',
+            foreground: '#ffffff',
+            background: '#1976d2',
+            shadow: true,
+            transparent: false,
+          },
         ],
       },
     },
@@ -1032,7 +1192,7 @@ export class AppComponent {
     ],
   };
 
-  carouselConfig = {
+  carouselConfig: any = {
     images: [
       {
         src: '/corousel_image_5.jpg',

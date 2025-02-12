@@ -1,13 +1,9 @@
 /* Gird Layout */
-.example-card.grid-layout .content-container {
+.grid-layout {
   display: flex;
   flex-direction: column;
-}
-
-/* Header CSS */
-.example-card {
-  max-width: 75%;
-  margin: 20px;
+  padding: 12px;
+  row-gap: 10px;
 }
 
 .header-container {
@@ -52,7 +48,6 @@
   text-align: right;
 }
 
-
 /* Image CSS */
 .card-container {
   position: relative;
@@ -63,13 +58,14 @@
 .card-image-container {
   position: relative;
   overflow: hidden;
-  padding: 10px !important;
 }
 
 .card-image {
   width: 100%;
-  height: auto;
+  height: 240px;
   display: block;
+  border-radius: 6px;
+  object-fit: cover;
 }
 
 .hover-effect .hover-content {
@@ -144,19 +140,47 @@
   left: 0;
   width: 100%;
   text-align: center;
-  padding: 10px;
 }
 
 .image-title {
   margin: 0;
 }
+/* card action */
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #666;
+  letter-spacing: 0px;
+}
 
+.action-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.action-item > .mat-icon {
+  color: purple;
+}
 
 /* Card Content CSS*/
 .card-content {
-  padding: 0px 10px 10px 10px;
+  letter-spacing: 0px;
+  margin-bottom: 0px;
+}
+.card-content > p {
+  margin-bottom: 0px;
 }
 
+/* card body */
+.card-body {
+  padding: 0px;
+  height: fit-content;
+}
 .card-details {
   display: flex;
   flex-wrap: wrap;
@@ -195,8 +219,18 @@
   margin-right: 8px;
 }
 
-
 /* Body CSS */
+
+.body-content {
+  font-weight: 700;
+  font-size: 24px;
+  margin-bottom: 0px;
+  color: purple;
+  letter-spacing: 0px;
+}
+.body-content > p {
+  margin: 0px;
+}
 .body-content.left {
   text-align: left;
 }
@@ -209,55 +243,43 @@
   text-align: right;
 }
 
-
-/* Footer CSS */
-/* .example-card-footer {
-  display: flex;
-  justify-content: space-between;
-  padding: 16px;
-}
-*/
-
-.example-card-footer {
-  display: flex;
-  justify-content: space-between;
-  padding: 16px;
-}
-
 .footer-container {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  gap: 20px; /* Add 20px gap between buttons */
+  gap: 10px;
 }
 
 .footer-group {
-  flex: 1;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; /* Add 20px gap between buttons */
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+  padding: 24px 0px 8px;
 }
 
-.footer-group.left {
-  justify-content: flex-start;
-}
+/* Ensure maximum 3 buttons per row */
+/* .footer-group.left > app-custom-button,
+.footer-group.right > app-custom-button {
+  flex: 1 1 calc(33.33% - 10px);
+  max-width: calc(33.33% - 10px);
+  text-align: center;
+} */
 
-.footer-group.right {
-  justify-content: flex-end;
-}
+/* Responsive Design */
+/* @media (max-width: 768px) {
+  .footer-group.left > app-custom-button,
+  .footer-group.right > app-custom-button {
+    flex: 1 1 calc(50% - 10px); 
+    max-width: calc(50% - 10px);
+  }
+} */
 
-/* Custom button styles */
-app-custom-button {
-  border-radius: 6px; /* Rounded corners with 6px radius */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 16px; /* Add padding for better spacing */
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-app-custom-button:hover {
-  opacity: 0.9; /* Add hover effect */
-}
+/* @media (max-width: 480px) {
+  .footer-group.left > app-custom-button,
+  .footer-group.right > app-custom-button {
+    flex: 1 1 100%; 
+    max-width: 100%;
+  }
+} */

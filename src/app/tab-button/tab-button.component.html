@@ -1,0 +1,17 @@
+<div class="center">
+  <div class="tab-button-container">
+    <app-custom-button
+      width="150px"
+      [transparent]="true"
+      [border]="false"
+      *ngFor="let option of options"
+      [text]="option.label"
+      [icon]="option.icon"
+      class="tab-button"
+      [ngClass]="{ selected: selected.includes(option.value) }"
+      [active]="selected.includes(option.value)"
+      (click)="toggleSelection(option.value)"
+    >
+    </app-custom-button>
+  </div>
+</div>

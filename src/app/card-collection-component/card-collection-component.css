@@ -1,9 +1,15 @@
-.view-toggle {
+.toggle-wrapper {
   display: flex;
-  border: 2px solid green;
+  justify-content: center;
+  margin-bottom: 44px;
+}
+.toggle-wrapper ::ng-deep.mat-pseudo-checkbox {
+  display: none;
+}
+.view-toggle {
+  border: 2px solid purple;
   border-radius: 30px;
   overflow: hidden;
-  background-color: white;
   padding: 4px;
   gap: 4px;
 }
@@ -14,14 +20,9 @@
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  color: green;
+  color: purple;
   border-radius: 30px;
   padding: 10px 20px;
-  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
-
-  &:hover {
-    background-color: rgba(0, 128, 0, 0.2);
-  }
 }
 
 .toggle-icon {
@@ -29,6 +30,22 @@
 }
 
 .toggle-button.mat-button-toggle-checked {
-  background-color: green;
+  background-color: purple;
   color: white;
+}
+
+.grid-view {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.list-view {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+:host ::ng-deep .mdc-button-toggle-checked::after {
+  display: none !important;
 }

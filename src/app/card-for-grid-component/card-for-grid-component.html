@@ -1,36 +1,19 @@
-<mat-card class="example-card grid-layout" [ngStyle]="{'width': cardWidth}" appearance="outlined">
-
+<mat-card class="grid-layout" appearance="outlined">
   <!-- Full card skeleton loader -->
-  <ngx-skeleton-loader *ngIf="loading" count="1" [theme]="{ 'border-radius': '10px' }" [style.height.px]="400"
-    [style.width.%]="100">
+  <ngx-skeleton-loader
+    *ngIf="loading"
+    count="1"
+    [theme]="{ 'border-radius': '10px' }"
+    [style.height.px]="400"
+    [style.width.%]="100"
+  >
   </ngx-skeleton-loader>
 
-  <!-- Header -->
-  <mat-card-header *ngIf="!loading && cardConfig?.header" style="padding: 10px 10px 0;">
-    <div class="header-container">
-      <div class="header-title mb-0" [ngClass]="cardConfig?.header?.align">
-        <ngx-skeleton-loader *ngIf="loading" count="1"></ngx-skeleton-loader>
-        <mat-card-title *ngIf="!loading">{{ cardConfig?.header?.title }}</mat-card-title>
-      </div>
-
-      <div class="header-buttons" style="display: flex; justify-content: space-between; margin-bottom: 0 !important;"
-        [ngClass]="cardConfig?.header?.buttonsAlign">
-        <ng-container *ngIf="!loading">
-          <ng-container *ngFor="let button of cardConfig?.header?.buttons">
-            <app-custom-button [text]="button.text" [icon]="button.icon || ''"
-              [iconPosition]="button.iconPosition || 'left'" [shape]="button.shape || 'rectangle'"
-              [corners]="button.corners || 'rounded'" [foreground]="button.foreground || ''"
-              [background]="button.background || ''" [shadow]="button.shadow !== undefined ? button.shadow : true"
-              [transparent]="button.transparent || false" (buttonClick)="button.action?.()">
-            </app-custom-button>
-          </ng-container>
-        </ng-container>
-      </div>
-    </div>
-  </mat-card-header>
-
   <!-- Image -->
-  <div *ngIf="!loading && cardConfig?.image" class="card-image-container" [ngClass]="{
+  <div
+    *ngIf="!loading && cardConfig?.image"
+    class="card-image-container"
+    [ngClass]="{
         'hover-effect': cardConfig?.image?.hoverEffect,
         'image-top-half': cardConfig?.image?.position === 'top-half',
         'image-middle': cardConfig?.image?.position === 'middle',
@@ -38,17 +21,32 @@
         'image-square-under-title': cardConfig?.image?.position === 'square-under-title',
         'image-rectangle-under-title': cardConfig?.image?.position === 'rectangle-under-title',
         'image-dark-background-title': cardConfig?.image?.position === 'dark-background-title'
-      }">
+      }"
+  >
+    <ngx-skeleton-loader
+      *ngIf="loading"
+      count="1"
+      class="card-image"
+    ></ngx-skeleton-loader>
 
-    <ngx-skeleton-loader *ngIf="loading" count="1" class="card-image"></ngx-skeleton-loader>
+    <img
+      *ngIf="!loading"
+      [src]="cardConfig?.image?.src"
+      alt="Card Image"
+      class="card-image"
+    />
 
-    <img *ngIf="!loading" [src]="cardConfig?.image?.src" alt="Card Image" class="card-image" />
-
-    <div *ngIf="cardConfig?.image?.position === 'dark-background-title' && !loading" class="dark-background-title">
+    <div
+      *ngIf="cardConfig?.image?.position === 'dark-background-title' && !loading"
+      class="dark-background-title"
+    >
       <h2 class="image-title">{{ cardConfig?.image?.title }}</h2>
     </div>
 
-    <div *ngIf="cardConfig?.image?.hoverEffect && !loading" class="hover-content">
+    <div
+      *ngIf="cardConfig?.image?.hoverEffect && !loading"
+      class="hover-content"
+    >
       <div>
         <h2>{{ cardConfig?.image?.title }}</h2>
       </div>
@@ -58,37 +56,37 @@
     </div>
   </div>
 
-  <!-- Card Content -->
-  <div class="card-content" *ngIf="!loading">
-    <p *ngIf="cardConfig?.content?.description">{{ cardConfig?.content?.description }}</p>
-
-    <div *ngIf="cardConfig?.content?.customHtml" [innerHTML]="cardConfig?.content?.customHtml"></div>
-
-    <div *ngIf="cardConfig?.content?.details" class="card-details" [ngClass]="cardConfig?.content?.details?.align">
-      <div *ngFor="let row of cardConfig?.content?.details?.content" class="details-row">
-        <div *ngFor="let cell of row" class="details-cell">
-          <span *ngIf="cell.icon" class="cell-icon">{{ cell.icon }}</span>
-          <span>{{ cell.text }}</span>
-        </div>
-      </div>
-    </div>
+  <!-- card Action -->
+  <div class="card-actions" *ngIf="!loading">
+    <span class="action-item" *ngFor="let action of cardConfig?.cardActions">
+      <mat-icon>{{ action.icon }}</mat-icon> {{ action.text }}
+    </span>
   </div>
 
   <!-- Body -->
-  <mat-card-content *ngIf="!loading">
-    <div *ngIf="cardConfig?.body?.type === 'text'" class="body-content" [ngClass]="cardConfig?.body?.align">
+  <mat-card-content class="card-body" *ngIf="!loading">
+    <!-- <strong>Body</strong> -->
+    <div
+      *ngIf="cardConfig?.body?.type === 'text'"
+      class="body-content"
+      [ngClass]="cardConfig?.body?.align"
+    >
       <p>{{ cardConfig?.body?.content }}</p>
     </div>
 
-    <div *ngIf="cardConfig?.body?.type === 'table'" class="body-content" [ngClass]="cardConfig?.body?.align">
-      <app-custom-material-table [data]="users" [config]="tableConfig"></app-custom-material-table>
-    </div>
-
-    <div *ngIf="cardConfig?.body?.type === 'text+buttons'" class="body-content" [ngClass]="cardConfig?.body?.align">
+    <div
+      *ngIf="cardConfig?.body?.type === 'text+buttons'"
+      class="body-content"
+      [ngClass]="cardConfig?.body?.align"
+    >
       <p>{{ cardConfig?.body?.content }}</p>
     </div>
 
-    <div *ngIf="cardConfig?.body?.type === 'text+buttons'" class="body-buttons" [ngClass]="cardConfig?.body?.align">
+    <div
+      *ngIf="cardConfig?.body?.type === 'text+buttons'"
+      class="body-buttons"
+      [ngClass]="cardConfig?.body?.align"
+    >
       <ng-container *ngFor="let button of cardConfig?.body?.buttons">
         <button mat-button (click)="button.action?.()">
           {{ button.text }}
@@ -97,35 +95,89 @@
     </div>
   </mat-card-content>
 
-  <!-- Footer -->
-  <mat-card-footer *ngIf="!loading && cardConfig?.footer" class="example-card-footer">
-    <div class="footer-container" [ngClass]="{ 'multi-column': cardConfig?.footer?.align === 'multi-column' }">
-      <ng-container *ngIf="cardConfig?.footer?.type === 'buttons' && cardConfig?.footer?.buttons?.length">
-        <div class="footer-group left" *ngIf="hasButtonGroup('left')">
-          <ng-container *ngFor="let button of getButtonsByGroup('left')">
-            <app-custom-button [text]="button.text" [icon]="button.icon || ''"
-              [iconPosition]="button.iconPosition || 'left'" [shape]="button.shape || 'rectangle'"
-              [corners]="button.corners || 'rounded'" [foreground]="button.foreground || ''"
-              [background]="button.background || ''" [shadow]="button.shadow !== undefined ? button.shadow : true"
-              [transparent]="button.transparent || false" (buttonClick)="button.action?.()"></app-custom-button>
-          </ng-container>
-        </div>
-        <div class="footer-group right" *ngIf="hasButtonGroup('right')">
-          <ng-container *ngFor="let button of getButtonsByGroup('right')">
-            <app-custom-button [text]="button.text" [icon]="button.icon || ''"
-              [iconPosition]="button.iconPosition || 'left'" [shape]="button.shape || 'rectangle'"
-              [corners]="button.corners || 'rounded'" [foreground]="button.foreground || ''"
-              [background]="button.background || ''" [shadow]="button.shadow !== undefined ? button.shadow : true"
-              [transparent]="button.transparent || false" (buttonClick)="button.action?.()"></app-custom-button>
-          </ng-container>
-        </div>
-      </ng-container>
+  <!-- Card Content -->
 
-      <ng-container *ngIf="cardConfig?.footer?.type === 'text'">
-        <div [ngClass]="getTextAlignmentClass()">
-          {{ cardConfig?.footer?.text }}
+  <div class="card-content" *ngIf="!loading">
+    <!-- <strong>content</strong> -->
+    <p *ngIf="cardConfig?.content?.description">
+      {{ cardConfig?.content?.description }}
+    </p>
+
+    <div
+      *ngIf="cardConfig?.content?.customHtml"
+      [innerHTML]="cardConfig?.content?.customHtml"
+    ></div>
+
+    <div
+      *ngIf="cardConfig?.content?.details"
+      class="card-details"
+      [ngClass]="cardConfig?.content?.details?.align"
+    >
+      <div
+        *ngFor="let row of cardConfig?.content?.details?.content"
+        class="details-row"
+      >
+        <div *ngFor="let cell of row" class="details-cell">
+          <span *ngIf="cell.icon" class="cell-icon">{{ cell.icon }}</span>
+          <span>{{ cell.text }}</span>
         </div>
-      </ng-container>
+      </div>
     </div>
+  </div>
+
+  <!-- Footer -->
+  <mat-card-footer
+    *ngIf="!loading && cardConfig?.footer"
+    class="footer-container"
+    [ngClass]="{ 'multi-column': cardConfig?.footer?.align === 'multi-column' }"
+  >
+    <!-- <strong>Footer</strong> -->
+
+    <ng-container
+      *ngIf="cardConfig?.footer?.type === 'buttons' && cardConfig?.footer?.buttons?.length"
+    >
+      <div class="footer-group left" *ngIf="hasButtonGroup('left')">
+        <ng-container *ngFor="let button of getButtonsByGroup('left')">
+          <app-custom-button
+            class="footer-button"
+            width="112px"
+            [text]="button.text"
+            [icon]="button.icon || ''"
+            [iconPosition]="button.iconPosition || 'left'"
+            [shape]="button.shape || 'rectangle'"
+            [corners]="button.corners || 'rounded'"
+            [foreground]="button.foreground || ''"
+            [background]="button.background || ''"
+            [shadow]="button.shadow !== undefined ? button.shadow : true"
+            [transparent]="button.transparent || false"
+            (buttonClick)="button.action?.()"
+          ></app-custom-button>
+        </ng-container>
+      </div>
+      <div class="footer-group right" *ngIf="hasButtonGroup('right')">
+        <ng-container *ngFor="let button of getButtonsByGroup('right')">
+          <app-custom-button
+            class="footer-button"
+            width="112px"
+            [text]="button.text"
+            [icon]="button.icon || ''"
+            [iconPosition]="button.iconPosition || 'left'"
+            [shape]="button.shape || 'rectangle'"
+            [corners]="button.corners || 'rounded'"
+            [foreground]="button.foreground || ''"
+            [background]="button.background || ''"
+            [shadow]="button.shadow !== undefined ? button.shadow : true"
+            [transparent]="button.transparent || false"
+            (buttonClick)="button.action?.()"
+          ></app-custom-button>
+        </ng-container>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="cardConfig?.footer?.type === 'text'">
+      <div [ngClass]="getTextAlignmentClass()">
+        {{ cardConfig?.footer?.text }}
+      </div>
+    </ng-container>
   </mat-card-footer>
 </mat-card>

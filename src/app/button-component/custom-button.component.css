@@ -18,7 +18,7 @@
   transform: translateY(0);
   box-shadow: none;
   font-weight: bold;
-  color: var(--secondary-text-color) !important;
+  color: var(--secondary-text-color);
 }
 
 .custom-button:disabled {
@@ -254,6 +254,7 @@
   width: 100%;
   box-sizing: border-box;
   gap: 8px;
+  justify-content: center;
 }
 .icon-left {
   display: flex;

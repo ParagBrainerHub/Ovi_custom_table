@@ -4,7 +4,6 @@
   *ngIf="!isPageLoading"
   (click)="handleClick($event)"
   class="custom-button mat-button"
-  [ngStyle]="getButtonStyle()"
   [ngClass]="{
     active: active,
     elevated: shadow,
@@ -12,10 +11,10 @@
     transparent: transparent,
     hover: hover
   }"
+  [ngStyle]="getMergedStyles()"
   (mouseenter)="hover = true"
   (mouseleave)="hover = false"
-  [ngStyle]="hover ? getHoverStyle() : getButtonStyle()"
-  [ngStyle]="{ 'border-radius': getBorderRadius() }"
+  [class]="class ? class : ''"
 >
   <div class="menu-content">
     <!-- Left-aligned icon or spinner -->

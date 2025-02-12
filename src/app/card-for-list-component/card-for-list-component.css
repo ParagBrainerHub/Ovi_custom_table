@@ -1,23 +1,28 @@
-.example-card.list-layout {
+.list-layout {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  padding: 24px;
+  column-gap: 20px;
+}
+.card-image-container {
+  position: relative;
+  overflow: hidden;
 }
 
-.list-image-container {
-  width: 150px;
-  margin-right: 16px;
+.card-image {
+  width: 349px;
+  height: 200px;
+  display: block;
+  border-radius: 6px;
+  object-fit: cover;
 }
 
-.content-list {
+.list-details-section {
+  align-items: start;
   display: flex;
   flex-direction: column;
-}
-
-/* Header CSS */
-.example-card {
-  max-width: 75%;
-  margin: 20px;
+  row-gap: 16px;
 }
 
 .header-container {
@@ -62,7 +67,6 @@
   text-align: right;
 }
 
-
 /* Image CSS */
 .card-container {
   position: relative;
@@ -77,8 +81,10 @@
 
 .card-image {
   width: 100%;
-  height: auto;
+  height: 240px;
   display: block;
+  border-radius: 6px;
+  object-fit: cover;
 }
 
 .hover-effect .hover-content {
@@ -153,17 +159,41 @@
   left: 0;
   width: 100%;
   text-align: center;
-  padding: 10px;
 }
 
 .image-title {
   margin: 0;
 }
 
+/* card action */
+.card-actions {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  font-size: 14px;
+  color: #666;
+  letter-spacing: 0px;
+  column-gap: 27px;
+}
+
+.action-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  font-size: 14px;
+}
+.action-item > .mat-icon {
+  color: purple;
+}
 
 /* Card Content CSS*/
 .card-content {
-  padding: 16px;
+  letter-spacing: 0px;
+  margin-bottom: 0px;
+}
+.card-content > p {
+  margin-bottom: 0px;
 }
 
 .card-details {
@@ -204,8 +234,23 @@
   margin-right: 8px;
 }
 
-
 /* Body CSS */
+.card-body {
+  padding: 0px;
+  height: fit-content;
+}
+
+.body-content {
+  font-weight: 700;
+  font-size: 24px;
+  margin-bottom: 0px;
+  color: purple;
+  letter-spacing: 0px;
+}
+.body-content > p {
+  margin: 0px;
+}
+
 .body-content.left {
   text-align: left;
 }
@@ -218,7 +263,6 @@
   text-align: right;
 }
 
-
 /* Footer CSS */
 /* .example-card-footer {
   display: flex;
@@ -230,45 +274,21 @@
 .example-card-footer {
   display: flex;
   justify-content: space-between;
-  padding: 16px;
+  /* padding: 16px; */
 }
 
 .footer-container {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  gap: 8px;
+  gap: 10px;
 }
 
 .footer-group {
-  flex: 1;
   display: flex;
   flex-wrap: wrap;
-}
-
-.footer-group.left {
-  justify-content: flex-start;
-}
-
-.footer-group.right {
-  justify-content: flex-end;
-}
-
-.footer-text-left {
-  text-align: left;
-  flex: 1;
-}
-
-.footer-text-center {
-  text-align: center;
-  flex: 1;
-}
-
-.footer-text-right {
-  text-align: right;
-  flex: 1;
-}
-
-.multi-column .footer-group {
-  flex-basis: 100%;
+  /* justify-content: space-between; */
+  width: 100%;
+  gap: 20px;
+  padding: 34px 0px 0px;
 }

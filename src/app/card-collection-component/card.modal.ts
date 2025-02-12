@@ -20,6 +20,10 @@ export interface ButtonConfig {
 export interface CardConfig {
   layout?: 'grid' | 'list';
   width?: number;
+  cardActions: {
+    icon: string;
+    text: string;
+  }[];
   header?: {
     title: string;
     align?: 'left' | 'center' | 'right';
@@ -44,7 +48,7 @@ export interface CardConfig {
 
   body?: {
     type: 'text' | 'text+buttons' | 'table';
-    align: 'left' | 'center' | 'right';
+    align?: 'left' | 'center' | 'right';
     content: string;
     buttons?: ButtonConfig[];
   };

@@ -59,7 +59,7 @@ export class CardComponentComponent implements OnChanges, OnInit {
   tabOptions = [
     { label: 'Grid View', value: 'grid', icon: 'grid_view' },
     { label: 'List View', value: 'list', icon: 'list' },
-    // { label: 'Settings', value: 'settings' },
+    { label: 'Settings', value: 'settings' },
     // { label: 'Notifications', value: 'notifications' },
     // { label: 'Help', value: 'help' },
   ];
@@ -74,9 +74,9 @@ export class CardComponentComponent implements OnChanges, OnInit {
   }
 
   onTabChange(selected: string[]) {
-    console.log('Before Update:', this.selectedTabs);
+    // console.log('Before Update:', this.selectedTabs);
     this.selectedTabs = [...selected];
-    console.log('After Update:', this.selectedTabs);
+    // console.log('After Update:', this.selectedTabs);
   }
 
   // tab change stop

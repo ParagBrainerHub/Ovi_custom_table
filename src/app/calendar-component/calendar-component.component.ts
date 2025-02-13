@@ -347,6 +347,7 @@ export class CalendarComponentComponent implements OnInit {
     if (view === 'month') {
       this.generateMonthView();
     } else {
+      this.currentDate = new Date();
       this.generateWeekView();
     }
   }

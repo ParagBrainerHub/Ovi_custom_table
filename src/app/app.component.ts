@@ -394,13 +394,13 @@ export class AppComponent {
       },
       footer: {
         type: 'buttons',
-        align: 'right',
+        align: 'left',
         text: 'This is a dynamically aligned footer text',
         buttons: [
           {
             text: 'Edit',
-            align: 'left',
-            group: 'left',
+            align: 'right',
+            group: 'right',
             icon: 'edit',
             showIcon: true,
             iconPosition: 'left',
@@ -413,8 +413,8 @@ export class AppComponent {
           },
           {
             text: 'Done',
-            align: 'left',
-            group: 'left',
+            align: 'right',
+            group: 'right',
             icon: 'check_circle',
             showIcon: true,
             iconPosition: 'left',
@@ -427,8 +427,8 @@ export class AppComponent {
           },
           {
             text: 'Delete',
-            align: 'left',
-            group: 'left',
+            align: 'right',
+            group: 'right',
             icon: 'delete',
             showIcon: true,
             iconPosition: 'left',

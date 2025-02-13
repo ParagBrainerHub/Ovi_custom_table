@@ -45,20 +45,78 @@
 
 /* calendar.component.css */
 .calendar-container {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 100%;
+  margin: 100px auto;
   /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
   color: #333;
 }
 
 .calendar-header {
   display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+  justify-content: space-between;
+  padding: 30px;
+  border-top: 2px solid purple;
+  align-items: center;
 }
 
-.calendar-header button {
-  background-color: #007bff;
+.view-selector {
+  width: auto;
+  font-size: 14px;
+  font-weight: 600;
+}
+.view-selector option {
+  background-color: #fff;
+  color: purple;
+}
+/* ::ng-deep .mat-mdc-option:hover {
+  background-color: purple !important;
+  color: #fff;
+} */
+::ng-deep
+  .mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled)
+  .mat-mdc-text-field-wrapper {
+  border: 2px solid purple;
+  background: transparent;
+  color: purple;
+  width: 150px;
+  border-radius: 6px;
+  height: 38px;
+  align-items: center;
+}
+::ng-deep.mdc-list-item--selected {
+  background-color: purple !important;
+  color: #fff;
+}
+::ng-deep#mat-select-0-panel {
+  padding: 0px;
+  border-radius: 6px;
+}
+::ng-deep.mat-mdc-form-field-bottom-align {
+  display: none;
+}
+::ng-deep.mat-mdc-select-min-line {
+  color: purple;
+  font-weight: 600;
+}
+::ng-deep.mat-mdc-select-arrow svg {
+  color: purple;
+}
+::ng-deep .mdc-list-item--selected .mdc-list-item__primary-text {
+  color: #fff !important;
+}
+
+::ng-deep .mat-select-panel {
+  background-color: white;
+}
+::ng-deep.mat-pseudo-checkbox._mat-animation-noopable {
+  display: none;
+}
+::ng-deep .mdc-line-ripple {
+  display: none;
+}
+
+.calendar-header > button {
+  background-color: purple;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -68,29 +126,40 @@
   transition: background-color 0.3s ease;
 }
 
-.calendar-header button:hover {
-  background-color: #0056b3;
+.calendar-header > button:hover {
+  background-color: purple;
 }
 
 .month-navigation {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  column-gap: 40px;
+  font-weight: 700;
+  font-size: 18px;
+  color: purple;
 }
 
-.month-navigation button {
-  background-color: #007bff;
-  color: white;
-  border: none;
+.month-navigation button,
+.week-navigation button {
+  background-color: transparent;
+  color: purple;
+  border: 2px solid purple;
   padding: 10px 20px;
   border-radius: 5px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.month-navigation button:hover {
-  background-color: #0056b3;
+.month-navigation button:hover,
+.week-navigation button:hover {
+  background-color: purple;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border: 2px solid purple;
 }
 
 .month-grid {
@@ -106,15 +175,17 @@
 
 .day-names {
   background-color: #f0f0f0; /* Light gray background */
-  padding: 10px;
   font-weight: bold;
   border-bottom: 1px solid #ddd; /* Separator line */
 }
 
 .day-name {
   flex: 1;
-  text-align: center;
-  color: #007bff; /* Blue color for day names */
+  text-align: left;
+  color: #fff; /* Blue color for day names */
+  background: purple;
+  padding: 10px;
+  /* border-left: 2px solid white; */
 }
 
 /* .day-cell {
@@ -137,11 +208,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background: #ffffff;
 }
 
 .day-cell:hover {
-  background-color: #f0f0f0;
-  transform: scale(1.05);
+  background-color: #eaf8ea;
+  /* transform: scale(1.05); */
 }
 
 .day-cell.has-booking {
@@ -149,8 +221,8 @@
 }
 
 .day-cell.other-month {
-  color: #aaa; /* Lighter color for dates not in the current month */
   cursor: default;
+  background: #f8f8f8;
 }
 
 /* .month-grid {
@@ -192,7 +264,7 @@
 }
 
 .add-booking {
-  background-color: #007bff;
+  background-color: purple;
   color: white;
   border: none;
   padding: 5px;
@@ -202,7 +274,7 @@
 }
 
 .add-booking:hover {
-  background-color: #0056b3;
+  background-color: purple;
 }
 
 .booking-modal {
@@ -222,7 +294,7 @@
 .booking-modal h2 {
   margin-bottom: 20px;
   font-size: 1.5em;
-  color: #007bff;
+  color: purple;
 }
 
 .slot-details {
@@ -257,7 +329,7 @@
 }
 
 .modal-actions button {
-  background-color: #007bff;
+  background-color: purple;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -267,7 +339,7 @@
 }
 
 .modal-actions button:hover {
-  background-color: #0056b3;
+  background-color: purple;
 }
 
 .modal-actions button[type="button"] {
@@ -286,21 +358,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-}
-
-.week-navigation button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.week-navigation button:hover {
-  background-color: #0056b3;
+  column-gap: 40px;
+  font-weight: 700;
+  font-size: 18px;
+  color: purple;
 }
 
 .week-grid {
@@ -312,21 +373,22 @@
   flex: 1;
   border: 1px solid #ddd;
   border-radius: 5px;
-  padding: 10px;
   background-color: #f9f9f9;
 }
 
 .day-header {
   font-weight: bold;
-  text-align: center;
-  margin-bottom: 10px;
-  color: #007bff;
+  /* color: #ffffff;
+  background: purple; */
+  padding-left: 10px;
+  height: 44px;
+  align-items: center;
+  display: flex;
 }
 
 .time-slots {
   display: flex;
   flex-direction: column;
-  gap: 5px;
 }
 
 .time-slot {
@@ -336,6 +398,7 @@
   text-align: center;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 8px;
 }
 
 .time-slot:hover {

@@ -1,115 +1,142 @@
 <!-- calendar.component.html -->
-<div class="calendar-container">
-  <!-- View Switch -->
-  <div class="calendar-header">
-    <button (click)="switchView('month')">Month View</button>
-    <button (click)="switchView('week')">Week View</button>
-  </div>
+<div class="pageContainer">
+  <div class="calendar-container">
+    <div class="calendar-header">
+      <!-- Conditional Navigation on the Left -->
+      <div class="nav-container">
+        <div *ngIf="currentView === 'week'" class="week-navigation">
+          <button (click)="navigatePreviousWeek()">Previous Week</button>
+          {{ currentWeekStart | date : "MMMM d, yyyy" }} -
+          {{ currentWeekEnd | date : "MMMM d, yyyy" }}
+          <button (click)="navigateNextWeek()">Next Week</button>
+        </div>
 
-  <!-- Month View -->
-  <div *ngIf="currentView === 'month'" class="month-view">
-    <div class="month-navigation">
-      <button (click)="navigatePreviousMonth()">Previous Month</button>
-      {{ currentDate | date:'MMMM yyyy' }}
-      <button (click)="navigateNextMonth()">Next Month</button>
-    </div>
-    <div class="month-grid">
-      <!-- Day Names Row -->
-      <div class="week-row day-names">
-        <div *ngFor="let dayName of getDayNames()" class="day-name">
-          {{ dayName }}
+        <div *ngIf="currentView === 'month'" class="month-navigation">
+          <button (click)="navigatePreviousMonth()">Previous Month</button>
+          {{ currentDate | date : "MMMM yyyy" }}
+          <button (click)="navigateNextMonth()">Next Month</button>
         </div>
       </div>
-      <!-- Generate month grid dynamically -->
-      <div *ngFor="let week of monthGrid" class="week-row">
-        <!-- <div *ngFor="let day of week" class="day-cell" [class.has-booking]="day.hasBooking"
+
+      <!-- View Selector on the Right -->
+      <mat-form-field class="view-selector">
+        <mat-select
+          [(ngModel)]="currentView"
+          (selectionChange)="switchView(currentView)"
+        >
+          <mat-option value="month">Month</mat-option>
+          <mat-option value="week">Week</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Month View -->
+    <div *ngIf="currentView === 'month'" class="month-view">
+      <div class="month-grid">
+        <!-- Day Names Row -->
+        <div class="week-row day-names">
+          <div *ngFor="let dayName of getDayNames()" class="day-name">
+            {{ dayName }}
+          </div>
+        </div>
+        <!-- Generate month grid dynamically -->
+        <div *ngFor="let week of monthGrid" class="week-row">
+          <!-- <div *ngFor="let day of week" class="day-cell" [class.has-booking]="day.hasBooking"
           [class.other-month]="!isCurrentMonth(day.date)" (click)="selectSlot(day.date)">
           {{ day.date | date: 'd' }}
         </div> -->
 
-        <div *ngFor="let day of week" class="day-cell" [class.other-month]="!isCurrentMonth(day.date)">
-          <div class="day-header">{{ day.date | date: 'd' }}</div>
-          <div class="bookings">
-            <div *ngFor="let booking of day.bookings" class="booking" (click)="selectSlot(day.date, booking.startTime)">
-              {{ booking.placeholder }}
+          <div
+            *ngFor="let day of week"
+            class="day-cell"
+            [class.other-month]="!isCurrentMonth(day.date)"
+          >
+            <div class="day-header">{{ day.date | date : "d" }}</div>
+            <div class="bookings">
+              <div
+                *ngFor="let booking of day.bookings"
+                class="booking"
+                (click)="selectSlot(day.date, booking.startTime)"
+              >
+                {{ booking.placeholder }}
+              </div>
             </div>
+            <button class="add-booking" (click)="addBooking(day.date)">
+              +
+            </button>
           </div>
-          <button class="add-booking" (click)="addBooking(day.date)">+</button>
         </div>
-
       </div>
     </div>
-  </div>
 
-  <!-- Week View -->
-  <div *ngIf="currentView === 'week'" class="week-view">
-    <div class="week-navigation">
-      <button (click)="navigatePreviousWeek()">Previous Week</button>
-      {{ currentWeekStart | date:'MMMM d, yyyy' }} - {{ currentWeekEnd | date:'MMMM d, yyyy' }}
-      <button (click)="navigateNextWeek()">Next Week</button>
-    </div>
-    <div class="week-grid">
-      <div class="week-day" *ngFor="let day of weekDays">
-        <div class="day-header">{{ day.date | date:'EEE, MMM d' }}</div>
-        <div class="time-slots">
-          <!-- <div *ngFor="let timeSlot of day.timeSlots" class="time-slot" [class.has-booking]="timeSlot.hasBooking"
+    <!-- Week View -->
+    <div *ngIf="currentView === 'week'" class="week-view">
+      <div class="week-grid">
+        <div class="week-day" *ngFor="let day of weekDays">
+          <div class="day-name">{{ day.date | date : "EEE, MMM d" }}</div>
+          <div class="time-slots">
+            <!-- <div *ngFor="let timeSlot of day.timeSlots" class="time-slot" [class.has-booking]="timeSlot.hasBooking"
             (click)="selectSlot(day.date, timeSlot.time)">
             {{ timeSlot.time }}
           </div> -->
 
-          <div *ngFor="let timeSlot of day.timeSlots" class="time-slot" [class.has-booking]="timeSlot.booking"
-            (click)="selectSlot(day.date, timeSlot.time)">
-            {{ timeSlot.time }}
-            <div *ngIf="timeSlot.booking" class="booking-details">
-              {{ timeSlot.booking.placeholder }}
+            <div
+              *ngFor="let timeSlot of day.timeSlots"
+              class="time-slot"
+              [class.has-booking]="timeSlot.booking"
+              (click)="selectSlot(day.date, timeSlot.time)"
+            >
+              {{ timeSlot.time }}
+              <div *ngIf="timeSlot.booking" class="booking-details">
+                {{ timeSlot.booking.placeholder }}
+              </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Booking Modal -->
-  <div *ngIf="selectedSlot" class="booking-modal">
-    <form [formGroup]="bookingForm" (ngSubmit)="bookSlot()">
-      <h2>{{ selectedSlot ? 'Book Slot' : 'Slot Details' }}</h2>
+    <!-- Booking Modal -->
+    <div *ngIf="selectedSlot" class="booking-modal">
+      <form [formGroup]="bookingForm" (ngSubmit)="bookSlot()">
+        <h2>{{ selectedSlot ? "Book Slot" : "Slot Details" }}</h2>
 
-      <div class="slot-details">
-        <p>Date: {{ selectedSlot.date | date:'mediumDate' }}</p>
-        <p>Start Time: {{ selectedSlot.startTime }}</p>
-      </div>
-
-      <div class="booking-form">
-        <label>
-          Duration:
-          <select formControlName="duration">
-            <option value="30">30 mins</option>
-            <option value="60">1 hour</option>
-            <option value="90">1.5 hours</option>
-          </select>
-        </label>
-
-        <label>
-          Placeholder:
-          <input type="text" formControlName="placeholder" required>
-        </label>
-
-        <label>
-          Customer Name:
-          <input type="text" formControlName="customerName">
-        </label>
-
-        <label>
-          Additional Attribute:
-          <input type="text" formControlName="attribute2">
-        </label>
-
-        <div class="modal-actions">
-          <button type="submit">Book Slot</button>
-          <button type="button" (click)="selectedSlot = null">Cancel</button>
+        <div class="slot-details">
+          <p>Date: {{ selectedSlot.date | date : "mediumDate" }}</p>
+          <p>Start Time: {{ selectedSlot.startTime }}</p>
         </div>
-      </div>
-    </form>
+
+        <div class="booking-form">
+          <label>
+            Duration:
+            <select formControlName="duration">
+              <option value="30">30 mins</option>
+              <option value="60">1 hour</option>
+              <option value="90">1.5 hours</option>
+            </select>
+          </label>
+
+          <label>
+            Placeholder:
+            <input type="text" formControlName="placeholder" required />
+          </label>
+
+          <label>
+            Customer Name:
+            <input type="text" formControlName="customerName" />
+          </label>
+
+          <label>
+            Additional Attribute:
+            <input type="text" formControlName="attribute2" />
+          </label>
+
+          <div class="modal-actions">
+            <button type="submit">Book Slot</button>
+            <button type="button" (click)="selectedSlot = null">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

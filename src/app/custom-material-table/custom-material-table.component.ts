@@ -29,6 +29,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { TableColumn, TableConfig } from './material-table-column.model';
 import { MatIconModule } from '@angular/material/icon';
 import { PaginationComponent } from '../pagination/pagination.component';
+import { ButtonConfig } from '../modals';
 // import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
@@ -57,8 +58,8 @@ import { PaginationComponent } from '../pagination/pagination.component';
   ],
 })
 export class CustomMaterialTableComponent implements OnInit, OnChanges {
-  @Input() data: any[] = [];
   @Input() config!: TableConfig;
+  @Input() data: any[] = [];
 
   tableStyle: any = {};
   buttonStyle: any = {};
@@ -109,6 +110,8 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
   @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit() {
+    console.log(this.config, 'config123456789');
+
     var filteredData = this.data.map((user) => ({
       name: user.name,
       role: user.role,
@@ -339,5 +342,9 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
   }
   onPageChange(page: number) {
     this.config.currentPage = page;
+  }
+
+  get actions(): ButtonConfig[] {
+    return this.config?.actions ?? []; // Return an empty array if undefined
   }
 }

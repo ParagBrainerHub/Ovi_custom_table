@@ -229,6 +229,7 @@ export class AppComponent {
   tableConfig: TableConfig = {
     isHeader: true,
     tableTitle: 'Custom Table By Parag',
+    margin: '10px',
     columns: [
       {
         key: 'name',

@@ -41,17 +41,17 @@
         </div>
         <!-- Generate month grid dynamically -->
         <div *ngFor="let week of monthGrid" class="week-row">
-          <!-- <div *ngFor="let day of week" class="day-cell" [class.has-booking]="day.hasBooking"
-          [class.other-month]="!isCurrentMonth(day.date)" (click)="selectSlot(day.date)">
-          {{ day.date | date: 'd' }}
-        </div> -->
-
           <div
             *ngFor="let day of week"
             class="day-cell"
             [class.other-month]="!isCurrentMonth(day.date)"
           >
-            <div class="day-header">{{ day.date | date : "d" }}</div>
+            <div class="day-header">
+              {{ day.date | date : "d" }}
+              <mat-icon *ngIf="isToday(day.date)" class="today-icon"
+                >today</mat-icon
+              >
+            </div>
             <div class="bookings">
               <div
                 *ngFor="let booking of day.bookings"
@@ -75,11 +75,6 @@
         <div class="week-day" *ngFor="let day of weekDays">
           <div class="day-name">{{ day.date | date : "EEE, MMM d" }}</div>
           <div class="time-slots">
-            <!-- <div *ngFor="let timeSlot of day.timeSlots" class="time-slot" [class.has-booking]="timeSlot.hasBooking"
-            (click)="selectSlot(day.date, timeSlot.time)">
-            {{ timeSlot.time }}
-          </div> -->
-
             <div
               *ngFor="let timeSlot of day.timeSlots"
               class="time-slot"
@@ -90,6 +85,11 @@
               <div *ngIf="timeSlot.booking" class="booking-details">
                 {{ timeSlot.booking.placeholder }}
               </div>
+              <mat-icon
+                *ngIf="isCurrentTimeSlot(day.date, timeSlot.time)"
+                class="current-time-icon"
+                >update</mat-icon
+              >
             </div>
           </div>
         </div>
@@ -103,16 +103,50 @@
 
         <div class="slot-details">
           <p>Date: {{ selectedSlot.date | date : "mediumDate" }}</p>
-          <p>Start Time: {{ selectedSlot.startTime }}</p>
+          <label>
+            Start Time:
+            <mat-form-field>
+              <mat-select
+                formControlName="startTime"
+                [(ngModel)]="selectedSlot.startTime"
+              >
+                <mat-option
+                  class="booking-model-avai-time"
+                  *ngFor="let slot of availableTimeSlots"
+                  [value]="slot.time"
+                >
+                  {{ slot.time }}
+                  <span
+                    class="dot"
+                    [ngClass]="{
+                      'green-dot': slot.status === 'available',
+                      'red-dot': slot.status === 'booked'
+                    }"
+                  ></span>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </label>
         </div>
 
         <div class="booking-form">
           <label>
             Duration:
             <select formControlName="duration">
-              <option value="30">30 mins</option>
-              <option value="60">1 hour</option>
-              <option value="90">1.5 hours</option>
+              <option
+                *ngFor="
+                  let duration of getAvailableDurations(selectedSlot.startTime)
+                "
+                [value]="duration"
+              >
+                {{
+                  duration === 30
+                    ? "30 mins"
+                    : duration === 60
+                    ? "1 hour"
+                    : "1.5 hours"
+                }}
+              </option>
             </select>
           </label>
 

@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 
 interface Booking {
   date: Date;
@@ -21,7 +22,13 @@ interface Booking {
 @Component({
   selector: 'app-calendar-component',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule, MatSelectModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    MatSelectModule,
+    MatIconModule,
+  ],
   templateUrl: './calendar-component.component.html',
   styleUrl: './calendar-component.component.css',
 })
@@ -41,36 +48,29 @@ export class CalendarComponentComponent implements OnInit {
     timeSlots: { time: string; booking: Booking | null }[];
   }[] = [];
   timeSlots: string[] = [];
+  availableTimeSlots: { time: string; status: string }[] = [];
 
-  // Configuration
-  minHour = 7; // Minimum start hour
-  maxHour = 20; // Maximum end hour
-  minSlotDuration = 10; // Minimum slot duration in minutes
-  maxSlotDuration = 480; // Maximum slot duration in minutes (8 hours)
+  minHour = 7;
+  maxHour = 20;
+  minSlotDuration = 10;
+  maxSlotDuration = 480;
 
   constructor(private fb: FormBuilder) {
     this.bookingForm = this.fb.group({
       duration: ['', [Validators.required]],
       placeholder: ['', [Validators.required]],
+      startTime: ['', [Validators.required]],
       customerName: [''],
       attribute2: [''],
     });
   }
 
   ngOnInit() {
-    this.generateSlots('week');
-    console.log('this.generateSlots', this.slotsGrid);
-    console.log('this.weekDays', this.weekDays);
-    this.generateTimeSlots();
-
-    if (this.currentView === 'month') {
-      this.generateMonthView();
-    } else {
-      this.generateWeekView();
-    }
+    this.generateMonthView();
   }
 
   generateMonthView() {
+    this.generateTimeSlots();
     const firstDayOfMonth = new Date(
       this.currentDate.getFullYear(),
       this.currentDate.getMonth(),
@@ -88,29 +88,28 @@ export class CalendarComponentComponent implements OnInit {
     const endDate = new Date(lastDayOfMonth);
     endDate.setDate(lastDayOfMonth.getDate() + (6 - lastDayOfMonth.getDay()));
 
-    // const grid: { date: Date; hasBooking: boolean }[][] = [];
-    // let currentWeek: { date: Date; hasBooking: boolean }[] = [];
-
-    const grid: { date: Date; bookings: Booking[] }[][] = [];
-    let currentWeek: { date: Date; bookings: Booking[] }[] = [];
+    const grid: { date: Date; bookings: Booking[]; timeSlots: any[] }[][] = [];
+    let currentWeek: { date: Date; bookings: Booking[]; timeSlots: any[] }[] =
+      [];
 
     for (
       let date = new Date(startDate);
       date <= endDate;
       date.setDate(date.getDate() + 1)
     ) {
-      // currentWeek.push({
-      //   date: new Date(date),
-      //   hasBooking: this.bookings.some((booking) =>
-      //     this.isSameDate(booking.date, date)
-      //   ),
-      // });
       const bookingsForDay = this.bookings.filter((booking) =>
         this.isSameDate(booking.date, date)
       );
+
+      const timeSlots = this.timeSlots.map((time) => {
+        const booking = bookingsForDay.find((b) => b.startTime === time);
+        return { time, booking: booking || null };
+      });
+
       currentWeek.push({
         date: new Date(date),
         bookings: bookingsForDay,
+        timeSlots,
       });
 
       if (currentWeek.length === 7) {
@@ -120,6 +119,24 @@ export class CalendarComponentComponent implements OnInit {
     }
 
     this.monthGrid = grid;
+  }
+
+  navigatePreviousMonth() {
+    this.currentDate = new Date(
+      this.currentDate.getFullYear(),
+      this.currentDate.getMonth() - 1,
+      1
+    );
+    this.generateMonthView();
+  }
+
+  navigateNextMonth() {
+    this.currentDate = new Date(
+      this.currentDate.getFullYear(),
+      this.currentDate.getMonth() + 1,
+      1
+    );
+    this.generateMonthView();
   }
 
   isSameDate(date1: Date, date2: Date): boolean {
@@ -149,6 +166,7 @@ export class CalendarComponentComponent implements OnInit {
   // }
 
   generateWeekView() {
+    this.generateTimeSlots();
     const startOfWeek = new Date(this.currentDate);
     startOfWeek.setDate(this.currentDate.getDate() - this.currentDate.getDay());
     this.currentWeekStart = new Date(startOfWeek);
@@ -158,31 +176,21 @@ export class CalendarComponentComponent implements OnInit {
     this.currentWeekEnd = new Date(endOfWeek);
 
     this.weekDays = [];
+
     for (let i = 0; i < 7; i++) {
       const day = new Date(startOfWeek);
       day.setDate(startOfWeek.getDate() + i);
 
-      // Initialize time slots for each day
-      // const timeSlots = this.timeSlots.map((time) => ({
-      //   time,
-      //   hasBooking: this.bookings.some(
-      //     (booking) =>
-      //       this.isSameDate(booking.date, day) && booking.startTime === time
-      //   ),
-      // }));
+      const bookingsForDay = this.bookings.filter((b) =>
+        this.isSameDate(b.date, day)
+      );
 
       const timeSlots = this.timeSlots.map((time) => {
-        const booking = this.bookings.find(
-          (b) => this.isSameDate(b.date, day) && b.startTime === time
-        );
-        return {
-          time,
-          booking: booking || null,
-        };
+        const booking = bookingsForDay.find((b) => b.startTime === time);
+        return { time, booking: booking || null };
       });
 
       this.weekDays.push({ date: day, timeSlots });
-      console.log('this.weekDays: ', this.weekDays);
     }
   }
 
@@ -243,28 +251,6 @@ export class CalendarComponentComponent implements OnInit {
     });
   }
 
-  bookSlot() {
-    if (this.bookingForm.valid) {
-      const newBooking: Booking = {
-        ...this.selectedSlot!,
-        ...this.bookingForm.value,
-      };
-
-      // Add the new booking
-      this.bookings.push(newBooking);
-
-      // Update the view to reflect the new booking
-      if (this.currentView === 'month') {
-        this.generateMonthView();
-      } else {
-        this.generateWeekView();
-      }
-
-      // Close the modal
-      this.selectedSlot = null;
-    }
-  }
-
   editBooking(booking: Booking) {
     this.selectedSlot = booking;
     this.updateBookingForm(booking);
@@ -273,7 +259,6 @@ export class CalendarComponentComponent implements OnInit {
   deleteBooking(booking: Booking) {
     this.bookings = this.bookings.filter((b) => b !== booking);
 
-    // Update the view to reflect the deleted booking
     if (this.currentView === 'month') {
       this.generateMonthView();
     } else {
@@ -281,34 +266,110 @@ export class CalendarComponentComponent implements OnInit {
     }
   }
 
-  navigatePreviousMonth() {
-    this.currentDate = new Date(
-      this.currentDate.getFullYear(),
-      this.currentDate.getMonth() - 1,
-      1
-    );
-    this.generateMonthView();
-  }
-
-  navigateNextMonth() {
-    this.currentDate = new Date(
-      this.currentDate.getFullYear(),
-      this.currentDate.getMonth() + 1,
-      1
-    );
-    this.generateMonthView();
-  }
-
   addBooking(date: Date) {
     console.log(this.weekDays, 'weekDays');
+    console.log('this.bookings: ', this.bookings);
+
+    const isToday = this.isSameDate(date, new Date());
+
+    const bookingsForDay = this.bookings?.filter((booking) =>
+      this.isSameDate(booking.date, date)
+    );
+
+    const bookedSlots = new Set();
+    bookingsForDay.forEach((booking) => {
+      const startTime = booking.startTime;
+      const duration = parseInt(booking.duration, 10);
+
+      let [hour, minute] = startTime.split(':').map(Number);
+      let totalMinutes = hour * 60 + minute;
+
+      for (let i = 0; i < duration; i += 30) {
+        let slotHour = Math.floor(totalMinutes / 60);
+        let slotMinute = totalMinutes % 60;
+        let slotKey = `${slotHour.toString().padStart(2, '0')}:${slotMinute
+          .toString()
+          .padStart(2, '0')}`;
+        bookedSlots.add(slotKey);
+        totalMinutes += 30;
+      }
+    });
+
+    let slotsWithStatus = this.timeSlots.map((time) => {
+      return {
+        time: time,
+        status: bookedSlots.has(time) ? 'booked' : 'available',
+      };
+    });
+
+    if (isToday) {
+      const currentTime = new Date();
+      const currentHour = currentTime.getHours();
+      const currentMinute = currentTime.getMinutes();
+      let nextSlotHour = currentMinute < 30 ? currentHour : currentHour + 1;
+      let nextSlotMinute = currentMinute < 30 ? 30 : 0;
+
+      const currentSlot = `${nextSlotHour
+        .toString()
+        .padStart(2, '0')}:${nextSlotMinute.toString().padStart(2, '0')}`;
+      console.log('currentSlot: ', currentSlot);
+      slotsWithStatus = slotsWithStatus.filter(
+        (slot) => slot.time >= currentSlot
+      );
+    }
+
+    console.log('slotsWithStatus: ', slotsWithStatus);
 
     this.selectedSlot = {
       date: date,
-      startTime: '07:00',
+      startTime: slotsWithStatus.length > 0 ? slotsWithStatus[0].time : '00:30',
       duration: '30',
       placeholder: '',
     };
+
     this.updateBookingForm(this.selectedSlot);
+    this.availableTimeSlots = slotsWithStatus;
+  }
+
+  bookSlot() {
+    if (this.bookingForm.valid) {
+      console.log('this.selectedSlot: ', this.selectedSlot);
+      console.log('this.bookingForm.value: ', this.bookingForm.value);
+      const newBooking: Booking = {
+        ...this.selectedSlot!,
+        ...this.bookingForm.value,
+      };
+      console.log('newBooking: ', newBooking);
+
+      // Check if booking already exists
+      const existingIndex = this.bookings.findIndex(
+        (b) =>
+          this.isSameDate(b.date, newBooking.date) &&
+          b.startTime === newBooking.startTime
+      );
+
+      if (existingIndex !== -1) {
+        this.bookings[existingIndex] = newBooking;
+      } else {
+        this.bookings.push(newBooking);
+      }
+
+      // this.availableTimeSlots = this.availableTimeSlots.map((slot) => {
+      //   if (slot.time === newBooking.startTime) {
+      //     return { ...slot, status: 'booked' };
+      //   }
+      //   return slot;
+      // });
+
+      // Regenerate the view
+      if (this.currentView === 'month') {
+        this.generateMonthView();
+      } else {
+        this.generateWeekView();
+      }
+
+      this.selectedSlot = null;
+    }
   }
 
   // ///////////////////////////   Parag Jain code   ////////////////
@@ -320,7 +381,6 @@ export class CalendarComponentComponent implements OnInit {
       this.timeSlots.push(`${hour.toString().padStart(2, '0')}:30`);
     }
   }
-
   generateSlots(viewType: any) {
     this.generateTimeSlots();
     const firstDayOfMonth = new Date(
@@ -402,5 +462,55 @@ export class CalendarComponentComponent implements OnInit {
 
   isSameOrBefore(date1: Date, date2: Date): boolean {
     return date1.setHours(0, 0, 0, 0) <= date2.setHours(0, 0, 0, 0);
+  }
+
+  isToday(date: Date): boolean {
+    const today = new Date();
+    return (
+      date.getFullYear() === today.getFullYear() &&
+      date.getMonth() === today.getMonth() &&
+      date.getDate() === today.getDate()
+    );
+  }
+
+  isCurrentTimeSlot(date: Date, time: string): boolean {
+    const now = new Date();
+    if (!this.isToday(date)) return false;
+    const [hour, minute] = time.split(':').map(Number);
+    const slotTime = hour * 60 + minute;
+    const nowMinutes = now.getHours() * 60 + now.getMinutes();
+    const nearestPastSlot = Math.floor(nowMinutes / 30) * 30;
+
+    return slotTime === nearestPastSlot;
+  }
+
+  getAvailableDurations(startTime: string): number[] {
+    let availableDurations = [30]; // Default minimum duration
+    const startTimeIndex = this.availableTimeSlots.findIndex(
+      (slot) => slot.time === startTime
+    );
+
+    if (startTimeIndex === -1) return availableDurations; // If the time is not found, return 30 min only
+
+    let nextBookedIndex = this.availableTimeSlots.findIndex(
+      (slot, index) => index > startTimeIndex && slot.status === 'booked'
+    );
+
+    if (nextBookedIndex === -1) {
+      // No booked slots after, so we can consider all durations
+      availableDurations = [30, 60, 90];
+    } else {
+      // Calculate the available gap
+      const availableTimeSlots = this.availableTimeSlots.slice(
+        startTimeIndex,
+        nextBookedIndex
+      );
+      const gapMinutes = availableTimeSlots.length * 30;
+
+      if (gapMinutes >= 60) availableDurations.push(60);
+      if (gapMinutes >= 90) availableDurations.push(90);
+    }
+
+    return availableDurations;
   }
 }

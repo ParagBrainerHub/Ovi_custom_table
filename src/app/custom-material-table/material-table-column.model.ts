@@ -20,7 +20,7 @@ export interface TableConfig {
   maxItemsOptions: number[];
   buttons?: { [key: string]: () => void };
   editableColumns?: string[];
-  actions?: ButtonConfig[];
+  actions: ButtonConfig[];
   rowHeight?: string;
   maxRowHeight?: string;
   margin?: string;

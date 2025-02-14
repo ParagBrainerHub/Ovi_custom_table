@@ -222,7 +222,7 @@
 
 .day-cell.other-month {
   cursor: default;
-  background: #f8f8f8;
+  background: #ccc;
 }
 
 /* .month-grid {
@@ -312,6 +312,10 @@
   font-weight: bold;
 }
 
+.today-icon {
+  color: purple;
+}
+
 .booking-form input,
 .booking-form select {
   width: 100%;
@@ -384,6 +388,7 @@
   height: 44px;
   align-items: center;
   display: flex;
+  justify-content: space-between;
 }
 
 .time-slots {
@@ -399,6 +404,13 @@
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
   margin: 8px;
+  position: relative;
+}
+.time-slot .current-time-icon {
+  position: absolute;
+  right: 10px;
+  top: 20%;
+  color: purple;
 }
 
 .time-slot:hover {
@@ -409,4 +421,28 @@
 .time-slot.has-booking {
   background-color: #e0e0e0; /* Highlight booked slots */
   cursor: not-allowed; /* Indicate that the slot is booked */
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 10px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.green-dot {
+  background-color: green;
+}
+
+.red-dot {
+  background-color: red;
+}
+
+.booking-model-avai-time {
+  display: relative;
 }

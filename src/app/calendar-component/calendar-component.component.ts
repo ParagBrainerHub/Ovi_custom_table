@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -45,17 +45,18 @@ export class CalendarComponentComponent implements OnInit {
   currentWeekEnd: Date = new Date();
   weekDays: {
     date: Date;
-    timeSlots: { time: string; booking: Booking | null }[];
+    timeSlots: { time: string; booking: Booking | null; disabled: boolean }[];
   }[] = [];
   timeSlots: string[] = [];
   availableTimeSlots: { time: string; status: string }[] = [];
+  isSlotBooked: boolean = false;
 
   minHour = 7;
   maxHour = 20;
   minSlotDuration = 10;
   maxSlotDuration = 480;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private cdr: ChangeDetectorRef, private fb: FormBuilder) {
     this.bookingForm = this.fb.group({
       duration: ['', [Validators.required]],
       placeholder: ['', [Validators.required]],
@@ -187,10 +188,12 @@ export class CalendarComponentComponent implements OnInit {
 
       const timeSlots = this.timeSlots.map((time) => {
         const booking = bookingsForDay.find((b) => b.startTime === time);
-        return { time, booking: booking || null };
+        return { time, booking: booking || null, disabled: false };
       });
 
       this.weekDays.push({ date: day, timeSlots });
+      console.log('this.weekDays: ', this.weekDays);
+      this.disablePastSlots();
     }
   }
 
@@ -243,8 +246,10 @@ export class CalendarComponentComponent implements OnInit {
   }
 
   updateBookingForm(booking: Booking) {
+    console.log('booking:1234 ', booking);
     this.bookingForm.patchValue({
       duration: booking.duration,
+      startTime: booking.startTime,
       placeholder: booking.placeholder,
       customerName: booking.customerName || '',
       attribute2: booking.attribute2 || '',
@@ -252,6 +257,7 @@ export class CalendarComponentComponent implements OnInit {
   }
 
   editBooking(booking: Booking) {
+    console.log('booking: ', booking);
     this.selectedSlot = booking;
     this.updateBookingForm(booking);
   }
@@ -319,7 +325,8 @@ export class CalendarComponentComponent implements OnInit {
     }
 
     console.log('slotsWithStatus: ', slotsWithStatus);
-
+    slotsWithStatus[0].time;
+    console.log('slotsWithStatus[0].time;: ', slotsWithStatus[0].time);
     this.selectedSlot = {
       date: date,
       startTime: slotsWithStatus.length > 0 ? slotsWithStatus[0].time : '00:30',
@@ -329,6 +336,7 @@ export class CalendarComponentComponent implements OnInit {
 
     this.updateBookingForm(this.selectedSlot);
     this.availableTimeSlots = slotsWithStatus;
+    console.log('this.availableTimeSlots: ', this.availableTimeSlots);
   }
 
   bookSlot() {
@@ -473,6 +481,12 @@ export class CalendarComponentComponent implements OnInit {
     );
   }
 
+  isPastDate(date: Date): boolean {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Ensure comparison without time part
+    return date < today;
+  }
+
   isCurrentTimeSlot(date: Date, time: string): boolean {
     const now = new Date();
     if (!this.isToday(date)) return false;
@@ -512,5 +526,45 @@ export class CalendarComponentComponent implements OnInit {
     }
 
     return availableDurations;
+  }
+
+  disablePastSlots() {
+    let now = new Date();
+
+    this.weekDays.forEach((day) => {
+      let dayDate = new Date(day.date);
+      let isPastDay = dayDate < new Date(new Date().setHours(0, 0, 0, 0));
+
+      day.timeSlots.forEach((slot) => {
+        let [hours, minutes] = slot.time.split(':').map(Number);
+        let slotDateTime = new Date(day.date);
+        slotDateTime.setHours(hours, minutes, 0, 0);
+        (slot as any).disabled = isPastDay || slotDateTime < now;
+      });
+    });
+    console.log('this.weekDays: disabled ', this.weekDays);
+  }
+
+  onTimeSlotChange(selectedTime: string) {
+    console.log('selectedTime: ', selectedTime);
+    console.log('this.availableTimeSlots: ', this.availableTimeSlots);
+
+    const selected = this.availableTimeSlots.find(
+      (slot) => slot.time === selectedTime
+    );
+    console.log('selected: ', selected);
+
+    this.isSlotBooked = selected?.status === 'booked';
+    console.log('this.isSlotBooked: ', this.isSlotBooked);
+
+    if (this.isSlotBooked) {
+      this.bookingForm.controls['duration'].disable();
+    } else {
+      this.bookingForm.controls['duration'].enable();
+      this.bookingForm.controls['startTime'].enable();
+    }
+
+    // Ensure UI updates
+    this.cdr.detectChanges();
   }
 }

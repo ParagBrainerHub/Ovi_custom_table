@@ -61,7 +61,12 @@
                 {{ booking.placeholder }}
               </div>
             </div>
-            <button class="add-booking" (click)="addBooking(day.date)">
+            <button
+              class="add-booking"
+              *ngIf="isCurrentMonth(day.date)"
+              (click)="addBooking(day.date)"
+              [disabled]="isPastDate(day.date)"
+            >
               +
             </button>
           </div>
@@ -79,7 +84,10 @@
               *ngFor="let timeSlot of day.timeSlots"
               class="time-slot"
               [class.has-booking]="timeSlot.booking"
-              (click)="selectSlot(day.date, timeSlot.time)"
+              [class.disabled]="timeSlot.disabled"
+              (click)="
+                !timeSlot.disabled && selectSlot(day.date, timeSlot.time)
+              "
             >
               {{ timeSlot.time }}
               <div *ngIf="timeSlot.booking" class="booking-details">
@@ -99,76 +107,88 @@
     <!-- Booking Modal -->
     <div *ngIf="selectedSlot" class="booking-modal">
       <form [formGroup]="bookingForm" (ngSubmit)="bookSlot()">
-        <h2>{{ selectedSlot ? "Book Slot" : "Slot Details" }}</h2>
-
-        <div class="slot-details">
-          <p>Date: {{ selectedSlot.date | date : "mediumDate" }}</p>
-          <label>
-            Start Time:
-            <mat-form-field>
-              <mat-select
-                formControlName="startTime"
-                [(ngModel)]="selectedSlot.startTime"
-              >
-                <mat-option
-                  class="booking-model-avai-time"
-                  *ngFor="let slot of availableTimeSlots"
-                  [value]="slot.time"
-                >
-                  {{ slot.time }}
-                  <span
-                    class="dot"
-                    [ngClass]="{
-                      'green-dot': slot.status === 'available',
-                      'red-dot': slot.status === 'booked'
-                    }"
-                  ></span>
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </label>
+        <div class="booking-modal-title">
+          <h2>{{ selectedSlot ? "Book Slot" : "Slot Details" }}</h2>
         </div>
 
         <div class="booking-form">
-          <label>
-            Duration:
-            <select formControlName="duration">
-              <option
-                *ngFor="
-                  let duration of getAvailableDurations(selectedSlot.startTime)
-                "
-                [value]="duration"
-              >
-                {{
-                  duration === 30
-                    ? "30 mins"
-                    : duration === 60
-                    ? "1 hour"
-                    : "1.5 hours"
-                }}
-              </option>
-            </select>
-          </label>
-
-          <label>
-            Placeholder:
-            <input type="text" formControlName="placeholder" required />
-          </label>
-
-          <label>
-            Customer Name:
-            <input type="text" formControlName="customerName" />
-          </label>
-
-          <label>
-            Additional Attribute:
-            <input type="text" formControlName="attribute2" />
-          </label>
-
-          <div class="modal-actions">
-            <button type="submit">Book Slot</button>
-            <button type="button" (click)="selectedSlot = null">Cancel</button>
+          <div class="slot-details">
+            <p>
+              <label>Date:</label> {{ selectedSlot.date | date : "mediumDate" }}
+            </p>
+            <p>
+              <label>Start Time:</label>
+              <mat-form-field>
+                <mat-select
+                  formControlName="startTime"
+                  [(ngModel)]="selectedSlot.startTime"
+                  (ngModelChange)="onTimeSlotChange($event)"
+                >
+                  <mat-option
+                    class="booking-model-avai-time"
+                    *ngFor="let slot of availableTimeSlots"
+                    [value]="slot.time"
+                  >
+                    {{ slot.time }}
+                    <span
+                      class="dot"
+                      [ngClass]="{
+                        'green-dot': slot.status === 'available',
+                        'red-dot': slot.status === 'booked'
+                      }"
+                    ></span>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </p>
           </div>
+          <div class="slot-other-detail">
+            <div class="input-wrapper">
+              <label> Duration: </label>
+              <select
+                formControlName="duration"
+                class="duration-select"
+                [disabled]="isSlotBooked"
+              >
+                <option
+                  *ngFor="
+                    let duration of getAvailableDurations(
+                      selectedSlot.startTime
+                    )
+                  "
+                  [value]="duration"
+                >
+                  {{
+                    duration === 30
+                      ? "30 mins"
+                      : duration === 60
+                      ? "1 hour"
+                      : "1.5 hours"
+                  }}
+                </option>
+              </select>
+            </div>
+            <div class="input-wrapper">
+              <label> Placeholder: </label>
+              <input type="text" formControlName="placeholder" required />
+            </div>
+            <div class="input-wrapper">
+              <label> Customer Name: </label>
+              <input type="text" formControlName="customerName" />
+            </div>
+            <div class="input-wrapper">
+              <label> Additional Attribute: </label>
+              <input type="text" formControlName="attribute2" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="cancel" (click)="selectedSlot = null">
+            Cancel
+          </button>
+          <button type="submit" class="submit_form" [disabled]="isSlotBooked">
+            Book Slot
+          </button>
         </div>
       </form>
     </div>

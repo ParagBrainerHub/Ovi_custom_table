@@ -1,54 +1,9 @@
-/* .calendar-container {
-  max-width: 800px;
-  margin: 0 auto;
-  font-family: Arial, sans-serif;
-}
-
-.month-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
-}
-
-.day-cell {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
-  cursor: pointer;
-}
-
-.day-cell.has-booking {
-  background-color: #e0e0e0;
-}
-
-.booking-modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  border: 1px solid #ccc;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-.booking-form label {
-  display: block;
-  margin: 10px 0;
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-} */
-
 /* calendar.component.css */
 .calendar-container {
   max-width: 100%;
   margin: 100px auto;
-  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
   color: #333;
+  position: relative;
 }
 
 .calendar-header {
@@ -68,10 +23,6 @@
   background-color: #fff;
   color: purple;
 }
-/* ::ng-deep .mat-mdc-option:hover {
-  background-color: purple !important;
-  color: #fff;
-} */
 ::ng-deep
   .mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled)
   .mat-mdc-text-field-wrapper {
@@ -174,29 +125,18 @@
 }
 
 .day-names {
-  background-color: #f0f0f0; /* Light gray background */
+  background-color: #f0f0f0;
   font-weight: bold;
-  border-bottom: 1px solid #ddd; /* Separator line */
+  border-bottom: 1px solid #ddd;
 }
 
 .day-name {
   flex: 1;
   text-align: left;
-  color: #fff; /* Blue color for day names */
+  color: #fff;
   background: purple;
   padding: 10px;
-  /* border-left: 2px solid white; */
 }
-
-/* .day-cell {
-  flex: 1;
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-} */
-
 .day-cell {
   flex: 1;
   border: 1px solid #ddd;
@@ -204,7 +144,7 @@
   text-align: center;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  height: 150px; /* Increased height for month view */
+  height: 150px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -216,7 +156,7 @@
 }
 
 .day-cell.has-booking {
-  background-color: #e0e0e0; /* Highlight booked slots */
+  background-color: #e0e0e0;
 }
 
 .day-cell.other-month {
@@ -229,42 +169,60 @@
   background: #ccc !important;
 }
 
-/* .month-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 10px;
-}
-
-.day-cell {
-  border: 1px solid #ddd;
-  padding: 15px;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-} */
-
-/* .day-cell:hover {
-  background-color: #f0f0f0;
-  transform: scale(1.05);
-}
-
-.day-cell.has-booking {
-  background-color: #e0e0e0;
-  font-weight: bold;
-} */
-
 .bookings {
-  flex: 1;
+  overflow-y: auto;
+  gap: 3px;
+  width: 100%;
+  height: 100%;
+  max-height: 135px;
+}
+
+.booking-container {
+  max-height: 400px;
+  height: auto;
   overflow-y: auto;
 }
 
+/* Customize scrollbar */
+.bookings::-webkit-scrollbar,
+.booking-container::-webkit-scrollbar {
+  width: 3px;
+}
+
+.bookings::-webkit-scrollbar-thumb,
+.booking-container::-webkit-scrollbar-thumb {
+  background-color: purple;
+  border-radius: 4px;
+}
+
+.bookings::-webkit-scrollbar-track,
+.booking-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 .booking {
-  background-color: #e0e0e0;
-  padding: 5px;
-  margin: 2px 0;
-  border-radius: 3px;
+  background-color: #846bd1;
+  border-radius: 5px;
   cursor: pointer;
+  font-size: 14px;
+  color: #fff;
+  max-width: 95%;
+  margin: 3px 0px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.booking span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: normal;
 }
 
 .add-booking {
@@ -338,7 +296,6 @@
 }
 
 .slot-other-detail {
-  /* background: #000; */
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -368,7 +325,6 @@
 .modal-actions {
   display: flex;
   justify-content: space-between;
-  /* margin-top: 20px; */
   padding: 16px 24px;
   border-top: 2px solid purple;
 }
@@ -386,29 +342,6 @@
   border-radius: 6px;
   border: none;
 }
-
-/* .modal-actions button {
-  background-color: purple;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-} */
-
-/* .modal-actions button:hover {
-  background-color: purple;
-}
-
-.modal-actions button[type="button"] {
-  background-color: #6c757d;
-
-}
-
-.modal-actions button[type="button"]:hover {
-  background-color: #5a6268;
-} */
 
 .week-view {
   margin-top: 20px;
@@ -438,8 +371,6 @@
 
 .day-header {
   font-weight: bold;
-  /* color: #ffffff;
-  background: purple; */
   padding-left: 10px;
   height: 44px;
   align-items: center;
@@ -487,8 +418,8 @@
 }
 
 .time-slot.has-booking {
-  background-color: #e0e0e0; /* Highlight booked slots */
-  cursor: not-allowed; /* Indicate that the slot is booked */
+  background-color: #e0e0e0;
+  cursor: not-allowed;
 }
 
 .dot {
@@ -513,4 +444,96 @@
 
 .booking-model-avai-time {
   display: relative;
+}
+
+.expand-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  border: 2px solid purple;
+  border-radius: 11px;
+  overflow: hidden;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  overflow-y: auto;
+  width: 100%;
+  position: relative;
+}
+
+.close-modal-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #800080;
+}
+
+h6 {
+  text-align: left;
+  margin-bottom: 20px;
+  background-color: purple;
+  color: white;
+  font-weight: 700;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.booking-item {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.booking-item mat-accordion {
+  width: 100%;
+}
+
+.event {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.close-icon {
+  cursor: pointer;
+  font-size: 18px;
+  color: #ff0000;
+}
+
+.time-slots {
+  margin-top: 20px;
+}
+
+.time-slots p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+mat-panel-title {
+  white-space: nowrap;
+}
+mat-panel-title label {
+  white-space: nowrap;
+  color: purple;
+}
+
+mat-panel-description {
+  white-space: nowrap;
+}
+mat-panel-description label {
+  white-space: nowrap;
+  color: purple;
 }

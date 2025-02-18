@@ -2,7 +2,6 @@
 <div class="pageContainer">
   <div class="calendar-container">
     <div class="calendar-header">
-      <!-- Conditional Navigation on the Left -->
       <div class="nav-container">
         <div *ngIf="currentView === 'week'" class="week-navigation">
           <button (click)="navigatePreviousWeek()">Previous Week</button>
@@ -48,19 +47,31 @@
           >
             <div class="day-header">
               {{ day.date | date : "d" }}
-              <mat-icon *ngIf="isToday(day.date)" class="today-icon"
-                >today</mat-icon
-              >
-            </div>
-            <div class="bookings">
-              <div
-                *ngFor="let booking of day.bookings"
-                class="booking"
-                (click)="selectSlot(day.date, booking.startTime)"
-              >
-                {{ booking.placeholder }}
+              <div>
+                <mat-icon
+                  *ngIf="day.bookings.length > 0"
+                  class="toggle-icon"
+                  (click)="expandOpenModal(day)"
+                  >expand_more</mat-icon
+                >
+                <mat-icon *ngIf="isToday(day.date)" class="today-icon"
+                  >today</mat-icon
+                >
               </div>
             </div>
+            <div class="bookings">
+              <div *ngFor="let booking of day.bookings" class="booking">
+                <!-- <P>{{ booking | json }}</P> -->
+                {{ booking.startTime }} - <span>{{ booking.placeholder }}</span>
+                <mat-icon
+                  (click)="
+                    selectSlot(day.date, booking.startTime, booking.duration)
+                  "
+                  >edit</mat-icon
+                >
+              </div>
+            </div>
+
             <button
               class="add-booking"
               *ngIf="isCurrentMonth(day.date)"
@@ -69,6 +80,47 @@
             >
               +
             </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="expandDayBookingModal" class="expand-modal">
+      <div class="modal-content">
+        <mat-icon class="close-modal-icon" (click)="closeExpandModal()"
+          >close</mat-icon
+        >
+        <h6>{{ selectedDayBookings.date | date : "dd/MM/yyyy" }} - Bookings</h6>
+
+        <!-- Loop through all bookings -->
+        <div
+          class="booking-container"
+          *ngFor="let booking of selectedDayBookings?.bookings"
+        >
+          <div class="booking-item">
+            <mat-accordion class="example-headers-align" multi>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <label>Meeting :</label>{{ booking.placeholder }}
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <mat-icon>account_circle</mat-icon>
+                    <label>Customer Name :</label>{{ booking.customerName }}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <!-- <mat-form-field>
+                  <mat-label>First name</mat-label>
+                  <input matInput />
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-label>Age</mat-label>
+                  <input matInput type="number" min="1" />
+                </mat-form-field> -->
+              </mat-expansion-panel>
+            </mat-accordion>
           </div>
         </div>
       </div>
@@ -186,9 +238,7 @@
           <button type="button" class="cancel" (click)="selectedSlot = null">
             Cancel
           </button>
-          <button type="submit" class="submit_form" [disabled]="isSlotBooked">
-            Book Slot
-          </button>
+          <button type="submit" class="submit_form">Book Slot</button>
         </div>
       </form>
     </div>

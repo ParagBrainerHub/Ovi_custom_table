@@ -225,65 +225,68 @@
               <label> Placeholder: </label>
               <input type="text" formControlName="placeholder" required />
             </div>
-          </div>
-
-          <div *ngFor="let field of formConfig.fields">
-            <ng-container
-              *ngIf="
-                !['duration', 'placeholder', 'startTime'].includes(field.key)
-              "
-            >
-              <label>{{ field.label }}</label>
-
-              <input
-                *ngIf="field.type === 'text'"
-                type="text"
-                [placeholder]="field.placeholder"
-                [formControlName]="toSafeKey(field.label)"
-              />
-              <input
-                *ngIf="field.type === 'number'"
-                type="number"
-                [placeholder]="field.placeholder"
-                [formControlName]="toSafeKey(field.label)"
-              />
-              <input
-                *ngIf="field.type === 'date'"
-                type="date"
-                [formControlName]="toSafeKey(field.label)"
-              />
-              <input
-                *ngIf="field.type === 'time'"
-                type="time"
-                [formControlName]="toSafeKey(field.label)"
-              />
-
-              <div
+            <div *ngFor="let field of formConfig.fields">
+              <ng-container
                 *ngIf="
-                  bookingForm.controls[field.key]?.invalid &&
-                  bookingForm.controls[field.key]?.touched
+                  !['duration', 'placeholder', 'startTime'].includes(field.key)
                 "
               >
-                <span
-                  *ngIf="bookingForm.controls[field.key].errors?.['required']"
-                  >{{ field.errorMessages?.required }}</span
-                >
-                <span
-                  *ngIf="bookingForm.controls[field.key].errors?.['minLength']"
-                  >{{ field.errorMessages?.minLength }}</span
-                >
-                <span
-                  *ngIf="bookingForm.controls[field.key].errors?.['maxLength']"
-                  >{{ field.errorMessages?.maxLength }}</span
-                >
-                <span *ngIf="bookingForm.controls[field.key].errors?.['min']">{{
-                  field.errorMessages?.minValue
-                }}</span>
-                <span *ngIf="bookingForm.controls[field.key].errors?.['max']">{{
-                  field.errorMessages?.maxValue
-                }}</span>
-              </div>
-            </ng-container>
+                <div class="dynamic-field-box">
+                  <label>{{ field.label }}</label>
+
+                  <input
+                    *ngIf="field.type === 'text'"
+                    type="text"
+                    [placeholder]="field.placeholder"
+                    [formControlName]="toSafeKey(field.label)"
+                  />
+                  <input
+                    *ngIf="field.type === 'number'"
+                    type="number"
+                    [placeholder]="field.placeholder"
+                    [formControlName]="toSafeKey(field.label)"
+                  />
+                  <input
+                    *ngIf="field.type === 'date'"
+                    type="date"
+                    [formControlName]="toSafeKey(field.label)"
+                  />
+                  <input
+                    *ngIf="field.type === 'time'"
+                    type="time"
+                    [formControlName]="toSafeKey(field.label)"
+                  />
+
+                  <div
+                    *ngIf="
+                      bookingForm.controls[field.key]?.invalid &&
+                      bookingForm.controls[field.key]?.touched
+                    "
+                  >
+                    <span
+                      *ngIf="bookingForm.controls[field.key].errors?.['required']"
+                      >{{ field.errorMessages?.required }}</span
+                    >
+                    <span
+                      *ngIf="bookingForm.controls[field.key].errors?.['minLength']"
+                      >{{ field.errorMessages?.minLength }}</span
+                    >
+                    <span
+                      *ngIf="bookingForm.controls[field.key].errors?.['maxLength']"
+                      >{{ field.errorMessages?.maxLength }}</span
+                    >
+                    <span
+                      *ngIf="bookingForm.controls[field.key].errors?.['min']"
+                      >{{ field.errorMessages?.minValue }}</span
+                    >
+                    <span
+                      *ngIf="bookingForm.controls[field.key].errors?.['max']"
+                      >{{ field.errorMessages?.maxValue }}</span
+                    >
+                  </div>
+                </div>
+              </ng-container>
+            </div>
           </div>
         </div>
         <div class="modal-actions">

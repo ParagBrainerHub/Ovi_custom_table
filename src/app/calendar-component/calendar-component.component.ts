@@ -267,13 +267,6 @@ export class CalendarComponentComponent implements OnInit, OnChanges {
     );
   }
 
-  // generateTimeSlots() {
-  //   for (let hour = this.minHour; hour <= this.maxHour; hour++) {
-  //     this.timeSlots.push(`${hour}:00`);
-  //     this.timeSlots.push(`${hour}:30`);
-  //   }
-  // }
-
   generateWeekView() {
     this.generateTimeSlots();
     const startOfWeek = new Date(this.currentDate);
@@ -675,7 +668,6 @@ export class CalendarComponentComponent implements OnInit, OnChanges {
     );
     this.isSlotBooked(this.selectedSlot.date, selectedTime);
     this.availableDurations = this.getAvailableDurations(selectedTime);
-    // this.cdr.detectChanges();
   }
 
   hasSelectedSlotId(): boolean {

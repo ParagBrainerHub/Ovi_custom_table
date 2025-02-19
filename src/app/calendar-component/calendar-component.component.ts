@@ -1,6 +1,7 @@
 import {
   ChangeDetectorRef,
   Component,
+  Input,
   OnChanges,
   OnInit,
   SimpleChanges,
@@ -51,6 +52,7 @@ interface Booking {
   styleUrl: './calendar-component.component.css',
 })
 export class CalendarComponentComponent implements OnInit, OnChanges {
+  @Input() formConfig: any;
   currentView: 'month' | 'week' = 'month';
   currentDate: Date = new Date();
   bookings: Booking[] = [];
@@ -83,16 +85,27 @@ export class CalendarComponentComponent implements OnInit, OnChanges {
       duration: ['', [Validators.required]],
       placeholder: ['', [Validators.required]],
       startTime: ['', [Validators.required]],
-      customerName: [''],
-      attribute2: [''],
+      // customerName: [''],
+      // attribute2: [''],
     });
   }
 
   ngOnInit() {
     this.generateMonthView();
+
+    if (this.formConfig) {
+      this.extendFormWithConfig();
+    } else {
+      console.warn('⚠️ formConfig undefined hai, form extend nahi ho raha.');
+    }
+
+    console.log('Booking Form Controls:', this.bookingForm.controls);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (changes['formConfig'] && this.formConfig) {
+      this.extendFormWithConfig();
+    }
     if (changes['selectedSlot']) {
       const currentValue = changes['selectedSlot'].currentValue;
       const previousValue = changes['selectedSlot'].previousValue;
@@ -108,6 +121,60 @@ export class CalendarComponentComponent implements OnInit, OnChanges {
       } else {
         console.log('Modal Closed');
       }
+    }
+  }
+
+  extendFormWithConfig() {
+    if (!this.formConfig || !this.formConfig.fields) {
+      console.warn('⚠️ formConfig ya fields missing hai.');
+      return;
+    }
+
+    let additionalFields: any = {};
+
+    this.formConfig.fields.forEach((field: any) => {
+      if (!field.label) {
+        console.warn(`⚠️ Field label missing hai:`, field);
+        return;
+      }
+
+      let safeKey = this.toSafeKey(field.label); // ✅ Convert label to safe key
+
+      if (['duration', 'placeholder', 'startTime'].includes(safeKey)) {
+        return; // Ye fields already defined hain, inko ignore karenge
+      }
+
+      let validators = [];
+      if (field['required']) validators.push(Validators.required);
+      if (field['validation']?.['minLength'])
+        validators.push(Validators.minLength(field['validation']['minLength']));
+      if (field['validation']?.['maxLength'])
+        validators.push(Validators.maxLength(field['validation']['maxLength']));
+      if (field['validation']?.['minValue'])
+        validators.push(Validators.min(field['validation']['minValue']));
+      if (field['validation']?.['maxValue'])
+        validators.push(Validators.max(field['validation']['maxValue']));
+
+      additionalFields[safeKey] = ['', validators]; // ✅ Safe key use ho raha hai
+    });
+
+    this.bookingForm = this.fb.group({
+      duration: ['', [Validators.required]],
+      placeholder: ['', [Validators.required]],
+      startTime: ['', [Validators.required]],
+      ...additionalFields,
+    });
+
+    console.log('✅ Final Form Controls:', this.bookingForm.controls);
+  }
+
+  toSafeKey(label: string): string {
+    return label.toLowerCase().replace(/\s+/g, '_').replace(/[^\w]/g, '');
+  }
+
+  submitBooking() {
+    if (this.bookingForm.valid) {
+      console.log('Booking Data:', this.bookingForm.value);
     }
   }
 
@@ -405,29 +472,47 @@ export class CalendarComponentComponent implements OnInit, OnChanges {
   }
 
   bookSlot() {
+    console.log(this.bookingForm.value, 'this.bookingForm.value');
     if (this.bookingForm.valid) {
-      const newBooking: Booking = {
-        id: this.selectedSlot?.id || uuidv4(),
-        ...this.selectedSlot!,
-        ...this.bookingForm.value,
-      };
-      const existingIndex = this.bookings.findIndex(
-        (b) => b.id === newBooking.id
-      );
+      try {
+        const newBooking: Booking = {
+          id: this.selectedSlot?.id || uuidv4(),
+          ...this.selectedSlot!,
+          ...this.bookingForm.value,
+        };
+        const existingIndex = this.bookings.findIndex(
+          (b) => b.id === newBooking.id
+        );
+        console.log(newBooking, 'newBooking');
 
-      if (existingIndex !== -1) {
-        this.bookings[existingIndex] = newBooking;
-      } else {
-        this.bookings.push(newBooking);
-      }
+        if (existingIndex !== -1) {
+          this.bookings[existingIndex] = newBooking;
+        } else {
+          this.bookings.push(newBooking);
+        }
 
-      if (this.currentView === 'month') {
-        this.generateMonthView();
-      } else {
-        this.generateWeekView();
+        if (this.currentView === 'month') {
+          this.generateMonthView();
+        } else {
+          this.generateWeekView();
+        }
+
+        console.log('✅ Booking Successful:', newBooking);
+      } catch (error) {
+        console.error('❌ Error while booking:', error);
       }
 
       this.selectedSlot = null;
+    } else {
+      console.warn('⚠️ Form is invalid:', this.bookingForm.errors);
+      Object.keys(this.bookingForm.controls).forEach((key) => {
+        if (this.bookingForm.controls[key].invalid) {
+          console.warn(
+            `❌ Field "${key}" has errors:`,
+            this.bookingForm.controls[key].errors
+          );
+        }
+      });
     }
   }
 

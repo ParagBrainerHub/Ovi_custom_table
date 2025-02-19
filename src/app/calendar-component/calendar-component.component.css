@@ -262,13 +262,21 @@
 
 .booking-modal h2 {
   color: white;
-  margin: 0px;
-  padding: 16px 24px;
   font-size: 24px;
   font-weight: 700;
   line-height: 30px;
   letter-spacing: 0%;
-  background-color: purple;
+}
+
+.booking-modal-title {
+  display: flex;
+  justify-content: space-between;
+  background: purple;
+  align-items: center;
+  padding: 10px 24px;
+}
+.booking-modal-title .mat-delete-icon {
+  color: white;
 }
 
 .booking-form {

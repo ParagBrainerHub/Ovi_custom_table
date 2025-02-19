@@ -64,6 +64,8 @@ export class CalendarComponentComponent implements OnInit {
     date: null,
     bookings: [],
   };
+  availableDurations: number[] = [];
+  showDeleteIcon: boolean = false;
   minHour = 7;
   maxHour = 20;
   minSlotDuration = 10;
@@ -324,6 +326,7 @@ export class CalendarComponentComponent implements OnInit {
 
     if (booking) {
       this.selectedSlot = booking;
+      this.showDeleteIcon = this.isSlotBookedForDate(date, timeSlot);
     } else {
       this.selectedSlot = {
         date: date,
@@ -338,14 +341,52 @@ export class CalendarComponentComponent implements OnInit {
 
   updateBookingForm(booking: Booking) {
     console.log('booking:1234 ', booking);
-    this.getAvailableDurations(booking.startTime, booking.duration);
-    this.bookingForm.patchValue({
-      duration: booking.duration,
-      startTime: booking.startTime,
-      placeholder: booking.placeholder,
-      customerName: booking.customerName || '',
-      attribute2: booking.attribute2 || '',
-    });
+
+    setTimeout(() => {
+      this.bookingForm.patchValue({
+        duration: booking.duration,
+        startTime: booking.startTime,
+        placeholder: booking.placeholder,
+        customerName: booking.customerName || '',
+        attribute2: booking.attribute2 || '',
+      });
+    }, 0);
+  }
+
+  getAvailableDurations(startTime: string, duration?: string): number[] {
+    let availableDurations: number[] = [30]; // Minimum 30 minutes by default
+    console.log('this.availableTimeSlots:', this.availableTimeSlots);
+
+    const startTimeIndex = this.availableTimeSlots.findIndex(
+      (slot) => slot.time === startTime
+    );
+
+    if (startTimeIndex === -1) return availableDurations;
+
+    let gapMinutes = 0;
+
+    // Check if we are in edit mode and get the existing booking
+    let existingBooking = this.bookings.find((b) => b.startTime === startTime);
+
+    for (let i = startTimeIndex; i < this.availableTimeSlots.length; i++) {
+      let slot = this.availableTimeSlots[i];
+
+      // **Edit mode ke case me apne hi booked slots ko available mano**
+      if (
+        slot.status === 'booked' &&
+        (!existingBooking || slot.time !== existingBooking.startTime)
+      ) {
+        break; // Next booked slot mil gaya, toh yahi ruk jao
+      }
+
+      gapMinutes += 30;
+    }
+
+    // Add available durations based on gapMinutes
+    if (gapMinutes >= 60) availableDurations.push(60);
+    if (gapMinutes >= 90) availableDurations.push(90);
+
+    return availableDurations;
   }
 
   editBooking(booking: Booking) {
@@ -523,46 +564,6 @@ export class CalendarComponentComponent implements OnInit {
     return slotTime === nearestPastSlot;
   }
 
-  getAvailableDurations(startTime: string, duration?: string): number[] {
-    let availableDurations: any[] = [];
-    if (duration) {
-      if (duration === '30') {
-        availableDurations = [30];
-      } else if (duration === '60') {
-        availableDurations = [30, 60];
-      } else if (duration === '90') {
-        availableDurations = [30, 60, 90];
-      }
-      return availableDurations;
-    } else {
-      console.log('this.availableTimeSlots: ', this.availableTimeSlots);
-
-      const startTimeIndex = this.availableTimeSlots.findIndex(
-        (slot) => slot.time === startTime
-      );
-
-      if (startTimeIndex === -1) return availableDurations;
-      let nextBookedIndex = this.availableTimeSlots.findIndex(
-        (slot, index) => index >= startTimeIndex && slot.status === 'booked'
-      );
-      if (nextBookedIndex === -1) {
-        return [30, 60, 90];
-      }
-      let gapMinutes = 0;
-      for (let i = startTimeIndex; i < this.availableTimeSlots.length; i++) {
-        if (this.availableTimeSlots[i].status === 'booked') {
-          break;
-        }
-        gapMinutes += 30;
-      }
-
-      if (gapMinutes >= 60) availableDurations.push(60);
-      if (gapMinutes >= 90) availableDurations.push(90);
-
-      return availableDurations;
-    }
-  }
-
   disablePastSlots() {
     let now = new Date();
 
@@ -583,7 +584,8 @@ export class CalendarComponentComponent implements OnInit {
   onTimeSlotChange(selectedTime: string) {
     console.log('selectedTime: ', selectedTime);
     console.log('this.availableTimeSlots: ', this.availableTimeSlots);
-
+    if (!this.selectedSlot?.date) return;
+    const selectedDate = this.selectedSlot.date;
     const selected = this.availableTimeSlots.find(
       (slot) => slot.time === selectedTime
     );
@@ -593,12 +595,30 @@ export class CalendarComponentComponent implements OnInit {
     console.log('this.isSlotBooked: ', this.isSlotBooked);
 
     if (this.isSlotBooked) {
-      // this.bookingForm.controls['duration'].disable();
+      this.bookingForm.controls['duration'].disable();
     } else {
       this.bookingForm.controls['duration'].enable();
       this.bookingForm.controls['startTime'].enable();
+
+      this.availableDurations = this.getAvailableDurations(selectedTime);
+      this.showDeleteIcon = this.isSlotBookedForDate(
+        selectedDate,
+        selectedTime
+      );
+      console.log('Updated availableDurations: ', this.availableDurations);
     }
+
     this.cdr.detectChanges();
+  }
+
+  isSlotBookedForDate(date?: Date, time?: string): boolean {
+    if (!date || !time) return false;
+
+    return this.bookings.some(
+      (booking) =>
+        new Date(booking.date).toDateString() ===
+          new Date(date).toDateString() && booking.startTime === time
+    );
   }
 
   removeBooking(booking: any) {

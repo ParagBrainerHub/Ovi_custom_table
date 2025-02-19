@@ -161,6 +161,9 @@
       <form [formGroup]="bookingForm" (ngSubmit)="bookSlot()">
         <div class="booking-modal-title">
           <h2>{{ selectedSlot ? "Book Slot" : "Slot Details" }}</h2>
+          <mat-icon *ngIf="showDeleteIcon" class="mat-delete-icon"
+            >delete</mat-icon
+          >
         </div>
 
         <div class="booking-form">
@@ -203,11 +206,7 @@
                 [disabled]="isSlotBooked"
               >
                 <option
-                  *ngFor="
-                    let duration of getAvailableDurations(
-                      selectedSlot.startTime
-                    )
-                  "
+                  *ngFor="let duration of availableDurations"
                   [value]="duration"
                 >
                   {{

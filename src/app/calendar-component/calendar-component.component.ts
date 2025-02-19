@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -14,10 +20,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { v4 as uuidv4 } from 'uuid';
 interface Booking {
+  id?: string;
   date: Date;
   startTime: string;
-  duration: string;
+  duration: number;
   placeholder: string;
   customerName?: string;
   attribute2?: string;
@@ -42,7 +50,7 @@ interface Booking {
   templateUrl: './calendar-component.component.html',
   styleUrl: './calendar-component.component.css',
 })
-export class CalendarComponentComponent implements OnInit {
+export class CalendarComponentComponent implements OnInit, OnChanges {
   currentView: 'month' | 'week' = 'month';
   currentDate: Date = new Date();
   bookings: Booking[] = [];
@@ -59,13 +67,12 @@ export class CalendarComponentComponent implements OnInit {
   }[] = [];
   timeSlots: string[] = [];
   availableTimeSlots: { time: string; status: string }[] = [];
-  isSlotBooked: boolean = false;
   selectedDayBookings: { date: Date | null; bookings: Booking[] } = {
     date: null,
     bookings: [],
   };
   availableDurations: number[] = [];
-  showDeleteIcon: boolean = false;
+  isDurationDisabled: boolean = false;
   minHour = 7;
   maxHour = 20;
   minSlotDuration = 10;
@@ -83,6 +90,25 @@ export class CalendarComponentComponent implements OnInit {
 
   ngOnInit() {
     this.generateMonthView();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['selectedSlot']) {
+      const currentValue = changes['selectedSlot'].currentValue;
+      const previousValue = changes['selectedSlot'].previousValue;
+
+      console.log('Selected Slot Changed:', {
+        current: currentValue,
+        previous: previousValue,
+        firstChange: changes['selectedSlot'].firstChange,
+      });
+
+      if (currentValue) {
+        console.log('Modal Opened with booking:', currentValue);
+      } else {
+        console.log('Modal Closed');
+      }
+    }
   }
 
   generateMonthView() {
@@ -207,7 +233,6 @@ export class CalendarComponentComponent implements OnInit {
       });
 
       this.weekDays.push({ date: day, timeSlots });
-      console.log('this.weekDays: ', this.weekDays);
       this.disablePastSlots();
     }
   }
@@ -241,7 +266,7 @@ export class CalendarComponentComponent implements OnInit {
     const bookedSlots = new Set();
     bookingsForDay.forEach((booking) => {
       const startTime = booking.startTime;
-      const duration = parseInt(booking.duration, 10);
+      const duration = booking.duration;
 
       let [hour, minute] = startTime.split(':').map(Number);
       let totalMinutes = hour * 60 + minute;
@@ -285,7 +310,6 @@ export class CalendarComponentComponent implements OnInit {
   expandOpenModal(day: { date: Date; bookings: Booking[] }) {
     this.selectedSlot = null;
     this.selectedDayBookings = day;
-    console.log('this.selectedDayBookings: ', this.selectedDayBookings);
     this.expandDayBookingModal = true;
     document.body.style.overflow = 'hidden';
   }
@@ -299,63 +323,60 @@ export class CalendarComponentComponent implements OnInit {
   addBooking(date: Date) {
     this.expandDayBookingModal = false;
     this.availableTimeSlots = this.getAvailableSlots(date);
-
+    this.availableDurations = this.getAvailableDurations(
+      this.availableTimeSlots[0].time
+    );
     this.selectedSlot = {
       date: date,
       startTime:
         this.availableTimeSlots.length > 0
           ? this.availableTimeSlots[0].time
           : '00:30',
-      duration: '30',
+      duration: this.availableDurations[0],
       placeholder: '',
     };
-
+    document.body.style.overflow = this.selectedSlot ? 'hidden' : 'auto';
     this.updateBookingForm(this.selectedSlot);
-    console.log('this.availableTimeSlots: ', this.availableTimeSlots);
   }
 
   // Updated `selectSlot`
-  selectSlot(date: Date, timeSlot?: string, duration?: string) {
-    console.log('timeSlot: ', timeSlot);
+  selectSlot(date: Date, timeSlot?: string, duration?: number, id?: string) {
+    this.isSlotBooked(date, timeSlot);
     this.availableTimeSlots = this.getAvailableSlots(date);
-
-    const booking = this.bookings.find(
-      (b) => this.isSameDate(b.date, date) && b.startTime === timeSlot
-    );
-    console.log('booking: ', booking);
-
+    const booking = this.bookings.find((b) => b.id === id);
     if (booking) {
-      this.selectedSlot = booking;
-      this.showDeleteIcon = this.isSlotBookedForDate(date, timeSlot);
+      this.selectedSlot = { ...booking };
     } else {
       this.selectedSlot = {
+        id: uuidv4(),
         date: date,
         startTime: timeSlot || '00:00',
-        duration: duration ?? '30',
+        duration: duration ?? this.availableDurations[0],
         placeholder: '',
       };
     }
 
+    document.body.style.overflow = this.selectedSlot ? 'hidden' : 'auto';
     this.updateBookingForm(this.selectedSlot);
   }
 
   updateBookingForm(booking: Booking) {
-    console.log('booking:1234 ', booking);
+    this.bookingForm.patchValue({
+      duration: booking.duration,
+      startTime: booking.startTime,
+      placeholder: booking.placeholder,
+      customerName: booking.customerName || '',
+      attribute2: booking.attribute2 || '',
+    });
+  }
 
-    setTimeout(() => {
-      this.bookingForm.patchValue({
-        duration: booking.duration,
-        startTime: booking.startTime,
-        placeholder: booking.placeholder,
-        customerName: booking.customerName || '',
-        attribute2: booking.attribute2 || '',
-      });
-    }, 0);
+  closeModal() {
+    this.selectedSlot = null;
+    document.body.style.overflow = this.selectedSlot ? 'hidden' : 'auto';
   }
 
   getAvailableDurations(startTime: string, duration?: string): number[] {
-    let availableDurations: number[] = [30]; // Minimum 30 minutes by default
-    console.log('this.availableTimeSlots:', this.availableTimeSlots);
+    let availableDurations: number[] = [30];
 
     const startTimeIndex = this.availableTimeSlots.findIndex(
       (slot) => slot.time === startTime
@@ -364,62 +385,34 @@ export class CalendarComponentComponent implements OnInit {
     if (startTimeIndex === -1) return availableDurations;
 
     let gapMinutes = 0;
-
-    // Check if we are in edit mode and get the existing booking
     let existingBooking = this.bookings.find((b) => b.startTime === startTime);
 
     for (let i = startTimeIndex; i < this.availableTimeSlots.length; i++) {
       let slot = this.availableTimeSlots[i];
-
-      // **Edit mode ke case me apne hi booked slots ko available mano**
       if (
         slot.status === 'booked' &&
         (!existingBooking || slot.time !== existingBooking.startTime)
       ) {
-        break; // Next booked slot mil gaya, toh yahi ruk jao
+        break;
       }
 
       gapMinutes += 30;
     }
-
-    // Add available durations based on gapMinutes
     if (gapMinutes >= 60) availableDurations.push(60);
     if (gapMinutes >= 90) availableDurations.push(90);
 
     return availableDurations;
   }
 
-  editBooking(booking: Booking) {
-    console.log('booking: ', booking);
-    this.selectedSlot = booking;
-    this.updateBookingForm(booking);
-  }
-
-  deleteBooking(booking: Booking) {
-    this.bookings = this.bookings.filter((b) => b !== booking);
-
-    if (this.currentView === 'month') {
-      this.generateMonthView();
-    } else {
-      this.generateWeekView();
-    }
-  }
-
   bookSlot() {
     if (this.bookingForm.valid) {
-      console.log('this.selectedSlot: ', this.selectedSlot);
-      console.log('this.bookingForm.value: ', this.bookingForm.value);
       const newBooking: Booking = {
+        id: this.selectedSlot?.id || uuidv4(),
         ...this.selectedSlot!,
         ...this.bookingForm.value,
       };
-      console.log('newBooking: ', newBooking);
-
-      // Check if booking already exists
       const existingIndex = this.bookings.findIndex(
-        (b) =>
-          this.isSameDate(b.date, newBooking.date) &&
-          b.startTime === newBooking.startTime
+        (b) => b.id === newBooking.id
       );
 
       if (existingIndex !== -1) {
@@ -428,14 +421,6 @@ export class CalendarComponentComponent implements OnInit {
         this.bookings.push(newBooking);
       }
 
-      // this.availableTimeSlots = this.availableTimeSlots.map((slot) => {
-      //   if (slot.time === newBooking.startTime) {
-      //     return { ...slot, status: 'booked' };
-      //   }
-      //   return slot;
-      // });
-
-      // Regenerate the view
       if (this.currentView === 'month') {
         this.generateMonthView();
       } else {
@@ -446,7 +431,24 @@ export class CalendarComponentComponent implements OnInit {
     }
   }
 
-  // ///////////////////////////   Parag Jain code   ////////////////
+  editBooking(booking: Booking) {
+    this.selectedSlot = booking;
+    this.updateBookingForm(booking);
+  }
+
+  deleteBooking(id: Booking['id']) {
+    const index = this.bookings.findIndex((b) => b.id === id);
+    if (index !== -1) {
+      this.bookings.splice(index, 1);
+    }
+
+    if (this.currentView === 'month') {
+      this.generateMonthView();
+    } else {
+      this.generateWeekView();
+    }
+    this.closeModal();
+  }
 
   generateTimeSlots() {
     this.timeSlots = [];
@@ -578,53 +580,55 @@ export class CalendarComponentComponent implements OnInit {
         (slot as any).disabled = isPastDay || slotDateTime < now;
       });
     });
-    console.log('this.weekDays: disabled ', this.weekDays);
   }
 
   onTimeSlotChange(selectedTime: string) {
-    console.log('selectedTime: ', selectedTime);
-    console.log('this.availableTimeSlots: ', this.availableTimeSlots);
-    if (!this.selectedSlot?.date) return;
-    const selectedDate = this.selectedSlot.date;
+    if (!this.selectedSlot) return;
+    this.selectedSlot = { ...this.selectedSlot, startTime: selectedTime };
     const selected = this.availableTimeSlots.find(
       (slot) => slot.time === selectedTime
     );
-    console.log('selected: ', selected);
-
-    this.isSlotBooked = selected?.status === 'booked';
-    console.log('this.isSlotBooked: ', this.isSlotBooked);
-
-    if (this.isSlotBooked) {
-      this.bookingForm.controls['duration'].disable();
-    } else {
-      this.bookingForm.controls['duration'].enable();
-      this.bookingForm.controls['startTime'].enable();
-
-      this.availableDurations = this.getAvailableDurations(selectedTime);
-      this.showDeleteIcon = this.isSlotBookedForDate(
-        selectedDate,
-        selectedTime
-      );
-      console.log('Updated availableDurations: ', this.availableDurations);
-    }
-
-    this.cdr.detectChanges();
+    this.isSlotBooked(this.selectedSlot.date, selectedTime);
+    this.availableDurations = this.getAvailableDurations(selectedTime);
+    // this.cdr.detectChanges();
   }
 
-  isSlotBookedForDate(date?: Date, time?: string): boolean {
-    if (!date || !time) return false;
-
-    return this.bookings.some(
-      (booking) =>
-        new Date(booking.date).toDateString() ===
-          new Date(date).toDateString() && booking.startTime === time
+  hasSelectedSlotId(): boolean {
+    return (
+      !!this.selectedSlot?.id &&
+      this.bookings.some((b) => b.id === this.selectedSlot?.id)
     );
   }
 
-  removeBooking(booking: any) {
-    const index = this.selectedDayBookings.bookings.indexOf(booking);
-    if (index > -1) {
-      this.selectedDayBookings.bookings.splice(index, 1);
+  isSlotBooked(date?: Date, startTime?: string): boolean {
+    if (!date || !startTime) {
+      this.bookingForm.get('duration')?.enable();
+      return false;
     }
+    const result = this.bookings.some((b) => {
+      const bookingDate = new Date(b.date);
+      const isDateSame = this.isSameDate(bookingDate, date);
+      const isTimeSame = b.startTime.trim() === startTime.trim();
+
+      console.log(
+        `Checking Slot: Date(${date}) vs BookingDate(${bookingDate}) => ${isDateSame}`
+      );
+      console.log(
+        `Checking Slot: Time(${startTime}) vs BookingTime(${b.startTime}) => ${isTimeSame}`
+      );
+
+      return isDateSame && isTimeSame;
+    });
+
+    if (result) {
+      this.bookingForm.get('duration')?.disable();
+    } else {
+      this.bookingForm.get('duration')?.enable();
+    }
+
+    this.bookingForm.updateValueAndValidity();
+    this.cdr.detectChanges();
+
+    return result;
   }
 }

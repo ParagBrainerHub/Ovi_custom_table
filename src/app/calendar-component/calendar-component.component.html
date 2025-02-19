@@ -65,8 +65,14 @@
                 {{ booking.startTime }} - <span>{{ booking.placeholder }}</span>
                 <mat-icon
                   (click)="
-                    selectSlot(day.date, booking.startTime, booking.duration)
+                    selectSlot(
+                      day.date,
+                      booking.startTime,
+                      booking.duration,
+                      booking.id
+                    )
                   "
+                  class="edit-icon"
                   >edit</mat-icon
                 >
               </div>
@@ -91,8 +97,6 @@
           >close</mat-icon
         >
         <h6>{{ selectedDayBookings.date | date : "dd/MM/yyyy" }} - Bookings</h6>
-
-        <!-- Loop through all bookings -->
         <div
           class="booking-container"
           *ngFor="let booking of selectedDayBookings?.bookings"
@@ -110,12 +114,10 @@
                   </mat-panel-description>
                 </mat-expansion-panel-header>
 
-                <!-- <mat-form-field>
-                  <mat-label>First name</mat-label>
-                  <input matInput />
-                </mat-form-field>
+                <mat-label>Duration</mat-label>
+                <h6>{{ booking.duration }} min</h6>
 
-                <mat-form-field>
+                <!-- <mat-form-field>
                   <mat-label>Age</mat-label>
                   <input matInput type="number" min="1" />
                 </mat-form-field> -->
@@ -161,7 +163,10 @@
       <form [formGroup]="bookingForm" (ngSubmit)="bookSlot()">
         <div class="booking-modal-title">
           <h2>{{ selectedSlot ? "Book Slot" : "Slot Details" }}</h2>
-          <mat-icon *ngIf="showDeleteIcon" class="mat-delete-icon"
+          <mat-icon
+            *ngIf="hasSelectedSlotId()"
+            class="mat-delete-icon"
+            (click)="deleteBooking(selectedSlot.id)"
             >delete</mat-icon
           >
         </div>
@@ -176,11 +181,10 @@
               <mat-form-field>
                 <mat-select
                   formControlName="startTime"
-                  [(ngModel)]="selectedSlot.startTime"
                   (ngModelChange)="onTimeSlotChange($event)"
+                  [value]="selectedSlot.startTime"
                 >
                   <mat-option
-                    class="booking-model-avai-time"
                     *ngFor="let slot of availableTimeSlots"
                     [value]="slot.time"
                   >
@@ -196,29 +200,27 @@
                 </mat-select>
               </mat-form-field>
             </p>
+            <p>
+              <label> Duration: </label>
+              <mat-form-field>
+                <mat-select formControlName="duration" class="duration-select">
+                  <mat-option
+                    *ngFor="let duration of availableDurations"
+                    [value]="duration"
+                  >
+                    {{
+                      duration === 30
+                        ? "30 mins"
+                        : duration === 60
+                        ? "1 hour"
+                        : "1.5 hours"
+                    }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </p>
           </div>
           <div class="slot-other-detail">
-            <div class="input-wrapper">
-              <label> Duration: </label>
-              <select
-                formControlName="duration"
-                class="duration-select"
-                [disabled]="isSlotBooked"
-              >
-                <option
-                  *ngFor="let duration of availableDurations"
-                  [value]="duration"
-                >
-                  {{
-                    duration === 30
-                      ? "30 mins"
-                      : duration === 60
-                      ? "1 hour"
-                      : "1.5 hours"
-                  }}
-                </option>
-              </select>
-            </div>
             <div class="input-wrapper">
               <label> Placeholder: </label>
               <input type="text" formControlName="placeholder" required />
@@ -234,10 +236,16 @@
           </div>
         </div>
         <div class="modal-actions">
-          <button type="button" class="cancel" (click)="selectedSlot = null">
+          <button type="button" class="cancel" (click)="closeModal()">
             Cancel
           </button>
-          <button type="submit" class="submit_form">Book Slot</button>
+          <button
+            type="submit"
+            class="submit_form"
+            [disabled]="bookingForm.pristine || bookingForm.invalid"
+          >
+            Book Slot
+          </button>
         </div>
       </form>
     </div>

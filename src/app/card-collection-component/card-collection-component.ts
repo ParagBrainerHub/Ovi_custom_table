@@ -66,17 +66,11 @@ export class CardComponentComponent implements OnChanges, OnInit {
 
   selectedTabs: string[] = ['grid'];
 
-  ngOnInit(): void {
-    console.log(this.selectedTabs, 'this.selectedTabs');
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.selectedTabs, 'this.selectedTabs');
-  }
+  ngOnInit(): void {}
+  ngOnChanges(changes: SimpleChanges): void {}
 
   onTabChange(selected: string[]) {
-    // console.log('Before Update:', this.selectedTabs);
     this.selectedTabs = [...selected];
-    // console.log('After Update:', this.selectedTabs);
   }
 
   // tab change stop

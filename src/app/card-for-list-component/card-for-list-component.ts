@@ -176,12 +176,10 @@ export class CardListComponentComponent {
     );
 
     if (hasTitle && (hasImage || hasContentDescription)) {
-      console.log('CardConfig is valid: Title + Image or Description');
       return;
     }
 
     if (hasImage && hasImageDescription) {
-      console.log('CardConfig is valid: Image + Description');
       return;
     }
     console.error(

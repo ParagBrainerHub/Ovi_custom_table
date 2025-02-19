@@ -148,7 +148,6 @@ export class AppComponent {
     setTimeout(() => {
       alert('User Logged Out SuccessFully');
     }, 3000);
-    console.log('Button clicked!', event);
   }
 
   //User Config
@@ -1346,12 +1345,10 @@ export class AppComponent {
   }
 
   subscribeUser(): void {
-    console.log('User subscribed with email!');
     this.closePopup();
   }
 
   submitForm(): void {
-    console.log('Form submitted:', this.popupConfig.formFields);
     this.closePopup();
   }
 

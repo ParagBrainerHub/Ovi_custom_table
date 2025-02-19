@@ -162,12 +162,8 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
   }
 
   dropSelectedColumns(event: CdkDragDrop<string[]>) {
-    console.log('event: ', event);
-    console.log('this?.columnControl.value: ', this?.columnControl.value);
-
     // Get the dragged column from the previous container
     const draggedColumn = event.previousContainer.data[event.previousIndex];
-    console.log('draggedColumn: ', draggedColumn);
 
     // Check if the dragged column is included in the columnControl value
     if ((this?.columnControl?.value ?? []).includes(draggedColumn)) {

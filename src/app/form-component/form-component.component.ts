@@ -93,7 +93,6 @@ export class FormComponentComponent
   }
 
   ngOnInit() {
-    console.log('this.formConfig: ', this.formConfig);
     this.buildForm();
     this.subscribeToFormChanges();
   }
@@ -151,12 +150,6 @@ export class FormComponentComponent
         field.validation?.maxTime
       ) {
         controlValidators.push((control: AbstractControl) => {
-          console.log(
-            'field.validation?.maxTime: ',
-            field?.validation?.maxTime
-          );
-          console.log('field.validation?.minTime: ', field.validation?.minTime);
-
           if (!control.value) return null;
 
           const selectedTime = control.value; // Direct time string (HH:mm)
@@ -197,8 +190,6 @@ export class FormComponentComponent
       const control = this.form.get(field.label);
       if (control) {
         const sub = control.valueChanges.subscribe((value) => {
-          console.log(`${field.label} changed: `, value);
-
           switch (field.type) {
             case 'text':
               if (
@@ -275,7 +266,6 @@ export class FormComponentComponent
                   );
                   control.setErrors({ timeRangeError: true });
                 } else {
-                  console.log(`${field.label}: Valid time selected.`);
                   control.setErrors(null);
                 }
               }
@@ -283,12 +273,10 @@ export class FormComponentComponent
 
             case 'file':
               const files = control.value as (File | string)[];
-              console.log('files: ', files);
 
               if (files && files.length) {
                 for (let i = 0; i < files.length; i++) {
                   const file = files[i];
-                  console.log('file: ', file);
 
                   if (typeof file === 'string' && file.startsWith('data:')) {
                     const match = file.match(
@@ -298,7 +286,6 @@ export class FormComponentComponent
                     if (match) {
                       fileType = match[1];
                     }
-                    console.log('file.type (base64): ', fileType);
                     if (
                       field.fileConfig?.allowedTypes &&
                       !field.fileConfig.allowedTypes.includes(fileType)
@@ -309,11 +296,9 @@ export class FormComponentComponent
                       control.setErrors({ invalidFileType: true });
                       break;
                     } else {
-                      console.log(`${field.label}: Valid file type uploaded.`);
                     }
                   } else if (file instanceof File) {
                     const fileType = file.type;
-                    console.log('file.type (File): ', fileType);
                     if (
                       field.fileConfig?.allowedTypes &&
                       !field.fileConfig.allowedTypes.includes(fileType)
@@ -343,7 +328,6 @@ export class FormComponentComponent
               break;
 
             default:
-              console.log(`${field.label}: No specific logic applied.`);
           }
         });
         this.subscriptions.push(sub);
@@ -353,8 +337,6 @@ export class FormComponentComponent
 
   onSubmit() {
     if (this.form.invalid) {
-      console.log('Form is invalid. Please correct the following errors:');
-
       Object.keys(this.form.controls).forEach((key) => {
         const control = this.form.get(key);
         if (control?.invalid) {
@@ -364,8 +346,6 @@ export class FormComponentComponent
 
       return;
     }
-
-    console.log('Form is valid. Submitting data:', this.form.value);
   }
 
   // Validator function:

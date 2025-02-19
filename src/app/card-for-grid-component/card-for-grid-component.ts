@@ -40,8 +40,6 @@ export class CardGridComponentComponent {
   loading = true;
 
   ngOnInit() {
-    console.log(this.cardConfig, 'this.cardConfig');
-
     setTimeout(() => {
       this.loading = false;
     }, 2000);
@@ -56,7 +54,6 @@ export class CardGridComponentComponent {
   // Card Width
   get cardWidth(): string {
     if (this.cardConfig?.layout === 'grid') {
-      console.log(this.cardConfig?.width, 'this.cardConfig.width');
       return `${this.cardConfig.width || 250}px`;
     } else if (this.cardConfig?.layout === 'list') {
       return '100%';
@@ -181,12 +178,10 @@ export class CardGridComponentComponent {
     );
 
     if (hasTitle && (hasImage || hasContentDescription)) {
-      console.log('CardConfig is valid: Title + Image or Description');
       return;
     }
 
     if (hasImage && hasImageDescription) {
-      console.log('CardConfig is valid: Image + Description');
       return;
     }
     console.error(

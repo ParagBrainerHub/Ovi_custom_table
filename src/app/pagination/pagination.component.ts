@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgxPaginationModule, PaginationInstance } from 'ngx-pagination';
 
 @Component({
@@ -9,7 +9,7 @@ import { NgxPaginationModule, PaginationInstance } from 'ngx-pagination';
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.css',
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent {
   @Input() totalItems: number = 0; // Total number of items
   @Input() itemsPerPage: number = 10; // Items per page
   @Input() currentPage: number = 1; // Current page number
@@ -17,10 +17,6 @@ export class PaginationComponent implements OnInit {
   @Input() directionLinks: boolean = true; // Show previous/next links
 
   @Output() pageChange = new EventEmitter<number>(); // Emit page change event
-
-  ngOnInit(): void {
-    console.log(this.itemsPerPage, 'hbfkiwshfiuwe');
-  }
 
   get totalPages(): number {
     return Math.ceil(this.totalItems / this.itemsPerPage);

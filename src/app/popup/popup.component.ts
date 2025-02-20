@@ -32,6 +32,7 @@ export class PopupComponent implements OnInit {
 
   defaultFormConfig: FormConfig = {
     fields: [],
+    formWidth: 100,
   };
 
   @Output() popupClosed = new EventEmitter<void>();

@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import {
   AbstractControl,
+  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -19,7 +20,10 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import {
+  MatCheckboxChange,
+  MatCheckboxModule,
+} from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -38,6 +42,7 @@ import { Subscription } from 'rxjs';
 import { QuillModule } from 'ngx-quill';
 import { CustomButtonComponent } from '../button-component/custom-button.component';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-form-component',
@@ -54,11 +59,11 @@ import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
     MatSelectModule,
     MatIconModule,
     CommonModule,
-    MatFormFieldModule,
     MatInputModule,
     QuillModule,
     CustomButtonComponent,
     NgxMatTimepickerModule,
+    MatSlideToggleModule,
   ],
   templateUrl: './form-component.component.html',
   styleUrl: './form-component.component.css',
@@ -84,13 +89,7 @@ export class FormComponentComponent
 
   constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef) {}
 
-  formWidth = 60;
-
   rightSideImage = 'https://picsum.photos/id/238/900/600';
-
-  updateFormWidth(width: number) {
-    this.formWidth = Math.min(Math.max(width, 20), 80);
-  }
 
   ngOnInit() {
     this.buildForm();
@@ -113,7 +112,7 @@ export class FormComponentComponent
   };
 
   buildForm() {
-    const formControls: { [key: string]: FormControl } = {};
+    const formControls: { [key: string]: FormControl | FormArray } = {};
 
     this.formConfig.fields.forEach((field) => {
       field.hide = field.hide ?? false;
@@ -152,11 +151,9 @@ export class FormComponentComponent
         controlValidators.push((control: AbstractControl) => {
           if (!control.value) return null;
 
-          const selectedTime = control.value; // Direct time string (HH:mm)
+          const selectedTime = control.value;
           const minTime = field.validation?.minTime;
           const maxTime = field.validation?.maxTime;
-
-          // Check if minTime and maxTime are defined
           if (!minTime || !maxTime) {
             return null;
           }
@@ -169,10 +166,23 @@ export class FormComponentComponent
         });
       }
 
-      formControls[field.label] = this.fb.control(
-        field.value || '',
-        controlValidators
-      );
+      if (field.type === 'checkbox') {
+        formControls[field.label] = this.fb.array(field.value || []);
+        console.log(
+          `✅ ${field.label} is a FormArray`,
+          formControls[field.label]
+        );
+      } else {
+        const defaultValue = field.value || '';
+        formControls[field.label] = this.fb.control(
+          defaultValue,
+          controlValidators
+        );
+        console.log(
+          `✅ ${field.label} is a FormControl`,
+          formControls[field.label]
+        );
+      }
     });
 
     this.form = this.fb.group(formControls);
@@ -327,6 +337,56 @@ export class FormComponentComponent
               }
               break;
 
+            case 'checkbox':
+              if (
+                field.required &&
+                (!Array.isArray(value) || value.length === 0)
+              ) {
+                console.warn(
+                  `${field.label} is required. Select at least one option.`
+                );
+                control.setErrors({ required: true });
+              } else {
+                control.setErrors(null);
+              }
+              break;
+
+            /** ----------------------- Radio Button Handling ----------------------- **/
+            case 'radio':
+              if (field.required && !value) {
+                console.warn(
+                  `${field.label} is required. Please select an option.`
+                );
+                control.setErrors({ required: true });
+              } else {
+                control.setErrors(null);
+              }
+              break;
+
+            /** ----------------------- Select (Dropdown) Handling ----------------------- **/
+            case 'select':
+              if (field.required && !value) {
+                console.warn(
+                  `${field.label} is required. Please select a value.`
+                );
+                control.setErrors({ required: true });
+              } else {
+                control.setErrors(null);
+              }
+              break;
+
+            /** ----------------------- Switch (Toggle) Handling ----------------------- **/
+            case 'switch':
+              if (field.required && value === false) {
+                console.warn(
+                  `${field.label} is required. Please toggle the switch.`
+                );
+                control.setErrors({ required: true });
+              } else {
+                control.setErrors(null);
+              }
+              break;
+
             default:
           }
         });
@@ -337,14 +397,57 @@ export class FormComponentComponent
 
   onSubmit() {
     if (this.form.invalid) {
+      console.log('Form has validation errors:');
+
       Object.keys(this.form.controls).forEach((key) => {
         const control = this.form.get(key);
+
         if (control?.invalid) {
-          console.log(`Field: ${key}, Errors:`, control.errors);
+          const errors = control.errors;
+          console.log(`🚨 Field: "${key}" has the following errors:`);
+
+          if (errors?.['required']) {
+            console.log('   ❌ Required: This field is required.');
+          }
+          if (errors?.['minlength']) {
+            console.log(
+              `   ❌ Min Length: Minimum ${errors?.['minlength'].requiredLength} characters required.`
+            );
+          }
+          if (errors?.['maxlength']) {
+            console.log(
+              `   ❌ Max Length: Maximum ${errors?.['maxlength'].requiredLength} characters allowed.`
+            );
+          }
+          if (errors?.['min']) {
+            console.log(
+              `   ❌ Min Value: Minimum allowed value is ${errors?.['min'].min}.`
+            );
+          }
+          if (errors?.['max']) {
+            console.log(
+              `   ❌ Max Value: Maximum allowed value is ${errors?.['max'].max}.`
+            );
+          }
+          if (errors?.['pattern']) {
+            console.log(
+              `   ❌ Pattern Mismatch: Value does not match the required pattern.`
+            );
+          }
+          if (errors?.['email']) {
+            console.log(`   ❌ Invalid Email: Enter a valid email address.`);
+          }
+          if (errors?.['customErrorMessage']) {
+            console.log(
+              `   ❌ Custom Error: ${errors?.['customErrorMessage']}`
+            );
+          }
         }
       });
 
       return;
+    } else {
+      console.log('✅ Form Submitted Successfully!', this.form.value);
     }
   }
 
@@ -436,6 +539,29 @@ export class FormComponentComponent
     }
   }
 
+  selectedCheckboxes: any = {};
+
+  onCheckboxChange(
+    event: MatCheckboxChange,
+    fieldLabel: string,
+    value: any,
+    index: number
+  ) {
+    const formArray = this.form.get(fieldLabel) as FormArray;
+    console.log('formArray: ', formArray);
+
+    if (event.checked) {
+      formArray.push(new FormControl(value));
+      console.log('formArray: ', formArray);
+    } else {
+      let indexToRemove = formArray.value.findIndex((v: any) => v === value);
+      if (indexToRemove !== -1) {
+        formArray.removeAt(indexToRemove);
+        console.log('formArray: ', formArray);
+      }
+    }
+  }
+
   removeImage(index: number) {
     this.selectedImages.splice(index, 1);
   }
@@ -443,5 +569,15 @@ export class FormComponentComponent
   ngOnDestroy() {
     window.removeEventListener('scroll', this.closeDatepickerOnScroll, true);
     this.subscriptions.forEach((sub) => sub.unsubscribe());
+  }
+
+  // /////// styles //////
+  getMergedStyles(field: FormFieldConfig) {
+    return {
+      ...(field.style?.inlineStyles || {}),
+      width: field.width ? `${field.width}px` : '150px',
+      'min-width': '100%',
+      'max-width': '100%',
+    };
   }
 }

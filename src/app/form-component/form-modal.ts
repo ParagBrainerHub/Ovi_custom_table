@@ -1,16 +1,27 @@
 import { ButtonConfig } from '../button-component/button.model';
 
 export interface FormConfig {
+  formWidth: number;
   fields: FormFieldConfig[];
   submitButtonConfig?: ButtonConfig;
 }
 
 export interface FormFieldConfig {
-  type: 'text' | 'number' | 'date' | 'file' | 'textarea' | 'time';
+  type:
+    | 'text'
+    | 'number'
+    | 'date'
+    | 'file'
+    | 'textarea'
+    | 'time'
+    | 'switch'
+    | 'radio'
+    | 'checkbox'
+    | 'select';
   label: string;
   placeholder?: string;
   showFileIcon?: boolean;
-  minWidth: number;
+  width: number;
   value?: any;
   required?: boolean;
   validation?: ValidationConfig;
@@ -21,7 +32,10 @@ export interface FormFieldConfig {
   hide?: boolean;
   showCheckbox?: boolean;
   buttonConfig?: ButtonConfig;
+  options?: OptionConfig[];
+  defaultValue?: any;
 }
+
 export interface ValidationConfig {
   minLength?: number;
   maxLength?: number;
@@ -75,4 +89,9 @@ export interface ToolbarOption {
 export interface StyleConfig {
   class?: string;
   inlineStyles?: { [key: string]: string };
+}
+
+export interface OptionConfig {
+  label: string;
+  value: string | number | boolean;
 }

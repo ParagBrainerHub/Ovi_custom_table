@@ -856,19 +856,24 @@ export class AppComponent {
   //Form Config
   constructor(private fb: FormBuilder) {
     this.formConfig = {
+      formWidth: 60,
       fields: [
         {
           type: 'text',
           label: 'Name',
           placeholder: 'Enter your name',
-          minWidth: 350,
+          width: 300,
           required: true,
           validation: {
             minLength: 3,
             maxLength: 30,
           },
           style: {
-            inlineStyles: { 'font-size': '16px', 'font-weight': 'bold' },
+            inlineStyles: {
+              'font-size': '16px',
+              'font-weight': 'bold',
+              'min-width': '80%',
+            },
           },
           errorMessages: {
             required: 'Name is required.',
@@ -881,7 +886,7 @@ export class AppComponent {
           type: 'number',
           label: 'Age',
           placeholder: 'Enter your age',
-          minWidth: 350,
+          width: 300,
           validation: {
             minValue: 18,
             maxValue: 60,
@@ -898,7 +903,7 @@ export class AppComponent {
           type: 'date',
           label: 'Date of Birth',
           placeholder: 'Pick a date',
-          minWidth: 150,
+          width: 300,
           required: true,
           showCheckbox: true,
         },
@@ -906,7 +911,7 @@ export class AppComponent {
           type: 'time',
           label: 'Select Time',
           placeholder: 'Pick a time',
-          minWidth: 150,
+          width: 300,
           required: true,
           validation: {
             minTime: '08:00',
@@ -920,10 +925,65 @@ export class AppComponent {
           },
           showCheckbox: true,
         },
+        {
+          type: 'switch',
+          label: 'Enable Notifications',
+          width: 300,
+          defaultValue: false,
+          showCheckbox: true,
+        },
+        {
+          type: 'select',
+          label: 'Country',
+          width: 300,
+          placeholder: 'Select a country',
+          options: [
+            { label: 'India', value: 'IN' },
+            { label: 'United States', value: 'US' },
+            { label: 'Canada', value: 'CA' },
+          ],
+          required: true,
+          errorMessages: {
+            required: 'Country selection is required.',
+          },
+          showCheckbox: true,
+        },
+        {
+          type: 'radio',
+          label: 'Gender',
+          width: 500,
+          options: [
+            { label: 'Male', value: 'male' },
+            { label: 'Female', value: 'female' },
+            { label: 'Other', value: 'other' },
+          ],
+          required: true,
+          errorMessages: {
+            required: 'Gender is required.',
+          },
+          showCheckbox: true,
+        },
+        {
+          type: 'checkbox',
+          label: 'Hobbies',
+          width: 600,
+          value: [],
+          options: [
+            { label: 'Reading', value: 'reading' },
+            { label: 'Traveling', value: 'traveling' },
+            { label: 'Music', value: 'music' },
+          ],
+          required: true,
+          errorMessages: {
+            required: 'Select at least one hobby.',
+          },
+          showCheckbox: true,
+        },
+
         // {
         //   type: 'file',
         //   label: 'Picture',
-        //   minWidth: 150,
+        //   width: 150,
         //   showFileIcon: false,
         //   fileConfig: {
         //     allowedTypes: ['image/png', 'image/jpeg', 'image/gif'],
@@ -947,7 +1007,7 @@ export class AppComponent {
         //   type: 'textarea',
         //   label: 'Bio',
         //   placeholder: 'Write your bio',
-        //   minWidth: 600,
+        //   width: 600,
         //   textareaConfig: {
         //     rows: 5,
         //     toolbarOptions: [

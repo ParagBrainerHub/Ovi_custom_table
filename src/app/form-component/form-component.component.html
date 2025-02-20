@@ -2,7 +2,7 @@
   <div class="form-wrapper">
     <div class="split-container">
       <!-- Form Section -->
-      <div class="form-section" [style.flex-basis]="formWidth + '%'">
+      <div class="form-section" [style.flex-basis]="formConfig.formWidth + '%'">
         <h1 class="form-title">Get a Quote Now</h1>
         <p class="form-subtitle">
           Get a Quote Immediately Upon Form Submission
@@ -14,28 +14,23 @@
               <ng-container
                 *ngFor="let field of formConfig.fields; let i = index"
               >
-                <div
-                  class="field-container"
-                  [ngStyle]="{
-                    minWidth: field.minWidth ? field.minWidth + 'px' : '150px'
-                  }"
-                >
+                <div class="field-container">
                   <!-- Checkbox with label -->
-                  <div class="checkbox-container" *ngIf="field.showCheckbox">
+                  <!-- <div class="checkbox-container" *ngIf="field.showCheckbox">
                     <mat-checkbox
                       [(ngModel)]="field.hide"
                       (change)="toggleFieldVisibility(field)"
                     >
                       Hide {{ field.label }}
                     </mat-checkbox>
-                  </div>
+                  </div> -->
 
                   <ng-container *ngIf="!field.hide">
                     <!-- Text Field -->
                     <mat-form-field
                       *ngIf="field.type === 'text'"
                       appearance="outline"
-                      [ngStyle]="field.style?.inlineStyles"
+                      [ngStyle]="getMergedStyles(field)"
                       [ngClass]="field.style?.class"
                     >
                       <mat-label>{{ field.label }}</mat-label>
@@ -59,7 +54,7 @@
                     <mat-form-field
                       *ngIf="field.type === 'number'"
                       appearance="outline"
-                      [ngStyle]="field.style?.inlineStyles"
+                      [ngStyle]="getMergedStyles(field)"
                       [ngClass]="field.style?.class"
                     >
                       <mat-label>{{ field.label }}</mat-label>
@@ -80,11 +75,128 @@
                       </mat-error>
                     </mat-form-field>
 
+                    <!-- select tag / Dropdown hai -->
+                    <mat-form-field
+                      *ngIf="field.type === 'select'"
+                      appearance="outline"
+                      [ngStyle]="getMergedStyles(field)"
+                      [ngClass]="field.style?.class"
+                    >
+                      <mat-label>{{ field.label }}</mat-label>
+                      <mat-select formControlName="{{ field.label }}">
+                        <mat-option
+                          *ngFor="let option of field.options"
+                          [value]="option.value"
+                        >
+                          {{ option.label }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error
+                        *ngIf="
+                          form.get(field.label)?.invalid &&
+                          form.get(field.label)?.touched
+                        "
+                      >
+                        {{ field.errorMessages?.required }}
+                      </mat-error>
+                    </mat-form-field>
+
+                    <!-- slide toggle -->
+                    <div
+                      *ngIf="field.type === 'switch'"
+                      class="switch-container"
+                      [ngStyle]="getMergedStyles(field)"
+                      [ngClass]="field.style?.class"
+                    >
+                      <mat-slide-toggle [formControlName]="field.label">
+                        {{ field.label }}
+                      </mat-slide-toggle>
+
+                      <mat-error
+                        *ngIf="
+                          form.get(field.label)?.invalid &&
+                          form.get(field.label)?.touched
+                        "
+                      >
+                        {{ field.errorMessages?.required }}
+                      </mat-error>
+                    </div>
+
+                    <!-- Radio Field -->
+                    <div
+                      *ngIf="field.type === 'radio'"
+                      class="radio-container"
+                      [ngStyle]="getMergedStyles(field)"
+                      [ngClass]="field.style?.class"
+                    >
+                      <label>{{ field.label }}</label>
+                      <div>
+                        <mat-radio-group [formControlName]="field.label">
+                          <mat-radio-button
+                            *ngFor="let option of field.options"
+                            [value]="option.value"
+                          >
+                            {{ option.label }}
+                          </mat-radio-button>
+                        </mat-radio-group>
+                      </div>
+
+                      <mat-error
+                        *ngIf="
+                          form.get(field.label)?.invalid &&
+                          form.get(field.label)?.touched
+                        "
+                      >
+                        {{ field.errorMessages?.required }}
+                      </mat-error>
+                    </div>
+
+                    <!-- checkbox -->
+                    <div
+                      *ngIf="field.type === 'checkbox'"
+                      class="custom-checkbox-wrapper"
+                    >
+                      <label class="checkbox-label">{{ field.label }}</label>
+
+                      <div
+                        class="custom-checkbox-group"
+                        formArrayName="{{ field.label }}"
+                      >
+                        <mat-checkbox
+                          *ngFor="let option of field.options; let i = index"
+                          [value]="option.value.toString()"
+                          [checked]="
+                            form.get(field.label)?.value.includes(option.value)
+                          "
+                          (change)="
+                            onCheckboxChange(
+                              $event,
+                              field.label,
+                              option.value,
+                              i
+                            )
+                          "
+                        >
+                          {{ option.label }}
+                        </mat-checkbox>
+                      </div>
+
+                      <div
+                        class="error-message"
+                        *ngIf="
+                          form.get(field.label)?.invalid &&
+                          form.get(field.label)?.touched
+                        "
+                      >
+                        {{ field.errorMessages?.required }}
+                      </div>
+                    </div>
+
                     <!-- Date Field -->
                     <mat-form-field
                       *ngIf="field.type === 'date'"
                       appearance="outline"
-                      [ngStyle]="field.style?.inlineStyles"
+                      [ngStyle]="getMergedStyles(field)"
                       [ngClass]="field.style?.class"
                     >
                       <mat-label>{{ field.label }}</mat-label>
@@ -113,7 +225,7 @@
                     <mat-form-field
                       *ngIf="field.type === 'time'"
                       appearance="outline"
-                      [ngStyle]="field.style?.inlineStyles"
+                      [ngStyle]="getMergedStyles(field)"
                       [ngClass]="field.style?.class"
                     >
                       <mat-label>{{ field.label }}</mat-label>
@@ -153,7 +265,7 @@
                     >
                       <div
                         class="upload-area"
-                        [ngStyle]="field.style?.inlineStyles"
+                        [ngStyle]="getMergedStyles(field)"
                         [ngClass]="field.style?.class"
                       >
                         <div
@@ -221,7 +333,7 @@
                       <quill-editor
                         [formControlName]="field.label"
                         [modules]="field.textareaConfig?.modules"
-                        [ngStyle]="field.style?.inlineStyles"
+                        [ngStyle]="getMergedStyles(field)"
                         [ngClass]="field.style?.class"
                         [placeholder]="field.placeholder ?? 'Write your bio'"
                       >
@@ -263,7 +375,12 @@
       </div>
 
       <!-- Image Section -->
-      <div class="image-section" [style.flex-basis]="100 - formWidth + '%'">
+      <div
+        class="image-section"
+        [style.flex-basis]="
+          formConfig ? 100 - formConfig.formWidth + '%' : '100%'
+        "
+      >
         <img [src]="rightSideImage" alt="Quote Form Image" />
       </div>
     </div>

@@ -1,5 +1,5 @@
 .form-wrapper {
-  padding: 100px 50px;
+  /* padding: 100px 50px; */
 }
 
 .split-container {
@@ -11,12 +11,15 @@
 }
 
 .form-section {
-  padding: 2rem 3rem;
+  /* padding: 2rem 3rem; */
   background-color: #fff;
   border-radius: 10px;
   max-width: 100%;
   width: 100%;
-  border: 2px solid red;
+  /* border: 2px solid red; */
+}
+.form-section > .form-section-box {
+  margin: 30px;
 }
 
 .image-section {

@@ -1,11 +1,13 @@
 <div class="pageContainer">
-  <div class="form-wrapper">
-    <div class="split-container">
-      <!-- Form Section -->
-      <div class="form-section" [style.flex-basis]="formConfig.formWidth + '%'">
-        <h1 class="form-title">Get a Quote Now</h1>
-        <p class="form-subtitle">
-          Get a Quote Immediately Upon Form Submission
+  <div class="split-container">
+    <!-- Form Section -->
+    <div class="form-section" [style.flex-basis]="formConfig.formWidth + '%'">
+      <div class="form-section-box">
+        <h1 *ngIf="formConfig.formTitle" class="form-title">
+          {{ formConfig.formTitle }}
+        </h1>
+        <p *ngIf="formConfig.formSubTitle" class="form-subtitle">
+          {{ formConfig.formSubTitle }}
         </p>
 
         <div class="form-container" *ngIf="formConfig">
@@ -369,20 +371,36 @@
                 (buttonClick)="onSubmit()"
               >
               </app-custom-button>
+              <app-custom-button
+                *ngIf="formConfig.cancelButtonConfig"
+                [text]="formConfig.cancelButtonConfig.text"
+                [icon]="formConfig.cancelButtonConfig.icon"
+                [showIcon]="formConfig.cancelButtonConfig.showIcon"
+                [iconPosition]="formConfig.cancelButtonConfig.iconPosition"
+                [foreground]="formConfig.cancelButtonConfig.foreground"
+                [background]="formConfig.cancelButtonConfig.background"
+                [shadow]="formConfig.cancelButtonConfig.shadow"
+                [shape]="formConfig.cancelButtonConfig.shape"
+                [corners]="formConfig.cancelButtonConfig.corners"
+                [transparent]="formConfig.cancelButtonConfig.transparent"
+                (buttonClick)="onCancel()"
+              >
+              </app-custom-button>
             </div>
           </form>
         </div>
       </div>
+    </div>
 
-      <!-- Image Section -->
-      <div
-        class="image-section"
-        [style.flex-basis]="
-          formConfig ? 100 - formConfig.formWidth + '%' : '100%'
-        "
-      >
-        <img [src]="rightSideImage" alt="Quote Form Image" />
-      </div>
+    <!-- Image Section -->
+    <div
+      *ngIf="formConfig.isImageShow"
+      class="image-section"
+      [style.flex-basis]="
+        formConfig ? 100 - formConfig.formWidth + '%' : '100%'
+      "
+    >
+      <img [src]="rightSideImage" alt="Quote Form Image" />
     </div>
   </div>
 </div>

@@ -3,9 +3,11 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   Input,
   OnDestroy,
   OnInit,
+  Output,
   QueryList,
   ViewChildren,
 } from '@angular/core';
@@ -80,6 +82,8 @@ export class FormComponentComponent
   selectedFileNames: string[] = [];
 
   @Input() formConfig!: FormConfig;
+  @Output() submitClicked = new EventEmitter<any>();
+  @Output() cancelClicked = new EventEmitter<any>();
   form: FormGroup = new FormGroup({});
 
   private subscriptions: Subscription[] = [];
@@ -168,19 +172,11 @@ export class FormComponentComponent
 
       if (field.type === 'checkbox') {
         formControls[field.label] = this.fb.array(field.value || []);
-        console.log(
-          `✅ ${field.label} is a FormArray`,
-          formControls[field.label]
-        );
       } else {
         const defaultValue = field.value || '';
         formControls[field.label] = this.fb.control(
           defaultValue,
           controlValidators
-        );
-        console.log(
-          `✅ ${field.label} is a FormControl`,
-          formControls[field.label]
         );
       }
     });
@@ -448,7 +444,12 @@ export class FormComponentComponent
       return;
     } else {
       console.log('✅ Form Submitted Successfully!', this.form.value);
+      this.submitClicked.emit(this.formConfig);
     }
+  }
+
+  onCancel() {
+    this.cancelClicked.emit(); // Cancel ke liye empty emit
   }
 
   // Validator function:

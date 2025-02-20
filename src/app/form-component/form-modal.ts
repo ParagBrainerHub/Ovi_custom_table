@@ -1,9 +1,13 @@
 import { ButtonConfig } from '../button-component/button.model';
 
 export interface FormConfig {
+  formTitle?: string;
+  formSubTitle?: string;
+  isImageShow: boolean;
   formWidth: number;
   fields: FormFieldConfig[];
   submitButtonConfig?: ButtonConfig;
+  cancelButtonConfig?: ButtonConfig;
 }
 
 export interface FormFieldConfig {

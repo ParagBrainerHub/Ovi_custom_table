@@ -83,6 +83,7 @@ export class AppComponent {
 
   form: FormGroup = new FormGroup({});
   formConfig: FormConfig;
+  formConfigForCalendar: FormConfig;
 
   private subscriptions: Subscription[] = [];
 
@@ -856,6 +857,9 @@ export class AppComponent {
   //Form Config
   constructor(private fb: FormBuilder) {
     this.formConfig = {
+      formTitle: 'Get a Quote Now',
+      formSubTitle: 'Get a Quote Immediately Upon Form Submission',
+      isImageShow: true,
       formWidth: 60,
       fields: [
         {
@@ -1046,6 +1050,217 @@ export class AppComponent {
       submitButtonConfig: {
         text: 'Submit',
         icon: 'send',
+        showIcon: true,
+        iconPosition: 'right',
+        foreground: '#ffffff',
+        background: '#1976d2',
+        shadow: true,
+        shape: 'rectangle',
+        corners: 'rounded',
+        transparent: false,
+      },
+    };
+
+    this.formConfigForCalendar = {
+      formTitle: 'Book Slot',
+      formSubTitle: '',
+      isImageShow: false,
+      formWidth: 100,
+      fields: [
+        {
+          type: 'select',
+          label: 'Duration',
+          placeholder: 'Select duration',
+          width: 300,
+          required: true,
+          options: [
+            // { label: '10 minutes', value: 10 },
+            // { label: '30 minutes', value: 30 },
+            // { label: '1 hour', value: 60 },
+            // { label: '2 hours', value: 120 },
+          ],
+          errorMessages: {
+            required: 'Duration is required.',
+          },
+          showCheckbox: true,
+        },
+        {
+          type: 'select',
+          label: 'Start Time',
+          placeholder: 'Select start time',
+          width: 300,
+          required: true,
+          options: [
+            // { label: '08:00 AM', value: '08:00' },
+            // { label: '09:00 AM', value: '09:00' },
+            // { label: '10:00 AM', value: '10:00' },
+            // { label: '11:00 AM', value: '11:00' },
+            // { label: '12:00 PM', value: '12:00' },
+            // { label: '01:00 PM', value: '13:00' },
+            // { label: '02:00 PM', value: '14:00' },
+            // { label: '03:00 PM', value: '15:00' },
+            // { label: '04:00 PM', value: '16:00' },
+            // { label: '05:00 PM', value: '17:00' },
+          ],
+          errorMessages: {
+            required: 'Start Time is required.',
+          },
+          showCheckbox: true,
+        },
+        {
+          type: 'text',
+          label: 'Placeholder',
+          placeholder: 'Enter placeholder text',
+          width: 300,
+          required: true,
+          validation: {
+            minLength: 3,
+            maxLength: 50,
+          },
+          errorMessages: {
+            required: 'Placeholder is required.',
+            minLength: 'Placeholder must be at least 3 characters.',
+            maxLength: 'Placeholder cannot exceed 50 characters.',
+          },
+          showCheckbox: true,
+        },
+        {
+          type: 'text',
+          label: 'Name',
+          placeholder: 'Enter your name',
+          width: 300,
+          required: true,
+          validation: {
+            minLength: 3,
+            maxLength: 30,
+          },
+          style: {
+            inlineStyles: {
+              'font-size': '16px',
+              'font-weight': 'bold',
+              'min-width': '80%',
+            },
+          },
+          errorMessages: {
+            required: 'Name is required.',
+            minLength: 'Name must be at least 3 characters long.',
+            maxLength: 'Name cannot exceed 30 characters.',
+          },
+          showCheckbox: true,
+        },
+        {
+          type: 'number',
+          label: 'Age',
+          placeholder: 'Enter your age',
+          width: 300,
+          validation: {
+            minValue: 18,
+            maxValue: 60,
+            customErrorMessage: 'Age must be between 18 and 60.',
+          },
+          errorMessages: {
+            required: 'Age is required.',
+            minValue: 'Age must be at least 18.',
+            maxValue: 'Age must be 60 or less.',
+          },
+          showCheckbox: true,
+        },
+        {
+          type: 'date',
+          label: 'Date of Birth',
+          placeholder: 'Pick a date',
+          width: 300,
+          required: true,
+          showCheckbox: true,
+        },
+        {
+          type: 'time',
+          label: 'Select Time',
+          placeholder: 'Pick a time',
+          width: 300,
+          required: true,
+          validation: {
+            minTime: '08:00',
+            maxTime: '18:00',
+            customErrorMessage: 'Time must be between 08:00 and 18:00.',
+          },
+          errorMessages: {
+            required: 'Time is required.',
+            minTime: 'Time cannot be earlier than 08:00 AM.',
+            maxTime: 'Time cannot be later than 06:00 PM.',
+          },
+          showCheckbox: true,
+        },
+        {
+          type: 'switch',
+          label: 'Enable Notifications',
+          width: 300,
+          defaultValue: false,
+          showCheckbox: true,
+        },
+        {
+          type: 'select',
+          label: 'Country',
+          width: 300,
+          placeholder: 'Select a country',
+          options: [
+            { label: 'India', value: 'IN' },
+            { label: 'United States', value: 'US' },
+            { label: 'Canada', value: 'CA' },
+          ],
+          required: true,
+          errorMessages: {
+            required: 'Country selection is required.',
+          },
+          showCheckbox: true,
+        },
+        {
+          type: 'radio',
+          label: 'Gender',
+          width: 500,
+          options: [
+            { label: 'Male', value: 'male' },
+            { label: 'Female', value: 'female' },
+            { label: 'Other', value: 'other' },
+          ],
+          required: true,
+          errorMessages: {
+            required: 'Gender is required.',
+          },
+          showCheckbox: true,
+        },
+        {
+          type: 'checkbox',
+          label: 'Hobbies',
+          width: 600,
+          value: [],
+          options: [
+            { label: 'Reading', value: 'reading' },
+            { label: 'Traveling', value: 'traveling' },
+            { label: 'Music', value: 'music' },
+          ],
+          required: true,
+          errorMessages: {
+            required: 'Select at least one hobby.',
+          },
+          showCheckbox: true,
+        },
+      ],
+      submitButtonConfig: {
+        text: 'Submit',
+        icon: 'send',
+        showIcon: true,
+        iconPosition: 'right',
+        foreground: '#ffffff',
+        background: '#1976d2',
+        shadow: true,
+        shape: 'rectangle',
+        corners: 'rounded',
+        transparent: false,
+      },
+      cancelButtonConfig: {
+        text: 'cancel',
+        icon: 'cancel',
         showIcon: true,
         iconPosition: 'right',
         foreground: '#ffffff',

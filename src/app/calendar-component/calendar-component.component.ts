@@ -22,6 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { v4 as uuidv4 } from 'uuid';
+import { FormComponentComponent } from '../form-component/form-component.component';
 interface Booking {
   id?: string;
   date: Date;
@@ -47,11 +48,12 @@ interface Booking {
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
+    FormComponentComponent,
   ],
   templateUrl: './calendar-component.component.html',
   styleUrl: './calendar-component.component.css',
 })
-export class CalendarComponentComponent implements OnInit, OnChanges {
+export class CalendarComponentComponent implements OnInit {
   @Input() formConfig: any;
   currentView: 'month' | 'week' = 'month';
   currentDate: Date = new Date();
@@ -75,107 +77,30 @@ export class CalendarComponentComponent implements OnInit, OnChanges {
   };
   availableDurations: number[] = [];
   isDurationDisabled: boolean = false;
-  minHour = 7;
-  maxHour = 20;
-  minSlotDuration = 10;
-  maxSlotDuration = 480;
 
   constructor(private cdr: ChangeDetectorRef, private fb: FormBuilder) {
     this.bookingForm = this.fb.group({
       duration: ['', [Validators.required]],
       placeholder: ['', [Validators.required]],
       startTime: ['', [Validators.required]],
-      // customerName: [''],
-      // attribute2: [''],
     });
   }
 
   ngOnInit() {
+    console.log('this.formConfig12312343124: ', this.formConfig);
     this.generateMonthView();
-
-    if (this.formConfig) {
-      this.extendFormWithConfig();
-    } else {
-      console.warn('⚠️ formConfig undefined hai, form extend nahi ho raha.');
-    }
-
-    console.log('Booking Form Controls:', this.bookingForm.controls);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['formConfig'] && this.formConfig) {
-      this.extendFormWithConfig();
-    }
-    if (changes['selectedSlot']) {
-      const currentValue = changes['selectedSlot'].currentValue;
-      const previousValue = changes['selectedSlot'].previousValue;
-
-      console.log('Selected Slot Changed:', {
-        current: currentValue,
-        previous: previousValue,
-        firstChange: changes['selectedSlot'].firstChange,
-      });
-
-      if (currentValue) {
-        console.log('Modal Opened with booking:', currentValue);
-      } else {
-        console.log('Modal Closed');
-      }
-    }
+  onFormSubmit(data: any) {
+    console.log('Form Submitted:', data);
   }
 
-  extendFormWithConfig() {
-    if (!this.formConfig || !this.formConfig.fields) {
-      console.warn('⚠️ formConfig ya fields missing hai.');
-      return;
-    }
-
-    let additionalFields: any = {};
-
-    this.formConfig.fields.forEach((field: any) => {
-      if (!field.label) {
-        console.warn(`⚠️ Field label missing hai:`, field);
-        return;
-      }
-
-      let safeKey = this.toSafeKey(field.label); // ✅ Convert label to safe key
-
-      if (['duration', 'placeholder', 'startTime'].includes(safeKey)) {
-        return; // Ye fields already defined hain, inko ignore karenge
-      }
-
-      let validators = [];
-      if (field['required']) validators.push(Validators.required);
-      if (field['validation']?.['minLength'])
-        validators.push(Validators.minLength(field['validation']['minLength']));
-      if (field['validation']?.['maxLength'])
-        validators.push(Validators.maxLength(field['validation']['maxLength']));
-      if (field['validation']?.['minValue'])
-        validators.push(Validators.min(field['validation']['minValue']));
-      if (field['validation']?.['maxValue'])
-        validators.push(Validators.max(field['validation']['maxValue']));
-
-      additionalFields[safeKey] = ['', validators]; // ✅ Safe key use ho raha hai
-    });
-
-    this.bookingForm = this.fb.group({
-      duration: ['', [Validators.required]],
-      placeholder: ['', [Validators.required]],
-      startTime: ['', [Validators.required]],
-      ...additionalFields,
-    });
-
-    console.log('✅ Final Form Controls:', this.bookingForm.controls);
+  onFormCancel() {
+    this.selectedSlot = null;
   }
 
   toSafeKey(label: string): string {
     return label.toLowerCase().replace(/\s+/g, '_').replace(/[^\w]/g, '');
-  }
-
-  submitBooking() {
-    if (this.bookingForm.valid) {
-      console.log('Booking Data:', this.bookingForm.value);
-    }
   }
 
   generateMonthView() {
@@ -371,21 +296,36 @@ export class CalendarComponentComponent implements OnInit, OnChanges {
     this.selectedSlot = null;
     this.selectedDayBookings = day;
     this.expandDayBookingModal = true;
-    document.body.style.overflow = 'hidden';
+    // document.body.style.overflow = 'hidden';
   }
 
   closeExpandModal() {
     this.expandDayBookingModal = false;
-    document.body.style.overflow = 'auto';
+    // document.body.style.overflow = 'auto';
   }
 
   // Updated `addBooking`
   addBooking(date: Date) {
     this.expandDayBookingModal = false;
     this.availableTimeSlots = this.getAvailableSlots(date);
+    this.formConfig.fields.find(
+      (field: any) => field.label === 'Start Time'
+    ).options = this.availableTimeSlots.map((slot) => ({
+      label: slot.time,
+      value: slot.time,
+      status: slot.status,
+    }));
+    console.log('this.availableTimeSlots: ', this.availableTimeSlots);
     this.availableDurations = this.getAvailableDurations(
       this.availableTimeSlots[0].time
     );
+    console.log('this.availableDurations: ', this.availableDurations);
+    this.formConfig.fields.find(
+      (field: any) => field.label === 'Duration'
+    ).options = this.availableDurations.map((duration) => ({
+      label: `${duration} minutes`,
+      value: duration,
+    }));
     this.selectedSlot = {
       date: date,
       startTime:
@@ -395,7 +335,7 @@ export class CalendarComponentComponent implements OnInit, OnChanges {
       duration: this.availableDurations[0],
       placeholder: '',
     };
-    document.body.style.overflow = this.selectedSlot ? 'hidden' : 'auto';
+    // document.body.style.overflow = this.selectedSlot ? 'hidden' : 'auto';
     this.updateBookingForm(this.selectedSlot);
   }
 
@@ -416,7 +356,7 @@ export class CalendarComponentComponent implements OnInit, OnChanges {
       };
     }
 
-    document.body.style.overflow = this.selectedSlot ? 'hidden' : 'auto';
+    // document.body.style.overflow = this.selectedSlot ? 'hidden' : 'auto';
     this.updateBookingForm(this.selectedSlot);
   }
 
@@ -432,7 +372,7 @@ export class CalendarComponentComponent implements OnInit, OnChanges {
 
   closeModal() {
     this.selectedSlot = null;
-    document.body.style.overflow = this.selectedSlot ? 'hidden' : 'auto';
+    // document.body.style.overflow = this.selectedSlot ? 'hidden' : 'auto';
   }
 
   getAvailableDurations(startTime: string, duration?: string): number[] {

@@ -63,8 +63,6 @@ export class CalendarComponentComponent implements OnInit, AfterViewInit {
   currentView: 'month' | 'week' = 'month';
   currentDate: Date = new Date();
   bookings: any[] = [];
-  selectedSlot: any = null;
-  slotSelected = {};
   isSlotSelected: boolean = false;
   bookingForm: FormGroup;
   monthGrid: { date: Date; bookings: any[] }[][] = [];
@@ -94,34 +92,26 @@ export class CalendarComponentComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log('this.formConfig12312343124: ', this.formConfig);
     this.generateMonthView();
   }
 
   ngAfterViewInit() {
-    console.log('formComponent initialized:', this.formComponent);
-
     setTimeout(() => {
       if (this.formComponent && this.formComponent.form) {
         this.formComponent.form.get('date')?.disable();
-        console.log('Date field disabled');
       }
     });
   }
 
   onFormSubmit(data: any) {
-    console.log('formComponent: ', this.formComponent);
-    console.log('Form Submitted:', data);
     this.bookSlot(data);
   }
 
   onFormCancel() {
-    this.selectedSlot = null;
     this.isSlotSelected = false;
   }
 
   selectAndPatch(booking: any) {
-    console.log('booking: ', booking);
     this.isSlotSelected = true;
 
     setTimeout(() => {
@@ -132,22 +122,21 @@ export class CalendarComponentComponent implements OnInit, AfterViewInit {
 
       this.isSlotBooked(booking.date, booking.startTime);
       this.availableTimeSlots = this.getAvailableSlots(booking.date);
-
-      // ✅ "Start Time" field ke options update karo
       this.formConfig.fields.find(
-        (field: any) => field.label === 'Start Time'
+        (field: any) => field.key === 'startTime'
       ).options = this.availableTimeSlots.map((slot) => ({
         label: slot.time,
         value: slot.time,
         status: slot.status,
       }));
 
+      if (!this.formComponent.form.contains('id')) {
+        this.formComponent.form.addControl('id', new FormControl(null));
+      }
       this.formComponent.form.patchValue({
         ...booking,
-        id: booking.id,
+        id: booking.id || null,
       });
-
-      // ✅ Checkbox handling for "Hobbies"
       const checkboxFieldName = 'hobbies';
       const checkboxArray = this.formComponent.form.get(
         checkboxFieldName
@@ -162,28 +151,20 @@ export class CalendarComponentComponent implements OnInit, AfterViewInit {
           });
         }
       }
-
-      this.selectedSlot = booking;
     });
   }
 
   handleDropdownChange(data: { key: string; value: any }) {
-    console.log('Dropdown changed:', data);
-
     if (data.key === 'startTime') {
       this.onTimeSlotChange(data.value);
 
-      // ✅ "Duration" field ke options update karo
       this.availableDurations = this.getAvailableDurations(data.value);
-      console.log('this.availableDurations: ', this.availableDurations);
       this.formConfig.fields.find(
         (field: any) => field.key === 'duration'
       ).options = this.availableDurations.map((duration) => ({
         label: `${duration} minutes`,
         value: duration,
       }));
-
-      console.log('this.availableDurations: ', this.availableDurations);
     }
   }
 
@@ -193,7 +174,6 @@ export class CalendarComponentComponent implements OnInit, AfterViewInit {
 
   generateMonthView() {
     this.generateTimeSlots();
-    console.log(this.currentDate, 'this.currentDate');
 
     const firstDayOfMonth = new Date(
       this.currentDate.getFullYear(),
@@ -241,7 +221,6 @@ export class CalendarComponentComponent implements OnInit, AfterViewInit {
       }
     }
 
-    console.log('grid: ', grid);
     this.monthGrid = grid;
   }
 
@@ -383,7 +362,6 @@ export class CalendarComponentComponent implements OnInit, AfterViewInit {
   }
 
   expandOpenModal(day: { date: Date; bookings: any[] }) {
-    this.selectedSlot = null;
     this.selectedDayBookings = day;
     this.expandDayBookingModal = true;
     // document.body.style.overflow = 'hidden';
@@ -399,21 +377,21 @@ export class CalendarComponentComponent implements OnInit, AfterViewInit {
     this.expandDayBookingModal = false;
     this.availableTimeSlots = this.getAvailableSlots(date);
     this.formConfig.fields.find(
-      (field: any) => field.label === 'Start Time'
+      (field: any) => field.key === 'startTime'
     ).options = this.availableTimeSlots.map((slot) => ({
       label: slot.time,
+      key: slot.time,
       value: slot.time,
       status: slot.status,
     }));
-    console.log('this.availableTimeSlots: ', this.availableTimeSlots);
     this.availableDurations = this.getAvailableDurations(
       this.availableTimeSlots[0].time
     );
-    console.log('this.availableDurations: ', this.availableDurations);
     this.formConfig.fields.find(
-      (field: any) => field.label === 'Duration'
+      (field: any) => field.key === 'duration'
     ).options = this.availableDurations.map((duration) => ({
       label: `${duration} minutes`,
+      key: duration,
       value: duration,
     }));
     const dateField = this.formConfig.fields.find(
@@ -431,41 +409,7 @@ export class CalendarComponentComponent implements OnInit, AfterViewInit {
         disabled: true,
       });
     }
-    console.log('this.bookings: ', this.bookings);
     this.isSlotSelected = true;
-    console.log('this.isSlotSelected: ', this.isSlotSelected);
-    // this.selectedSlot = {
-    //   date: date,
-    //   startTime:
-    //     this.availableTimeSlots.length > 0
-    //       ? this.availableTimeSlots[0].time
-    //       : '00:30',
-    //   duration: this.availableDurations[0],
-    //   placeholder: '',
-    // };
-    // document.body.style.overflow = this.selectedSlot ? 'hidden' : 'auto';
-    // this.updateBookingForm(this.selectedSlot);
-  }
-
-  // Updated `selectSlot`
-  selectSlot(date: Date, timeSlot?: string, duration?: number, id?: string) {
-    this.isSlotBooked(date, timeSlot);
-    this.availableTimeSlots = this.getAvailableSlots(date);
-    const booking = this.bookings.find((b) => b.id === id);
-    if (booking) {
-      this.selectedSlot = { ...booking };
-    } else {
-      this.selectedSlot = {
-        id: uuidv4(),
-        date: date,
-        startTime: timeSlot || '00:00',
-        duration: duration ?? this.availableDurations[0],
-        placeholder: '',
-      };
-    }
-
-    // document.body.style.overflow = this.selectedSlot ? 'hidden' : 'auto';
-    this.updateBookingForm(this.selectedSlot);
   }
 
   updateBookingForm(booking: any) {
@@ -478,24 +422,14 @@ export class CalendarComponentComponent implements OnInit, AfterViewInit {
     });
   }
 
-  closeModal() {
-    this.selectedSlot = null;
-    // document.body.style.overflow = this.selectedSlot ? 'hidden' : 'auto';
-  }
-
   getAvailableDurations(startTime: string): number[] {
     let availableDurations: number[] = [30];
-
-    console.log('this.availableTimeSlots: ', this.availableTimeSlots);
     const startTimeIndex = this.availableTimeSlots.findIndex(
       (slot) => slot.time === startTime
     );
-
     if (startTimeIndex === -1) return availableDurations;
-
     let gapMinutes = 0;
     let existingBooking = this.bookings.find((b) => b.startTime === startTime);
-
     for (let i = startTimeIndex; i < this.availableTimeSlots.length; i++) {
       let slot = this.availableTimeSlots[i];
       if (
@@ -504,20 +438,17 @@ export class CalendarComponentComponent implements OnInit, AfterViewInit {
       ) {
         break;
       }
-
       gapMinutes += 30;
     }
     if (gapMinutes >= 60) availableDurations.push(60);
     if (gapMinutes >= 90) availableDurations.push(90);
-
     return availableDurations;
   }
 
   bookSlot(data: any) {
     try {
       const newBooking = {
-        id: this.selectedSlot?.id || uuidv4(),
-        // ...this.selectedSlot!,
+        id: data.id || uuidv4(),
         ...data,
       };
 
@@ -530,25 +461,18 @@ export class CalendarComponentComponent implements OnInit, AfterViewInit {
       } else {
         this.bookings.push(newBooking);
       }
-      console.log('this.bookings: ', this.bookings);
-
       if (this.currentView === 'month') {
         this.generateMonthView();
       } else {
         this.generateWeekView();
       }
-
-      console.log('✅ any Successful:', newBooking);
     } catch (error) {
       console.error('❌ Error while booking:', error);
     }
-
-    this.selectedSlot = null;
     this.isSlotSelected = false;
   }
 
   editBooking(booking: any) {
-    this.selectedSlot = booking;
     this.updateBookingForm(booking);
   }
 
@@ -557,13 +481,11 @@ export class CalendarComponentComponent implements OnInit, AfterViewInit {
     if (index !== -1) {
       this.bookings.splice(index, 1);
     }
-
     if (this.currentView === 'month') {
       this.generateMonthView();
     } else {
       this.generateWeekView();
     }
-    this.closeModal();
   }
 
   generateTimeSlots() {
@@ -667,7 +589,7 @@ export class CalendarComponentComponent implements OnInit, AfterViewInit {
 
   isPastDate(date: Date): boolean {
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Ensure comparison without time part
+    today.setHours(0, 0, 0, 0);
     return date < today;
   }
 
@@ -700,8 +622,6 @@ export class CalendarComponentComponent implements OnInit, AfterViewInit {
 
   onTimeSlotChange(selectedTime: string) {
     const selectedDate = this.formComponent?.form.get('date')?.value;
-    console.log('selectedDate: ', selectedDate);
-
     if (!selectedDate) {
       console.error('Date not found in form!');
       return;
@@ -709,7 +629,7 @@ export class CalendarComponentComponent implements OnInit, AfterViewInit {
 
     const selectedSlot = {
       startTime: selectedTime,
-      date: selectedDate, // ✅ Form se date le li
+      date: selectedDate,
     };
 
     const selected = this.availableTimeSlots.find(
@@ -718,13 +638,6 @@ export class CalendarComponentComponent implements OnInit, AfterViewInit {
 
     this.isSlotBooked(selectedDate, selectedTime);
     this.availableDurations = this.getAvailableDurations(selectedTime);
-  }
-
-  hasSelectedSlotId(): boolean {
-    return (
-      !!this.selectedSlot?.id &&
-      this.bookings.some((b) => b.id === this.selectedSlot?.id)
-    );
   }
 
   isSlotBooked(date?: Date, startTime?: string): boolean {
@@ -736,13 +649,6 @@ export class CalendarComponentComponent implements OnInit, AfterViewInit {
       const bookingDate = new Date(b.date);
       const isDateSame = this.isSameDate(bookingDate, date);
       const isTimeSame = b.startTime.trim() === startTime.trim();
-
-      console.log(
-        `Checking Slot: Date(${date}) vs BookingDate(${bookingDate}) => ${isDateSame}`
-      );
-      console.log(
-        `Checking Slot: Time(${startTime}) vs BookingTime(${b.startTime}) => ${isTimeSame}`
-      );
 
       return isDateSame && isTimeSame;
     });

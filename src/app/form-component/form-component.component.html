@@ -83,6 +83,12 @@
                           *ngFor="let option of field.options"
                           [value]="option.value"
                         >
+                          <span
+                            [ngClass]="{
+                              'green-dot': option.status === 'available',
+                              'red-dot': option.status === 'booked'
+                            }"
+                          ></span>
                           {{ option.label }}
                         </mat-option>
                       </mat-select>

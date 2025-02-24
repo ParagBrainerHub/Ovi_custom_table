@@ -101,4 +101,5 @@ export interface OptionConfig {
   key: string;
   label: string;
   value: string | number | boolean;
+  status?: 'available' | 'booked';
 }

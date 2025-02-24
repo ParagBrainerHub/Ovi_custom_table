@@ -172,6 +172,24 @@ app-custom-button {
   }
 }
 
+.green-dot {
+  height: 10px;
+  width: 10px;
+  background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.red-dot {
+  height: 10px;
+  width: 10px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
   color: #9c27b0;
 }
@@ -218,4 +236,22 @@ app-custom-button {
 
 ::ng-deep .mat-calendar-arrow polygon {
   fill: purple !important;
+}
+
+::ng-deep .mat-mdc-radio-checked .mdc-radio__inner-circle,
+::ng-deep .mat-mdc-radio-checked .mdc-radio__outer-circle {
+  border-color: purple !important;
+}
+
+::ng-deep
+  .mdc-checkbox__native-control:enabled:checked
+  ~ .mdc-checkbox__background,
+::ng-deep
+  .mdc-checkbox__native-control:enabled:indeterminate
+  ~ .mdc-checkbox__background {
+  border-color: purple !important;
+  background-color: purple !important;
+}
+::ng-deep .mdc-switch__track::after {
+  background: purple !important;
 }

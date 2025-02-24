@@ -865,6 +865,7 @@ export class AppComponent {
         {
           type: 'text',
           label: 'Name',
+          key: 'name',
           placeholder: 'Enter your name',
           width: 300,
           required: true,
@@ -889,6 +890,7 @@ export class AppComponent {
         {
           type: 'number',
           label: 'Age',
+          key: 'age',
           placeholder: 'Enter your age',
           width: 300,
           validation: {
@@ -906,6 +908,7 @@ export class AppComponent {
         {
           type: 'date',
           label: 'Date of Birth',
+          key: 'dob',
           placeholder: 'Pick a date',
           width: 300,
           required: true,
@@ -914,6 +917,7 @@ export class AppComponent {
         {
           type: 'time',
           label: 'Select Time',
+          key: 'time',
           placeholder: 'Pick a time',
           width: 300,
           required: true,
@@ -931,6 +935,7 @@ export class AppComponent {
         },
         {
           type: 'switch',
+          key: 'notifications',
           label: 'Enable Notifications',
           width: 300,
           defaultValue: false,
@@ -939,12 +944,13 @@ export class AppComponent {
         {
           type: 'select',
           label: 'Country',
+          key: 'country',
           width: 300,
           placeholder: 'Select a country',
           options: [
-            { label: 'India', value: 'IN' },
-            { label: 'United States', value: 'US' },
-            { label: 'Canada', value: 'CA' },
+            { key: 'india', label: 'India', value: 'IN' },
+            { key: 'united_states', label: 'United States', value: 'US' },
+            { key: 'canada', label: 'Canada', value: 'CA' },
           ],
           required: true,
           errorMessages: {
@@ -955,11 +961,12 @@ export class AppComponent {
         {
           type: 'radio',
           label: 'Gender',
+          key: 'gender',
           width: 500,
           options: [
-            { label: 'Male', value: 'male' },
-            { label: 'Female', value: 'female' },
-            { label: 'Other', value: 'other' },
+            { key: 'male', label: 'Male', value: 'male' },
+            { key: 'female', label: 'Female', value: 'female' },
+            { key: 'other', label: 'Other', value: 'other' },
           ],
           required: true,
           errorMessages: {
@@ -970,12 +977,13 @@ export class AppComponent {
         {
           type: 'checkbox',
           label: 'Hobbies',
+          key: 'hobbies',
           width: 600,
           value: [],
           options: [
-            { label: 'Reading', value: 'reading' },
-            { label: 'Traveling', value: 'traveling' },
-            { label: 'Music', value: 'music' },
+            { key: 'reading', label: 'Reading', value: 'reading' },
+            { key: 'traveling', label: 'traveling', value: 'traveling' },
+            { key: 'music', label: 'music', value: 'music' },
           ],
           required: true,
           errorMessages: {
@@ -1069,24 +1077,8 @@ export class AppComponent {
       fields: [
         {
           type: 'select',
-          label: 'Duration',
-          placeholder: 'Select duration',
-          width: 300,
-          required: true,
-          options: [
-            // { label: '10 minutes', value: 10 },
-            // { label: '30 minutes', value: 30 },
-            // { label: '1 hour', value: 60 },
-            // { label: '2 hours', value: 120 },
-          ],
-          errorMessages: {
-            required: 'Duration is required.',
-          },
-          showCheckbox: true,
-        },
-        {
-          type: 'select',
           label: 'Start Time',
+          key: 'startTime',
           placeholder: 'Select start time',
           width: 300,
           required: true,
@@ -1108,8 +1100,27 @@ export class AppComponent {
           showCheckbox: true,
         },
         {
+          type: 'select',
+          label: 'Duration',
+          key: 'duration',
+          placeholder: 'Select duration',
+          width: 300,
+          required: true,
+          options: [
+            // { label: '10 minutes', value: 10 },
+            // { label: '30 minutes', value: 30 },
+            // { label: '1 hour', value: 60 },
+            // { label: '2 hours', value: 120 },
+          ],
+          errorMessages: {
+            required: 'Duration is required.',
+          },
+          showCheckbox: true,
+        },
+        {
           type: 'text',
           label: 'Placeholder',
+          key: 'placeholder',
           placeholder: 'Enter placeholder text',
           width: 300,
           required: true,
@@ -1127,6 +1138,7 @@ export class AppComponent {
         {
           type: 'text',
           label: 'Name',
+          key: 'name',
           placeholder: 'Enter your name',
           width: 300,
           required: true,
@@ -1151,6 +1163,7 @@ export class AppComponent {
         {
           type: 'number',
           label: 'Age',
+          key: 'age',
           placeholder: 'Enter your age',
           width: 300,
           validation: {
@@ -1168,6 +1181,7 @@ export class AppComponent {
         {
           type: 'date',
           label: 'Date of Birth',
+          key: 'dob',
           placeholder: 'Pick a date',
           width: 300,
           required: true,
@@ -1176,6 +1190,7 @@ export class AppComponent {
         {
           type: 'time',
           label: 'Select Time',
+          key: 'time',
           placeholder: 'Pick a time',
           width: 300,
           required: true,
@@ -1194,19 +1209,21 @@ export class AppComponent {
         {
           type: 'switch',
           label: 'Enable Notifications',
+          key: 'notifications',
           width: 300,
           defaultValue: false,
           showCheckbox: true,
         },
         {
           type: 'select',
+          key: 'country',
           label: 'Country',
           width: 300,
           placeholder: 'Select a country',
           options: [
-            { label: 'India', value: 'IN' },
-            { label: 'United States', value: 'US' },
-            { label: 'Canada', value: 'CA' },
+            { key: 'india', label: 'India', value: 'IN' },
+            { key: 'united_states', label: 'United States', value: 'US' },
+            { key: 'canada', label: 'Canada', value: 'CA' },
           ],
           required: true,
           errorMessages: {
@@ -1217,11 +1234,12 @@ export class AppComponent {
         {
           type: 'radio',
           label: 'Gender',
+          key: 'gender',
           width: 500,
           options: [
-            { label: 'Male', value: 'male' },
-            { label: 'Female', value: 'female' },
-            { label: 'Other', value: 'other' },
+            { key: 'male', label: 'Male', value: 'male' },
+            { key: 'female', label: 'Female', value: 'female' },
+            { key: 'other', label: 'Other', value: 'other' },
           ],
           required: true,
           errorMessages: {
@@ -1232,12 +1250,13 @@ export class AppComponent {
         {
           type: 'checkbox',
           label: 'Hobbies',
+          key: 'hobbies',
           width: 600,
           value: [],
           options: [
-            { label: 'Reading', value: 'reading' },
-            { label: 'Traveling', value: 'traveling' },
-            { label: 'Music', value: 'music' },
+            { key: 'reading', label: 'Reading', value: 'reading' },
+            { key: 'traveling', label: 'traveling', value: 'traveling' },
+            { key: 'music', label: 'music', value: 'music' },
           ],
           required: true,
           errorMessages: {

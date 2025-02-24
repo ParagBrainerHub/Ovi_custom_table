@@ -23,6 +23,7 @@ export interface FormFieldConfig {
     | 'checkbox'
     | 'select';
   label: string;
+  key: string;
   placeholder?: string;
   showFileIcon?: boolean;
   width: number;
@@ -34,6 +35,7 @@ export interface FormFieldConfig {
   style?: StyleConfig;
   errorMessages?: ErrorMessagesConfig;
   hide?: boolean;
+  disabled?: boolean;
   showCheckbox?: boolean;
   buttonConfig?: ButtonConfig;
   options?: OptionConfig[];
@@ -96,6 +98,7 @@ export interface StyleConfig {
 }
 
 export interface OptionConfig {
+  key: string;
   label: string;
   value: string | number | boolean;
 }

@@ -84,6 +84,8 @@ export class FormComponentComponent
   @Input() formConfig!: FormConfig;
   @Output() submitClicked = new EventEmitter<any>();
   @Output() cancelClicked = new EventEmitter<any>();
+  @Output() optionChanged = new EventEmitter<{ key: string; value: any }>();
+
   form: FormGroup = new FormGroup({});
 
   private subscriptions: Subscription[] = [];
@@ -170,11 +172,19 @@ export class FormComponentComponent
         });
       }
 
+      const fieldKey = field.key || field.label;
+
       if (field.type === 'checkbox') {
-        formControls[field.label] = this.fb.array(field.value || []);
+        formControls[fieldKey] = this.fb.array(field.value || []);
+      } else if (field.disabled) {
+        const defaultValue = { value: field.value || '', disabled: true };
+        formControls[fieldKey] = this.fb.control(
+          defaultValue,
+          controlValidators
+        );
       } else {
         const defaultValue = field.value || '';
-        formControls[field.label] = this.fb.control(
+        formControls[fieldKey] = this.fb.control(
           defaultValue,
           controlValidators
         );
@@ -444,8 +454,14 @@ export class FormComponentComponent
       return;
     } else {
       console.log('✅ Form Submitted Successfully!', this.form.value);
-      this.submitClicked.emit(this.formConfig);
+      console.log('✅ Form Submitted Successfully!', this.form.getRawValue());
+      this.submitClicked.emit(this.form.getRawValue());
     }
+  }
+
+  onDropdownChange(fieldKey: string, event: any) {
+    const selectedValue = event.value; // User ka selected value
+    this.optionChanged.emit({ key: fieldKey, value: selectedValue }); // Parent ko value send karo
   }
 
   onCancel() {
@@ -544,11 +560,11 @@ export class FormComponentComponent
 
   onCheckboxChange(
     event: MatCheckboxChange,
-    fieldLabel: string,
+    fieldKey: string,
     value: any,
     index: number
   ) {
-    const formArray = this.form.get(fieldLabel) as FormArray;
+    const formArray = this.form.get(fieldKey) as FormArray;
     console.log('formArray: ', formArray);
 
     if (event.checked) {
@@ -576,7 +592,7 @@ export class FormComponentComponent
   getMergedStyles(field: FormFieldConfig) {
     return {
       ...(field.style?.inlineStyles || {}),
-      width: field.width ? `${field.width}px` : '150px',
+      width: field.width ? `${field.width}px` : '300px',
       'min-width': '100%',
       'max-width': '100%',
     };

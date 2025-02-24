@@ -63,16 +63,7 @@
               <div *ngFor="let booking of day.bookings" class="booking">
                 <!-- <P>{{ booking | json }}</P> -->
                 {{ booking.startTime }} - <span>{{ booking.placeholder }}</span>
-                <mat-icon
-                  (click)="
-                    selectSlot(
-                      day.date,
-                      booking.startTime,
-                      booking.duration,
-                      booking.id
-                    )
-                  "
-                  class="edit-icon"
+                <mat-icon (click)="selectAndPatch(booking)" class="edit-icon"
                   >edit</mat-icon
                 >
               </div>
@@ -86,6 +77,7 @@
             >
               +
             </button>
+            <!-- <p>{{ day | json }}</p> -->
           </div>
         </div>
       </div>
@@ -159,9 +151,10 @@
     </div>
 
     <!-- Booking Modal -->
-    <div *ngIf="selectedSlot" class="booking-modal">
+    <div *ngIf="isSlotSelected" class="booking-modal">
       <app-form-component
         [formConfig]="formConfig"
+        (optionChanged)="handleDropdownChange($event)"
         (submitClicked)="onFormSubmit($event)"
         (cancelClicked)="onFormCancel()"
       ></app-form-component>

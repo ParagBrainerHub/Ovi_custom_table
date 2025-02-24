@@ -11,22 +11,12 @@
         </p>
 
         <div class="form-container" *ngIf="formConfig">
-          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <form [formGroup]="form">
             <div class="fields-wrapper">
               <ng-container
                 *ngFor="let field of formConfig.fields; let i = index"
               >
                 <div class="field-container">
-                  <!-- Checkbox with label -->
-                  <!-- <div class="checkbox-container" *ngIf="field.showCheckbox">
-                    <mat-checkbox
-                      [(ngModel)]="field.hide"
-                      (change)="toggleFieldVisibility(field)"
-                    >
-                      Hide {{ field.label }}
-                    </mat-checkbox>
-                  </div> -->
-
                   <ng-container *ngIf="!field.hide">
                     <!-- Text Field -->
                     <mat-form-field
@@ -39,13 +29,13 @@
                       <input
                         matInput
                         [placeholder]="field.placeholder ?? 'Enter value'"
-                        formControlName="{{ field.label }}"
+                        formControlName="{{ field.key }}"
                       />
                       <mat-error
                         *ngIf="
-                          form.get(field.label)?.invalid &&
-                          (form.get(field.label)?.dirty ||
-                            form.get(field.label)?.touched)
+                          form.get(field.key)?.invalid &&
+                          (form.get(field.key)?.dirty ||
+                            form.get(field.key)?.touched)
                         "
                       >
                         {{ getErrorMessage(field) }}
@@ -64,13 +54,13 @@
                         matInput
                         type="number"
                         [placeholder]="field.placeholder ?? 'Enter value'"
-                        formControlName="{{ field.label }}"
+                        formControlName="{{ field.key }}"
                       />
                       <mat-error
                         *ngIf="
-                          form.get(field.label)?.invalid &&
-                          (form.get(field.label)?.dirty ||
-                            form.get(field.label)?.touched)
+                          form.get(field.key)?.invalid &&
+                          (form.get(field.key)?.dirty ||
+                            form.get(field.key)?.touched)
                         "
                       >
                         {{ getErrorMessage(field) }}
@@ -85,7 +75,10 @@
                       [ngClass]="field.style?.class"
                     >
                       <mat-label>{{ field.label }}</mat-label>
-                      <mat-select formControlName="{{ field.label }}">
+                      <mat-select
+                        formControlName="{{ field.key }}"
+                        (selectionChange)="onDropdownChange(field.key, $event)"
+                      >
                         <mat-option
                           *ngFor="let option of field.options"
                           [value]="option.value"
@@ -95,8 +88,8 @@
                       </mat-select>
                       <mat-error
                         *ngIf="
-                          form.get(field.label)?.invalid &&
-                          form.get(field.label)?.touched
+                          form.get(field.key)?.invalid &&
+                          form.get(field.key)?.touched
                         "
                       >
                         {{ field.errorMessages?.required }}
@@ -110,14 +103,14 @@
                       [ngStyle]="getMergedStyles(field)"
                       [ngClass]="field.style?.class"
                     >
-                      <mat-slide-toggle [formControlName]="field.label">
+                      <mat-slide-toggle [formControlName]="field.key">
                         {{ field.label }}
                       </mat-slide-toggle>
 
                       <mat-error
                         *ngIf="
-                          form.get(field.label)?.invalid &&
-                          form.get(field.label)?.touched
+                          form.get(field.key)?.invalid &&
+                          form.get(field.key)?.touched
                         "
                       >
                         {{ field.errorMessages?.required }}
@@ -133,7 +126,7 @@
                     >
                       <label>{{ field.label }}</label>
                       <div>
-                        <mat-radio-group [formControlName]="field.label">
+                        <mat-radio-group [formControlName]="field.key">
                           <mat-radio-button
                             *ngFor="let option of field.options"
                             [value]="option.value"
@@ -145,8 +138,8 @@
 
                       <mat-error
                         *ngIf="
-                          form.get(field.label)?.invalid &&
-                          form.get(field.label)?.touched
+                          form.get(field.key)?.invalid &&
+                          form.get(field.key)?.touched
                         "
                       >
                         {{ field.errorMessages?.required }}
@@ -162,21 +155,16 @@
 
                       <div
                         class="custom-checkbox-group"
-                        formArrayName="{{ field.label }}"
+                        formArrayName="{{ field.key }}"
                       >
                         <mat-checkbox
                           *ngFor="let option of field.options; let i = index"
                           [value]="option.value.toString()"
                           [checked]="
-                            form.get(field.label)?.value.includes(option.value)
+                            form.get(field.key)?.value.includes(option.value)
                           "
                           (change)="
-                            onCheckboxChange(
-                              $event,
-                              field.label,
-                              option.value,
-                              i
-                            )
+                            onCheckboxChange($event, field.key, option.value, i)
                           "
                         >
                           {{ option.label }}
@@ -186,8 +174,8 @@
                       <div
                         class="error-message"
                         *ngIf="
-                          form.get(field.label)?.invalid &&
-                          form.get(field.label)?.touched
+                          form.get(field.key)?.invalid &&
+                          form.get(field.key)?.touched
                         "
                       >
                         {{ field.errorMessages?.required }}
@@ -205,7 +193,7 @@
                       <input
                         matInput
                         [matDatepicker]="picker"
-                        formControlName="{{ field.label }}"
+                        formControlName="{{ field.key }}"
                       />
                       <mat-datepicker-toggle
                         matSuffix
@@ -214,9 +202,9 @@
                       <mat-datepicker #picker></mat-datepicker>
                       <mat-error
                         *ngIf="
-                          form.get(field.label)?.invalid &&
-                          (form.get(field.label)?.dirty ||
-                            form.get(field.label)?.touched)
+                          form.get(field.key)?.invalid &&
+                          (form.get(field.key)?.dirty ||
+                            form.get(field.key)?.touched)
                         "
                       >
                         {{ getErrorMessage(field) }}
@@ -236,7 +224,7 @@
                         matInput
                         [ngxMatTimepicker]="timepicker"
                         readonly
-                        formControlName="{{ field.label }}"
+                        formControlName="{{ field.key }}"
                       />
 
                       <ngx-mat-timepicker-toggle
@@ -251,9 +239,9 @@
 
                       <mat-error
                         *ngIf="
-                          form.get(field.label)?.invalid &&
-                          (form.get(field.label)?.dirty ||
-                            form.get(field.label)?.touched)
+                          form.get(field.key)?.invalid &&
+                          (form.get(field.key)?.dirty ||
+                            form.get(field.key)?.touched)
                         "
                       >
                         {{ getErrorMessage(field) }}
@@ -318,9 +306,9 @@
 
                       <mat-error
                         *ngIf="
-                          form.get(field.label)?.invalid &&
-                          (form.get(field.label)?.dirty ||
-                            form.get(field.label)?.touched)
+                          form.get(field.key)?.invalid &&
+                          (form.get(field.key)?.dirty ||
+                            form.get(field.key)?.touched)
                         "
                       >
                         {{ getErrorMessage(field) }}
@@ -333,7 +321,7 @@
                       class="textarea-container"
                     >
                       <quill-editor
-                        [formControlName]="field.label"
+                        [formControlName]="field.key"
                         [modules]="field.textareaConfig?.modules"
                         [ngStyle]="getMergedStyles(field)"
                         [ngClass]="field.style?.class"
@@ -342,9 +330,9 @@
                       </quill-editor>
                       <mat-error
                         *ngIf="
-                          form.get(field.label)?.invalid &&
-                          (form.get(field.label)?.dirty ||
-                            form.get(field.label)?.touched)
+                          form.get(field.key)?.invalid &&
+                          (form.get(field.key)?.dirty ||
+                            form.get(field.key)?.touched)
                         "
                       >
                         {{ getErrorMessage(field) }}

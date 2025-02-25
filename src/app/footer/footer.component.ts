@@ -27,4 +27,12 @@ import { NavbarComponent } from '../navbar/navbar.component';
 })
 export class FooterComponent {
   @Input() footerConfig!: FooterConfig;
+  isSubscriptionModalOpen: boolean = false;
+
+  openSubscriptionModal() {
+    this.isSubscriptionModalOpen = true;
+  }
+  closeSubscriptionModal() {
+    this.isSubscriptionModalOpen = false;
+  }
 }

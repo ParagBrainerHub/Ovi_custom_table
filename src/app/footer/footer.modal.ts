@@ -9,6 +9,18 @@ export interface FooterColumn {
 }
 
 export interface FooterConfig {
+  subscribeButton: string;
+  subscribeDesc: string;
+  subscribeText: string;
+
+  logoUrl: string;
+  description: string;
+  usefulLinks: { name: string; url: string }[];
+  contact: {
+    address: string;
+    email: string;
+    phone: string;
+  };
   columns: FooterColumn[];
   iframeUrl?: string;
   iframeWidth?: string;

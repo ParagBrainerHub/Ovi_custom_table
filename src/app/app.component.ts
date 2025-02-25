@@ -1515,6 +1515,28 @@ export class AppComponent {
   };
 
   footerConfig: FooterConfig = {
+    subscribeText: 'Subscribe to our newsletter',
+    subscribeDesc:
+      'Be the first one to know about discounts, offers and events',
+    subscribeButton: 'Subscribe',
+
+    logoUrl: './light_cycolis_software_logo_2.png',
+    description:
+      'OurStudio is a digital agency UI / UX Design and Website Development located in Ohio, United States of America',
+
+    usefulLinks: [
+      { name: 'Home', url: '/home' },
+      { name: 'About Us', url: '/about' },
+      { name: 'Blog', url: '/blog' },
+      { name: 'Contact Us', url: '/contact' },
+    ],
+
+    contact: {
+      address: 'Neha Tobacco, Banda, Madhya Pradesh, India',
+      email: 'iesparagjain@gmail.com',
+      phone: '+91 9770525851',
+    },
+
     columns: [
       {
         title: 'About Us',
@@ -1553,7 +1575,7 @@ export class AppComponent {
       copyrightText: 'All rights reserved.',
       year: 2024,
       company: 'My Company',
-      backgroundColor: 'black',
+      backgroundColor: 'transparent',
       align: 'left',
       margin: '10px 10px',
       icons: [
@@ -1576,6 +1598,37 @@ export class AppComponent {
       ],
     },
   };
+
+  //   footerConfig = {
+  //   subscribeText: 'Subscribe to our newsletter',
+  //   subscribeDesc: 'Be the first one to know about discounts, offers and events',
+  //   subscribeButton: 'Subscribe',
+
+  //   logo: 'assets/logo.png',
+  //   description: 'OurStudio is a digital agency UI / UX Design and Website Development located in Ohio, United States of America',
+
+  //   usefulLinks: [
+  //     { name: 'Home', url: '/home' },
+  //     { name: 'About Us', url: '/about' },
+  //     { name: 'Blog', url: '/blog' },
+  //     { name: 'Contact Us', url: '/contact' },
+  //   ],
+
+  //   contact: {
+  //     address: '8819 Ohio St. South Gate, CA 90280',
+  //     email: 'Ourstudio@hello.com',
+  //     phone: '+1 386-688-3295'
+  //   },
+
+  //   socialIcons: [
+  //     { icon: 'fa-twitter', url: 'https://twitter.com' },
+  //     { icon: 'fa-facebook', url: 'https://facebook.com' },
+  //     { icon: 'fa-instagram', url: 'https://instagram.com' },
+  //     { icon: 'fa-github', url: 'https://github.com' },
+  //   ],
+
+  //   copyright: '© Copyright 2024, All Rights Reserved'
+  // };
 
   isPopupVisible = false;
   buttonAlignment: string = 'center';

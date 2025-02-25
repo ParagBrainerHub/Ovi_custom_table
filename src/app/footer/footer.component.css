@@ -1,7 +1,108 @@
 .footer-content {
-  background-color: #1a1a1a;
-  color: #ffffff;
-  padding: 20px;
+  background: purple;
+  color: white;
+  padding: 100px 0px;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 60px;
+}
+
+.top-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  color: purple;
+  border-radius: 10px;
+  padding: 20px 30px;
+  min-height: 132px;
+}
+.top-section .top-section_content h2 {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 50px;
+  letter-spacing: 0%;
+}
+.top-section .top-section_content p {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0%;
+}
+.top-section_subs_button {
+  width: 318px;
+  height: 50px;
+  padding: 14px 30px;
+  gap: 8px;
+  border-radius: 6px;
+  background: #800080;
+  color: white;
+  font-size: 16px;
+  border: 0px;
+}
+
+.middle-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo-section {
+  text-align: left;
+}
+.logo-section p {
+  width: 245px;
+  margin-top: 24px;
+}
+
+.links-section {
+  text-align: left;
+}
+
+.links-section h4,
+.contact-section h4 {
+  text-align: left;
+  margin-bottom: 24px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: 0%;
+}
+.links-section div {
+  margin-bottom: 20px;
+}
+.links-section div a {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  text-decoration: none;
+  color: white;
+}
+.links-section p {
+}
+
+.contact-section {
+  /* text-align: left; */
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  max-width: 250px;
+}
+.contact-section mat-icon {
+  flex: 24px 0 0;
+}
+.contact-section p {
+  text-align: left;
+}
+.contact-section .icon-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
 }
 
 .columns {
@@ -47,14 +148,6 @@
   border: none;
 }
 
-/* .bottom-bar {
-  display: flex;
-  align-items: center;
-  padding: 10px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  justify-content: space-between;
-} */
-
 .bottom-bar-logo-wrapper {
   flex: 1;
 }
@@ -89,14 +182,14 @@
   opacity: 0.8;
 }
 
-
 /* testing */
 .bottom-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: transparent;
+  height: 100px;
+  border-top: 2px solid white;
 }
 
 .bottom-bar-text {
@@ -135,3 +228,80 @@
 .bottom-bar-icons a:hover img {
   filter: invert(0); /* Makes icons black on hover */
 }
+
+/* Subscription css start */
+.modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f9dff9;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 620px;
+  text-align: center;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: white;
+  border-radius: 50%;
+  background: purple;
+  border: none;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-title {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 50px;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #800080;
+  max-width: 350px;
+  margin: auto;
+}
+
+.modal-description {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #333333;
+}
+
+.input-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.email-input {
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  width: 60%;
+  outline: none;
+}
+
+.subscribe-button {
+  border-radius: 20px;
+  padding: 10px 20px;
+  background: purple;
+  color: white;
+  border: none;
+}
+/* Subscription css end */

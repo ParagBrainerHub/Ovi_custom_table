@@ -22,361 +22,359 @@
               <ng-container
                 *ngFor="let field of formConfig.fields; let i = index"
               >
-                <div class="field-container">
-                  <ng-container *ngIf="!field.hide">
-                    <!-- Text Field -->
-                    <mat-form-field
-                      *ngIf="field.type === 'text'"
-                      appearance="outline"
-                      [ngStyle]="getMergedStyles(field)"
-                      [ngClass]="field.style?.class"
+                <ng-container *ngIf="!field.hide">
+                  <!-- Text Field -->
+                  <mat-form-field
+                    *ngIf="field.type === 'text'"
+                    appearance="outline"
+                    [ngStyle]="getMergedStyles(field)"
+                    [ngClass]="field.style?.class"
+                  >
+                    <mat-label>{{ field.label }}</mat-label>
+                    <input
+                      matInput
+                      [placeholder]="field.placeholder ?? 'Enter value'"
+                      formControlName="{{ field.key }}"
+                    />
+                    <mat-error
+                      *ngIf="
+                        form.get(field.key)?.invalid &&
+                        (form.get(field.key)?.dirty ||
+                          form.get(field.key)?.touched)
+                      "
                     >
-                      <mat-label>{{ field.label }}</mat-label>
-                      <input
-                        matInput
-                        [placeholder]="field.placeholder ?? 'Enter value'"
-                        formControlName="{{ field.key }}"
-                      />
-                      <mat-error
-                        *ngIf="
-                          form.get(field.key)?.invalid &&
-                          (form.get(field.key)?.dirty ||
-                            form.get(field.key)?.touched)
-                        "
-                      >
-                        {{ getErrorMessage(field) }}
-                      </mat-error>
-                    </mat-form-field>
+                      {{ getErrorMessage(field) }}
+                    </mat-error>
+                  </mat-form-field>
 
-                    <!-- Number Field -->
-                    <mat-form-field
-                      *ngIf="field.type === 'number'"
-                      appearance="outline"
-                      [ngStyle]="getMergedStyles(field)"
-                      [ngClass]="field.style?.class"
+                  <!-- Number Field -->
+                  <mat-form-field
+                    *ngIf="field.type === 'number'"
+                    appearance="outline"
+                    [ngStyle]="getMergedStyles(field)"
+                    [ngClass]="field.style?.class"
+                  >
+                    <mat-label>{{ field.label }}</mat-label>
+                    <input
+                      matInput
+                      type="number"
+                      [placeholder]="field.placeholder ?? 'Enter value'"
+                      formControlName="{{ field.key }}"
+                    />
+                    <mat-error
+                      *ngIf="
+                        form.get(field.key)?.invalid &&
+                        (form.get(field.key)?.dirty ||
+                          form.get(field.key)?.touched)
+                      "
                     >
-                      <mat-label>{{ field.label }}</mat-label>
-                      <input
-                        matInput
-                        type="number"
-                        [placeholder]="field.placeholder ?? 'Enter value'"
-                        formControlName="{{ field.key }}"
-                      />
-                      <mat-error
-                        *ngIf="
-                          form.get(field.key)?.invalid &&
-                          (form.get(field.key)?.dirty ||
-                            form.get(field.key)?.touched)
-                        "
-                      >
-                        {{ getErrorMessage(field) }}
-                      </mat-error>
-                    </mat-form-field>
+                      {{ getErrorMessage(field) }}
+                    </mat-error>
+                  </mat-form-field>
 
-                    <!-- Email Field -->
-                    <mat-form-field
-                      *ngIf="field.type === 'email'"
-                      appearance="outline"
-                      [ngStyle]="getMergedStyles(field)"
-                      [ngClass]="field.style?.class"
+                  <!-- Email Field -->
+                  <mat-form-field
+                    *ngIf="field.type === 'email'"
+                    appearance="outline"
+                    [ngStyle]="getMergedStyles(field)"
+                    [ngClass]="field.style?.class"
+                  >
+                    <mat-label>{{ field.label }}</mat-label>
+                    <input
+                      matInput
+                      type="email"
+                      [placeholder]="field.placeholder ?? 'Enter your email'"
+                      formControlName="{{ field.key }}"
+                    />
+                    <mat-error
+                      *ngIf="
+                        form.get(field.key)?.invalid &&
+                        (form.get(field.key)?.dirty ||
+                          form.get(field.key)?.touched)
+                      "
                     >
-                      <mat-label>{{ field.label }}</mat-label>
-                      <input
-                        matInput
-                        type="email"
-                        [placeholder]="field.placeholder ?? 'Enter your email'"
-                        formControlName="{{ field.key }}"
-                      />
-                      <mat-error
-                        *ngIf="
-                          form.get(field.key)?.invalid &&
-                          (form.get(field.key)?.dirty ||
-                            form.get(field.key)?.touched)
-                        "
-                      >
-                        {{ getErrorMessage(field) }}
-                      </mat-error>
-                    </mat-form-field>
+                      {{ getErrorMessage(field) }}
+                    </mat-error>
+                  </mat-form-field>
 
-                    <!-- select tag / Dropdown hai -->
-                    <mat-form-field
-                      *ngIf="field.type === 'select'"
-                      appearance="outline"
-                      [ngStyle]="getMergedStyles(field)"
-                      [ngClass]="field.style?.class"
+                  <!-- select tag / Dropdown hai -->
+                  <mat-form-field
+                    *ngIf="field.type === 'select'"
+                    appearance="outline"
+                    [ngStyle]="getMergedStyles(field)"
+                    [ngClass]="field.style?.class"
+                  >
+                    <mat-label>{{ field.label }}</mat-label>
+                    <mat-select
+                      formControlName="{{ field.key }}"
+                      (selectionChange)="onDropdownChange(field.key, $event)"
                     >
-                      <mat-label>{{ field.label }}</mat-label>
-                      <mat-select
-                        formControlName="{{ field.key }}"
-                        (selectionChange)="onDropdownChange(field.key, $event)"
+                      <mat-option
+                        *ngFor="let option of field.options"
+                        [value]="option.value"
                       >
-                        <mat-option
+                        <span
+                          [ngClass]="{
+                            'green-dot': option.status === 'available',
+                            'red-dot': option.status === 'booked'
+                          }"
+                        ></span>
+                        {{ option.label }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="
+                        form.get(field.key)?.invalid &&
+                        form.get(field.key)?.touched
+                      "
+                    >
+                      {{ field.errorMessages?.required }}
+                    </mat-error>
+                  </mat-form-field>
+
+                  <!-- slide toggle -->
+                  <div
+                    *ngIf="field.type === 'switch'"
+                    class="switch-container"
+                    [ngStyle]="getMergedStyles(field)"
+                    [ngClass]="field.style?.class"
+                  >
+                    <mat-slide-toggle [formControlName]="field.key">
+                      {{ field.label }}
+                    </mat-slide-toggle>
+
+                    <mat-error
+                      *ngIf="
+                        form.get(field.key)?.invalid &&
+                        form.get(field.key)?.touched
+                      "
+                    >
+                      {{ field.errorMessages?.required }}
+                    </mat-error>
+                  </div>
+
+                  <!-- Radio Field -->
+                  <div
+                    *ngIf="field.type === 'radio'"
+                    class="radio-container"
+                    [ngStyle]="getMergedStyles(field)"
+                    [ngClass]="field.style?.class"
+                  >
+                    <label>{{ field.label }}</label>
+                    <div>
+                      <mat-radio-group [formControlName]="field.key">
+                        <mat-radio-button
                           *ngFor="let option of field.options"
                           [value]="option.value"
                         >
-                          <span
-                            [ngClass]="{
-                              'green-dot': option.status === 'available',
-                              'red-dot': option.status === 'booked'
-                            }"
-                          ></span>
                           {{ option.label }}
-                        </mat-option>
-                      </mat-select>
-                      <mat-error
-                        *ngIf="
-                          form.get(field.key)?.invalid &&
-                          form.get(field.key)?.touched
+                        </mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+
+                    <mat-error
+                      *ngIf="
+                        form.get(field.key)?.invalid &&
+                        form.get(field.key)?.touched
+                      "
+                    >
+                      {{ field.errorMessages?.required }}
+                    </mat-error>
+                  </div>
+
+                  <!-- checkbox -->
+                  <div
+                    *ngIf="field.type === 'checkbox'"
+                    class="custom-checkbox-wrapper"
+                  >
+                    <label class="checkbox-label">{{ field.label }}</label>
+
+                    <div
+                      class="custom-checkbox-group"
+                      formArrayName="{{ field.key }}"
+                    >
+                      <mat-checkbox
+                        *ngFor="let option of field.options; let i = index"
+                        [value]="option.value.toString()"
+                        [checked]="
+                          form.get(field.key)?.value.includes(option.value)
+                        "
+                        (change)="
+                          onCheckboxChange($event, field.key, option.value, i)
                         "
                       >
-                        {{ field.errorMessages?.required }}
-                      </mat-error>
-                    </mat-form-field>
+                        {{ option.label }}
+                      </mat-checkbox>
+                    </div>
 
-                    <!-- slide toggle -->
                     <div
-                      *ngIf="field.type === 'switch'"
-                      class="switch-container"
+                      class="error-message"
+                      *ngIf="
+                        form.get(field.key)?.invalid &&
+                        form.get(field.key)?.touched
+                      "
+                    >
+                      {{ field.errorMessages?.required }}
+                    </div>
+                  </div>
+
+                  <!-- Date Field -->
+                  <mat-form-field
+                    *ngIf="field.type === 'date'"
+                    appearance="outline"
+                    [ngStyle]="getMergedStyles(field)"
+                    [ngClass]="field.style?.class"
+                  >
+                    <mat-label>{{ field.label }}</mat-label>
+                    <input
+                      matInput
+                      [matDatepicker]="picker"
+                      formControlName="{{ field.key }}"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error
+                      *ngIf="
+                        form.get(field.key)?.invalid &&
+                        (form.get(field.key)?.dirty ||
+                          form.get(field.key)?.touched)
+                      "
+                    >
+                      {{ getErrorMessage(field) }}
+                    </mat-error>
+                  </mat-form-field>
+
+                  <!-- time picker -->
+                  <mat-form-field
+                    *ngIf="field.type === 'time'"
+                    appearance="outline"
+                    [ngStyle]="getMergedStyles(field)"
+                    [ngClass]="field.style?.class"
+                  >
+                    <mat-label>{{ field.label }}</mat-label>
+
+                    <input
+                      matInput
+                      [ngxMatTimepicker]="timepicker"
+                      readonly
+                      formControlName="{{ field.key }}"
+                    />
+
+                    <ngx-mat-timepicker-toggle
+                      matSuffix
+                      [for]="timepicker"
+                    ></ngx-mat-timepicker-toggle>
+
+                    <ngx-mat-timepicker
+                      #timepicker
+                      enableKeyboardInput="true"
+                    ></ngx-mat-timepicker>
+
+                    <mat-error
+                      *ngIf="
+                        form.get(field.key)?.invalid &&
+                        (form.get(field.key)?.dirty ||
+                          form.get(field.key)?.touched)
+                      "
+                    >
+                      {{ getErrorMessage(field) }}
+                    </mat-error>
+                  </mat-form-field>
+
+                  <!-- File Upload Field -->
+                  <div
+                    *ngIf="field.type === 'file'"
+                    class="file-upload-container"
+                  >
+                    <div
+                      class="upload-area"
                       [ngStyle]="getMergedStyles(field)"
                       [ngClass]="field.style?.class"
                     >
-                      <mat-slide-toggle [formControlName]="field.key">
-                        {{ field.label }}
-                      </mat-slide-toggle>
-
-                      <mat-error
-                        *ngIf="
-                          form.get(field.key)?.invalid &&
-                          form.get(field.key)?.touched
-                        "
-                      >
-                        {{ field.errorMessages?.required }}
-                      </mat-error>
-                    </div>
-
-                    <!-- Radio Field -->
-                    <div
-                      *ngIf="field.type === 'radio'"
-                      class="radio-container"
-                      [ngStyle]="getMergedStyles(field)"
-                      [ngClass]="field.style?.class"
-                    >
-                      <label>{{ field.label }}</label>
-                      <div>
-                        <mat-radio-group [formControlName]="field.key">
-                          <mat-radio-button
-                            *ngFor="let option of field.options"
-                            [value]="option.value"
-                          >
-                            {{ option.label }}
-                          </mat-radio-button>
-                        </mat-radio-group>
-                      </div>
-
-                      <mat-error
-                        *ngIf="
-                          form.get(field.key)?.invalid &&
-                          form.get(field.key)?.touched
-                        "
-                      >
-                        {{ field.errorMessages?.required }}
-                      </mat-error>
-                    </div>
-
-                    <!-- checkbox -->
-                    <div
-                      *ngIf="field.type === 'checkbox'"
-                      class="custom-checkbox-wrapper"
-                    >
-                      <label class="checkbox-label">{{ field.label }}</label>
-
                       <div
-                        class="custom-checkbox-group"
-                        formArrayName="{{ field.key }}"
-                      >
-                        <mat-checkbox
-                          *ngFor="let option of field.options; let i = index"
-                          [value]="option.value.toString()"
-                          [checked]="
-                            form.get(field.key)?.value.includes(option.value)
-                          "
-                          (change)="
-                            onCheckboxChange($event, field.key, option.value, i)
-                          "
-                        >
-                          {{ option.label }}
-                        </mat-checkbox>
-                      </div>
-
-                      <div
-                        class="error-message"
+                        class="upload-icon"
                         *ngIf="
-                          form.get(field.key)?.invalid &&
-                          form.get(field.key)?.touched
+                          field.showFileIcon && field.buttonConfig?.showIcon
                         "
                       >
-                        {{ field.errorMessages?.required }}
+                        <mat-icon>cloud_upload</mat-icon>
                       </div>
-                    </div>
-
-                    <!-- Date Field -->
-                    <mat-form-field
-                      *ngIf="field.type === 'date'"
-                      appearance="outline"
-                      [ngStyle]="getMergedStyles(field)"
-                      [ngClass]="field.style?.class"
-                    >
-                      <mat-label>{{ field.label }}</mat-label>
-                      <input
-                        matInput
-                        [matDatepicker]="picker"
-                        formControlName="{{ field.key }}"
-                      />
-                      <mat-datepicker-toggle
-                        matSuffix
-                        [for]="picker"
-                      ></mat-datepicker-toggle>
-                      <mat-datepicker #picker></mat-datepicker>
-                      <mat-error
-                        *ngIf="
-                          form.get(field.key)?.invalid &&
-                          (form.get(field.key)?.dirty ||
-                            form.get(field.key)?.touched)
-                        "
-                      >
-                        {{ getErrorMessage(field) }}
-                      </mat-error>
-                    </mat-form-field>
-
-                    <!-- time picker -->
-                    <mat-form-field
-                      *ngIf="field.type === 'time'"
-                      appearance="outline"
-                      [ngStyle]="getMergedStyles(field)"
-                      [ngClass]="field.style?.class"
-                    >
-                      <mat-label>{{ field.label }}</mat-label>
+                      <p class="upload-text">
+                        Drag your {{ field.label }} to start uploading
+                      </p>
 
                       <input
-                        matInput
-                        [ngxMatTimepicker]="timepicker"
-                        readonly
-                        formControlName="{{ field.key }}"
+                        type="file"
+                        (change)="onFileSelect($event, field)"
+                        [accept]="field.fileConfig?.allowedTypes?.join(',')"
+                        multiple
+                        hidden
+                        #fileInput
                       />
 
-                      <ngx-mat-timepicker-toggle
-                        matSuffix
-                        [for]="timepicker"
-                      ></ngx-mat-timepicker-toggle>
-
-                      <ngx-mat-timepicker
-                        #timepicker
-                        enableKeyboardInput="true"
-                      ></ngx-mat-timepicker>
-
-                      <mat-error
-                        *ngIf="
-                          form.get(field.key)?.invalid &&
-                          (form.get(field.key)?.dirty ||
-                            form.get(field.key)?.touched)
-                        "
+                      <app-custom-button
+                        [text]="field.buttonConfig?.text || 'Browse'"
+                        (buttonClick)="fileInput.click()"
                       >
-                        {{ getErrorMessage(field) }}
-                      </mat-error>
-                    </mat-form-field>
+                      </app-custom-button>
+                    </div>
 
-                    <!-- File Upload Field -->
-                    <div
-                      *ngIf="field.type === 'file'"
-                      class="file-upload-container"
-                    >
+                    <!-- Show Uploaded Images -->
+                    <div class="uploaded-images">
                       <div
-                        class="upload-area"
-                        [ngStyle]="getMergedStyles(field)"
-                        [ngClass]="field.style?.class"
+                        class="image-preview"
+                        *ngFor="let img of selectedImages; let i = index"
                       >
-                        <div
-                          class="upload-icon"
-                          *ngIf="
-                            field.showFileIcon && field.buttonConfig?.showIcon
-                          "
-                        >
-                          <mat-icon>cloud_upload</mat-icon>
-                        </div>
-                        <p class="upload-text">
-                          Drag your {{ field.label }} to start uploading
-                        </p>
-
-                        <input
-                          type="file"
-                          (change)="onFileSelect($event, field)"
-                          [accept]="field.fileConfig?.allowedTypes?.join(',')"
-                          multiple
-                          hidden
-                          #fileInput
+                        <img
+                          width="50px"
+                          height="50px"
+                          [src]="img"
+                          alt="Uploaded Image"
                         />
-
-                        <app-custom-button
-                          [text]="field.buttonConfig?.text || 'Browse'"
-                          (buttonClick)="fileInput.click()"
+                        <mat-icon class="mat-icon" (click)="removeImage(i)"
+                          >close</mat-icon
                         >
-                        </app-custom-button>
                       </div>
-
-                      <!-- Show Uploaded Images -->
-                      <div class="uploaded-images">
-                        <div
-                          class="image-preview"
-                          *ngFor="let img of selectedImages; let i = index"
-                        >
-                          <img
-                            width="50px"
-                            height="50px"
-                            [src]="img"
-                            alt="Uploaded Image"
-                          />
-                          <mat-icon class="mat-icon" (click)="removeImage(i)"
-                            >close</mat-icon
-                          >
-                        </div>
-                      </div>
-
-                      <mat-error
-                        *ngIf="
-                          form.get(field.key)?.invalid &&
-                          (form.get(field.key)?.dirty ||
-                            form.get(field.key)?.touched)
-                        "
-                      >
-                        {{ getErrorMessage(field) }}
-                      </mat-error>
                     </div>
 
-                    <!-- Textarea Field -->
-                    <div
-                      *ngIf="field.type === 'textarea'"
-                      class="textarea-container"
+                    <mat-error
+                      *ngIf="
+                        form.get(field.key)?.invalid &&
+                        (form.get(field.key)?.dirty ||
+                          form.get(field.key)?.touched)
+                      "
                     >
-                      <quill-editor
-                        [formControlName]="field.key"
-                        [modules]="field.textareaConfig?.modules"
-                        [ngStyle]="getMergedStyles(field)"
-                        [ngClass]="field.style?.class"
-                        [placeholder]="field.placeholder ?? 'Write your bio'"
-                      >
-                      </quill-editor>
-                      <mat-error
-                        *ngIf="
-                          form.get(field.key)?.invalid &&
-                          (form.get(field.key)?.dirty ||
-                            form.get(field.key)?.touched)
-                        "
-                      >
-                        {{ getErrorMessage(field) }}
-                      </mat-error>
-                    </div>
-                  </ng-container>
-                </div>
+                      {{ getErrorMessage(field) }}
+                    </mat-error>
+                  </div>
+
+                  <!-- Textarea Field -->
+                  <div
+                    *ngIf="field.type === 'textarea'"
+                    class="textarea-container"
+                  >
+                    <quill-editor
+                      [formControlName]="field.key"
+                      [modules]="field.textareaConfig?.modules"
+                      [ngStyle]="getMergedStyles(field)"
+                      [ngClass]="field.style?.class"
+                      [placeholder]="field.placeholder ?? 'Write your bio'"
+                    >
+                    </quill-editor>
+                    <mat-error
+                      *ngIf="
+                        form.get(field.key)?.invalid &&
+                        (form.get(field.key)?.dirty ||
+                          form.get(field.key)?.touched)
+                      "
+                    >
+                      {{ getErrorMessage(field) }}
+                    </mat-error>
+                  </div>
+                </ng-container>
               </ng-container>
             </div>
             <!-- <button mat-flat-button color="primary" class="submit-button" type="submit">Submit</button> -->
@@ -387,8 +385,14 @@
                 [icon]="formConfig.submitButtonConfig.icon"
                 [showIcon]="formConfig.submitButtonConfig.showIcon"
                 [iconPosition]="formConfig.submitButtonConfig.iconPosition"
-                [foreground]="formConfig.submitButtonConfig.foreground"
-                [background]="formConfig.submitButtonConfig.background"
+                [hasBorder]="formConfig.submitButtonConfig.hasBorder"
+                [borderColor]="formConfig.submitButtonConfig.borderColor"
+                [foregroundColor]="
+                  formConfig.submitButtonConfig.foregroundColor
+                "
+                [backgroundColor]="
+                  formConfig.submitButtonConfig.backgroundColor
+                "
                 [shadow]="formConfig.submitButtonConfig.shadow"
                 [width]="formConfig.submitButtonConfig.width"
                 [shape]="formConfig.submitButtonConfig.shape"
@@ -403,8 +407,12 @@
                 [icon]="formConfig.cancelButtonConfig.icon"
                 [showIcon]="formConfig.cancelButtonConfig.showIcon"
                 [iconPosition]="formConfig.cancelButtonConfig.iconPosition"
-                [foreground]="formConfig.cancelButtonConfig.foreground"
-                [background]="formConfig.cancelButtonConfig.background"
+                [foregroundColor]="
+                  formConfig.cancelButtonConfig.foregroundColor
+                "
+                [backgroundColor]="
+                  formConfig.cancelButtonConfig.backgroundColor
+                "
                 [shadow]="formConfig.cancelButtonConfig.shadow"
                 [shape]="formConfig.cancelButtonConfig.shape"
                 [corners]="formConfig.cancelButtonConfig.corners"

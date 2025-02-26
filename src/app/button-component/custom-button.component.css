@@ -187,13 +187,6 @@
   margin-top: 4px;
 }
 
-/* Transparent button style */
-.transparent {
-  background-color: transparent;
-  color: inherit;
-  border: none;
-}
-
 .elevated {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease-in-out;

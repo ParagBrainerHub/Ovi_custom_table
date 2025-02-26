@@ -1,21 +1,4 @@
-export interface ButtonConfig {
-  text?: string;
-  align?: 'left' | 'center' | 'right';
-  group?: 'left' | 'right';
-  icon?: string;
-  action?: () => void;
-  showIcon?: boolean;
-  iconPosition?: 'left' | 'center' | 'right' | 'full';
-  onClick?: (row: any) => void;
-  shape?: 'circle' | 'square' | 'rectangle';
-  corners?: 'rounded' | 'squared';
-  transparent?: boolean;
-  foreground?: string;
-  background?: string;
-  shadow?: boolean;
-  textAlign?: 'left' | 'center' | 'right';
-  validate?: () => boolean;
-}
+import { ButtonConfig } from '../button-component/button.model';
 
 export interface CardConfig {
   layout?: 'grid' | 'list';

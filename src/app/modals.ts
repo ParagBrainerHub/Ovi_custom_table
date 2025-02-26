@@ -1,3 +1,5 @@
+import { ButtonConfig } from './button-component/button.model';
+
 export interface ColumnItem {
   type: 'button' | 'image' | 'video' | 'text';
   content: any;
@@ -17,23 +19,4 @@ export interface User {
   imageLoading?: boolean;
   videoLoading?: boolean;
   //byteArray?: number[];
-}
-
-export interface ButtonConfig {
-  text?: string;
-  icon?: string;
-  showIcon?: boolean;
-  iconPosition?: 'left' | 'center' | 'right' | 'full' | 'top' | 'bottom';
-  onClick?: (row: any) => void;
-  shape?: 'circle' | 'square' | 'rectangle';
-  corners?: 'rounded' | 'squared';
-  transparent?: boolean;
-  foreground?: string;
-  background?: string;
-  shadow?: boolean;
-  textAlign?: 'left' | 'center' | 'right';
-  validate?: () => boolean;
-  primaryColor?: string;
-  border?: boolean;
-  secondaryColor?: string;
 }

@@ -597,7 +597,7 @@ export class FormComponentComponent
           ? `${field.width}px`
           : field.width
         : '300px',
-      'min-width': '100%',
+      // 'min-width': '100%',
       'max-width': '100%',
     };
 

@@ -29,7 +29,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { TableColumn, TableConfig } from './material-table-column.model';
 import { MatIconModule } from '@angular/material/icon';
 import { PaginationComponent } from '../pagination/pagination.component';
-import { ButtonConfig } from '../modals';
+import { ButtonConfig } from '../button-component/button.model';
 // import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({

@@ -262,6 +262,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 60%;
   overflow: hidden;
+  padding: 40px;
 }
 
 /* .booking-modal h2 {

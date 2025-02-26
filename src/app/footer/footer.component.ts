@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import { CustomButtonComponent } from '../button-component/custom-button.component';
 import { PopupComponent } from '../popup/popup.component';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { FormConfig } from '../form-component/form-modal';
+import { FormComponentComponent } from '../form-component/form-component.component';
 
 @Component({
   selector: 'app-footer',
@@ -19,14 +21,14 @@ import { NavbarComponent } from '../navbar/navbar.component';
     SafeHtmlPipe,
     RouterModule,
     CustomButtonComponent,
-    // PopupComponent,
-    // NavbarComponent,
+    FormComponentComponent,
   ],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css',
 })
 export class FooterComponent {
   @Input() footerConfig!: FooterConfig;
+  @Input() subscribeFormConfig!: FormConfig;
   isSubscriptionModalOpen: boolean = false;
 
   openSubscriptionModal() {
@@ -34,5 +36,9 @@ export class FooterComponent {
   }
   closeSubscriptionModal() {
     this.isSubscriptionModalOpen = false;
+  }
+
+  onSubscribeFormSubmit(data: any) {
+    console.log('Form data subcribtion ', data);
   }
 }

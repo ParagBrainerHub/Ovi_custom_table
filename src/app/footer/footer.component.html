@@ -173,9 +173,13 @@
     tempor incididunt ut labore et dolore.
   </p>
   <div class="input-container">
-    <input type="email" placeholder="Enter Your Email" class="email-input" />
+    <!-- <input type="email" placeholder="Enter Your Email" class="email-input" />
     <button mat-raised-button color="primary" class="subscribe-button">
       Subscribe
-    </button>
+    </button> -->
+    <app-form-component
+      [formConfig]="subscribeFormConfig"
+      (submitClicked)="onSubscribeFormSubmit($event)"
+    ></app-form-component>
   </div>
 </div>

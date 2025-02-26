@@ -8,11 +8,13 @@ export interface FormConfig {
   fields: FormFieldConfig[];
   submitButtonConfig?: ButtonConfig;
   cancelButtonConfig?: ButtonConfig;
+  backgroundColor?: string;
 }
 
 export interface FormFieldConfig {
   type:
     | 'text'
+    | 'email'
     | 'number'
     | 'date'
     | 'file'
@@ -26,7 +28,7 @@ export interface FormFieldConfig {
   key: string;
   placeholder?: string;
   showFileIcon?: boolean;
-  width: number;
+  width?: number | string;
   value?: any;
   required?: boolean;
   validation?: ValidationConfig;
@@ -79,7 +81,9 @@ export interface ToolbarOption {
     | 'bold'
     | 'italic'
     | 'underline'
+    | 'strike' // Added missing option
     | 'color'
+    | 'background' // Added missing option
     | 'blockquote'
     | 'code-block'
     | 'header'
@@ -89,7 +93,13 @@ export interface ToolbarOption {
     | 'direction'
     | 'size'
     | 'font'
-    | 'align';
+    | 'align'
+    | 'link' // Added missing option
+    | 'image' // Added missing option
+    | 'video' // Added missing option
+    | 'clean'; // Added missing option
+
+  value?: string | number | string[] | boolean;
 }
 
 export interface StyleConfig {

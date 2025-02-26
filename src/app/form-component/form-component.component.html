@@ -1,7 +1,13 @@
 <div class="pageContainer">
   <div class="split-container">
     <!-- Form Section -->
-    <div class="form-section" [style.flex-basis]="formConfig.formWidth + '%'">
+    <div
+      class="form-section"
+      [ngStyle]="{
+        'flex-basis': formConfig.formWidth + '%',
+        'background-color': formConfig.backgroundColor
+      }"
+    >
       <div class="form-section-box">
         <h1 *ngIf="formConfig.formTitle" class="form-title">
           {{ formConfig.formTitle }}
@@ -54,6 +60,31 @@
                         matInput
                         type="number"
                         [placeholder]="field.placeholder ?? 'Enter value'"
+                        formControlName="{{ field.key }}"
+                      />
+                      <mat-error
+                        *ngIf="
+                          form.get(field.key)?.invalid &&
+                          (form.get(field.key)?.dirty ||
+                            form.get(field.key)?.touched)
+                        "
+                      >
+                        {{ getErrorMessage(field) }}
+                      </mat-error>
+                    </mat-form-field>
+
+                    <!-- Email Field -->
+                    <mat-form-field
+                      *ngIf="field.type === 'email'"
+                      appearance="outline"
+                      [ngStyle]="getMergedStyles(field)"
+                      [ngClass]="field.style?.class"
+                    >
+                      <mat-label>{{ field.label }}</mat-label>
+                      <input
+                        matInput
+                        type="email"
+                        [placeholder]="field.placeholder ?? 'Enter your email'"
                         formControlName="{{ field.key }}"
                       />
                       <mat-error
@@ -359,6 +390,7 @@
                 [foreground]="formConfig.submitButtonConfig.foreground"
                 [background]="formConfig.submitButtonConfig.background"
                 [shadow]="formConfig.submitButtonConfig.shadow"
+                [width]="formConfig.submitButtonConfig.width"
                 [shape]="formConfig.submitButtonConfig.shape"
                 [corners]="formConfig.submitButtonConfig.corners"
                 [transparent]="formConfig.submitButtonConfig.transparent"

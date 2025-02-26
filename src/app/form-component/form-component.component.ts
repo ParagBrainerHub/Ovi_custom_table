@@ -590,11 +590,25 @@ export class FormComponentComponent
 
   // /////// styles //////
   getMergedStyles(field: FormFieldConfig) {
-    return {
+    const baseStyles = {
       ...(field.style?.inlineStyles || {}),
-      width: field.width ? `${field.width}px` : '300px',
+      width: field.width
+        ? typeof field.width === 'number'
+          ? `${field.width}px`
+          : field.width
+        : '300px',
       'min-width': '100%',
       'max-width': '100%',
     };
+
+    // ✅ Apply height only if field is textarea
+    if (field.type === 'textarea' && field.textareaConfig?.rows) {
+      return {
+        ...baseStyles,
+        height: `${field.textareaConfig.rows * 30}px`, // Adjust height based on rows
+      };
+    }
+
+    return baseStyles;
   }
 }

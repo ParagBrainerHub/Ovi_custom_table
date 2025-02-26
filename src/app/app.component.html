@@ -87,7 +87,10 @@
         [formConfig]="formConfigForCalendar"
       ></app-calendar-component>
     </div>
-    <app-footer [footerConfig]="footerConfig"></app-footer>
+    <app-footer
+      [footerConfig]="footerConfig"
+      [subscribeFormConfig]="formConfigForSubscribe"
+    ></app-footer>
   </ng-template>
   <router-outlet></router-outlet>
 </div>

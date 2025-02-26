@@ -84,6 +84,8 @@ export class AppComponent {
   form: FormGroup = new FormGroup({});
   formConfig: FormConfig;
   formConfigForCalendar: FormConfig;
+  formConfigForSubscribe: FormConfig;
+  // formConfigForContact: FormConfig;
 
   private subscriptions: Subscription[] = [];
 
@@ -1288,6 +1290,146 @@ export class AppComponent {
         shape: 'rectangle',
         corners: 'rounded',
         transparent: false,
+      },
+    };
+
+    this.formConfigForSubscribe = {
+      // formTitle: 'Subscribe To Our Newsletter',
+      // formSubTitle:
+      //   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.',
+      isImageShow: false,
+      formWidth: 100,
+      backgroundColor: 'transparent',
+      fields: [
+        {
+          type: 'text',
+          label: 'First Name',
+          key: 'firstName',
+          placeholder: 'Enter your first name',
+          // width: 260,
+          required: true,
+          validation: {
+            minLength: 2,
+            maxLength: 30,
+          },
+          errorMessages: {
+            required: 'First name is required.',
+            minLength: 'First name must be at least 2 characters long.',
+            maxLength: 'First name cannot exceed 30 characters.',
+          },
+        },
+        {
+          type: 'text',
+          label: 'Last Name',
+          key: 'lastName',
+          placeholder: 'Enter your last name',
+          // width: 260,
+          required: true,
+          validation: {
+            minLength: 2,
+            maxLength: 30,
+          },
+          errorMessages: {
+            required: 'Last name is required.',
+            minLength: 'Last name must be at least 2 characters long.',
+            maxLength: 'Last name cannot exceed 30 characters.',
+          },
+        },
+        {
+          type: 'email',
+          label: 'Email',
+          key: 'email',
+          placeholder: 'Enter your email',
+          // width: 260,
+          required: true,
+          validation: {
+            pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$',
+          },
+          errorMessages: {
+            required: 'Email is required.',
+            pattern: 'Enter a valid email address.',
+          },
+        },
+        {
+          type: 'number',
+          label: 'Phone',
+          key: 'phone',
+          placeholder: 'Enter your phone number',
+          // width: 260,
+          validation: {
+            minLength: 10,
+            maxLength: 15,
+          },
+          errorMessages: {
+            minLength: 'Phone number must be at least 10 digits.',
+            maxLength: 'Phone number cannot exceed 15 digits.',
+          },
+        },
+        {
+          type: 'textarea',
+          label: 'Message',
+          key: 'message',
+          placeholder: 'Enter your message',
+          width: '100%',
+          textareaConfig: {
+            rows: 5,
+            toolbarOptions: [
+              { type: 'bold' },
+              { type: 'italic' },
+              { type: 'underline' },
+              { type: 'strike' },
+              { type: 'color' },
+              { type: 'background' },
+              { type: 'blockquote' },
+              { type: 'code-block' },
+              { type: 'header', value: 1 },
+              { type: 'list', value: 'ordered' },
+              { type: 'list', value: 'bullet' },
+              { type: 'script', value: 'sub' },
+              { type: 'script', value: 'super' },
+              { type: 'indent', value: '-1' },
+              { type: 'indent', value: '+1' },
+              { type: 'direction', value: 'rtl' },
+              { type: 'size', value: 'large' },
+              { type: 'font' },
+              { type: 'align' },
+              { type: 'link' },
+              { type: 'image' },
+              { type: 'video' },
+              { type: 'clean' },
+            ],
+            modules: {
+              toolbar: [
+                ['bold', 'italic', 'underline', 'strike'],
+                [{ color: [] }, { background: [] }],
+                ['blockquote', 'code-block'],
+                [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                [{ list: 'ordered' }, { list: 'bullet' }],
+                [{ script: 'sub' }, { script: 'super' }],
+                [{ indent: '-1' }, { indent: '+1' }],
+                [{ direction: 'rtl' }],
+                [{ size: ['small', false, 'large', 'huge'] }],
+                [{ font: [] }],
+                [{ align: [] }],
+                ['link', 'image', 'video'],
+                ['clean'],
+              ],
+            },
+          },
+        },
+      ],
+      submitButtonConfig: {
+        text: 'Contact Us',
+        icon: 'send',
+        showIcon: true,
+        iconPosition: 'right',
+        foreground: '#ffffff',
+        background: '#1976d2',
+        shadow: true,
+        shape: 'rectangle',
+        corners: 'rounded',
+        transparent: false,
+        width: '100%',
       },
     };
   }

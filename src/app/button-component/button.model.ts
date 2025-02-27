@@ -53,6 +53,7 @@ export interface ButtonConfig {
   menuItems?: ButtonConfig[];
   isMenuButton?: boolean;
   class?: string;
+  isPillButton?: boolean;
 }
 
 // Helper validation function for component

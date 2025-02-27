@@ -9,7 +9,7 @@ import { CustomButtonComponent } from '../button-component/custom-button.compone
 import { CustomMaterialTableComponent } from '../custom-material-table/custom-material-table.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 // import { TableConfig } from '../custom-table/table-column.model';
-import { User } from '../app.component';
+import { User } from '../home-page/home-page.component';
 import { TableConfig } from '../custom-material-table/material-table-column.model';
 
 @Component({

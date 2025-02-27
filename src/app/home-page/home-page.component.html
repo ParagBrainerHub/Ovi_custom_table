@@ -1,0 +1,94 @@
+<div [ngClass]="isDarkTheme ? 'dark-theme' : 'light-theme'">
+  <div *ngIf="loadingData; else tableTemplate">
+    <ngx-skeleton-loader count="5" appearance="line"></ngx-skeleton-loader>
+  </div>
+
+  <div style="margin: 20px 20px">
+    <div class="button-container" [ngClass]="buttonAlignment">
+      <app-custom-button
+        [text]="
+          popupType.charAt(0).toUpperCase() + popupType.slice(1) + ' Popup'
+        "
+        [shape]="'rectangle'"
+        [corners]="'rounded'"
+        [hasBorder]="true"
+        [borderColor]="'#007bff'"
+        [foregroundColor]="'white'"
+        [backgroundColor]="getButtonBackground()"
+        [shadow]="true"
+        (click)="openPopup()"
+      >
+      </app-custom-button>
+
+      <!-- Toggle Button for Theme -->
+      <app-custom-button
+        [text]="isDarkTheme ? 'Light Theme' : 'Dark Theme'"
+        [shape]="'rectangle'"
+        [corners]="'rounded'"
+        [foregroundColor]="'white'"
+        [hasBorder]="true"
+        [borderColor]="'#007bff'"
+        [backgroundColor]="isDarkTheme ? '#333' : '#666'"
+        [shadow]="true"
+        (click)="toggleTheme()"
+      >
+      </app-custom-button>
+    </div>
+
+    <app-popup
+      *ngIf="isPopupVisible"
+      (popupClosed)="closePopup()"
+      [popupConfig]="popupConfig"
+      [showEmailField]="popupType === 'subscribe'"
+      [formConfig]="formConfig"
+    >
+    </app-popup>
+  </div>
+
+  <ng-template #tableTemplate>
+    <app-navbar [config]="navbarConfig"></app-navbar>
+    <app-carousel [config]="carouselConfig"></app-carousel>
+
+    <app-form-component [formConfig]="formConfig"></app-form-component>
+
+    <div class="row">
+      <div class="col-12 text-center">
+        <div class="btn-group">
+          <button type="button" (click)="isNewTable = false" class="btn">
+            Old Component
+          </button>
+          <button type="button" (click)="isNewTable = true" class="btn">
+            New Component
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- <app-custom-table
+      *ngIf="!isNewTable"
+      [data]="users"
+      [config]="tableConfig"
+    ></app-custom-table> -->
+
+    <app-custom-material-table
+      *ngIf="isNewTable"
+      [data]="users"
+      [config]="tableConfig"
+    ></app-custom-material-table>
+
+    <app-card-component
+      [cardConfigs]="cardConfigs"
+      [isGrid]="checked"
+      [carouselConfig]="carouselConfig"
+    ></app-card-component>
+    <div>
+      <app-calendar-component
+        [formConfig]="formConfigForCalendar"
+      ></app-calendar-component>
+    </div>
+    <app-footer
+      [footerConfig]="footerConfig"
+      [contactFormConfig]="formConfigForContact"
+      [subscribeFormConfig]="formConfigForSubscribe"
+    ></app-footer>
+  </ng-template>
+</div>

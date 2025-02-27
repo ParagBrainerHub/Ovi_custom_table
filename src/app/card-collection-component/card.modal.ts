@@ -1,6 +1,9 @@
 import { ButtonConfig } from '../button-component/button.model';
 
 export interface CardConfig {
+  iframeHeight?: string | null;
+  iframeWidth?: string | null;
+  iframeUrl?: string | null;
   layout?: 'grid' | 'list';
   width?: number;
   cardActions: {

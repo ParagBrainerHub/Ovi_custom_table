@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { CustomMaterialTableComponent } from './custom-material-table/custom-material-table.component';
 import { LogoutPageComponent } from './logout-page/logout-page.component';
 import { MicroservicesComponent } from './microservices/microservices.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 export const routes: Routes = [
   // {
@@ -17,8 +18,12 @@ export const routes: Routes = [
     component: CustomMaterialTableComponent,
   },
   {
+    path: 'home',
+    component: HomePageComponent,
+  },
+  {
     path: '',
-    redirectTo: 'customTable',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   {
@@ -39,6 +44,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'customTable', // Redirect wildcard paths to a valid component
+    redirectTo: 'home', // Redirect wildcard paths to a valid component
   },
 ];

@@ -20,3 +20,13 @@ export interface User {
   videoLoading?: boolean;
   //byteArray?: number[];
 }
+
+export interface WrapperInterface {
+  height: string | number;
+  cornerImagesPositions: {
+    leftTop?: string;
+    leftBottom?: string;
+    rightTop?: string;
+    rightBottom?: string;
+  };
+}

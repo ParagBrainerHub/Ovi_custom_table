@@ -2,11 +2,13 @@
 import { ButtonConfig } from '../button-component/button.model';
 
 export interface NavBarConfig {
+  style?: Partial<CSSStyleDeclaration>;
   logo?: LogoConfig | null;
   title?: TitleConfig | null;
   buttons?: ButtonGroupConfig[];
   activeButton?: string;
   isBorderTop?: boolean;
+  isBorderBottom?: boolean;
 }
 export interface LogoConfig {
   url?: string;

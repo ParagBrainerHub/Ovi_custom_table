@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CardConfig } from '../card-collection-component/card.modal';
-import { User } from '../app.component';
+import { User } from '../home-page/home-page.component';
 // import { TableConfig } from '../custom-table/table-column.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -11,7 +11,8 @@ import { CustomButtonComponent } from '../button-component/custom-button.compone
 import { CustomMaterialTableComponent } from '../custom-material-table/custom-material-table.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { TableConfig } from '../custom-material-table/material-table-column.model';
-
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { SafeUrlPipe } from '../safe-url.pipe';
 @Component({
   selector: 'app-card-list-component',
   standalone: true,
@@ -23,21 +24,30 @@ import { TableConfig } from '../custom-material-table/material-table-column.mode
     MatIconModule,
     CustomButtonComponent,
     CustomMaterialTableComponent,
+    SafeUrlPipe,
     NgxSkeletonLoaderModule,
   ],
   templateUrl: './card-for-list-component.html',
   styleUrl: './card-for-list-component.css',
 })
-export class CardListComponentComponent {
+export class CardListComponentComponent implements OnInit {
   @Input() cards: CardConfig[] = [];
 
   @Input() isGrid?: boolean;
 
   @Input() cardConfig?: CardConfig;
+  safeUrl!: SafeResourceUrl;
+
+  constructor(private sanitizer: DomSanitizer) {}
 
   loading = true;
 
   ngOnInit() {
+    console.log('this.cardConfig: ', this.cardConfig);
+    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      this.cardConfig?.iframeUrl ?? ''
+    );
+    console.log(this.cardConfig, 'papa ki pari ');
     setTimeout(() => {
       this.loading = false;
     }, 2000);

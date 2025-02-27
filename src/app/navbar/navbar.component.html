@@ -1,63 +1,61 @@
-<header
+<!-- <header
   [ngStyle]="{
     'border-top': config.isBorderTop
       ? '3px solid var(--secondary-color)'
       : 'none'
   }"
   class="header"
->
-  <mat-toolbar color="primary">
-    <div class="logo-title-container">
-      <ng-container *ngIf="config.logo">
-        <div class="logo" [ngClass]="getLogoClass()">
-          <img [src]="config.logo.url" alt="Logo" />
-        </div>
-      </ng-container>
-
-      <ng-container *ngIf="config.title">
-        <div class="title" [ngClass]="getTitleClass()">
-          {{ config.title.text }}
-        </div>
-      </ng-container>
-    </div>
-    <ng-container
-      *ngFor="let buttonGroup of config.buttons; let groupIndex = index"
-    >
-      <div class="button-group" [ngClass]="getButtonGroupClass(buttonGroup)">
-        <ng-container
-          *ngFor="
-            let button of buttonGroup.buttonsGroup;
-            let buttonIndex = index
-          "
-        >
-          <app-custom-button
-            [text]="button.text"
-            [icon]="button.icon"
-            [showIcon]="button.showIcon"
-            [iconPosition]="button.iconPosition"
-            [shape]="button.shape"
-            [corners]="button.corners"
-            [hasBorder]="button.hasBorder"
-            [borderColor]="button.borderColor"
-            [foregroundColor]="button.foregroundColor"
-            [backgroundColor]="button.backgroundColor"
-            [transparent]="button.transparent"
-            [borderColor]="button.borderColor"
-            [shadow]="button.shadow"
-            [navigate]="button.navigate ?? false"
-            [url]="button.url ?? ''"
-            [id]="button.id ?? ''"
-            [active]="(button.id ?? '') === config.activeButton"
-            (buttonClick)="onButtonClick($event)"
-            [onClick]="button.onClick"
-            [menuItems]="button.menuItems"
-            [isMenuButton]="button.isMenuButton"
-          >
-          </app-custom-button>
-        </ng-container>
+> -->
+<mat-toolbar [ngStyle]="getToolbarStyle()" color="primary">
+  <div class="logo-title-container">
+    <ng-container *ngIf="config.logo">
+      <div class="logo" [ngClass]="getLogoClass()">
+        <img [src]="config.logo.url" alt="Logo" />
       </div>
     </ng-container>
-  </mat-toolbar>
-</header>
+
+    <ng-container *ngIf="config.title">
+      <div class="title" [ngClass]="getTitleClass()">
+        {{ config.title.text }}
+      </div>
+    </ng-container>
+  </div>
+  <ng-container
+    *ngFor="let buttonGroup of config.buttons; let groupIndex = index"
+  >
+    <div class="button-group" [ngClass]="getButtonGroupClass(buttonGroup)">
+      <ng-container
+        *ngFor="let button of buttonGroup.buttonsGroup; let buttonIndex = index"
+      >
+        <app-custom-button
+          [text]="button.text"
+          [icon]="button.icon"
+          [showIcon]="button.showIcon"
+          [iconPosition]="button.iconPosition"
+          [shape]="button.shape"
+          [corners]="button.corners"
+          [hasBorder]="button.hasBorder"
+          [borderColor]="button.borderColor"
+          [foregroundColor]="button.foregroundColor"
+          [backgroundColor]="button.backgroundColor"
+          [transparent]="button.transparent"
+          [borderColor]="button.borderColor"
+          [shadow]="button.shadow"
+          [navigate]="button.navigate ?? false"
+          [url]="button.url ?? ''"
+          [id]="button.id ?? ''"
+          [active]="(button.id ?? '') === config.activeButton"
+          (buttonClick)="onButtonClick($event)"
+          [onClick]="button.onClick"
+          [menuItems]="button.menuItems"
+          [isMenuButton]="button.isMenuButton"
+          [isPillButton]="button.isPillButton ?? false"
+        >
+        </app-custom-button>
+      </ng-container>
+    </div>
+  </ng-container>
+</mat-toolbar>
+<!-- </header> -->
 
 <!-- Banner Section -->

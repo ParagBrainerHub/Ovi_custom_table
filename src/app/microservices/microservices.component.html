@@ -1,1 +1,17 @@
-<p>microservices works!</p>
+<div class="ms-container">
+  <app-wrapper
+    [customClass]="'ms-hero-section'"
+    [customStyle]="{}"
+    [wrapperConfig]="wrapperConfig"
+  >
+    <div class="navbar-wrapper">
+      <app-navbar
+        class="microservices-navbar"
+        [config]="navbarConfig"
+      ></app-navbar>
+    </div>
+    <app-card-list-component
+      [cardConfig]="heroBannerConfig"
+    ></app-card-list-component>
+  </app-wrapper>
+</div>

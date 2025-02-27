@@ -125,6 +125,15 @@
       </div>
     </div>
 
+    <ng-container class="iframe-container" *ngIf="cardConfig?.iframeUrl">
+      <iframe
+        [attr.src]="safeUrl"
+        [width]="cardConfig?.iframeWidth || '100%'"
+        [height]="cardConfig?.iframeHeight || 'auto'"
+      >
+      </iframe>
+    </ng-container>
+
     <!-- Footer -->
     <mat-card-footer
       *ngIf="!loading && cardConfig?.footer"

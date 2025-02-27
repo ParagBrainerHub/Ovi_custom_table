@@ -269,3 +269,8 @@
     left: -100%;
   }
 }
+
+.pill-button {
+  border-radius: 50px !important;
+  padding: 10px 20px !important;
+}

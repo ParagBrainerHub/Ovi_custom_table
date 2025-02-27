@@ -69,6 +69,7 @@ export class CustomButtonComponent implements OnInit {
   @Input() reverseColorsOnHover: boolean = false;
 
   @Input() navigate: boolean = false;
+  @Input() isPillButton: boolean = false;
   @Input() url: string = '';
   @Input() validate?: () => boolean;
 
@@ -79,7 +80,6 @@ export class CustomButtonComponent implements OnInit {
   isValid: boolean = true;
   isPageLoading: boolean = true;
   hoveredItem: any = null;
-
   hover: boolean = false;
 
   ngOnInit() {

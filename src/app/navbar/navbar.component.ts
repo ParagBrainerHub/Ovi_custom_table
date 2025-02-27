@@ -54,6 +54,29 @@ export class NavbarComponent {
     this.menuRefs.set(`${groupIndex}-${buttonIndex}`, menuTrigger);
   }
 
+  getToolbarStyle(): { [key: string]: string } {
+    return {
+      ...(this.config.style
+        ? Object.fromEntries(
+            Object.entries(this.config.style).map(([key, value]) => [
+              key,
+              String(value),
+            ])
+          )
+        : {}),
+      'border-top': this.config.isBorderTop
+        ? `3px solid ${
+            this.config.style?.borderTopColor ?? 'var(--secondary-color)'
+          }`
+        : 'none',
+      'border-bottom': this.config.isBorderBottom
+        ? `3px solid ${
+            this.config.style?.borderBottomColor ?? 'var(--secondary-color)'
+          }`
+        : 'none',
+    };
+  }
+
   // ngOnChanges(changes: SimpleChanges): void {
   //   if (changes['config']) {
   //     this.updateBannerSettings();

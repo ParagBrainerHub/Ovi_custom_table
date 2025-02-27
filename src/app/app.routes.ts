@@ -1,12 +1,17 @@
 import { Routes } from '@angular/router';
 import { CustomMaterialTableComponent } from './custom-material-table/custom-material-table.component';
 import { LogoutPageComponent } from './logout-page/logout-page.component';
+import { MicroservicesComponent } from './microservices/microservices.component';
 
 export const routes: Routes = [
   // {
   //   path: 'customTable',
   //   component: CustomTableComponent,
   // },
+  {
+    path: 'microservices-page',
+    component: MicroservicesComponent,
+  },
   {
     path: 'materialTable',
     component: CustomMaterialTableComponent,

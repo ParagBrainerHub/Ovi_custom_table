@@ -12,7 +12,7 @@ export interface FooterConfig {
   subscribeButton: string;
   subscribeDesc: string;
   subscribeText: string;
-
+  contactusButton: string;
   logoUrl: string;
   description: string;
   usefulLinks: { name: string; url: string }[];

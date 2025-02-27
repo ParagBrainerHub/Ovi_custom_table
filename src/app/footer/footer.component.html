@@ -6,12 +6,18 @@
           <h2>{{ footerConfig.subscribeText }}</h2>
           <p>{{ footerConfig.subscribeDesc }}</p>
         </div>
-        <div>
+        <div class="top-section_buttons">
           <button
             class="top-section_subs_button"
-            (click)="openSubscriptionModal()"
+            (click)="subscribeModal.openModal()"
           >
             {{ footerConfig.subscribeButton }}
+          </button>
+          <button
+            class="top-section_contctus_button"
+            (click)="contactUsModal.openModal()"
+          >
+            {{ footerConfig.contactusButton }}
           </button>
         </div>
       </div>
@@ -159,6 +165,17 @@
 
 <!-- subscriptionModal -->
 
+<!-- <div *ngIf="isContactusModalOpen" class="modal-container">
+  <button mat-icon-button class="close-button" (click)="closeContactModal()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <div class="input-container">
+    <app-form-component
+      [formConfig]="contactFormConfig"
+      (submitClicked)="onContactFormSubmit($event)"
+    ></app-form-component>
+  </div>
+</div>
 <div *ngIf="isSubscriptionModalOpen" class="modal-container">
   <button
     mat-icon-button
@@ -167,19 +184,19 @@
   >
     <mat-icon>close</mat-icon>
   </button>
-  <h2 class="modal-title">Subscribe To Our Newsletter</h2>
-  <p class="modal-description">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore.
-  </p>
   <div class="input-container">
-    <!-- <input type="email" placeholder="Enter Your Email" class="email-input" />
-    <button mat-raised-button color="primary" class="subscribe-button">
-      Subscribe
-    </button> -->
     <app-form-component
       [formConfig]="subscribeFormConfig"
       (submitClicked)="onSubscribeFormSubmit($event)"
     ></app-form-component>
   </div>
-</div>
+</div> -->
+
+<app-subscribe
+  #subscribeModal
+  [formConfig]="subscribeFormConfig"
+></app-subscribe>
+<app-contact-us
+  #contactUsModal
+  [formConfig]="contactFormConfig"
+></app-contact-us>

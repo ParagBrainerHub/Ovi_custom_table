@@ -84,8 +84,8 @@ export class AppComponent {
   form: FormGroup = new FormGroup({});
   formConfig: FormConfig;
   formConfigForCalendar: FormConfig;
+  formConfigForContact: FormConfig;
   formConfigForSubscribe: FormConfig;
-  // formConfigForContact: FormConfig;
 
   private subscriptions: Subscription[] = [];
 
@@ -1316,10 +1316,10 @@ export class AppComponent {
       },
     };
 
-    this.formConfigForSubscribe = {
-      // formTitle: 'Subscribe To Our Newsletter',
-      // formSubTitle:
-      //   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.',
+    this.formConfigForContact = {
+      formTitle: 'Contact Us',
+      formSubTitle:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.',
       isImageShow: false,
       formWidth: 100,
       backgroundColor: 'transparent',
@@ -1448,7 +1448,47 @@ export class AppComponent {
         hasBorder: false,
         iconPosition: 'right',
         foregroundColor: '#ffffff',
-        backgroundColor: '#1976d2',
+        backgroundColor: '#800080',
+        shadow: true,
+        shape: 'rectangle',
+        corners: 'rounded',
+        transparent: false,
+        width: '100%',
+      },
+    };
+
+    this.formConfigForSubscribe = {
+      formTitle: 'Subscribe To Our Newsletter',
+      formSubTitle:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.',
+      isImageShow: false,
+      formWidth: 100,
+      backgroundColor: 'transparent',
+      fields: [
+        {
+          type: 'email',
+          label: 'Email',
+          key: 'email',
+          placeholder: 'Enter your email',
+          width: '100%',
+          required: true,
+          validation: {
+            pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$',
+          },
+          errorMessages: {
+            required: 'Email is required.',
+            pattern: 'Enter a valid email address.',
+          },
+        },
+      ],
+      submitButtonConfig: {
+        text: 'Subscribe',
+        icon: 'send',
+        showIcon: true,
+        hasBorder: false,
+        iconPosition: 'right',
+        foregroundColor: '#ffffff',
+        backgroundColor: '#800080',
         shadow: true,
         shape: 'rectangle',
         corners: 'rounded',
@@ -1697,6 +1737,7 @@ export class AppComponent {
     subscribeDesc:
       'Be the first one to know about discounts, offers and events',
     subscribeButton: 'Subscribe',
+    contactusButton: 'Contact Us',
 
     logoUrl: './light_cycolis_software_logo_2.png',
     description:

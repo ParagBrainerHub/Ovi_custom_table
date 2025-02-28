@@ -18,12 +18,6 @@ import { SectionWrapperComponent } from '../shared/section-wrapper/section-wrapp
   styleUrl: './microservices.component.css',
 })
 export class MicroservicesComponent {
-  wrapperConfig: WrapperInterface = {
-    height: '930px',
-    cornerImagesPositions: {
-      rightBottom: './quarter_anda.png',
-    },
-  };
   navbarConfig: NavBarConfig = {
     isBorderTop: false,
     isBorderBottom: true,
@@ -150,113 +144,72 @@ export class MicroservicesComponent {
   };
 
   heroBannerConfig: CardConfig = {
-    cardActions: [
-      {
-        icon: 'schedule',
-        text: '1 day ago',
-      },
-      {
-        icon: 'comment',
-        text: '3 COMMENTS',
-      },
-      {
-        icon: 'favorite',
-        text: '1 LIKE',
-      },
-    ],
+    imageAlignment: 'right',
+    sectionWidths: [50, 50],
+    customStyles: {
+      backgroundColor: 'transparent',
+      padding: '0px',
+      alignItems: 'center',
+      display: 'flex',
+    },
     header: {
-      title: 'Chihuahua 2',
-      align: 'center',
+      headerStyles: {
+        display: 'flex',
+        flexDirection: 'column',
+        // rowGap: '20px',
+      },
+      title:
+        'Scalable Microservices for <span color="#9D6F00">Startups & Businesses</span> ',
+      titleTag: 'h1',
+      titleStyles: {
+        color: 'black',
+        fontSize: '48px',
+        fontWeight: '800',
+        letterSpacing: '0px',
+        width: '98%',
+      },
+      titleAlign: 'left',
+
+      description:
+        'Future-proof your applications with enterprise-grade | microservices designed for speed, security, and scale.',
+      descriptionTag: 'p',
+      descriptionStyles: {
+        color: '#131313',
+        fontSize: '18px',
+        fontWeight: '400',
+        width: '71%',
+        marginBottom: '40px',
+      },
+      descriptionAlign: 'left',
+
       buttonsAlign: 'left',
       buttons: [
         {
-          text: 'Edit',
-          align: 'left',
-          icon: '✏️',
+          text: 'Get a Free Consultation',
           hasBorder: false,
+          isPillButton: true,
+          backgroundColor: '#15A46E',
+          customStyles: {
+            padding: '16px 24px',
+          },
         },
         {
-          text: 'Delete',
-          align: 'right',
-          icon: '✏️',
+          text: 'See My Work',
           hasBorder: false,
+          isPillButton: true,
+          backgroundColor: '#DD8208',
+          customStyles: {
+            padding: '16px 24px',
+          },
         },
       ],
     },
     image: {
       position: 'top-half',
-      src: 'https://media.istockphoto.com/id/1934523700/photo/close-up-on-man-hand-using-mobile-phone.jpg?s=1024x1024&w=is&k=20&c=8rb1PLOQMgOY52356fBOBjWfVknpGT-uxfeJk_h3ols=',
-      title: 'Title on Image',
-      description: 'This is a description shown on hover.',
+      src: './hero_image.png',
+      title: '',
+      description: '',
       hoverEffect: false,
-    },
-    content: {
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    },
-    body: {
-      type: 'text',
-      align: 'left',
-      content: 'The Chihuahua is a Mexican breed of toy dog.',
-      buttons: [
-        {
-          text: 'More Info',
-          align: 'center',
-          hasBorder: false,
-        },
-      ],
-    },
-    footer: {
-      type: 'buttons',
-      align: 'left',
-      text: 'This is a dynamically aligned footer text',
-      buttons: [
-        {
-          text: 'Edit',
-          align: 'left',
-          group: 'left',
-          icon: 'edit',
-          showIcon: true,
-          iconPosition: 'left',
-          shape: 'square',
-          corners: 'rounded',
-          foregroundColor: '#ffffff',
-          backgroundColor: '#800080',
-          hasBorder: false,
-          shadow: true,
-          transparent: false,
-        },
-        {
-          text: 'Done',
-          align: 'left',
-          group: 'left',
-          icon: 'check_circle',
-          showIcon: true,
-          iconPosition: 'left',
-          shape: 'square',
-          corners: 'rounded',
-          foregroundColor: '#ffffff',
-          backgroundColor: '#800080',
-          hasBorder: false,
-          shadow: true,
-          transparent: false,
-        },
-        {
-          text: 'Delete',
-          align: 'left',
-          group: 'left',
-          icon: 'delete',
-          showIcon: true,
-          iconPosition: 'left',
-          shape: 'square',
-          corners: 'rounded',
-          foregroundColor: '#ffffff',
-          backgroundColor: '#800080',
-          hasBorder: false,
-          shadow: true,
-          transparent: false,
-        },
-      ],
     },
   };
 }

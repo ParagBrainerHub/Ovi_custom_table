@@ -7,16 +7,19 @@
         'linear-gradient(180deg, rgba(221, 130, 8, 0.81) 0%, #F5F5F5 54%, #EFE9DD 100%)',
       paddingTop: '220px',
       border: '2px solid red',
-      textAlign: 'center'
+      textAlign: 'center',
+      height: '725px'
     }"
   >
-    <app-navbar
-      class="microservices-navbar"
-      [config]="navbarConfig"
-    ></app-navbar>
+    <div class="microServiceContainer">
+      <app-navbar
+        class="microservices-navbar"
+        [config]="navbarConfig"
+      ></app-navbar>
 
-    <app-card-list-component
-      [cardConfig]="heroBannerConfig"
-    ></app-card-list-component>
+      <app-card-list-component
+        [cardConfig]="heroBannerConfig"
+      ></app-card-list-component>
+    </div>
   </app-section-wrapper>
 </div>

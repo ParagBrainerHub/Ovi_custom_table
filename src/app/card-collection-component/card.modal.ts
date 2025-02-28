@@ -6,17 +6,29 @@ export interface CardConfig {
   iframeUrl?: string | null;
   layout?: 'grid' | 'list';
   width?: number;
-  cardActions: {
+  cardActions?: {
     icon: string;
     text: string;
   }[];
   header?: {
+    headerStyles?: { [key: string]: string };
     title: string;
-    align?: 'left' | 'center' | 'right';
+    titleTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'p';
+    titleStyles?: { [key: string]: string };
+    titleAlign?: 'left' | 'center' | 'right';
+
+    description?: string;
+    descriptionTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'p';
+    descriptionStyles?: { [key: string]: string };
+    descriptionAlign?: 'left' | 'center' | 'right';
+
     buttonsAlign?: 'left' | 'center' | 'right';
     buttons?: ButtonConfig[];
   };
-
+  imageAlignment?: 'left' | 'right';
+  sectionWidths?: [number, number];
+  hasBorder?: boolean;
+  customStyles?: { [key: string]: string };
   image?: {
     position?:
       | 'background'

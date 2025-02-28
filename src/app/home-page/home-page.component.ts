@@ -355,20 +355,22 @@ export class HomePageComponent {
       // iframeUrl: 'https://www.example.com',
       // iframeWidth: '100%',
       // iframeHeight: '400px',
+      imageAlignment: 'left', // or 'right'
+      sectionWidths: [30, 70], // Image takes 40%, content takes 60%
       cardActions: [
         { icon: 'schedule', text: '1 day ago' },
         { icon: 'comment', text: '3 COMMENTS' },
         { icon: 'favorite', text: '1 LIKE' },
       ],
-      header: {
-        title: 'It is a long established fact that a reader',
-        align: 'center',
-        buttonsAlign: 'left',
-        buttons: [
-          { text: 'Edit', align: 'left', icon: '✏️', hasBorder: false },
-          { text: 'Delete', align: 'right', icon: '✏️', hasBorder: false },
-        ],
-      },
+      // header: {
+      //   title: 'It is a long established fact that a reader',
+      //   // align: 'center',
+      //   buttonsAlign: 'left',
+      //   buttons: [
+      //     { text: 'Edit', align: 'left', icon: '✏️', hasBorder: false },
+      //     { text: 'Delete', align: 'right', icon: '✏️', hasBorder: false },
+      //   ],
+      // },
       image: {
         position: 'top-half',
         src: 'https://media.istockphoto.com/id/1934523700/photo/close-up-on-man-hand-using-mobile-phone.jpg?s=1024x1024&w=is&k=20&c=8rb1PLOQMgOY52356fBOBjWfVknpGT-uxfeJk_h3ols=',
@@ -463,15 +465,15 @@ export class HomePageComponent {
         { icon: 'comment', text: '3 COMMENTS' },
         { icon: 'favorite', text: '1 LIKE' },
       ],
-      header: {
-        title: 'Chihuahua 2',
-        align: 'center',
-        buttonsAlign: 'left',
-        buttons: [
-          { text: 'Edit', align: 'left', icon: '✏️', hasBorder: false },
-          { text: 'Delete', align: 'right', icon: '✏️', hasBorder: false },
-        ],
-      },
+      // header: {
+      //   title: 'Chihuahua 2',
+      //   // align: 'center',
+      //   buttonsAlign: 'left',
+      //   buttons: [
+      //     { text: 'Edit', align: 'left', icon: '✏️', hasBorder: false },
+      //     { text: 'Delete', align: 'right', icon: '✏️', hasBorder: false },
+      //   ],
+      // },
       image: {
         position: 'top-half',
         src: 'https://media.istockphoto.com/id/1934523700/photo/close-up-on-man-hand-using-mobile-phone.jpg?s=1024x1024&w=is&k=20&c=8rb1PLOQMgOY52356fBOBjWfVknpGT-uxfeJk_h3ols=',
@@ -566,15 +568,15 @@ export class HomePageComponent {
         { icon: 'comment', text: '3 COMMENTS' },
         { icon: 'favorite', text: '1 LIKE' },
       ],
-      header: {
-        title: 'Chihuahua 2',
-        align: 'center',
-        buttonsAlign: 'left',
-        buttons: [
-          { text: 'Edit', align: 'left', icon: '✏️', hasBorder: false },
-          { text: 'Delete', align: 'right', icon: '✏️', hasBorder: false },
-        ],
-      },
+      // header: {
+      //   title: 'Chihuahua 2',
+      //   // align: 'center',
+      //   buttonsAlign: 'left',
+      //   buttons: [
+      //     { text: 'Edit', align: 'left', icon: '✏️', hasBorder: false },
+      //     { text: 'Delete', align: 'right', icon: '✏️', hasBorder: false },
+      //   ],
+      // },
       image: {
         position: 'top-half',
         src: 'https://media.istockphoto.com/id/1934523700/photo/close-up-on-man-hand-using-mobile-phone.jpg?s=1024x1024&w=is&k=20&c=8rb1PLOQMgOY52356fBOBjWfVknpGT-uxfeJk_h3ols=',
@@ -669,15 +671,15 @@ export class HomePageComponent {
         { icon: 'comment', text: '3 COMMENTS' },
         { icon: 'favorite', text: '1 LIKE' },
       ],
-      header: {
-        title: 'Chihuahua 2',
-        align: 'center',
-        buttonsAlign: 'left',
-        buttons: [
-          { text: 'Edit', align: 'left', icon: '✏️', hasBorder: false },
-          { text: 'Delete', align: 'right', icon: '✏️', hasBorder: false },
-        ],
-      },
+      // header: {
+      //   title: 'Chihuahua 2',
+      //   // align: 'center',
+      //   buttonsAlign: 'left',
+      //   buttons: [
+      //     { text: 'Edit', align: 'left', icon: '✏️', hasBorder: false },
+      //     { text: 'Delete', align: 'right', icon: '✏️', hasBorder: false },
+      //   ],
+      // },
       image: {
         position: 'top-half',
         src: 'https://media.istockphoto.com/id/1934523700/photo/close-up-on-man-hand-using-mobile-phone.jpg?s=1024x1024&w=is&k=20&c=8rb1PLOQMgOY52356fBOBjWfVknpGT-uxfeJk_h3ols=',
@@ -772,15 +774,15 @@ export class HomePageComponent {
         { icon: 'comment', text: '3 COMMENTS' },
         { icon: 'favorite', text: '1 LIKE' },
       ],
-      header: {
-        title: 'Chihuahua 2',
-        align: 'center',
-        buttonsAlign: 'left',
-        buttons: [
-          { text: 'Edit', align: 'left', icon: '✏️', hasBorder: false },
-          { text: 'Delete', align: 'right', icon: '✏️', hasBorder: false },
-        ],
-      },
+      // header: {
+      //   title: 'Chihuahua 2',
+      //   // align: 'center',
+      //   buttonsAlign: 'left',
+      //   buttons: [
+      //     { text: 'Edit', align: 'left', icon: '✏️', hasBorder: false },
+      //     { text: 'Delete', align: 'right', icon: '✏️', hasBorder: false },
+      //   ],
+      // },
       image: {
         position: 'top-half',
         src: 'https://media.istockphoto.com/id/1934523700/photo/close-up-on-man-hand-using-mobile-phone.jpg?s=1024x1024&w=is&k=20&c=8rb1PLOQMgOY52356fBOBjWfVknpGT-uxfeJk_h3ols=',

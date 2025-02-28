@@ -54,6 +54,7 @@ export interface ButtonConfig {
   isMenuButton?: boolean;
   class?: string;
   isPillButton?: boolean;
+  customStyles?: { [key: string]: string };
 }
 
 // Helper validation function for component

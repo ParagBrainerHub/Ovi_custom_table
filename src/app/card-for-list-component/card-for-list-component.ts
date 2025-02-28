@@ -11,7 +11,11 @@ import { CustomButtonComponent } from '../button-component/custom-button.compone
 import { CustomMaterialTableComponent } from '../custom-material-table/custom-material-table.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { TableConfig } from '../custom-material-table/material-table-column.model';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import {
+  DomSanitizer,
+  SafeHtml,
+  SafeResourceUrl,
+} from '@angular/platform-browser';
 import { SafeUrlPipe } from '../safe-url.pipe';
 @Component({
   selector: 'app-card-list-component',
@@ -58,7 +62,40 @@ export class CardListComponentComponent implements OnInit {
 
     this.validateCardConfig(this.cardConfig!);
   }
+  // image alignment
+  getImageAlignmentClass(): string {
+    return this.cardConfig?.imageAlignment === 'right'
+      ? 'image-right'
+      : 'image-left';
+  }
+  // image section width
+  getSectionWidths(): { imageWidth: string; contentWidth: string } {
+    const [imgWidth, contentWidth] = this.cardConfig?.sectionWidths || [30, 70]; // Default 50-50
+    return {
+      imageWidth: `${imgWidth}%`,
+      contentWidth: `${contentWidth}%`,
+    };
+  }
+  // card style
+  get cardStyles(): { [key: string]: string } {
+    return {
+      width: '100%',
+      border: this.cardConfig?.hasBorder ? '1px solid #ccc' : 'none',
+      ...(this.cardConfig?.customStyles || {}),
+    };
+  }
 
+  highlightText(text: string = ''): SafeHtml {
+    if (!text) return '';
+
+    // ✅ Regex for detecting color values inside <span color="...">
+    const updatedText = text.replace(
+      /<span\s+color=["']?(#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})|rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)|\w+)["']?>(.*?)<\/span>/g,
+      `<span style="color: $1; font-weight: bold;">$2</span>`
+    );
+
+    return this.sanitizer.bypassSecurityTrustHtml(updatedText);
+  }
   // Card Width
   get cardWidth(): string {
     if (this.cardConfig?.layout === 'grid') {

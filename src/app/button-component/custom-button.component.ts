@@ -34,7 +34,7 @@ export class CustomButtonComponent implements OnInit {
   // secondaryColor: string = 'var(--secondary-color)';
   router = inject(Router);
   @Input() class?: string = '';
-
+  @Input() customStyles: { [key: string]: string } = {};
   @Input() text?: string = '';
   @Input() textAlign?: 'left' | 'center' | 'right' = 'center';
   @Input() width?: string = '';
@@ -165,6 +165,7 @@ export class CustomButtonComponent implements OnInit {
       ...(this.hover ? this.getHoverStyle() : {}),
       'border-radius': this.getBorderRadius(),
       width: this.width ? this.width : 'auto',
+      ...(this.customStyles || {}),
     };
   }
 

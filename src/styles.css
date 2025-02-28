@@ -71,3 +71,7 @@ body {
 .mat-mdc-text-field-wrapper {
   background: white;
 }
+
+.microServiceContainer {
+  max-width: 1280px;
+}

@@ -9,7 +9,7 @@ import {
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatChipsModule } from '@angular/material/chips';
-import { CardConfig } from './card.modal';
+import { CardConfig, CardGridConfig, CardListConfig } from './card.modal';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
@@ -20,6 +20,9 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { TabButtonComponent } from '../tab-button/tab-button.component';
 import { CarouselComponent } from '../carousel/carousel.component';
 import { CarouselButtonsConfig } from '../image-carousel/image-carousel.modal';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { GridViewComponent } from '../grid-view/grid-view.component';
+import { ListViewComponent } from '../list-view/list-view.component';
 
 @Component({
   selector: 'app-card-component',
@@ -38,15 +41,19 @@ import { CarouselButtonsConfig } from '../image-carousel/image-carousel.modal';
     MatIconModule,
     TabButtonComponent,
     CarouselComponent,
+    GridViewComponent,
+    ListViewComponent,
   ],
   templateUrl: './card-collection-component.html',
   styleUrl: './card-collection-component.css',
 })
 export class CardComponentComponent implements OnChanges, OnInit {
   @Input() isGrid: boolean = false;
-
-  readonly cardConfigs = input<CardConfig[]>([]);
+  @Input() cardGridConfig!: CardGridConfig;
+  @Input() cardListConfig!: CardListConfig;
   @Input() carouselConfig = [];
+
+  constructor(private sanitizer: DomSanitizer) {}
 
   readonly width = input<string>();
 
@@ -81,5 +88,14 @@ export class CardComponentComponent implements OnChanges, OnInit {
 
   trackById(index: number, item: CardConfig): number {
     return index;
+  }
+
+  highlightText(text: string = ''): SafeHtml {
+    if (!text) return '';
+    const updatedText = text.replace(
+      /<span\s+color=["']?(#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})|rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)|\w+)["']?>(.*?)<\/span>/g,
+      `<span style="color: $1; font-weight: bold;">$2</span>`
+    );
+    return this.sanitizer.bypassSecurityTrustHtml(updatedText);
   }
 }

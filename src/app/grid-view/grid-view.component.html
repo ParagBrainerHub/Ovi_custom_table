@@ -1,0 +1,48 @@
+<div class="grid-view-container">
+  <!-- Title -->
+  <ng-container [ngSwitch]="cardGridConfig.gridTitleTag || 'h2'">
+    <h1 *ngSwitchCase="'h1'" [ngStyle]="cardGridConfig.gridTitleStyles">
+      {{ cardGridConfig.gridTitle }}
+    </h1>
+    <h2 *ngSwitchCase="'h2'" [ngStyle]="cardGridConfig.gridTitleStyles">
+      {{ cardGridConfig.gridTitle }}
+    </h2>
+    <h3 *ngSwitchCase="'h3'" [ngStyle]="cardGridConfig.gridTitleStyles">
+      {{ cardGridConfig.gridTitle }}
+    </h3>
+    <h4 *ngSwitchCase="'h4'" [ngStyle]="cardGridConfig.gridTitleStyles">
+      {{ cardGridConfig.gridTitle }}
+    </h4>
+    <p *ngSwitchDefault [ngStyle]="cardGridConfig.gridTitleStyles">
+      {{ cardGridConfig.gridTitle }}
+    </p>
+  </ng-container>
+
+  <!-- Subtitle -->
+  <ng-container [ngSwitch]="cardGridConfig.gridSubtitleTag || 'p'">
+    <h1 *ngSwitchCase="'h1'" [ngStyle]="cardGridConfig.gridSubtitleStyles">
+      {{ cardGridConfig.gridSubtitle }}
+    </h1>
+    <h2 *ngSwitchCase="'h2'" [ngStyle]="cardGridConfig.gridSubtitleStyles">
+      {{ cardGridConfig.gridSubtitle }}
+    </h2>
+    <h3 *ngSwitchCase="'h3'" [ngStyle]="cardGridConfig.gridSubtitleStyles">
+      {{ cardGridConfig.gridSubtitle }}
+    </h3>
+    <h4 *ngSwitchCase="'h4'" [ngStyle]="cardGridConfig.gridSubtitleStyles">
+      {{ cardGridConfig.gridSubtitle }}
+    </h4>
+    <p *ngSwitchDefault [ngStyle]="cardGridConfig.gridSubtitleStyles">
+      {{ cardGridConfig.gridSubtitle }}
+    </p>
+  </ng-container>
+
+  <!-- Grid Cards -->
+  <div class="grid-container">
+    <div *ngFor="let cardConfig of cardGridConfig.cardConfigs">
+      <app-card-grid-component
+        [cardConfig]="cardConfig"
+      ></app-card-grid-component>
+    </div>
+  </div>
+</div>

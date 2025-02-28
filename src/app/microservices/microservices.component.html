@@ -1,17 +1,22 @@
-<div class="ms-container">
-  <app-wrapper
-    [customClass]="'ms-hero-section'"
-    [customStyle]="{}"
-    [wrapperConfig]="wrapperConfig"
+<div class="ms-container" style="height: 2000px">
+  <app-section-wrapper
+    [images]="[{ src: './quarter_anda.png', position: 'bottom-right' }]"
+    [customClass]="'my-custom-class'"
+    [customStyles]="{
+      background:
+        'linear-gradient(180deg, rgba(221, 130, 8, 0.81) 0%, #F5F5F5 54%, #EFE9DD 100%)',
+      paddingTop: '220px',
+      border: '2px solid red',
+      textAlign: 'center'
+    }"
   >
-    <div class="navbar-wrapper">
-      <app-navbar
-        class="microservices-navbar"
-        [config]="navbarConfig"
-      ></app-navbar>
-    </div>
+    <app-navbar
+      class="microservices-navbar"
+      [config]="navbarConfig"
+    ></app-navbar>
+
     <app-card-list-component
       [cardConfig]="heroBannerConfig"
     ></app-card-list-component>
-  </app-wrapper>
+  </app-section-wrapper>
 </div>

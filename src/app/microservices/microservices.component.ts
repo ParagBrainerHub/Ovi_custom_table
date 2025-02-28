@@ -1,15 +1,19 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { NavBarConfig } from '../navbar/navbar-modal';
-import { WrapperComponent } from '../shared/wrapper/wrapper.component';
 import { WrapperInterface } from '../modals';
 import { CardListComponentComponent } from '../card-for-list-component/card-for-list-component';
 import { CardConfig } from '../card-collection-component/card.modal';
+import { SectionWrapperComponent } from '../shared/section-wrapper/section-wrapper.component';
 
 @Component({
   selector: 'app-microservices',
   standalone: true,
-  imports: [NavbarComponent, WrapperComponent, CardListComponentComponent],
+  imports: [
+    NavbarComponent,
+    CardListComponentComponent,
+    SectionWrapperComponent,
+  ],
   templateUrl: './microservices.component.html',
   styleUrl: './microservices.component.css',
 })
@@ -33,6 +37,7 @@ export class MicroservicesComponent {
       transform: 'translateX(-50%)',
       borderRadius: '80px',
       borderBottomColor: '#15A46E',
+      zIndex: '999',
     },
     logo: {
       url: './microServices_logo.png',

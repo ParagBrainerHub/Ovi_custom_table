@@ -51,7 +51,7 @@
 .fields-wrapper {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 16px !important;
   width: 100%;
   justify-content: flex-start;
 }
@@ -152,6 +152,7 @@
 app-custom-button {
   width: 100%;
   max-width: 100%;
+  display: flex;
 }
 
 @media (max-width: 768px) {

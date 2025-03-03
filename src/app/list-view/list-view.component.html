@@ -38,7 +38,7 @@
   </ng-container>
 
   <!-- List Cards -->
-  <div class="list-container">
+  <div class="list-container" [ngStyle]="cardListConfig.listContainerStyle">
     <div *ngFor="let cardConfig of cardListConfig.cardConfigs">
       <app-card-list-component
         [cardConfig]="cardConfig"

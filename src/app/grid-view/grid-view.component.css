@@ -7,3 +7,23 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
+
+.grid-title {
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 50px;
+  letter-spacing: 0%;
+  text-align: center;
+  margin: auto;
+  color: #9d6f00;
+}
+
+.grid-subtitle {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #131313;
+  margin: auto;
+}

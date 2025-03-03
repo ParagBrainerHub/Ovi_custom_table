@@ -2,7 +2,10 @@ import { ButtonConfig } from '../button-component/button.model';
 
 export interface FormConfig {
   formTitle?: string;
+  formTitleStyles?: { [key: string]: string };
   formSubTitle?: string;
+  formSubTitleStyles?: { [key: string]: string };
+
   isImageShow: boolean;
   formWidth: number;
   fields: FormFieldConfig[];

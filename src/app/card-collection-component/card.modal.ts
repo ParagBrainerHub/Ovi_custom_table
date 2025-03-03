@@ -9,6 +9,7 @@ export interface CardGridConfig {
   gridSubtitleTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'p';
   gridSubtitleStyles?: { [key: string]: string };
   layoutType: 'grid';
+  gridContainerStyle?: { [key: string]: string };
   cardConfigs: CardConfig[];
 }
 export interface CardListConfig {
@@ -20,6 +21,7 @@ export interface CardListConfig {
   listSubtitleTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'p';
   listSubtitleStyles?: { [key: string]: string };
   cardConfigs: CardConfig[];
+  listContainerStyle?: { [key: string]: string };
   layoutType: 'list';
 }
 
@@ -29,6 +31,13 @@ export interface CardConfig {
   iframeUrl?: string | null;
   layout?: 'grid' | 'list';
   width?: number;
+  imageAlignment?: 'left' | 'right';
+  sectionWidths?: [number, number];
+  hasBorder?: boolean;
+  customStyles?: { [key: string]: string };
+  hoverStyles?: {
+    [key: string]: string;
+  };
   cardActions?: {
     icon: string;
     text: string;
@@ -47,11 +56,14 @@ export interface CardConfig {
 
     buttonsAlign?: 'left' | 'center' | 'right';
     buttons?: ButtonConfig[];
+
+    icons?: {
+      icon: string;
+      iconStyles?: { [key: string]: string };
+      iconPlacement?: 'left' | 'right' | 'top' | 'bottom';
+    }[];
   };
-  imageAlignment?: 'left' | 'right';
-  sectionWidths?: [number, number];
-  hasBorder?: boolean;
-  customStyles?: { [key: string]: string };
+
   image?: {
     position?:
       | 'background'

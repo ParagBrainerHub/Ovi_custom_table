@@ -1,5 +1,4 @@
-<mat-card class="grid-layout" appearance="outlined">
-  <!-- Full card skeleton loader -->
+<mat-card class="grid-layout" [ngStyle]="cardStyles" appearance="outlined">
   <ngx-skeleton-loader
     *ngIf="loading"
     count="1"
@@ -62,6 +61,153 @@
       <mat-icon>{{ action.icon }}</mat-icon> {{ action.text }}
     </span>
   </div>
+
+  <!-- header start -->
+  <!-- Grid Header -->
+  <mat-card-title
+    *ngIf="cardConfig?.header"
+    class="header-content grid-header"
+    [ngClass]="cardConfig?.header?.titleAlign"
+    [ngStyle]="cardConfig?.header?.headerStyles"
+  >
+    <ng-container *ngIf="cardConfig?.header?.icons">
+      <div class="header-icons top" *ngIf="hasIconPlacement('top')">
+        <ng-container *ngFor="let icon of getIconsByPlacement('top')">
+          <mat-icon [ngStyle]="icon.iconStyles">{{ icon.icon }}</mat-icon>
+        </ng-container>
+      </div>
+    </ng-container>
+
+    <div class="header-content-wrapper">
+      <!-- Icons - Left -->
+      <ng-container *ngIf="cardConfig?.header?.icons">
+        <div class="header-icons top" *ngIf="hasIconPlacement('left')">
+          <ng-container *ngFor="let icon of getIconsByPlacement('left')">
+            <mat-icon [ngStyle]="icon.iconStyles">{{ icon.icon }}</mat-icon>
+          </ng-container>
+        </div>
+      </ng-container>
+
+      <div class="header-text">
+        <ng-container [ngSwitch]="cardConfig?.header?.titleTag || 'h2'">
+          <h1
+            *ngSwitchCase="'h1'"
+            [ngStyle]="cardConfig?.header?.titleStyles"
+            [innerHTML]="highlightText(cardConfig?.header?.title || '')"
+          ></h1>
+          <h2
+            *ngSwitchCase="'h2'"
+            [ngStyle]="cardConfig?.header?.titleStyles"
+            [innerHTML]="highlightText(cardConfig?.header?.title || '')"
+          ></h2>
+          <h3
+            *ngSwitchCase="'h3'"
+            [ngStyle]="cardConfig?.header?.titleStyles"
+            [innerHTML]="highlightText(cardConfig?.header?.title || '')"
+          ></h3>
+          <h4
+            *ngSwitchCase="'h4'"
+            [ngStyle]="cardConfig?.header?.titleStyles"
+            [innerHTML]="highlightText(cardConfig?.header?.title || '')"
+          ></h4>
+          <p
+            *ngSwitchDefault
+            [ngStyle]="cardConfig?.header?.titleStyles"
+            [innerHTML]="highlightText(cardConfig?.header?.title || '')"
+          ></p>
+        </ng-container>
+
+        <!-- Description -->
+        <ng-container *ngIf="cardConfig?.header?.description">
+          <ng-container [ngSwitch]="cardConfig?.header?.descriptionTag || 'p'">
+            <h1
+              *ngSwitchCase="'h1'"
+              [ngStyle]="cardConfig?.header?.descriptionStyles"
+              [ngClass]="cardConfig?.header?.descriptionAlign"
+            >
+              {{ cardConfig?.header?.description }}
+            </h1>
+            <h2
+              *ngSwitchCase="'h2'"
+              [ngStyle]="cardConfig?.header?.descriptionStyles"
+              [ngClass]="cardConfig?.header?.descriptionAlign"
+            >
+              {{ cardConfig?.header?.description }}
+            </h2>
+            <h3
+              *ngSwitchCase="'h3'"
+              [ngStyle]="cardConfig?.header?.descriptionStyles"
+              [ngClass]="cardConfig?.header?.descriptionAlign"
+            >
+              {{ cardConfig?.header?.description }}
+            </h3>
+            <h4
+              *ngSwitchCase="'h4'"
+              [ngStyle]="cardConfig?.header?.descriptionStyles"
+              [ngClass]="cardConfig?.header?.descriptionAlign"
+            >
+              {{ cardConfig?.header?.description }}
+            </h4>
+            <p
+              *ngSwitchDefault
+              [ngStyle]="cardConfig?.header?.descriptionStyles"
+              [ngClass]="cardConfig?.header?.descriptionAlign"
+            >
+              {{ cardConfig?.header?.description }}
+            </p>
+          </ng-container>
+        </ng-container>
+      </div>
+
+      <ng-container *ngIf="cardConfig?.header?.icons">
+        <div class="header-icons top" *ngIf="hasIconPlacement('right')">
+          <ng-container *ngFor="let icon of getIconsByPlacement('right')">
+            <mat-icon [ngStyle]="icon.iconStyles">{{ icon.icon }}</mat-icon>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+
+    <ng-container *ngIf="cardConfig?.header?.icons">
+      <div class="header-icons top" *ngIf="hasIconPlacement('bottom')">
+        <ng-container *ngFor="let icon of getIconsByPlacement('bottom')">
+          <mat-icon [ngStyle]="icon.iconStyles">{{ icon.icon }}</mat-icon>
+        </ng-container>
+      </div>
+    </ng-container>
+
+    <!-- Buttons -->
+    <div class="header-buttons" [ngClass]="cardConfig?.header?.buttonsAlign">
+      <ng-container *ngFor="let button of cardConfig?.header?.buttons">
+        <app-custom-button
+          [text]="button.text"
+          [icon]="button.icon"
+          [showIcon]="button.showIcon"
+          [iconPosition]="button.iconPosition"
+          [shape]="button.shape"
+          [corners]="button.corners"
+          [hasBorder]="button.hasBorder"
+          [borderColor]="button.borderColor"
+          [foregroundColor]="button.foregroundColor"
+          [backgroundColor]="button.backgroundColor"
+          [transparent]="button.transparent"
+          [shadow]="button.shadow"
+          [navigate]="button.navigate ?? false"
+          [url]="button.url ?? ''"
+          [id]="button.id ?? ''"
+          (buttonClick)="button.action?.()"
+          [onClick]="button.onClick"
+          [menuItems]="button.menuItems"
+          [isMenuButton]="button.isMenuButton"
+          [customStyles]="button.customStyles ?? {}"
+          [isPillButton]="button.isPillButton ?? false"
+        >
+        </app-custom-button>
+      </ng-container>
+    </div>
+  </mat-card-title>
+
+  <!-- header end -->
 
   <!-- Body -->
   <mat-card-content class="card-body" *ngIf="!loading">

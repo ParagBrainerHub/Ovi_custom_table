@@ -157,18 +157,13 @@ export class CardListComponentComponent implements OnInit {
   //Footer Validation
   validateFooterConfig(footer: any): void {
     if (!footer) {
-      console.error('Footer is not defined in the CardConfig.');
       return;
     }
     if (!footer.type || (footer.type !== 'text' && footer.type !== 'buttons')) {
-      console.error(
-        "Invalid footer type. The 'type' property must be either 'text' or 'buttons'."
-      );
       return;
     }
     if (footer.type === 'text') {
       if (!footer.text || footer.text.trim() === '') {
-        console.error("Footer text cannot be empty when 'type' is 'text'.");
       }
     }
     if (footer.type === 'buttons') {
@@ -177,9 +172,6 @@ export class CardListComponentComponent implements OnInit {
         !Array.isArray(footer.buttons) ||
         footer.buttons.length === 0
       ) {
-        console.error(
-          "Footer must contain at least one button when 'type' is 'buttons'."
-        );
       }
     }
   }
@@ -187,13 +179,9 @@ export class CardListComponentComponent implements OnInit {
   //Body Validation
   validateBodyConfig(body: any): void {
     if (!body) {
-      console.error('Body is not defined in the CardConfig.');
       return;
     }
     if (!body.type) {
-      console.error(
-        "Invalid body configuration. The 'type' property is required."
-      );
       return;
     }
     if (body.type === 'text' && (!body.content || body.content.trim() === '')) {

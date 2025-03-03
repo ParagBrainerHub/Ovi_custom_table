@@ -9,10 +9,18 @@
       }"
     >
       <div class="form-section-box">
-        <h1 *ngIf="formConfig.formTitle" class="form-title">
+        <h1
+          *ngIf="formConfig.formTitle"
+          [ngStyle]="formConfig.formTitleStyles"
+          class="form-title"
+        >
           {{ formConfig.formTitle }}
         </h1>
-        <p *ngIf="formConfig.formSubTitle" class="form-subtitle">
+        <p
+          *ngIf="formConfig.formSubTitle"
+          [ngStyle]="formConfig.formSubTitleStyles"
+          class="form-subtitle"
+        >
           {{ formConfig.formSubTitle }}
         </p>
 
@@ -397,6 +405,12 @@
                 [width]="formConfig.submitButtonConfig.width"
                 [shape]="formConfig.submitButtonConfig.shape"
                 [corners]="formConfig.submitButtonConfig.corners"
+                [isPillButton]="
+                  formConfig.submitButtonConfig.isPillButton ?? false
+                "
+                [customStyles]="
+                  formConfig.submitButtonConfig.customStyles ?? {}
+                "
                 [transparent]="formConfig.submitButtonConfig.transparent"
                 (buttonClick)="onSubmit()"
               >

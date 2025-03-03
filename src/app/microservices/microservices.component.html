@@ -6,7 +6,6 @@
       background:
         'linear-gradient(180deg, rgba(221, 130, 8, 0.81) 0%, #F5F5F5 54%, #EFE9DD 100%)',
       paddingTop: '220px',
-      border: '2px solid red',
       textAlign: 'center',
       height: '725px'
     }"
@@ -23,9 +22,41 @@
     </div>
   </app-section-wrapper>
 
-  <app-section-wrapper>
+  <app-section-wrapper
+    [images]="[{ src: './double_anda.png', position: 'bottom-right' }]"
+    [customStyles]="{ backgroundColor: '#F5F5F5', height: '1250px' }"
+  >
     <div class="microServiceContainer">
       <app-grid-view [cardGridConfig]="cardGridConfig"></app-grid-view>
+    </div>
+  </app-section-wrapper>
+  <app-section-wrapper
+    [customStyles]="{ backgroundColor: '#ffffff', padding: '100px 0px' }"
+  >
+    <div class="microServiceContainer">
+      <app-list-view [cardListConfig]="cardListConfig"></app-list-view>
+    </div>
+  </app-section-wrapper>
+  <!-- Form Section -->
+  <app-section-wrapper
+    [images]="[
+      { src: './shap.png', position: 'bottom-left' },
+      { src: './particles.png', position: 'bottom-right' }
+    ]"
+    [customStyles]="{
+      backgroundColor: '#F5F5F5',
+      padding: '100px 0px 150px',
+    }"
+  >
+    <div
+      [style.width]="'1000px'"
+      [style.padding]="'60px'"
+      [style.background]="'#fff'"
+      class="microServiceContainer"
+    >
+      <app-form-component
+        [formConfig]="formConfigForContact"
+      ></app-form-component>
     </div>
   </app-section-wrapper>
 </div>

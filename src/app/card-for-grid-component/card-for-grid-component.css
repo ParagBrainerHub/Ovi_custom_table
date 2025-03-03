@@ -3,7 +3,9 @@
   display: flex;
   flex-direction: column;
   padding: 12px;
-  row-gap: 10px;
+  /* row-gap: 10px; */
+  min-height: 374px;
+  align-items: center;
 }
 
 .header-container {
@@ -257,6 +259,47 @@
   width: 100%;
   gap: 10px;
   padding: 24px 0px 8px;
+}
+
+/* icon css */
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.header-content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-icons {
+  display: flex;
+  gap: 8px;
+}
+
+.header-icons.top {
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.header-icons.bottom {
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.header-icons.left {
+  margin-right: 8px;
+}
+
+.header-icons.right {
+  margin-left: 8px;
+}
+
+.header-buttons {
+  margin-top: 8px;
 }
 
 /* Ensure maximum 3 buttons per row */

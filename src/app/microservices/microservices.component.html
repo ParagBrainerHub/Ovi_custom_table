@@ -1,5 +1,5 @@
-<div class="ms-container" style="height: 2000px">
-  <app-section-wrapper
+<div class="ms-container">
+  <!-- <app-section-wrapper
     [images]="[{ src: './quarter_anda.png', position: 'bottom-right' }]"
     [customClass]="'my-custom-class'"
     [customStyles]="{
@@ -9,6 +9,24 @@
       textAlign: 'center',
       height: '725px'
     }"
+  > -->
+  <app-shape-wrapper
+    [customStyles]="{
+      width: '100%',
+      background:
+        'linear-gradient(180deg, rgba(221, 130, 8, 0.81) 0%, #F5F5F5 54%, #EFE9DD 100%)',
+      paddingTop: '220px',
+      textAlign: 'center',
+      height: '725px'
+    }"
+    [shapes]="[
+    {
+      type: 'circle',
+      position: 'bottom-right',
+      styles: { backgroundColor: '#EDBC79CF',width: '200px', height: '200px',position:'absolute',bottom:'-100px',right:'-100px'},
+    },
+  ]"
+    customClass="custom-container"
   >
     <div class="microServiceContainer">
       <app-navbar
@@ -20,16 +38,36 @@
         [cardConfig]="heroBannerConfig"
       ></app-card-list-component>
     </div>
-  </app-section-wrapper>
+  </app-shape-wrapper>
+  <!-- </app-section-wrapper> -->
 
-  <app-section-wrapper
+  <!-- <app-section-wrapper
     [images]="[{ src: './double_anda.png', position: 'bottom-right' }]"
     [customStyles]="{ backgroundColor: '#F5F5F5', height: '1250px' }"
+  > -->
+  <app-shape-wrapper
+    [customStyles]="{
+      width: '100%',
+      background: '#F5F5F5',
+    }"
+    [shapes]="[
+    {
+      type: 'circle',
+      position: 'bottom-right',
+      styles: { backgroundColor: '#EDBC79CF',width: '200px', height: '200px',position:'absolute',bottom:'-100px',right:'0px'},
+    },
+    {
+      type: 'circle',
+      position: 'bottom-right',
+      styles: { backgroundColor: '#EDBC79CF',width: '200px', height: '200px',position:'absolute',bottom:'0px',right:'-100px'},
+    },
+  ]"
   >
-    <div class="microServiceContainer">
+    <div class="microServiceContainer" style="margin-bottom: 200px">
       <app-grid-view [cardGridConfig]="cardGridConfig"></app-grid-view>
     </div>
-  </app-section-wrapper>
+  </app-shape-wrapper>
+  <!-- </app-section-wrapper> -->
   <app-section-wrapper
     [customStyles]="{ backgroundColor: '#ffffff', padding: '100px 0px' }"
   >
@@ -59,4 +97,6 @@
       ></app-form-component>
     </div>
   </app-section-wrapper>
+
+  <app-footer [footerConfig]="footerConfig"></app-footer>
 </div>

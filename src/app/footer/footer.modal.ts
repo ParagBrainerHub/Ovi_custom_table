@@ -9,10 +9,12 @@ export interface FooterColumn {
 }
 
 export interface FooterConfig {
-  subscribeButton: string;
-  subscribeDesc: string;
-  subscribeText: string;
-  contactusButton: string;
+  footerContainerstyle?: { [key: string]: string };
+  isSubscribeShow: boolean;
+  subscribeButton?: string;
+  subscribeDesc?: string;
+  subscribeText?: string;
+  contactusButton?: string;
   logoUrl: string;
   description: string;
   usefulLinks: { name: string; url: string }[];

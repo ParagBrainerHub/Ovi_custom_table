@@ -35,6 +35,7 @@ export class CardGridComponentComponent {
   @Input() isGrid?: boolean;
 
   @Input() cardConfig?: CardConfig;
+  isHovered = false;
 
   constructor(private sanitizer: DomSanitizer) {}
 
@@ -55,12 +56,20 @@ export class CardGridComponentComponent {
     this.validateCardConfig(this.cardConfig!);
   }
 
-  get cardStyles(): { [key: string]: string } {
-    return {
+  getCardStyles(styleObj: { [key: string]: string }): {
+    [key: string]: string;
+  } {
+    const baseStyles = {
       width: '100%',
       border: this.cardConfig?.hasBorder ? '1px solid #ccc' : 'none',
-      ...(this.cardConfig?.customStyles || {}),
+      ...styleObj,
     };
+
+    const hoverStyles = this.isHovered
+      ? this.cardConfig?.hoverStyles || {}
+      : {};
+
+    return { ...baseStyles, ...hoverStyles };
   }
 
   // Card Width

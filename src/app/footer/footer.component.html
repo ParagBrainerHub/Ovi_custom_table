@@ -1,7 +1,7 @@
-<div class="footer-content">
+<div [ngStyle]="footerConfig.footerContainerstyle" class="footer-content">
   <div class="pageContainer">
     <div class="footer-container">
-      <div class="top-section">
+      <div *ngIf="footerConfig.isSubscribeShow" class="top-section">
         <div class="top-section_content">
           <h2>{{ footerConfig.subscribeText }}</h2>
           <p>{{ footerConfig.subscribeDesc }}</p>

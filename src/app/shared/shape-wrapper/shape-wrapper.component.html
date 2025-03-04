@@ -1,0 +1,9 @@
+<div class="shape-wrapper" [ngClass]="customClass" [ngStyle]="customStyles">
+  <ng-content></ng-content>
+  <div
+    *ngFor="let shape of shapes"
+    class="shape"
+    [ngClass]="[shape.type, shape.position]"
+    [ngStyle]="shape.styles"
+  ></div>
+</div>

@@ -14,6 +14,9 @@ import { GridViewComponent } from '../grid-view/grid-view.component';
 import { ListViewComponent } from '../list-view/list-view.component';
 import { FormComponentComponent } from '../form-component/form-component.component';
 import { FormConfig } from '../form-component/form-modal';
+import { FooterComponent } from '../footer/footer.component';
+import { FooterConfig } from '../footer/footer.modal';
+import { ShapeWrapperComponent } from '../shared/shape-wrapper/shape-wrapper.component';
 
 @Component({
   selector: 'app-microservices',
@@ -25,6 +28,8 @@ import { FormConfig } from '../form-component/form-modal';
     GridViewComponent,
     ListViewComponent,
     FormComponentComponent,
+    FooterComponent,
+    ShapeWrapperComponent,
   ],
   templateUrl: './microservices.component.html',
   styleUrl: './microservices.component.css',
@@ -242,6 +247,7 @@ export class MicroservicesComponent {
     },
     gridContainerStyle: {
       marginTop: '80px',
+      gap: '40px',
     },
     cardConfigs: [
       {
@@ -251,8 +257,9 @@ export class MicroservicesComponent {
           background: 'transparent',
         },
         hoverStyles: {
-          background: '#DD8208',
-          color: 'white',
+          backgroundColor: '#DD8208',
+          color: '#fff',
+          transform: 'scale(1.05)',
         },
         header: {
           title: 'Microservices Architecture & API Strategy',
@@ -287,7 +294,7 @@ export class MicroservicesComponent {
                 color: '#DD8208',
                 padding: '22px',
                 borderRadius: '50%',
-                border: '2px solid #DD8208',
+                border: '2px solid ',
               },
             },
             // {
@@ -306,6 +313,11 @@ export class MicroservicesComponent {
           padding: '32px',
           border: '2px solid #DD8208',
           background: 'transparent',
+        },
+        hoverStyles: {
+          backgroundColor: '#DD8208',
+          color: '#fff',
+          transform: 'scale(1.05)',
         },
         header: {
           title: 'Event-Driven & Asynchronous Processing',
@@ -340,7 +352,7 @@ export class MicroservicesComponent {
                 color: '#DD8208',
                 padding: '22px',
                 borderRadius: '50%',
-                border: '2px solid #DD8208',
+                border: '2px solid',
               },
             },
             // {
@@ -359,6 +371,11 @@ export class MicroservicesComponent {
           padding: '32px',
           border: '2px solid #DD8208',
           background: 'transparent',
+        },
+        hoverStyles: {
+          backgroundColor: '#DD8208',
+          color: '#fff',
+          transform: 'scale(1.05)',
         },
         header: {
           title: 'Kubernetes & Cloud Deployment',
@@ -393,7 +410,7 @@ export class MicroservicesComponent {
                 color: '#DD8208',
                 padding: '22px',
                 borderRadius: '50%',
-                border: '2px solid #DD8208',
+                border: '2px solid',
               },
             },
             // {
@@ -412,6 +429,11 @@ export class MicroservicesComponent {
           padding: '32px',
           border: '2px solid #DD8208',
           background: 'transparent',
+        },
+        hoverStyles: {
+          backgroundColor: '#DD8208',
+          color: '#fff',
+          transform: 'scale(1.05)',
         },
         header: {
           title: 'Microfrontends with Angular',
@@ -446,7 +468,7 @@ export class MicroservicesComponent {
                 color: '#DD8208',
                 padding: '22px',
                 borderRadius: '50%',
-                border: '2px solid #DD8208',
+                border: '2px solid',
               },
             },
             // {
@@ -465,6 +487,11 @@ export class MicroservicesComponent {
           padding: '32px',
           border: '2px solid #DD8208',
           background: 'transparent',
+        },
+        hoverStyles: {
+          backgroundColor: '#DD8208',
+          color: '#fff',
+          transform: 'scale(1.05)',
         },
         header: {
           title: 'CI/CD Pipelines & System Observability',
@@ -499,7 +526,7 @@ export class MicroservicesComponent {
                 color: '#DD8208',
                 padding: '22px',
                 borderRadius: '50%',
-                border: '2px solid #DD8208',
+                border: '2px solid',
               },
             },
             // {
@@ -518,6 +545,11 @@ export class MicroservicesComponent {
           padding: '32px',
           border: '2px solid #DD8208',
           background: 'transparent',
+        },
+        hoverStyles: {
+          backgroundColor: '#DD8208',
+          color: '#fff',
+          transform: 'scale(1.05)',
         },
         header: {
           title: 'Custom Solutions',
@@ -551,6 +583,7 @@ export class MicroservicesComponent {
               isPillButton: true,
               text: 'Learn More',
               backgroundColor: '#DD8208',
+              foregroundColor: '#fff',
             },
           ],
         },
@@ -877,6 +910,88 @@ export class MicroservicesComponent {
       width: '280px',
       isPillButton: true,
       customStyles: { padding: '16px 24px', margin: 'auto' },
+    },
+  };
+
+  footerConfig: FooterConfig = {
+    footerContainerstyle: { backgroundColor: '#9D6F00', color: '#fff' },
+    isSubscribeShow: false,
+    logoUrl: './white_logo.png',
+    description:
+      "Cycolis Software specializes in scalable microservices, high-performance APIs, and cloud-native solutions. We empower startups and mid-sized businesses in Germany and the UK with secure architectures, CI/CD pipelines, and modular microfrontends to future-proof their software systems. Let's build together.",
+
+    usefulLinks: [
+      { name: 'Home', url: '/home' },
+      { name: 'Services', url: '/services' },
+      { name: 'Case Studies', url: '/case_studies' },
+      { name: 'Contact Us', url: '/contact' },
+    ],
+
+    contact: {
+      address: 'Neha Tobacco, Banda, Madhya Pradesh, India',
+      email: 'iesparagjain@gmail.com',
+      phone: '+91 9770525851',
+    },
+
+    columns: [
+      {
+        title: 'About Us',
+        description: 'Learn more about our company and team.',
+        buttonText: 'Contact',
+        buttonUrl: 'https://facebook.com',
+        lineText: 'Connect with us on social media.',
+        iconButtons: [
+          { icon: 'Google', url: 'https://google.com' },
+          { icon: 'facebook', url: 'https://facebook.com' },
+        ],
+      },
+      {
+        lineText: 'Connect with us on social media.',
+        iconButtons: [
+          { icon: 'Google', url: 'https://google.com' },
+          { icon: 'facebook', url: 'https://facebook.com' },
+        ],
+      },
+
+      {
+        // lineText: 'Connect with us on social media.',
+        title: 'About Us',
+        description: 'Learn more about our company and team.',
+        iconButtons: [
+          { icon: 'Google', url: 'https://google.com' },
+          { icon: 'facebook', url: 'https://facebook.com' },
+        ],
+      },
+    ],
+    // iframeUrl: 'https://example.com',
+    // iframeWidth: '400',
+    // iframeHeight: '300',
+    bottomBar: {
+      logoUrl: 'https://picsum.photos/id/237/600/300',
+      copyrightText: 'All rights reserved.',
+      year: 2024,
+      company: 'My Company',
+      backgroundColor: 'transparent',
+      align: 'left',
+      margin: '10px 10px',
+      icons: [
+        {
+          icon: 'https://cdn-icons-png.flaticon.com/512/733/733579.png',
+          url: 'https://twitter.com',
+        },
+        {
+          icon: 'https://cdn-icons-png.flaticon.com/512/733/733547.png',
+          url: 'https://facebook.com',
+        },
+        {
+          icon: 'https://cdn-icons-png.flaticon.com/512/733/733558.png',
+          url: 'https://instagram.com',
+        },
+        {
+          icon: 'https://cdn-icons-png.flaticon.com/512/733/733609.png',
+          url: 'https://github.com',
+        },
+      ],
     },
   };
 }

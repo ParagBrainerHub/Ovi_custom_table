@@ -1,4 +1,10 @@
-<mat-card class="grid-layout" [ngStyle]="cardStyles" appearance="outlined">
+<mat-card
+  class="grid-layout"
+  [ngStyle]="getCardStyles(cardConfig?.customStyles ?? {})"
+  (mouseenter)="isHovered = true"
+  (mouseleave)="isHovered = false"
+  appearance="outlined"
+>
   <ngx-skeleton-loader
     *ngIf="loading"
     count="1"
@@ -68,12 +74,14 @@
     *ngIf="cardConfig?.header"
     class="header-content grid-header"
     [ngClass]="cardConfig?.header?.titleAlign"
-    [ngStyle]="cardConfig?.header?.headerStyles"
+    [ngStyle]="getCardStyles(cardConfig?.header?.headerStyles ?? {})"
   >
     <ng-container *ngIf="cardConfig?.header?.icons">
       <div class="header-icons top" *ngIf="hasIconPlacement('top')">
         <ng-container *ngFor="let icon of getIconsByPlacement('top')">
-          <mat-icon [ngStyle]="icon.iconStyles">{{ icon.icon }}</mat-icon>
+          <mat-icon [ngStyle]="getCardStyles(icon.iconStyles?? {})"
+            >{{ icon.icon }}</mat-icon
+          >
         </ng-container>
       </div>
     </ng-container>
@@ -83,7 +91,9 @@
       <ng-container *ngIf="cardConfig?.header?.icons">
         <div class="header-icons top" *ngIf="hasIconPlacement('left')">
           <ng-container *ngFor="let icon of getIconsByPlacement('left')">
-            <mat-icon [ngStyle]="icon.iconStyles">{{ icon.icon }}</mat-icon>
+            <mat-icon [ngStyle]="getCardStyles(icon.iconStyles ?? {})"
+              >{{ icon.icon }}</mat-icon
+            >
           </ng-container>
         </div>
       </ng-container>
@@ -92,27 +102,27 @@
         <ng-container [ngSwitch]="cardConfig?.header?.titleTag || 'h2'">
           <h1
             *ngSwitchCase="'h1'"
-            [ngStyle]="cardConfig?.header?.titleStyles"
+            [ngStyle]="getCardStyles(cardConfig?.header?.titleStyles ?? {})"
             [innerHTML]="highlightText(cardConfig?.header?.title || '')"
           ></h1>
           <h2
             *ngSwitchCase="'h2'"
-            [ngStyle]="cardConfig?.header?.titleStyles"
+            [ngStyle]="getCardStyles(cardConfig?.header?.titleStyles ?? {})"
             [innerHTML]="highlightText(cardConfig?.header?.title || '')"
           ></h2>
           <h3
             *ngSwitchCase="'h3'"
-            [ngStyle]="cardConfig?.header?.titleStyles"
+            [ngStyle]="getCardStyles(cardConfig?.header?.titleStyles ?? {})"
             [innerHTML]="highlightText(cardConfig?.header?.title || '')"
           ></h3>
           <h4
             *ngSwitchCase="'h4'"
-            [ngStyle]="cardConfig?.header?.titleStyles"
+            [ngStyle]="getCardStyles(cardConfig?.header?.titleStyles ?? {})"
             [innerHTML]="highlightText(cardConfig?.header?.title || '')"
           ></h4>
           <p
             *ngSwitchDefault
-            [ngStyle]="cardConfig?.header?.titleStyles"
+            [ngStyle]="getCardStyles(cardConfig?.header?.titleStyles ?? {})"
             [innerHTML]="highlightText(cardConfig?.header?.title || '')"
           ></p>
         </ng-container>
@@ -122,35 +132,35 @@
           <ng-container [ngSwitch]="cardConfig?.header?.descriptionTag || 'p'">
             <h1
               *ngSwitchCase="'h1'"
-              [ngStyle]="cardConfig?.header?.descriptionStyles"
+              [ngStyle]="getCardStyles(cardConfig?.header?.descriptionStyles ?? {})"
               [ngClass]="cardConfig?.header?.descriptionAlign"
             >
               {{ cardConfig?.header?.description }}
             </h1>
             <h2
               *ngSwitchCase="'h2'"
-              [ngStyle]="cardConfig?.header?.descriptionStyles"
+              [ngStyle]="getCardStyles(cardConfig?.header?.descriptionStyles ?? {})"
               [ngClass]="cardConfig?.header?.descriptionAlign"
             >
               {{ cardConfig?.header?.description }}
             </h2>
             <h3
               *ngSwitchCase="'h3'"
-              [ngStyle]="cardConfig?.header?.descriptionStyles"
+              [ngStyle]="getCardStyles(cardConfig?.header?.descriptionStyles ?? {})"
               [ngClass]="cardConfig?.header?.descriptionAlign"
             >
               {{ cardConfig?.header?.description }}
             </h3>
             <h4
               *ngSwitchCase="'h4'"
-              [ngStyle]="cardConfig?.header?.descriptionStyles"
+              [ngStyle]="getCardStyles(cardConfig?.header?.descriptionStyles ?? {})"
               [ngClass]="cardConfig?.header?.descriptionAlign"
             >
               {{ cardConfig?.header?.description }}
             </h4>
             <p
               *ngSwitchDefault
-              [ngStyle]="cardConfig?.header?.descriptionStyles"
+              [ngStyle]="getCardStyles(cardConfig?.header?.descriptionStyles ?? {})"
               [ngClass]="cardConfig?.header?.descriptionAlign"
             >
               {{ cardConfig?.header?.description }}

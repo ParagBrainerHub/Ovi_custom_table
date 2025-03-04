@@ -2310,6 +2310,7 @@ export class HomePageComponent {
   };
 
   footerConfig: FooterConfig = {
+    isSubscribeShow: true,
     subscribeText: 'Subscribe to our newsletter',
     subscribeDesc:
       'Be the first one to know about discounts, offers and events',

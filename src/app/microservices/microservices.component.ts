@@ -230,6 +230,75 @@ export class MicroservicesComponent {
     },
   };
 
+  whoWeAreSection: CardConfig = {
+    imageAlignment: 'left',
+    sectionWidths: [50, 50],
+    customStyles: {
+      backgroundColor: 'transparent',
+      padding: '0px',
+      alignItems: 'center',
+      display: 'flex',
+    },
+    header: {
+      headerStyles: {
+        display: 'flex',
+        flexDirection: 'column',
+        // rowGap: '20px',
+      },
+      title: 'Who We Are',
+      titleTag: 'h1',
+      titleStyles: {
+        color: '#9D6F00',
+        fontSize: '48px',
+        fontWeight: '800',
+        letterSpacing: '0px',
+        width: '98%',
+      },
+      titleAlign: 'left',
+
+      description:
+        'Future-proof your applications with enterprise-grade | microservices designed for speed, security, and scale.',
+      descriptionTag: 'p',
+      descriptionStyles: {
+        color: '#131313',
+        fontSize: '18px',
+        fontWeight: '400',
+        width: '71%',
+        marginBottom: '40px',
+      },
+      descriptionAlign: 'left',
+
+      buttonsAlign: 'left',
+      buttons: [
+        {
+          text: 'Get a Free Consultation',
+          hasBorder: false,
+          isPillButton: true,
+          backgroundColor: '#15A46E',
+          customStyles: {
+            padding: '16px 24px',
+          },
+        },
+        {
+          text: 'See My Work',
+          hasBorder: false,
+          isPillButton: true,
+          backgroundColor: '#DD8208',
+          customStyles: {
+            padding: '16px 24px',
+          },
+        },
+      ],
+    },
+    image: {
+      position: 'top-half',
+      src: './meeting.png',
+      title: '',
+      description: '',
+      hoverEffect: false,
+    },
+  };
+
   cardGridConfig: CardGridConfig = {
     gridTitle: 'What We Do',
     gridTitleTag: 'h2',

@@ -45,6 +45,12 @@
     [images]="[{ src: './double_anda.png', position: 'bottom-right' }]"
     [customStyles]="{ backgroundColor: '#F5F5F5', height: '1250px' }"
   > -->
+  <div class="microServiceContainer" style="margin: auto; padding: 100px 0px">
+    <app-card-list-component
+      [cardConfig]="whoWeAreSection"
+    ></app-card-list-component>
+  </div>
+
   <app-shape-wrapper
     [customStyles]="{
       width: '100%',

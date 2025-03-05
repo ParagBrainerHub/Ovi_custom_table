@@ -1,3 +1,4 @@
+import { Type } from '@angular/core';
 import { ButtonConfig } from '../button-component/button.model';
 
 export interface CardGridConfig {
@@ -25,7 +26,13 @@ export interface CardListConfig {
   layoutType: 'list';
 }
 
+export interface DynamicComponentConfig {
+  dynamicComponent: Type<any>;
+  dynamicComponentConfig?: { [key: string]: any };
+}
+
 export interface CardConfig {
+  dynamicComponents?: DynamicComponentConfig[];
   iframeHeight?: string | null;
   iframeWidth?: string | null;
   iframeUrl?: string | null;

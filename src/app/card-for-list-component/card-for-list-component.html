@@ -156,6 +156,8 @@
           </p>
         </ng-container>
       </ng-container>
+      <div #dynamicComponentContainer></div>
+
       <div class="header-buttons" [ngClass]="cardConfig?.header?.buttonsAlign">
         <ng-container *ngFor="let button of cardConfig?.header?.buttons">
           <app-custom-button
@@ -256,6 +258,8 @@
       >
       </iframe>
     </ng-container>
+
+    <!-- dynamic component -->
 
     <!-- Footer -->
     <mat-card-footer

@@ -14,7 +14,12 @@
   /* align-items: start; */
   display: flex;
   flex-direction: column;
-  row-gap: 16px;
+  /* row-gap: 16px; */
+  /* margin: auto; */
+}
+
+.dynamic-component {
+  margin: 20px 0px;
 }
 
 /* header */

@@ -17,6 +17,8 @@ import { FormConfig } from '../form-component/form-modal';
 import { FooterComponent } from '../footer/footer.component';
 import { FooterConfig } from '../footer/footer.modal';
 import { ShapeWrapperComponent } from '../shared/shape-wrapper/shape-wrapper.component';
+import { DynamicComponent } from '../dynamic/dynamic.component';
+import { OurExpertiseComponent } from '../our-expertise/our-expertise.component';
 
 @Component({
   selector: 'app-microservices',
@@ -230,13 +232,28 @@ export class MicroservicesComponent {
     },
   };
 
+  expertiseList = [
+    'Microservices & Cloud-Native Development',
+    'REST & GRPC API Strategies For Scalability',
+    'Event-Driven Architecture & Message Queues',
+    'Single Sign-On (SSO) & Secure Authentication',
+    'Microfrontends With Angular For Modular UIs',
+    'CI/CD Pipelines & Automated Deployments',
+    'Monitoring, Logging & Observability',
+  ];
+
   whoWeAreSection: CardConfig = {
+    dynamicComponents: [
+      {
+        dynamicComponent: OurExpertiseComponent,
+        dynamicComponentConfig: { expertiseList: this.expertiseList },
+      },
+    ],
     imageAlignment: 'left',
     sectionWidths: [50, 50],
     customStyles: {
       backgroundColor: 'transparent',
       padding: '0px',
-      alignItems: 'center',
       display: 'flex',
     },
     header: {
@@ -264,28 +281,20 @@ export class MicroservicesComponent {
         fontSize: '18px',
         fontWeight: '400',
         width: '71%',
-        marginBottom: '40px',
       },
       descriptionAlign: 'left',
 
       buttonsAlign: 'left',
+
       buttons: [
         {
-          text: 'Get a Free Consultation',
+          text: 'Learn More',
           hasBorder: false,
           isPillButton: true,
           backgroundColor: '#15A46E',
           customStyles: {
             padding: '16px 24px',
-          },
-        },
-        {
-          text: 'See My Work',
-          hasBorder: false,
-          isPillButton: true,
-          backgroundColor: '#DD8208',
-          customStyles: {
-            padding: '16px 24px',
+            width: '224px',
           },
         },
       ],

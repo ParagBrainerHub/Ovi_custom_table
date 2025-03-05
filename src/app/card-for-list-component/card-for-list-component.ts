@@ -1,5 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CardConfig } from '../card-collection-component/card.modal';
+import {
+  Component,
+  ComponentFactoryResolver,
+  Input,
+  OnInit,
+  Type,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
+import {
+  CardConfig,
+  DynamicComponentConfig,
+} from '../card-collection-component/card.modal';
 import { User } from '../home-page/home-page.component';
 // import { TableConfig } from '../custom-table/table-column.model';
 import { MatCardModule } from '@angular/material/card';
@@ -40,9 +51,14 @@ export class CardListComponentComponent implements OnInit {
   @Input() isGrid?: boolean;
 
   @Input() cardConfig?: CardConfig;
+  @ViewChild('dynamicComponentContainer', { read: ViewContainerRef })
+  container!: ViewContainerRef;
   safeUrl!: SafeResourceUrl;
 
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(
+    private sanitizer: DomSanitizer,
+    private componentFactoryResolver: ComponentFactoryResolver
+  ) {}
 
   loading = true;
 
@@ -62,6 +78,31 @@ export class CardListComponentComponent implements OnInit {
 
     this.validateCardConfig(this.cardConfig!);
   }
+
+  ngAfterViewInit() {
+    if (this.cardConfig?.dynamicComponents?.length) {
+      this.loadDynamicComponents(this.cardConfig.dynamicComponents);
+    }
+  }
+
+  loadDynamicComponents(components: DynamicComponentConfig[]) {
+    this.container.clear();
+    components.forEach(
+      ({ dynamicComponent, dynamicComponentConfig }, index) => {
+        console.log(`Loading component #${index + 1}:`, dynamicComponent);
+        const componentRef = this.container.createComponent(dynamicComponent);
+
+        if (dynamicComponentConfig) {
+          Object.assign(componentRef.instance, dynamicComponentConfig);
+          console.log(
+            `Config applied for component #${index + 1}:`,
+            dynamicComponentConfig
+          );
+        }
+      }
+    );
+  }
+
   // image alignment
   getImageAlignmentClass(): string {
     return this.cardConfig?.imageAlignment === 'right'

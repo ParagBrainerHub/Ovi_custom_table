@@ -1,0 +1,28 @@
+.expertise-container {
+  font-family: Arial, sans-serif;
+  color: #000;
+}
+h3 {
+  color: #d97706;
+  font-weight: bold;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0%;
+}
+
+.icon {
+  color: #d97706;
+}

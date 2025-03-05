@@ -12,7 +12,9 @@ export class SectionWrapperComponent {
   @Input() images: {
     src: string;
     position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+    'img-class'?: string;
+    imgStyles?: { [key: string]: string };
   }[] = [];
-  @Input() customClass: string = ''; // Accepting class from parent
+  @Input() customClass: string = '';
   @Input() customStyles: { [key: string]: string } = {};
 }

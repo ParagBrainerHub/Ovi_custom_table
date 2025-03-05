@@ -10,6 +10,7 @@
   position: absolute;
   width: auto;
   height: auto;
+  z-index: 300;
 }
 
 .top-left {
@@ -27,4 +28,8 @@
 .bottom-right {
   bottom: 0;
   right: 0;
+}
+
+.list-image-foreground {
+  z-index: 500 !important;
 }

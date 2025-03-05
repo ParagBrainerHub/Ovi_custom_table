@@ -2075,7 +2075,7 @@ export class HomePageComponent {
       boxShadow: '0 4px 4px rgba(0, 0, 0, 0.25)',
       position: 'sticky',
       top: '0',
-      zIndex: '9',
+      zIndex: '500',
       padding: '12px 250px',
     },
     logo: {

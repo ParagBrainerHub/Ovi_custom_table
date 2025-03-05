@@ -28,6 +28,8 @@ import {
   SafeResourceUrl,
 } from '@angular/platform-browser';
 import { SafeUrlPipe } from '../safe-url.pipe';
+import { ShapeWrapperComponent } from '../shared/shape-wrapper/shape-wrapper.component';
+import { SectionWrapperComponent } from '../shared/section-wrapper/section-wrapper.component';
 @Component({
   selector: 'app-card-list-component',
   standalone: true,
@@ -41,6 +43,8 @@ import { SafeUrlPipe } from '../safe-url.pipe';
     CustomMaterialTableComponent,
     SafeUrlPipe,
     NgxSkeletonLoaderModule,
+    ShapeWrapperComponent,
+    SectionWrapperComponent,
   ],
   templateUrl: './card-for-list-component.html',
   styleUrl: './card-for-list-component.css',

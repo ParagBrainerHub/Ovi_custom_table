@@ -19,10 +19,15 @@
     class="image-list-section"
     [ngStyle]="{'width': getSectionWidths().imageWidth}"
   >
-    <div
-      *ngIf="!loading && cardConfig?.image"
-      class="card-image-container"
-      [ngClass]="{
+    <app-shape-wrapper
+      [customClass]="'image-wrap-behind'"
+      [shapes]="cardConfig?.imagebackgroundShapes ?? []"
+    >
+      <app-section-wrapper [images]="cardConfig?.listForegroundImages ?? []">
+        <div
+          *ngIf="!loading && cardConfig?.image"
+          class="card-image-container"
+          [ngClass]="{
         'hover-effect': cardConfig?.image?.hoverEffect,
         'image-top-half': cardConfig?.image?.position === 'top-half',
         'image-middle': cardConfig?.image?.position === 'middle',
@@ -31,38 +36,40 @@
         'image-rectangle-under-title': cardConfig?.image?.position === 'rectangle-under-title',
         'image-dark-background-title': cardConfig?.image?.position === 'dark-background-title'
       }"
-    >
-      <ngx-skeleton-loader
-        *ngIf="loading"
-        count="1"
-        class="card-image"
-      ></ngx-skeleton-loader>
-      <img
-        *ngIf="!loading"
-        [src]="cardConfig?.image?.src"
-        alt="Card Image"
-        class="card-image"
-      />
+        >
+          <ngx-skeleton-loader
+            *ngIf="loading"
+            count="1"
+            class="card-image"
+          ></ngx-skeleton-loader>
+          <img
+            *ngIf="!loading"
+            [src]="cardConfig?.image?.src"
+            alt="Card Image"
+            class="card-image"
+          />
 
-      <div
-        *ngIf="cardConfig?.image?.position === 'dark-background-title' && !loading"
-        class="dark-background-title"
-      >
-        <h2 class="image-title">{{ cardConfig?.image?.title }}</h2>
-      </div>
+          <div
+            *ngIf="cardConfig?.image?.position === 'dark-background-title' && !loading"
+            class="dark-background-title"
+          >
+            <h2 class="image-title">{{ cardConfig?.image?.title }}</h2>
+          </div>
 
-      <div
-        *ngIf="cardConfig?.image?.hoverEffect && !loading"
-        class="hover-content"
-      >
-        <div>
-          <h2>{{ cardConfig?.image?.title }}</h2>
+          <div
+            *ngIf="cardConfig?.image?.hoverEffect && !loading"
+            class="hover-content"
+          >
+            <div>
+              <h2>{{ cardConfig?.image?.title }}</h2>
+            </div>
+            <div>
+              <p>{{ cardConfig?.image?.description }}</p>
+            </div>
+          </div>
         </div>
-        <div>
-          <p>{{ cardConfig?.image?.description }}</p>
-        </div>
-      </div>
-    </div>
+      </app-section-wrapper>
+    </app-shape-wrapper>
   </div>
   <div
     class="list-details-section"

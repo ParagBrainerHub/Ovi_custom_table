@@ -72,7 +72,24 @@ export interface CardConfig {
       iconPlacement?: 'left' | 'right' | 'top' | 'bottom';
     }[];
   };
-
+  imagebackgroundShapes?: {
+    type:
+      | 'rectangle'
+      | 'oval'
+      | 'circle'
+      | 'square'
+      | 'triangle'
+      | 'hexagon'
+      | 'pentagon';
+    position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+    styles?: { [key: string]: string };
+  }[];
+  listForegroundImages?: {
+    src: string;
+    position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+    'img-class'?: string;
+    imgStyles?: { [key: string]: string };
+  }[];
   image?: {
     position?:
       | 'background'

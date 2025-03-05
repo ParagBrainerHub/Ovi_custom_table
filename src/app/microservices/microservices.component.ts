@@ -50,7 +50,7 @@ export class MicroservicesComponent {
       transform: 'translateX(-50%)',
       borderRadius: '80px',
       borderBottomColor: '#15A46E',
-      zIndex: '999',
+      zIndex: '500',
     },
     logo: {
       url: './microServices_logo.png',
@@ -253,6 +253,44 @@ export class MicroservicesComponent {
         dynamicComponentConfig: { expertiseList: this.expertiseList },
       },
     ],
+    imagebackgroundShapes: [
+      {
+        type: 'circle',
+        position: 'top-left',
+        styles: {
+          width: '150px',
+          height: '150px',
+          position: 'absolute',
+          top: '-75px',
+          left: '-75px',
+          backgroundColor: '#DD8208',
+          opacity: '0.6', // Light red transparent circle
+        },
+      },
+      // {
+      //   type: 'rectangle',
+      //   styles: {
+      //     width: '100px',
+      //     height: '50px',
+      //     position: 'absolute',
+      //     top: '20px',
+      //     right: '20px',
+      //     backgroundColor: 'rgba(0, 0, 255, 0.5)', // Light blue rectangle
+      //   },
+      // },
+    ],
+    listForegroundImages: [
+      {
+        src: './fore-ground-image.png',
+        position: 'bottom-right',
+        'img-class': 'list-image-foreground',
+        imgStyles: {
+          right: '100px',
+          border: '5px solid white',
+          borderRadius: '10px',
+        },
+      },
+    ],
     imageAlignment: 'left',
     sectionWidths: [50, 50],
     customStyles: {
@@ -320,7 +358,7 @@ export class MicroservicesComponent {
       ],
     },
     image: {
-      position: 'top-half',
+      // position: 'top-half',
       src: './meeting.png',
       title: '',
       description: '',
@@ -381,7 +419,6 @@ export class MicroservicesComponent {
               descriptionTag: 'p',
               descriptionAlign: 'center',
               descriptionStyles: {
-                color: '#666',
                 fontSize: '16px',
                 maxWidth: '90%',
                 margin: 'auto',
@@ -444,7 +481,6 @@ export class MicroservicesComponent {
               descriptionTag: 'p',
               descriptionAlign: 'center',
               descriptionStyles: {
-                color: '#666',
                 fontSize: '16px',
                 maxWidth: '90%',
                 margin: 'auto',
@@ -507,7 +543,6 @@ export class MicroservicesComponent {
               descriptionTag: 'p',
               descriptionAlign: 'center',
               descriptionStyles: {
-                color: '#666',
                 fontSize: '16px',
                 maxWidth: '90%',
                 margin: 'auto',
@@ -569,7 +604,6 @@ export class MicroservicesComponent {
               descriptionTag: 'p',
               descriptionAlign: 'center',
               descriptionStyles: {
-                color: '#666',
                 fontSize: '16px',
                 maxWidth: '90%',
                 margin: 'auto',
@@ -632,7 +666,6 @@ export class MicroservicesComponent {
               descriptionTag: 'p',
               descriptionAlign: 'center',
               descriptionStyles: {
-                color: '#666',
                 fontSize: '16px',
                 maxWidth: '90%',
                 margin: 'auto',
@@ -694,7 +727,6 @@ export class MicroservicesComponent {
               descriptionTag: 'p',
               descriptionAlign: 'center',
               descriptionStyles: {
-                color: '#666',
                 fontSize: '16px',
                 maxWidth: '90%',
                 margin: 'auto',

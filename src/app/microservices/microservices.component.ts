@@ -189,17 +189,21 @@ export class MicroservicesComponent {
       },
       titleAlign: 'left',
 
-      description:
-        'Future-proof your applications with enterprise-grade | microservices designed for speed, security, and scale.',
-      descriptionTag: 'p',
-      descriptionStyles: {
-        color: '#131313',
-        fontSize: '18px',
-        fontWeight: '400',
-        width: '71%',
-        marginBottom: '40px',
-      },
-      descriptionAlign: 'left',
+      description: [
+        {
+          descriptionText:
+            'Future-proof your applications with enterprise-grade | microservices designed for speed, security, and scale.',
+          descriptionTag: 'p',
+          descriptionAlign: 'left',
+          descriptionStyles: {
+            color: '#131313',
+            fontSize: '18px',
+            fontWeight: '400',
+            width: '71%',
+            marginBottom: '40px',
+          },
+        },
+      ],
 
       buttonsAlign: 'left',
       buttons: [
@@ -273,16 +277,32 @@ export class MicroservicesComponent {
       },
       titleAlign: 'left',
 
-      description:
-        'Future-proof your applications with enterprise-grade | microservices designed for speed, security, and scale.',
-      descriptionTag: 'p',
-      descriptionStyles: {
-        color: '#131313',
-        fontSize: '18px',
-        fontWeight: '400',
-        width: '71%',
-      },
-      descriptionAlign: 'left',
+      description: [
+        {
+          descriptionText:
+            'We are a specialized software consultancy helping startups and enterprises modernize their systems through scalable microservices, cloud-native architectures, and high-performance APIs.',
+          descriptionTag: 'p',
+          descriptionStyles: {
+            color: '#131313',
+            fontSize: '18px',
+            fontWeight: '400',
+            width: '100%',
+          },
+          descriptionAlign: 'left',
+        },
+        {
+          descriptionText:
+            'Our team has successfully worked with leading companies such as Siemens Energy, Wolters Kluwer, and National Instruments, delivering mission-critical solutions for energy, healthcare, and industrial applications.',
+          descriptionTag: 'p',
+          descriptionStyles: {
+            color: '#131313',
+            fontSize: '18px',
+            fontWeight: '400',
+            width: '100%',
+          },
+          descriptionAlign: 'left',
+        },
+      ],
 
       buttonsAlign: 'left',
 
@@ -354,16 +374,21 @@ export class MicroservicesComponent {
             margin: 'auto',
             marginBottom: '12px',
           },
-          description:
-            'We design scalable microservices with optimized API strategies using REST for standard operations and gRPC for fast, real-time communication.',
-          descriptionTag: 'p',
-          descriptionAlign: 'center',
-          descriptionStyles: {
-            color: '#666',
-            fontSize: '16px',
-            maxWidth: '90%',
-            margin: 'auto',
-          },
+          description: [
+            {
+              descriptionText:
+                'We design scalable microservices with optimized API strategies using REST for standard operations and gRPC for fast, real-time communication.',
+              descriptionTag: 'p',
+              descriptionAlign: 'center',
+              descriptionStyles: {
+                color: '#666',
+                fontSize: '16px',
+                maxWidth: '90%',
+                margin: 'auto',
+              },
+            },
+          ],
+
           icons: [
             {
               icon: 'plumbing',
@@ -412,16 +437,21 @@ export class MicroservicesComponent {
             margin: 'auto',
             marginBottom: '12px',
           },
-          description:
-            ' Using event queuing, we enable asynchronous  workflows that improve system efficiency, fault tolerance, and scalability across distributed systems.',
-          descriptionTag: 'p',
-          descriptionAlign: 'center',
-          descriptionStyles: {
-            color: '#666',
-            fontSize: '16px',
-            maxWidth: '90%',
-            margin: 'auto',
-          },
+          description: [
+            {
+              descriptionText:
+                'Using event queuing, we enable asynchronous workflows that improve system efficiency, fault tolerance, and scalability across distributed systems.',
+              descriptionTag: 'p',
+              descriptionAlign: 'center',
+              descriptionStyles: {
+                color: '#666',
+                fontSize: '16px',
+                maxWidth: '90%',
+                margin: 'auto',
+              },
+            },
+          ],
+
           icons: [
             {
               icon: 'water_damage',
@@ -470,16 +500,20 @@ export class MicroservicesComponent {
             margin: 'auto',
             marginBottom: '12px',
           },
-          description:
-            'We help businesses deploy and manage workloads securely on AWS, Azure, and Kubernetes, ensuring smooth cloud operations.',
-          descriptionTag: 'p',
-          descriptionAlign: 'center',
-          descriptionStyles: {
-            color: '#666',
-            fontSize: '16px',
-            maxWidth: '90%',
-            margin: 'auto',
-          },
+          description: [
+            {
+              descriptionText:
+                'We help businesses deploy and manage workloads securely on AWS, Azure, and Kubernetes, ensuring smooth cloud operations.',
+              descriptionTag: 'p',
+              descriptionAlign: 'center',
+              descriptionStyles: {
+                color: '#666',
+                fontSize: '16px',
+                maxWidth: '90%',
+                margin: 'auto',
+              },
+            },
+          ],
           icons: [
             {
               icon: 'currency_bitcoin',
@@ -528,16 +562,21 @@ export class MicroservicesComponent {
             margin: 'auto',
             marginBottom: '12px',
           },
-          description:
-            ' scalable and independent frontend modules, enabling teams to build and deploy UI components separately, which improves flexibility and performance.',
-          descriptionTag: 'p',
-          descriptionAlign: 'center',
-          descriptionStyles: {
-            color: '#666',
-            fontSize: '16px',
-            maxWidth: '90%',
-            margin: 'auto',
-          },
+          description: [
+            {
+              descriptionText:
+                'Scalable and independent frontend modules, enabling teams to build and deploy UI components separately, which improves flexibility and performance.',
+              descriptionTag: 'p',
+              descriptionAlign: 'center',
+              descriptionStyles: {
+                color: '#666',
+                fontSize: '16px',
+                maxWidth: '90%',
+                margin: 'auto',
+              },
+            },
+          ],
+
           icons: [
             {
               icon: 'plumbing',
@@ -586,16 +625,20 @@ export class MicroservicesComponent {
             margin: 'auto',
             marginBottom: '12px',
           },
-          description:
-            'We automate deployments Using CI/CD pipelines and ensure system reliability with real-time monitoring, logging, and system observability tools.',
-          descriptionTag: 'p',
-          descriptionAlign: 'center',
-          descriptionStyles: {
-            color: '#666',
-            fontSize: '16px',
-            maxWidth: '90%',
-            margin: 'auto',
-          },
+          description: [
+            {
+              descriptionText:
+                'We automate deployments using CI/CD pipelines and ensure system reliability with real-time monitoring, logging, and system observability tools.',
+              descriptionTag: 'p',
+              descriptionAlign: 'center',
+              descriptionStyles: {
+                color: '#666',
+                fontSize: '16px',
+                maxWidth: '90%',
+                margin: 'auto',
+              },
+            },
+          ],
           icons: [
             {
               icon: 'plumbing',
@@ -644,16 +687,20 @@ export class MicroservicesComponent {
             margin: 'auto',
             marginBottom: '12px',
           },
-          description:
-            'Have unique requirements? We design tailored solutions to fit your specific business needs.',
-          descriptionTag: 'p',
-          descriptionAlign: 'center',
-          descriptionStyles: {
-            color: '#666',
-            fontSize: '16px',
-            maxWidth: '90%',
-            margin: 'auto',
-          },
+          description: [
+            {
+              descriptionText:
+                'Have unique requirements? We design tailored solutions to fit your specific business needs.',
+              descriptionTag: 'p',
+              descriptionAlign: 'center',
+              descriptionStyles: {
+                color: '#666',
+                fontSize: '16px',
+                maxWidth: '90%',
+                margin: 'auto',
+              },
+            },
+          ],
           buttons: [
             {
               customStyles: { padding: '16px 24px' },
@@ -715,15 +762,19 @@ export class MicroservicesComponent {
           },
           titleAlign: 'left',
 
-          description:
-            'A startup reduced their deployment time by 50% with our automated CI/CD pipeline solutions.',
-          descriptionTag: 'p',
-          descriptionStyles: {
-            color: '#131313',
-            fontSize: '18px',
-            fontWeight: '400',
-          },
-          descriptionAlign: 'left',
+          description: [
+            {
+              descriptionText:
+                'A startup reduced their deployment time by 50% with our automated CI/CD pipeline solutions.',
+              descriptionTag: 'p',
+              descriptionAlign: 'left',
+              descriptionStyles: {
+                color: '#131313',
+                fontSize: '18px',
+                fontWeight: '400',
+              },
+            },
+          ],
         },
         image: {
           position: 'top-half',
@@ -758,15 +809,19 @@ export class MicroservicesComponent {
           },
           titleAlign: 'right',
 
-          description:
-            'We helped Wolters Kluwer (Healthcare) and National Instruments (Test & Measurement Systems, now Emerson) modernize their legacy applications by migrating from monolithic architectures to microservices and microfrontends.  This transformation improved system scalability, modularity, and long-term maintainability, allowing for faster development cycles and more efficient data processing.',
-          descriptionTag: 'p',
-          descriptionStyles: {
-            color: '#131313',
-            fontSize: '18px',
-            fontWeight: '400',
-          },
-          descriptionAlign: 'right',
+          description: [
+            {
+              descriptionText:
+                'We helped Wolters Kluwer (Healthcare) and National Instruments (Test & Measurement Systems, now Emerson) modernize their legacy applications by migrating from monolithic architectures to microservices and microfrontends. This transformation improved system scalability, modularity, and long-term maintainability, allowing for faster development cycles and more efficient data processing.',
+              descriptionTag: 'p',
+              descriptionAlign: 'right',
+              descriptionStyles: {
+                color: '#131313',
+                fontSize: '18px',
+                fontWeight: '400',
+              },
+            },
+          ],
         },
         image: {
           position: 'top-half',
@@ -801,15 +856,19 @@ export class MicroservicesComponent {
           },
           titleAlign: 'left',
 
-          description:
-            'A startup reduced their deployment time by 50% with our automated CI/CD pipeline solutions.',
-          descriptionTag: 'p',
-          descriptionStyles: {
-            color: '#131313',
-            fontSize: '18px',
-            fontWeight: '400',
-          },
-          descriptionAlign: 'left',
+          description: [
+            {
+              descriptionText:
+                'A startup reduced their deployment time by 50% with our automated CI/CD pipeline solutions.',
+              descriptionTag: 'p',
+              descriptionAlign: 'left',
+              descriptionStyles: {
+                color: '#131313',
+                fontSize: '18px',
+                fontWeight: '400',
+              },
+            },
+          ],
         },
         image: {
           position: 'top-half',
@@ -844,15 +903,19 @@ export class MicroservicesComponent {
           },
           titleAlign: 'right',
 
-          description:
-            'A startup reduced their deployment time by 50% with our automated CI/CD pipeline solutions.',
-          descriptionTag: 'p',
-          descriptionStyles: {
-            color: '#131313',
-            fontSize: '18px',
-            fontWeight: '400',
-          },
-          descriptionAlign: 'right',
+          description: [
+            {
+              descriptionText:
+                'A startup reduced their deployment time by 50% with our automated CI/CD pipeline solutions.',
+              descriptionTag: 'p',
+              descriptionAlign: 'right',
+              descriptionStyles: {
+                color: '#131313',
+                fontSize: '18px',
+                fontWeight: '400',
+              },
+            },
+          ],
         },
         image: {
           position: 'top-half',

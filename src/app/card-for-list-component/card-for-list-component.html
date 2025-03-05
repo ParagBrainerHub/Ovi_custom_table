@@ -118,42 +118,44 @@
 
       <!-- ✅ Dynamic Description -->
       <ng-container *ngIf="cardConfig?.header?.description">
-        <ng-container [ngSwitch]="cardConfig?.header?.descriptionTag || 'p'">
-          <h1
-            *ngSwitchCase="'h1'"
-            [ngStyle]="cardConfig?.header?.descriptionStyles"
-            [ngClass]="cardConfig?.header?.descriptionAlign"
-          >
-            {{ cardConfig?.header?.description }}
-          </h1>
-          <h2
-            *ngSwitchCase="'h2'"
-            [ngStyle]="cardConfig?.header?.descriptionStyles"
-            [ngClass]="cardConfig?.header?.descriptionAlign"
-          >
-            {{ cardConfig?.header?.description }}
-          </h2>
-          <h3
-            *ngSwitchCase="'h3'"
-            [ngStyle]="cardConfig?.header?.descriptionStyles"
-            [ngClass]="cardConfig?.header?.descriptionAlign"
-          >
-            {{ cardConfig?.header?.description }}
-          </h3>
-          <h4
-            *ngSwitchCase="'h4'"
-            [ngStyle]="cardConfig?.header?.descriptionStyles"
-            [ngClass]="cardConfig?.header?.descriptionAlign"
-          >
-            {{ cardConfig?.header?.description }}
-          </h4>
-          <p
-            *ngSwitchDefault
-            [ngStyle]="cardConfig?.header?.descriptionStyles"
-            [ngClass]="cardConfig?.header?.descriptionAlign"
-          >
-            {{ cardConfig?.header?.description }}
-          </p>
+        <ng-container *ngFor="let desc of cardConfig?.header?.description">
+          <ng-container [ngSwitch]="desc.descriptionTag || 'p'">
+            <h1
+              *ngSwitchCase="'h1'"
+              [ngStyle]="desc.descriptionStyles"
+              [ngClass]="desc.descriptionAlign"
+            >
+              {{ desc.descriptionText }}
+            </h1>
+            <h2
+              *ngSwitchCase="'h2'"
+              [ngStyle]="desc.descriptionStyles"
+              [ngClass]="desc.descriptionAlign"
+            >
+              {{ desc.descriptionText }}
+            </h2>
+            <h3
+              *ngSwitchCase="'h3'"
+              [ngStyle]="desc.descriptionStyles"
+              [ngClass]="desc.descriptionAlign"
+            >
+              {{ desc.descriptionText }}
+            </h3>
+            <h4
+              *ngSwitchCase="'h4'"
+              [ngStyle]="desc.descriptionStyles"
+              [ngClass]="desc.descriptionAlign"
+            >
+              {{ desc.descriptionText }}
+            </h4>
+            <p
+              *ngSwitchDefault
+              [ngStyle]="desc.descriptionStyles"
+              [ngClass]="desc.descriptionAlign"
+            >
+              {{ desc.descriptionText }}
+            </p>
+          </ng-container>
         </ng-container>
       </ng-container>
       <div #dynamicComponentContainer></div>

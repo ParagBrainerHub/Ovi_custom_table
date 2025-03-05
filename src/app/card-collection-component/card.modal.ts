@@ -56,10 +56,12 @@ export interface CardConfig {
     titleStyles?: { [key: string]: string };
     titleAlign?: 'left' | 'center' | 'right';
 
-    description?: string;
-    descriptionTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'p';
-    descriptionStyles?: { [key: string]: string };
-    descriptionAlign?: 'left' | 'center' | 'right';
+    description?: {
+      descriptionText: string;
+      descriptionTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'p';
+      descriptionStyles?: { [key: string]: string };
+      descriptionAlign?: 'left' | 'center' | 'right';
+    }[];
 
     buttonsAlign?: 'left' | 'center' | 'right';
     buttons?: ButtonConfig[];

@@ -6,3 +6,13 @@
     #efe9dd 100%
   );
 } */
+
+.microservices-navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  /* background: #333; */
+  color: white;
+  padding: 15px;
+  transition: opacity 0.3s linear;
+}

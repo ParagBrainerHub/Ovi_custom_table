@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, ViewEncapsulation } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { NavBarConfig } from '../navbar/navbar-modal';
 import { WrapperInterface } from '../modals';
@@ -37,6 +37,11 @@ import { OurExpertiseComponent } from '../our-expertise/our-expertise.component'
   styleUrl: './microservices.component.css',
 })
 export class MicroservicesComponent {
+  scrollPosition = 0;
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.scrollPosition = Math.min(window.scrollY, 200); // Max 200px
+  }
   navbarConfig: NavBarConfig = {
     isBorderTop: false,
     isBorderBottom: true,
@@ -287,7 +292,7 @@ export class MicroservicesComponent {
         imgStyles: {
           right: '100px',
           border: '5px solid white',
-          borderRadius: '10px',
+          borderRadius: '18px',
         },
       },
     ],

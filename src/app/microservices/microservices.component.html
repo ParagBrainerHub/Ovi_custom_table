@@ -30,8 +30,9 @@
   >
     <div class="microServiceContainer">
       <app-navbar
-        class="microservices-navbar"
+        class="microservices-navbar keyframe-navbar"
         [config]="navbarConfig"
+        [style.opacity]="1 - scrollPosition / 160"
       ></app-navbar>
 
       <app-card-list-component

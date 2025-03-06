@@ -274,3 +274,16 @@
   border-radius: 50px !important;
   padding: 10px 20px;
 }
+
+:host(.left) {
+  display: flex;
+  justify-content: left;
+}
+:host(.right) {
+  display: flex;
+  justify-content: right;
+}
+:host(.center) {
+  display: flex;
+  justify-content: center;
+}

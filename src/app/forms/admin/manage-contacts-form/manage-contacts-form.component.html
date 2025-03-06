@@ -1,0 +1,13 @@
+<div class="manage-contact-container">
+  <app-form-component
+    (submitClicked)="onSave($event)"
+    (cancelClicked)="onCancel()"
+    [formConfig]="formConfigForManageContact"
+  ></app-form-component>
+
+  <app-custom-material-table
+    *ngIf="isNewTable"
+    [data]="contacts"
+    [config]="tableConfig"
+  ></app-custom-material-table>
+</div>

@@ -268,3 +268,9 @@ app-custom-button {
   border: 1px solid #800080;
   border-radius: 6px;
 } */
+
+.show-hide {
+  border: none;
+  background: transparent;
+  color: rgb(221, 130, 8);
+}

@@ -55,6 +55,47 @@
                     </mat-error>
                   </mat-form-field>
 
+                  <!-- password type -->
+                  <!-- Password Field -->
+                  <mat-form-field
+                    *ngIf="field.type === 'password'"
+                    appearance="outline"
+                    [ngStyle]="getMergedStyles(field)"
+                    [ngClass]="field.style?.class"
+                  >
+                    <mat-label>{{ field.label }}</mat-label>
+                    <input
+                      matInput
+                      [type]="field.isPasswordVisible ? 'text' : 'password'"
+                      [placeholder]="field.placeholder ?? 'Enter password'"
+                      formControlName="{{ field.key }}"
+                    />
+                    <button
+                      mat-icon-button
+                      matSuffix
+                      class="show-hide"
+                      type="button"
+                      (click)="
+                        field.isPasswordVisible = !field.isPasswordVisible
+                      "
+                    >
+                      <mat-icon>{{
+                        field.isPasswordVisible
+                          ? "visibility"
+                          : "visibility_off"
+                      }}</mat-icon>
+                    </button>
+                    <mat-error
+                      *ngIf="
+                        form.get(field.key)?.invalid &&
+                        (form.get(field.key)?.dirty ||
+                          form.get(field.key)?.touched)
+                      "
+                    >
+                      {{ getErrorMessage(field) }}
+                    </mat-error>
+                  </mat-form-field>
+
                   <!-- Number Field -->
                   <mat-form-field
                     *ngIf="field.type === 'number'"
@@ -68,6 +109,31 @@
                       type="number"
                       [placeholder]="field.placeholder ?? 'Enter value'"
                       formControlName="{{ field.key }}"
+                    />
+                    <mat-error
+                      *ngIf="
+                        form.get(field.key)?.invalid &&
+                        (form.get(field.key)?.dirty ||
+                          form.get(field.key)?.touched)
+                      "
+                    >
+                      {{ getErrorMessage(field) }}
+                    </mat-error>
+                  </mat-form-field>
+
+                  <!-- type color -->
+                  <!-- Color Picker Field -->
+                  <mat-form-field
+                    *ngIf="field.type === 'color'"
+                    appearance="outline"
+                    [ngStyle]="getMergedStyles(field)"
+                    [ngClass]="field.style?.class"
+                  >
+                    <mat-label>{{ field.label }}</mat-label>
+                    <input
+                      matInput
+                      type="color"
+                      [formControlName]="field.key"
                     />
                     <mat-error
                       *ngIf="
@@ -416,6 +482,7 @@
               >
               </app-custom-button>
               <app-custom-button
+                class="right"
                 *ngIf="formConfig.cancelButtonConfig"
                 [text]="formConfig.cancelButtonConfig.text"
                 [icon]="formConfig.cancelButtonConfig.icon"

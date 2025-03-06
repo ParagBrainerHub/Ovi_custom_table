@@ -111,7 +111,7 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     console.log(this.config, 'config123456789');
-
+    console.log('data: ', this.data);
     var filteredData = this.data.map((user) => ({
       name: user.name,
       role: user.role,
@@ -225,6 +225,8 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
   }
 
   ngAfterViewInit() {
+    console.log('this.config: ', this.config);
+    console.log('data: ', this.data);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.filterAllignment = this.config.filterAlignment;
@@ -238,6 +240,10 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if (changes['data'] && changes['data'].currentValue) {
+      this.dataSource = new MatTableDataSource(changes['data'].currentValue);
+      console.log('Updated dataSource: ', this.dataSource);
+    }
     if (this.config) {
       this.tableStyle = {
         margin: this.config.margin || '0px',

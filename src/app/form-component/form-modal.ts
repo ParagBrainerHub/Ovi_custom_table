@@ -26,6 +26,8 @@ export interface FormFieldConfig {
     | 'switch'
     | 'radio'
     | 'checkbox'
+    | 'password'
+    | 'color'
     | 'select';
   label: string;
   key: string;
@@ -33,6 +35,7 @@ export interface FormFieldConfig {
   showFileIcon?: boolean;
   width?: number | string;
   value?: any;
+  isPasswordVisible?: boolean;
   required?: boolean;
   validation?: ValidationConfig;
   fileConfig?: FileConfig;
@@ -56,6 +59,7 @@ export interface ValidationConfig {
   minTime?: string;
   maxTime?: string;
   customErrorMessage?: string;
+  match?: string;
 }
 
 export interface ErrorMessagesConfig {
@@ -67,6 +71,7 @@ export interface ErrorMessagesConfig {
   pattern?: string;
   minTime?: string;
   maxTime?: string;
+  match?: string;
 }
 
 export interface FileConfig {

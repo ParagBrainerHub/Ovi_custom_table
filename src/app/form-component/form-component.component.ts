@@ -127,6 +127,9 @@ export class FormComponentComponent
       if (field.required) {
         controlValidators.push(Validators.required);
       }
+      if (field.validation?.pattern) {
+        controlValidators.push(Validators.pattern(field.validation.pattern));
+      }
       if (field.validation?.minLength) {
         controlValidators.push(
           Validators.minLength(field.validation.minLength)
@@ -481,9 +484,12 @@ export class FormComponentComponent
 
   //Error Messages
   getErrorMessage(field: FormFieldConfig) {
-    const control = this.form.get(field.label);
+    const control = this.form.get(field.key);
     if (control?.hasError('required')) {
-      return field.errorMessages?.required || `${field.label} is required.`;
+      return field?.errorMessages?.required || `${field.label} is required.`;
+    }
+    if (control?.hasError('pattern')) {
+      return field?.errorMessages?.pattern || `Invalid ${field.type} format`;
     }
     if (control?.hasError('minlength')) {
       return (

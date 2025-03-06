@@ -151,9 +151,9 @@ export class HomePageComponent {
   ];
 
   handleClick(event: Event): void {
-    setTimeout(() => {
-      alert('User Logged Out SuccessFully');
-    }, 3000);
+    // setTimeout(() => {
+    //   alert('User Logged Out SuccessFully');
+    // }, 3000);
   }
 
   //User Config
@@ -287,13 +287,8 @@ export class HomePageComponent {
     itemsPerPage: 5,
     currentPage: 1,
     maxItemsOptions: [5, 10, 15],
-    // actions: [
-    //   { text: 'Edit', icon: '✏️', showIcon: true, iconPosition: 'left', onClick: this.editUser.bind(this) },
-    //   { text: 'Delete', icon: '❌', showIcon: true, iconPosition: 'left', onClick: this.deleteUser.bind(this) }
-    // ],
     actions: [
       {
-        // text: 'Edit',
         icon: '✏️',
         showIcon: true,
         iconPosition: 'left',
@@ -307,7 +302,6 @@ export class HomePageComponent {
         transparent: false,
       },
       {
-        // text: 'Delete',
         icon: '❌',
         showIcon: true,
         iconPosition: 'right',
@@ -320,16 +314,6 @@ export class HomePageComponent {
         shadow: false,
         transparent: true,
       },
-      // {
-      //   text: '',
-      //   icon: '✅',
-      //   showIcon: true,
-      //   iconPosition: 'left',
-      //   onClick: this.deleteUser.bind(this),
-      //   shape: 'rectangle',
-      //   corners: 'rounded',
-      //   transparent: false,
-      // },
     ],
     rowHeight: '50px',
     maxRowHeight: '200px',
@@ -2260,8 +2244,8 @@ export class HomePageComponent {
             url: '/contact',
           },
           {
-            id: 'logout',
-            text: 'Logout',
+            id: 'login',
+            text: 'Login',
             icon: '',
             showIcon: false,
             // iconPosition: 'left',
@@ -2273,7 +2257,7 @@ export class HomePageComponent {
             borderColor: 'var(--primary-text-color)',
             shadow: false,
             navigate: true,
-            url: '/logout',
+            url: '/login',
             onClick: (event: Event) => this.handleClick(event),
           },
         ],

@@ -1,0 +1,60 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.form-wrapper {
+  max-width: 400px;
+}
+.login-links-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.login-links-wrapper a {
+  color: #dd8208;
+}
+
+.social-login {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.social-btn {
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.social-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+.social-btn.google {
+  background-color: #fff;
+}
+
+.social-btn.facebook {
+  background-color: #fff;
+}
+
+.social-btn.twitter {
+  background-color: #fff;
+}
+
+/* Hover Effects */
+.social-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}

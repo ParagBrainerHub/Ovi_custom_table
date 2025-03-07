@@ -1,0 +1,17 @@
+export type ManageContactKeys =
+  | 'name'
+  | 'email'
+  | 'password'
+  | 'smtpHost'
+  | 'smtpPort'
+  | 'sshEnabled'
+  | 'introduction'
+  | 'signature'
+  | 'facebook'
+  | 'instagram'
+  | 'linkedin'
+  | 'tiktok'
+  | 'twitter'
+  | 'youtube'
+  | 'logoUrl'
+  | 'color';

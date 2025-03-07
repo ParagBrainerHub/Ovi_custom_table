@@ -5,10 +5,12 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
   QueryList,
+  SimpleChanges,
   ViewChildren,
 } from '@angular/core';
 import {
@@ -101,6 +103,21 @@ export class FormComponentComponent
     this.buildForm();
     this.subscribeToFormChanges();
   }
+
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   console.log('changes: ', changes);
+  //   if (changes['formData'] && this.formData) {
+  //     this.patchFormData();
+  //   }
+  // }
+
+  // patchFormData() {
+  //   Object.keys(this.formData).forEach((key) => {
+  //     if (this.form.controls[key]) {
+  //       this.form.controls[key].setValue(this.formData[key]);
+  //     }
+  //   });
+  // }
 
   ngAfterViewInit() {
     // Populate pickerRefs after the view is initialized

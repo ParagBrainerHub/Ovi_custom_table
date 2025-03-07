@@ -1,25 +1,36 @@
-import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormConfig } from '../../../form-component/form-modal';
 import { FormComponentComponent } from '../../../form-component/form-component.component';
-import {
-  TableColumn,
-  TableConfig,
-} from '../../../custom-material-table/material-table-column.model';
-import { CustomMaterialTableComponent } from '../../../custom-material-table/custom-material-table.component';
-import { CommonModule } from '@angular/common';
-import { ManageContactKeys } from './manage-contacts-form.model';
+import { TableColumn } from '../../../custom-material-table/material-table-column.model';
+import { CommonModule, Location } from '@angular/common';
 import { NavigationExtras, Router } from '@angular/router';
-
+import { AdminManageContactsTableService } from '../admin-manage-contacts-table/admin-manage-contacts-table.service';
+import { v4 as uuidv4 } from 'uuid';
 @Component({
   selector: 'app-manage-contacts-form',
   standalone: true,
-  imports: [FormComponentComponent, CustomMaterialTableComponent, CommonModule],
+  imports: [FormComponentComponent, CommonModule],
   templateUrl: './manage-contacts-form.component.html',
   styleUrl: './manage-contacts-form.component.css',
 })
 export class ManageContactsFormComponent {
-  router = inject(Router);
   @ViewChild(FormComponentComponent) formComponent!: FormComponentComponent;
+  contactData;
+  constructor(
+    private router: Router,
+    private contactsService: AdminManageContactsTableService,
+    private location: Location
+  ) {
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras.state?.['contactData']) {
+      try {
+        this.contactData = JSON.parse(navigation.extras.state['contactData']);
+      } catch (error) {
+        console.error('Error parsing contactData:', error);
+      }
+    }
+  }
+
   contacts: any[] = [];
   isNewTable: boolean = true;
 
@@ -46,6 +57,12 @@ export class ManageContactsFormComponent {
     backgroundColor: 'transparent',
     fields: [
       // **Basic Details**
+      {
+        hide: true,
+        key: 'id',
+        type: 'text',
+        label: 'ID',
+      },
       {
         type: 'text',
         label: 'Name',
@@ -211,20 +228,24 @@ export class ManageContactsFormComponent {
     },
   };
 
+  ngAfterViewInit() {
+    if (this.contactData && this.formComponent) {
+      this.formComponent.form.patchValue(this.contactData);
+    }
+  }
+
   onSave(event: any) {
-    const newContact = { ...event };
+    let newContact = { ...event };
+    if (!event.id || event.id === '' || event.id === null) {
+      console.log('Generating new ID');
+      newContact.id = uuidv4();
+    }
 
-    // const navigationExtras: NavigationExtras = {
-    //   state: { contactData: newContact }, // Passing data as state
-    // };
-
+    this.contactsService.addOrUpdateContact(newContact);
     this.router.navigate(['admin/manage-contact-table']);
   }
 
   onCancel() {
-    console.log('Form cancelled');
-  }
-  nav() {
-    this.router.navigate(['admin/manage-contact-table']);
+    this.location.back();
   }
 }

@@ -26,4 +26,6 @@
 <app-custom-material-table
   [data]="contacts"
   [config]="tableConfig"
+  (actionEditClicked)="handleEditActionClicked($event)"
+  (actionDeleteClicked)="handleDeleteActionClicked($event)"
 ></app-custom-material-table>

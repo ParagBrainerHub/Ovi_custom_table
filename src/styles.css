@@ -65,7 +65,7 @@ body {
 .mat-icon {
   font-size: 24px;
   line-height: 18px;
-  display: flex;
+  display: flex !important;
   align-items: center;
 }
 .mat-mdc-text-field-wrapper {

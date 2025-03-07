@@ -1,6 +1,7 @@
 <div *ngIf="isPageLoading" class="skeleton-loader"></div>
 
 <button
+  type="button"
   *ngIf="!isPageLoading"
   (click)="handleClick($event)"
   class="custom-button mat-button"

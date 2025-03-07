@@ -116,6 +116,11 @@
                   ? startEditing(i)
                   : handleActionClick(action, element)
               "
+              (buttonClick)="
+                action.text === 'Edit' || action.text === 'edit'
+                  ? startEditing(i)
+                  : handleActionClick(action, element)
+              "
             >
             </app-custom-button>
           </div>

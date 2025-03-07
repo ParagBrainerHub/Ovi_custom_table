@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
 import { FormConfig } from '../../../form-component/form-modal';
 import { FormComponentComponent } from '../../../form-component/form-component.component';
 import {
@@ -8,6 +8,7 @@ import {
 import { CustomMaterialTableComponent } from '../../../custom-material-table/custom-material-table.component';
 import { CommonModule } from '@angular/common';
 import { ManageContactKeys } from './manage-contacts-form.model';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-contacts-form',
@@ -17,6 +18,7 @@ import { ManageContactKeys } from './manage-contacts-form.model';
   styleUrl: './manage-contacts-form.component.css',
 })
 export class ManageContactsFormComponent {
+  router = inject(Router);
   @ViewChild(FormComponentComponent) formComponent!: FormComponentComponent;
   contacts: any[] = [];
   isNewTable: boolean = true;
@@ -209,15 +211,20 @@ export class ManageContactsFormComponent {
     },
   };
 
-  onSave(event: Event) {
-    console.log('event: ', event);
-    const keys = Object.keys(event);
-    this.contacts = [...this.contacts, event];
-    console.log('this.contacts: ', this.contacts);
-    this.formComponent.form.reset();
+  onSave(event: any) {
+    const newContact = { ...event };
+
+    // const navigationExtras: NavigationExtras = {
+    //   state: { contactData: newContact }, // Passing data as state
+    // };
+
+    this.router.navigate(['admin/manage-contact-table']);
   }
 
   onCancel() {
     console.log('Form cancelled');
+  }
+  nav() {
+    this.router.navigate(['admin/manage-contact-table']);
   }
 }

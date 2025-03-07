@@ -3,10 +3,12 @@ import { CustomMaterialTableComponent } from './custom-material-table/custom-mat
 import { LogoutPageComponent } from './logout-page/logout-page.component';
 import { MicroservicesComponent } from './microservices/microservices.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { LoginFormComponent } from './forms/login-form/login-form.component';
-import { ForgotPasswordComponent } from './forms/forgot-password/forgot-password.component';
-import { RegisterFormComponent } from './forms/register-form/register-form.component';
-import { ManageContactsFormComponent } from './forms/admin/manage-contacts-form/manage-contacts-form.component';
+
+import { AdminManageContactsTableComponent } from './sso/admin/admin-manage-contacts-table/admin-manage-contacts-table.component';
+import { LoginFormComponent } from './sso/user/login-form/login-form.component';
+import { ForgotPasswordComponent } from './sso/user/forgot-password/forgot-password.component';
+import { RegisterFormComponent } from './sso/user/register-form/register-form.component';
+import { ManageContactsFormComponent } from './sso/admin/manage-contacts-form/manage-contacts-form.component';
 
 export const routes: Routes = [
   // {
@@ -55,8 +57,12 @@ export const routes: Routes = [
     component: RegisterFormComponent,
   },
   {
-    path: 'admin/manage-contacts',
+    path: 'admin/manage-contact-form',
     component: ManageContactsFormComponent,
+  },
+  {
+    path: 'admin/manage-contact-table',
+    component: AdminManageContactsTableComponent,
   },
   {
     path: '**',

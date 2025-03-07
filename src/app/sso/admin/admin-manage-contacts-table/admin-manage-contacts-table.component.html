@@ -1,1 +1,29 @@
-<p>admin-manage-contacts-table works!</p>
+<app-custom-button
+  [text]="button.text"
+  [icon]="button.icon"
+  [showIcon]="button.showIcon"
+  [iconPosition]="button.iconPosition"
+  [shape]="button.shape"
+  [corners]="button.corners"
+  [hasBorder]="button.hasBorder"
+  [borderColor]="button.borderColor"
+  [foregroundColor]="button.foregroundColor"
+  [backgroundColor]="button.backgroundColor"
+  [transparent]="button.transparent"
+  [borderColor]="button.borderColor"
+  [shadow]="button.shadow"
+  [navigate]="button.navigate ?? false"
+  [url]="button.url ?? ''"
+  [id]="button.id ?? ''"
+  (buttonClick)="navigateToForm()"
+  [menuItems]="button.menuItems"
+  [isMenuButton]="button.isMenuButton"
+  [customStyles]="button.customStyles ?? {}"
+  [isPillButton]="button.isPillButton ?? false"
+>
+</app-custom-button>
+
+<app-custom-material-table
+  [data]="contacts"
+  [config]="tableConfig"
+></app-custom-material-table>

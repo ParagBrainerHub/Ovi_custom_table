@@ -11,6 +11,14 @@ import { RegisterFormComponent } from './sso/user/register-form/register-form.co
 import { ManageContactsFormComponent } from './sso/admin/manage-contacts-form/manage-contacts-form.component';
 import { ManageContactsStylesFormComponent } from './sso/admin/manage-contacts-styles-form/manage-contacts-styles-form.component';
 import { AdminManageContactsStyleTableComponent } from './sso/admin/admin-manage-contacts-style-table/admin-manage-contacts-style-table.component';
+import { InviteUserManagementFormComponent } from './sso/user/invite-user-management-form/invite-user-management-form.component';
+import { InviteUserManagementTableComponent } from './sso/user/invite-user-management-table/invite-user-management-table.component';
+import { ManageAppFormComponent } from './sso/super-admin/manage-app-form/manage-app-form.component';
+import { ManageAppTableComponent } from './sso/super-admin/manage-app-table/manage-app-table.component';
+import { ManageAppTypeFormComponent } from './sso/super-admin/manage-app-type-form/manage-app-type-form.component';
+import { ManageAppTypeTableComponent } from './sso/super-admin/manage-app-type-table/manage-app-type-table.component';
+import { MfaForUsersFormComponent } from './sso/admin/mfa-for-users-form/mfa-for-users-form.component';
+import { MfaDefaultConfFormComponent } from './sso/admin/mfa-default-conf-form/mfa-default-conf-form.component';
 
 export const routes: Routes = [
   // {
@@ -73,6 +81,38 @@ export const routes: Routes = [
   {
     path: 'admin/manage-contact-table-style',
     component: AdminManageContactsStyleTableComponent,
+  },
+  {
+    path: 'user/invite-user-management-form',
+    component: InviteUserManagementFormComponent,
+  },
+  {
+    path: 'user/invite-user-management-table',
+    component: InviteUserManagementTableComponent,
+  },
+  {
+    path: 'super-admin/manage-app-form',
+    component: ManageAppFormComponent,
+  },
+  {
+    path: 'super-admin/manage-app-table',
+    component: ManageAppTableComponent,
+  },
+  {
+    path: 'super-admin/manage-app-type-form',
+    component: ManageAppTypeFormComponent,
+  },
+  {
+    path: 'super-admin/manage-app-type-table',
+    component: ManageAppTypeTableComponent,
+  },
+  {
+    path: 'user/mfa',
+    component: MfaForUsersFormComponent,
+  },
+  {
+    path: 'default/mfa',
+    component: MfaDefaultConfFormComponent,
   },
   {
     path: '**',

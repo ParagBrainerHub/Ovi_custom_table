@@ -121,7 +121,7 @@ export class AdminManageContactsStyleTableComponent {
       state: { styleData: JSON.stringify(editObj) },
     };
     this.router.navigate(
-      ['admin/manage-contacts-styles-form'],
+      ['admin/manage-contact-styles-form'],
       navigationExtras
     );
   }

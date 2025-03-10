@@ -129,7 +129,6 @@ export class ManageContactsStylesFormComponent {
       hasBorder: false,
       backgroundColor: '#DD8208',
       width: '32%',
-      action: () => this.onCancel(),
       align: 'right',
     },
   };
@@ -152,6 +151,18 @@ export class ManageContactsStylesFormComponent {
   ngAfterViewInit() {
     if (this.contactStyle && this.formComponent) {
       this.formComponent.form.patchValue(this.contactStyle);
+
+      console.log('📌 Patched Form Value:', this.formComponent.form.value);
+
+      if (this.contactStyle.logoUrl?.length) {
+        this.formComponent.selectedImages['logoUrl'] = [
+          ...this.contactStyle.logoUrl,
+        ];
+        console.log(
+          '📌 Updated selectedImages:',
+          this.formComponent.selectedImages
+        );
+      }
     }
   }
 

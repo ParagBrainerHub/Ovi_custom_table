@@ -362,12 +362,9 @@
                   <div
                     *ngIf="field.type === 'file'"
                     class="file-upload-container"
+                    [ngStyle]="getMergedStyles(field)"
                   >
-                    <div
-                      class="upload-area"
-                      [ngStyle]="getMergedStyles(field)"
-                      [ngClass]="field.style?.class"
-                    >
+                    <div class="upload-area" [ngClass]="field.style?.class">
                       <div
                         class="upload-icon"
                         *ngIf="
@@ -400,7 +397,10 @@
                     <div class="uploaded-images">
                       <div
                         class="image-preview"
-                        *ngFor="let img of selectedImages; let i = index"
+                        *ngFor="
+                          let img of selectedImages[field.key];
+                          let i = index
+                        "
                       >
                         <img
                           width="50px"
@@ -408,7 +408,9 @@
                           [src]="img"
                           alt="Uploaded Image"
                         />
-                        <mat-icon class="mat-icon" (click)="removeImage(i)"
+                        <mat-icon
+                          class="mat-icon"
+                          (click)="removeImage(field.key, i)"
                           >close</mat-icon
                         >
                       </div>

@@ -80,8 +80,8 @@ export class FormComponentComponent
   readonly minDate = new Date(this._currentYear - 20, 0, 1);
   readonly maxDate = new Date(this._currentYear + 1, 11, 31);
 
-  selectedImages: string[] = [];
-  selectedFileNames: string[] = [];
+  selectedImages: Record<string, string[]> = {};
+  selectedFileNames: Record<string, string[]> = {};
 
   @Input() formConfig!: FormConfig;
   @Output() submitClicked = new EventEmitter<any>();
@@ -557,12 +557,17 @@ export class FormComponentComponent
   onFileSelect(event: Event, field: any): void {
     const input = event.target as HTMLInputElement;
     if (input.files?.length) {
-      this.selectedImages = [];
-      this.selectedFileNames = [];
+      // Ensure selectedImages exists for the specific field
+      if (!this.selectedImages[field.key]) {
+        this.selectedImages[field.key] = [];
+      }
+      if (!this.selectedFileNames[field.key]) {
+        this.selectedFileNames[field.key] = [];
+      }
 
       const files = Array.from(input.files);
       files.forEach((file) => {
-        this.selectedFileNames.push(file.name);
+        this.selectedFileNames[field.key].push(file.name);
 
         if (
           field.fileConfig.allowedTypes.includes(file.type) &&
@@ -570,8 +575,8 @@ export class FormComponentComponent
         ) {
           const reader = new FileReader();
           reader.onload = () => {
-            this.selectedImages.push(reader.result as string);
-            this.form.get(field.label)?.setValue(this.selectedImages);
+            this.selectedImages[field.key].push(reader.result as string);
+            this.form.get(field.key)?.setValue(this.selectedImages[field.key]);
           };
           reader.readAsDataURL(file);
         }
@@ -602,8 +607,18 @@ export class FormComponentComponent
     }
   }
 
-  removeImage(index: number) {
-    this.selectedImages.splice(index, 1);
+  removeImage(fieldKey: string, index: number): void {
+    if (this.selectedImages[fieldKey]) {
+      this.selectedImages[fieldKey].splice(index, 1);
+
+      // Also remove the corresponding file name
+      if (this.selectedFileNames[fieldKey]) {
+        this.selectedFileNames[fieldKey].splice(index, 1);
+      }
+
+      // Update form control value after removal
+      this.form.get(fieldKey)?.setValue(this.selectedImages[fieldKey]);
+    }
   }
 
   ngOnDestroy() {

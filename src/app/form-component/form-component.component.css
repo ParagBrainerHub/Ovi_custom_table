@@ -69,16 +69,18 @@
 
 .file-upload-container {
   margin-bottom: 1.5rem;
+  min-height: 250px;
 }
 
 .upload-area {
   border: 2px dashed #9c27b0;
   border-radius: 8px;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
   background-color: #faf5fb;
   cursor: pointer;
   transition: all 0.3s ease;
+  min-height: 120px;
 }
 
 .upload-area:hover {

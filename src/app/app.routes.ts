@@ -9,6 +9,8 @@ import { LoginFormComponent } from './sso/user/login-form/login-form.component';
 import { ForgotPasswordComponent } from './sso/user/forgot-password/forgot-password.component';
 import { RegisterFormComponent } from './sso/user/register-form/register-form.component';
 import { ManageContactsFormComponent } from './sso/admin/manage-contacts-form/manage-contacts-form.component';
+import { ManageContactsStylesFormComponent } from './sso/admin/manage-contacts-styles-form/manage-contacts-styles-form.component';
+import { AdminManageContactsStyleTableComponent } from './sso/admin/admin-manage-contacts-style-table/admin-manage-contacts-style-table.component';
 
 export const routes: Routes = [
   // {
@@ -61,8 +63,16 @@ export const routes: Routes = [
     component: ManageContactsFormComponent,
   },
   {
+    path: 'admin/manage-contact-styles-form',
+    component: ManageContactsStylesFormComponent,
+  },
+  {
     path: 'admin/manage-contact-table',
     component: AdminManageContactsTableComponent,
+  },
+  {
+    path: 'admin/manage-contact-table-style',
+    component: AdminManageContactsStyleTableComponent,
   },
   {
     path: '**',

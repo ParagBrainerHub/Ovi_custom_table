@@ -775,61 +775,12 @@ This Angular form component provides a dynamic and configurable form system with
 | `options`           | `OptionConfig[]` (optional)      | List of selectable options (for dropdowns, radio, etc.). |
 | `defaultValue`      | `any` (optional)                 | Default value assigned to the field.                     |
 
-### `ValidationConfig`
-
-| Property             | Type                | Description                                                        |
-| -------------------- | ------------------- | ------------------------------------------------------------------ |
-| `minLength`          | `number` (optional) | Minimum length for text inputs.                                    |
-| `maxLength`          | `number` (optional) | Maximum length for text inputs.                                    |
-| `minValue`           | `number` (optional) | Minimum numeric value.                                             |
-| `maxValue`           | `number` (optional) | Maximum numeric value.                                             |
-| `pattern`            | `string` (optional) | Regular expression pattern for validation.                         |
-| `minTime`            | `string` (optional) | Minimum time selection.                                            |
-| `maxTime`            | `string` (optional) | Maximum time selection.                                            |
-| `customErrorMessage` | `string` (optional) | Custom error message for validation failures.                      |
-| `match`              | `string` (optional) | Field that must match another field (e.g., password confirmation). |
-
-### `ErrorMessagesConfig`
-
-| Property    | Type                | Description                                  |
-| ----------- | ------------------- | -------------------------------------------- |
-| `required`  | `string` (optional) | Custom error message for required fields.    |
-| `minLength` | `string` (optional) | Custom error message for minimum length.     |
-| `maxLength` | `string` (optional) | Custom error message for maximum length.     |
-| `minValue`  | `string` (optional) | Custom error message for minimum value.      |
-| `maxValue`  | `string` (optional) | Custom error message for maximum value.      |
-| `pattern`   | `string` (optional) | Custom error message for pattern validation. |
-| `minTime`   | `string` (optional) | Custom error message for minimum time.       |
-| `maxTime`   | `string` (optional) | Custom error message for maximum time.       |
-| `match`     | `string` (optional) | Custom error message for field matching.     |
-
-### `FileConfig`
-
-| Property       | Type                  | Description                                                            |
-| -------------- | --------------------- | ---------------------------------------------------------------------- |
-| `allowedTypes` | `string[]` (optional) | List of allowed file types (e.g., `['image/png', 'application/pdf']`). |
-
-### `TextAreaConfig`
-
-| Property         | Type              | Description                                     |
-| ---------------- | ----------------- | ----------------------------------------------- |
-| `rows`           | `number`          | Number of rows in the textarea.                 |
-| `toolbarOptions` | `ToolbarOption[]` | List of formatting options for the text editor. |
-| `modules`        | `any` (optional)  | Additional editor configurations.               |
-
 ### `ToolbarOption`
 
 | Property | Type    | Description |
 | -------- | ------- | ----------- | ----------- | ------------------- | ------------------------------------------- | ------------ | ------------ | ------------ | -------- | ------ | -------- | -------- | ----------- | ------ | ------ | ------- | ------ | ------- | ------- | -------- | ---------------------------------- |
 | `type`   | `'bold' | 'italic'    | 'underline' | 'strike'            | 'color'                                     | 'background' | 'blockquote' | 'code-block' | 'header' | 'list' | 'script' | 'indent' | 'direction' | 'size' | 'font' | 'align' | 'link' | 'image' | 'video' | 'clean'` | Type of toolbar formatting option. |
 | `value`  | `string | number      | string[]    | boolean` (optional) | Configuration value for the toolbar option. |
-
-### `StyleConfig`
-
-| Property       | Type                                   | Description                         |
-| -------------- | -------------------------------------- | ----------------------------------- |
-| `class`        | `string` (optional)                    | CSS class for custom styling.       |
-| `inlineStyles` | `{ [key: string]: string }` (optional) | Inline styles applied to the field. |
 
 ### `OptionConfig`
 
@@ -839,6 +790,8 @@ This Angular form component provides a dynamic and configurable form system with
 | `label`  | `string`     | Display label for the option. |
 | `value`  | `string      | number                        | boolean`                                             | The value associated with the option. |
 | `status` | `'available' | 'booked'` (optional)          | Indicates whether the option is available or booked. |
+
+---
 
 # NavBar Properties
 

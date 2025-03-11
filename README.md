@@ -1014,8 +1014,6 @@ nextIcon?: string;
 
 ---
 
-🚀 Happy Coding! 🚀
-
 # Examples:
 
 Showing the table.

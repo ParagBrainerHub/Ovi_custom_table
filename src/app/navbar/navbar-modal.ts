@@ -1,4 +1,3 @@
-// import { CarouselButtonsConfig } from "../image-carousel/image-carousel.modal";
 import { ButtonConfig } from '../button-component/button.model';
 
 export interface NavBarConfig {

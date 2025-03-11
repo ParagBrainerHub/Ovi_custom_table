@@ -1,25 +1,3 @@
-// export interface ButtonConfig {
-//   text?: string;
-//   icon?: string;
-//   showIcon?: boolean;
-//   iconPosition?: 'left' | 'center' | 'right' | 'full' | 'top';
-//   onClick?: (row: any) => void;
-//   shape?: 'circle' | 'square' | 'rectangle';
-//   corners?: 'rounded' | 'squared';
-//   transparent?: boolean;
-//   foreground?: string;
-//   background?: string;
-//   shadow?: boolean;
-//   textAlign?: 'left' | 'center' | 'right';
-//   validate?: () => boolean;
-//   primaryColor?: string;
-//   border?: boolean;
-//   secondaryColor?: string;
-// }
-
-// Common properties that are always optional
-// In button.model.ts
-
 export interface MenuItem {
   label: string;
   url?: string;
@@ -45,8 +23,6 @@ export interface ButtonConfig {
   navigate?: boolean;
   action?: () => void;
   url?: string;
-  primaryColor?: string;
-  secondaryColor?: string;
   onClick?: (row: any) => void;
   validate?: () => boolean;
   textAlign?: 'left' | 'center' | 'right';

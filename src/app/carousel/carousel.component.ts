@@ -31,16 +31,16 @@ export class CarouselComponent implements AfterViewInit {
       modules: [Navigation, Pagination, Autoplay],
       slidesPerView: 1,
       spaceBetween: 10,
-      // loop: this.loop,
-      // speed: this.speed,
-      // autoplay: this.autoplay
-      //   ? {
-      //       delay: 3000,
-      //       disableOnInteraction: false,
-      //       pauseOnMouseEnter: true,
-      //       waitForTransition: true,
-      //     }
-      //   : false,
+      loop: this.loop,
+      speed: this.speed,
+      autoplay: this.autoplay
+        ? {
+            delay: 3000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+            waitForTransition: true,
+          }
+        : false,
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',

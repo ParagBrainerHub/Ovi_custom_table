@@ -6,6 +6,7 @@ import { CommonModule, Location } from '@angular/common';
 import { NavigationExtras, Router } from '@angular/router';
 import { AdminManageContactsTableService } from '../admin-manage-contacts-table/admin-manage-contacts-table.service';
 import { v4 as uuidv4 } from 'uuid';
+import { ContactForm } from './manage-contacts-form.model';
 @Component({
   selector: 'app-manage-contacts-form',
   standalone: true,
@@ -15,7 +16,7 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class ManageContactsFormComponent {
   @ViewChild(FormComponentComponent) formComponent!: FormComponentComponent;
-  contactData;
+  contactData: ContactForm | null = null;
   constructor(
     private router: Router,
     private contactsService: AdminManageContactsTableService,
@@ -25,6 +26,7 @@ export class ManageContactsFormComponent {
     if (navigation?.extras.state?.['contactData']) {
       try {
         this.contactData = JSON.parse(navigation.extras.state['contactData']);
+        console.log('this.contactData: ', this.contactData);
       } catch (error) {
         console.error('Error parsing contactData:', error);
       }
@@ -234,7 +236,7 @@ export class ManageContactsFormComponent {
     }
   }
 
-  onSave(event: any) {
+  onSave(event: ContactForm) {
     let newContact = { ...event };
     if (!event.id || event.id === '' || event.id === null) {
       console.log('Generating new ID');

@@ -99,7 +99,7 @@ export class AdminManageContactsTableComponent implements OnInit {
     });
   }
 
-  handleEditActionClicked(editObj: any) {
+  handleEditActionClicked(editObj: Contact) {
     const navigationExtras: NavigationExtras = {
       state: { contactData: JSON.stringify(editObj) },
     };

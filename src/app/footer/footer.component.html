@@ -1,42 +1,152 @@
-<div class="footer-content">
-  <!-- <div class="main-div" style="background-color: gray;  display: flex; justify-content: space-around;">
-    <div>
-      <p>Subscribe to our newsletter</p>
-      <p>Be the first one to know about discounts, offers and events</p>
-    </div>
-    <div>
-      <p>Need to show the Subscribe Popup</p>
-    </div>
-  </div> -->
-  <div class="columns" style="display: flex; justify-content: space-around;"
-    [ngClass]="{'single-column': footerConfig.columns.length === 1, 'double-column': footerConfig.columns.length === 2}">
-    <!-- column section -->
-    <div class="column" *ngFor="let column of footerConfig.columns">
-      <h3 *ngIf="column.title">{{ column.title }}</h3>
-      <p *ngIf="column.description">{{ column.description }}</p>
-      <!-- <button *ngIf="column.buttonText" mat-button style="color: white;">{{
-        column.buttonText }}</button> -->
-      <app-custom-button *ngIf="column.buttonText" [text]="column.buttonText" [shape]="'rectangle'"
-        [corners]="'rounded'" [foreground]="'white'" [background]="'#007bff'" [shadow]="true"></app-custom-button>
-      <p *ngIf="column.lineText" [innerHTML]="column.lineText | safeHtml"></p>
-      <div class="icon-buttons" *ngIf="column.iconButtons">
-        <a *ngFor="let iconButton of column.iconButtons" [href]="iconButton.url" target="_blank">
-          <mat-icon>{{ iconButton.icon }}</mat-icon>
-        </a>
+<div [ngStyle]="footerConfig.footerContainerstyle" class="footer-content">
+  <div class="pageContainer">
+    <div class="footer-container">
+      <div *ngIf="footerConfig.isSubscribeShow" class="top-section">
+        <div class="top-section_content">
+          <h2>{{ footerConfig.subscribeText }}</h2>
+          <p>{{ footerConfig.subscribeDesc }}</p>
+        </div>
+        <div class="top-section_buttons">
+          <button
+            class="top-section_subs_button"
+            (click)="subscribeModal.openModal()"
+          >
+            {{ footerConfig.subscribeButton }}
+          </button>
+          <button
+            class="top-section_contctus_button"
+            (click)="contactUsModal.openModal()"
+          >
+            {{ footerConfig.contactusButton }}
+          </button>
+        </div>
       </div>
-    </div>
 
-    <!-- iframe section -->
-    <div class="iframe-container" *ngIf="footerConfig.iframeUrl">
-      <iframe [src]="footerConfig.iframeUrl | safeUrl" [width]="footerConfig.iframeWidth"
-        [height]="footerConfig.iframeHeight"></iframe>
-    </div>
-  </div>
+      <div class="middle-section">
+        <div class="logo-section">
+          <img [src]="footerConfig.logoUrl" alt="Logo" />
+          <p>{{ footerConfig.description }}</p>
+        </div>
+        <div class="links-section">
+          <h4>Use Full Links</h4>
 
-  <hr>
+          <div *ngFor="let link of footerConfig.usefulLinks">
+            <a [href]="link.url">{{ link.name }}</a>
+          </div>
+        </div>
+        <div class="contact-section">
+          <h4>Get in Touch</h4>
+          <p>
+            <a
+              [href]="
+                'https://www.google.com/maps?q=' + footerConfig.contact.address
+              "
+              target="_blank"
+              class="icon-text"
+            >
+              <mat-icon>location_on</mat-icon
+              ><span> {{ footerConfig.contact.address }}</span>
+            </a>
+          </p>
 
-  <!-- Bottom bar -->
-  <!-- <div class="bottom-bar" [style.backgroundColor]="footerConfig.bottomBar?.backgroundColor || 'rgba(0, 0, 0, 0.8)'"
+          <p>
+            <a
+              [href]="'mailto:' + footerConfig.contact.email"
+              class="icon-text"
+            >
+              <mat-icon>email</mat-icon
+              ><span> {{ footerConfig.contact.email }}</span>
+            </a>
+          </p>
+
+          <p>
+            <a [href]="'tel:' + footerConfig.contact.phone" class="icon-text">
+              <mat-icon>phone</mat-icon>
+              <span>{{ footerConfig.contact.phone }}</span>
+            </a>
+          </p>
+        </div>
+      </div>
+      <ng-container class="iframe-container" *ngIf="footerConfig.iframeUrl">
+        <iframe
+          [src]="footerConfig.iframeUrl | safeUrl"
+          [width]="footerConfig.iframeWidth"
+          [height]="footerConfig.iframeHeight"
+        ></iframe>
+      </ng-container>
+      <div
+        class="bottom-bar"
+        [style.backgroundColor]="footerConfig.bottomBar?.backgroundColor"
+        [style.margin]="footerConfig.bottomBar?.margin || '0px'"
+      >
+        <!-- Copyright Text on the Left -->
+        <div class="bottom-bar-text">
+          © {{ footerConfig.bottomBar?.year }}
+          {{ footerConfig.bottomBar?.company }}.
+          {{ footerConfig.bottomBar?.copyrightText }}
+        </div>
+
+        <!-- Social Icons on the Right -->
+        <div class="bottom-bar-icons">
+          <a
+            *ngFor="let icon of footerConfig.bottomBar?.icons"
+            [href]="icon.url"
+            target="_blank"
+          >
+            <img [src]="icon.icon" alt="Icon" class="bottom-bar-icon" />
+          </a>
+        </div>
+      </div>
+
+      <!-- <div
+        class="columns"
+        style="display: flex; justify-content: space-around"
+        [ngClass]="{
+          'single-column': footerConfig.columns.length === 1,
+          'double-column': footerConfig.columns.length === 2
+        }"
+      > -->
+      <!-- column section -->
+      <!-- <div class="column" *ngFor="let column of footerConfig.columns">
+          <h3 *ngIf="column.title">{{ column.title }}</h3>
+          <p *ngIf="column.description">{{ column.description }}</p>
+         
+          <app-custom-button
+            *ngIf="column.buttonText"
+            [text]="column.buttonText"
+            [shape]="'rectangle'"
+            [corners]="'rounded'"
+            [foreground]="'white'"
+            [background]="'#007bff'"
+            [shadow]="true"
+          ></app-custom-button>
+          <p
+            *ngIf="column.lineText"
+            [innerHTML]="column.lineText | safeHtml"
+          ></p>
+          <div class="icon-buttons" *ngIf="column.iconButtons">
+            <a
+              *ngFor="let iconButton of column.iconButtons"
+              [href]="iconButton.url"
+              target="_blank"
+            >
+              <mat-icon>{{ iconButton.icon }}</mat-icon>
+            </a>
+          </div>
+        </div>
+
+      </div>
+      <div class="iframe-container" *ngIf="footerConfig.iframeUrl">
+    <iframe
+      [src]="footerConfig.iframeUrl | safeUrl"
+      [width]="footerConfig.iframeWidth"
+      [height]="footerConfig.iframeHeight"
+    ></iframe>
+  </div> -->
+      <!-- <hr /> -->
+
+      <!-- Bottom bar -->
+      <!-- <div class="bottom-bar" [style.backgroundColor]="footerConfig.bottomBar?.backgroundColor || 'rgba(0, 0, 0, 0.8)'"
     [style.margin]="footerConfig.bottomBar?.margin || '0px'" [ngClass]="{
     'align-left': footerConfig.bottomBar?.align === 'left',
     'align-center': footerConfig.bottomBar?.align === 'center',
@@ -48,20 +158,45 @@
       © {{ footerConfig.bottomBar?.year }} {{ footerConfig.bottomBar?.company }}. All rights reserved.
     </span>
   </div> -->
-  <div class="bottom-bar" [style.backgroundColor]="footerConfig.bottomBar?.backgroundColor || 'rgba(0, 0, 0, 0.8)'"
-    [style.margin]="footerConfig.bottomBar?.margin || '0px'">
-
-    <!-- Copyright Text on the Left -->
-    <div class="bottom-bar-text">
-      © {{ footerConfig.bottomBar?.year }} {{ footerConfig.bottomBar?.company }}. {{
-      footerConfig.bottomBar?.copyrightText }}
-    </div>
-
-    <!-- Social Icons on the Right -->
-    <div class="bottom-bar-icons">
-      <a *ngFor="let icon of footerConfig.bottomBar?.icons" [href]="icon.url" target="_blank">
-        <img [src]="icon.icon" alt="Icon" class="bottom-bar-icon" />
-      </a>
     </div>
   </div>
 </div>
+<!-- </div> -->
+
+<!-- subscriptionModal -->
+
+<!-- <div *ngIf="isContactusModalOpen" class="modal-container">
+  <button mat-icon-button class="close-button" (click)="closeContactModal()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <div class="input-container">
+    <app-form-component
+      [formConfig]="contactFormConfig"
+      (submitClicked)="onContactFormSubmit($event)"
+    ></app-form-component>
+  </div>
+</div>
+<div *ngIf="isSubscriptionModalOpen" class="modal-container">
+  <button
+    mat-icon-button
+    class="close-button"
+    (click)="closeSubscriptionModal()"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+  <div class="input-container">
+    <app-form-component
+      [formConfig]="subscribeFormConfig"
+      (submitClicked)="onSubscribeFormSubmit($event)"
+    ></app-form-component>
+  </div>
+</div> -->
+
+<app-subscribe
+  #subscribeModal
+  [formConfig]="subscribeFormConfig"
+></app-subscribe>
+<app-contact-us
+  #contactUsModal
+  [formConfig]="contactFormConfig"
+></app-contact-us>

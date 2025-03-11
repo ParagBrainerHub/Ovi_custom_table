@@ -2,9 +2,11 @@ import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
@@ -29,7 +31,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { TableColumn, TableConfig } from './material-table-column.model';
 import { MatIconModule } from '@angular/material/icon';
 import { PaginationComponent } from '../pagination/pagination.component';
-import { ButtonConfig } from '../modals';
+import { ButtonConfig } from '../button-component/button.model';
 // import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
@@ -60,7 +62,8 @@ import { ButtonConfig } from '../modals';
 export class CustomMaterialTableComponent implements OnInit, OnChanges {
   @Input() config!: TableConfig;
   @Input() data: any[] = [];
-
+  @Output() actionEditClicked: EventEmitter<any> = new EventEmitter();
+  @Output() actionDeleteClicked: EventEmitter<any> = new EventEmitter();
   tableStyle: any = {};
   buttonStyle: any = {};
 
@@ -111,14 +114,14 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     console.log(this.config, 'config123456789');
+    console.log('data: ', this.data);
+    var filteredData = this.data.map(
+      (user) =>
+        Object.fromEntries(
+          Object.keys(user).map((key) => [key, user[key]])
+        ) as Record<string, any>
+    );
 
-    var filteredData = this.data.map((user) => ({
-      name: user.name,
-      role: user.role,
-      email: user.email,
-      imageUrl: user.imageUrl,
-      videoUrl: user.videoUrl,
-    }));
     this.dataSource = new MatTableDataSource(filteredData);
     this.initializeColumns();
 
@@ -225,6 +228,8 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
   }
 
   ngAfterViewInit() {
+    console.log('this.config: ', this.config);
+    console.log('data: ', this.data);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.filterAllignment = this.config.filterAlignment;
@@ -238,6 +243,11 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    if (changes['data'] && changes['data'].currentValue) {
+      // Jab bhi data update ho, table ko refresh karna
+      this.updateTableData();
+    }
+
     if (this.config) {
       this.tableStyle = {
         margin: this.config.margin || '0px',
@@ -247,6 +257,17 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
         'margin-right': this.config.elementSpacing || '0px',
       };
     }
+  }
+
+  updateTableData() {
+    var filteredData = this.data.map((user) =>
+      Object.fromEntries(Object.keys(user).map((key) => [key, user[key]]))
+    );
+
+    this.dataSource.data = filteredData;
+    this.dataSource._updateChangeSubscription();
+
+    console.log('Updated table data:', this.dataSource.data);
   }
 
   startEditing(rowIndex: number) {
@@ -312,6 +333,18 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
       this.deleteRow(element);
     } else if (action.text === 'View') {
       this.viewRow(element);
+    } else if (
+      action.icon === '✏️' ||
+      action.icon === 'edit' ||
+      action.icon === 'Edit'
+    ) {
+      this.actionEditClicked.emit(element);
+    } else if (
+      action.icon === '❌' ||
+      action.icon === 'delete' ||
+      action.icon === 'Delete'
+    ) {
+      this.actionDeleteClicked.emit(element.id);
     }
   }
 

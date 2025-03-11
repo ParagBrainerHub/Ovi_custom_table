@@ -9,8 +9,9 @@ import { CustomButtonComponent } from '../button-component/custom-button.compone
 import { CustomMaterialTableComponent } from '../custom-material-table/custom-material-table.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 // import { TableConfig } from '../custom-table/table-column.model';
-import { User } from '../app.component';
+import { User } from '../home-page/home-page.component';
 import { TableConfig } from '../custom-material-table/material-table-column.model';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-card-grid-component',
@@ -34,12 +35,16 @@ export class CardGridComponentComponent {
   @Input() isGrid?: boolean;
 
   @Input() cardConfig?: CardConfig;
+  isHovered = false;
+
+  constructor(private sanitizer: DomSanitizer) {}
 
   // @Input() config!: TableConfig;
 
   loading = true;
 
   ngOnInit() {
+    console.log('this.cardConfig: ', this.cardConfig);
     setTimeout(() => {
       this.loading = false;
     }, 2000);
@@ -49,6 +54,22 @@ export class CardGridComponentComponent {
     this.validateBodyConfig(this.cardConfig?.body);
 
     this.validateCardConfig(this.cardConfig!);
+  }
+
+  getCardStyles(styleObj: { [key: string]: string }): {
+    [key: string]: string;
+  } {
+    const baseStyles = {
+      width: '100%',
+      border: this.cardConfig?.hasBorder ? '1px solid #ccc' : 'none',
+      ...styleObj,
+    };
+
+    const hoverStyles = this.isHovered
+      ? this.cardConfig?.hoverStyles || {}
+      : {};
+
+    return { ...baseStyles, ...hoverStyles };
   }
 
   // Card Width
@@ -80,6 +101,33 @@ export class CardGridComponentComponent {
       default:
         return '';
     }
+  }
+
+  highlightText(text: string = ''): SafeHtml {
+    if (!text) return '';
+
+    const updatedText = text.replace(
+      /<span\s+color=["']?(#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})|rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)|\w+)["']?>(.*?)<\/span>/g,
+      `<span style="color: $1; font-weight: bold;">$2</span>`
+    );
+
+    return this.sanitizer.bypassSecurityTrustHtml(updatedText);
+  }
+
+  getIconsByPlacement(placement: 'left' | 'right' | 'top' | 'bottom') {
+    return (
+      this.cardConfig?.header?.icons?.filter(
+        (icon) => icon.iconPlacement === placement
+      ) || []
+    );
+  }
+
+  hasIconPlacement(position: 'left' | 'right' | 'top' | 'bottom'): boolean {
+    return (
+      this.cardConfig?.header?.icons?.some(
+        (icon) => icon.iconPlacement === position
+      ) ?? false
+    );
   }
 
   getButtonsByGroup(group: 'left' | 'right' | 'center') {

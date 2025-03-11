@@ -1,13 +1,13 @@
-// import { CarouselButtonsConfig } from "../image-carousel/image-carousel.modal";
-import { MenuItem } from '../button-component/button.model';
-import { ButtonConfig } from '../modals';
+import { ButtonConfig } from '../button-component/button.model';
 
 export interface NavBarConfig {
+  style?: Partial<CSSStyleDeclaration>;
   logo?: LogoConfig | null;
   title?: TitleConfig | null;
   buttons?: ButtonGroupConfig[];
   activeButton?: string;
   isBorderTop?: boolean;
+  isBorderBottom?: boolean;
 }
 export interface LogoConfig {
   url?: string;
@@ -23,7 +23,7 @@ export interface TitleConfig {
 export interface ButtonGroupConfig {
   position?: 'left' | 'center' | 'right';
   alignWithLogo?: boolean;
-  buttonsGroup?: NavButtonConfig[];
+  buttonsGroup?: ButtonConfig[];
 }
 
 export interface NavButtonConfig {
@@ -43,8 +43,6 @@ export interface NavButtonConfig {
   shadow?: boolean;
   border?: boolean;
   navigate?: boolean;
-  primaryColor?: string;
-  secondaryColor?: string;
   onClick?: (row: any) => void;
   validate?: () => boolean;
   menuItems?: NavButtonConfig[];

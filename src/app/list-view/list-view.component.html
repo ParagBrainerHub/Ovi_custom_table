@@ -1,0 +1,48 @@
+<div class="list-view-container">
+  <!-- Title -->
+  <ng-container [ngSwitch]="cardListConfig.listTitleTag || 'h2'">
+    <h1 *ngSwitchCase="'h1'" [ngStyle]="cardListConfig.listTitleStyles">
+      {{ cardListConfig.listTitle }}
+    </h1>
+    <h2 *ngSwitchCase="'h2'" [ngStyle]="cardListConfig.listTitleStyles">
+      {{ cardListConfig.listTitle }}
+    </h2>
+    <h3 *ngSwitchCase="'h3'" [ngStyle]="cardListConfig.listTitleStyles">
+      {{ cardListConfig.listTitle }}
+    </h3>
+    <h4 *ngSwitchCase="'h4'" [ngStyle]="cardListConfig.listTitleStyles">
+      {{ cardListConfig.listTitle }}
+    </h4>
+    <p *ngSwitchDefault [ngStyle]="cardListConfig.listTitleStyles">
+      {{ cardListConfig.listTitle }}
+    </p>
+  </ng-container>
+
+  <!-- Subtitle -->
+  <ng-container [ngSwitch]="cardListConfig.listSubtitleTag || 'p'">
+    <h1 *ngSwitchCase="'h1'" [ngStyle]="cardListConfig.listSubtitleStyles">
+      {{ cardListConfig.listSubtitle }}
+    </h1>
+    <h2 *ngSwitchCase="'h2'" [ngStyle]="cardListConfig.listSubtitleStyles">
+      {{ cardListConfig.listSubtitle }}
+    </h2>
+    <h3 *ngSwitchCase="'h3'" [ngStyle]="cardListConfig.listSubtitleStyles">
+      {{ cardListConfig.listSubtitle }}
+    </h3>
+    <h4 *ngSwitchCase="'h4'" [ngStyle]="cardListConfig.listSubtitleStyles">
+      {{ cardListConfig.listSubtitle }}
+    </h4>
+    <p *ngSwitchDefault [ngStyle]="cardListConfig.listSubtitleStyles">
+      {{ cardListConfig.listSubtitle }}
+    </p>
+  </ng-container>
+
+  <!-- List Cards -->
+  <div class="list-container" [ngStyle]="cardListConfig.listContainerStyle">
+    <div *ngFor="let cardConfig of cardListConfig.cardConfigs">
+      <app-card-list-component
+        [cardConfig]="cardConfig"
+      ></app-card-list-component>
+    </div>
+  </div>
+</div>

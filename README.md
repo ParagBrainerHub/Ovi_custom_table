@@ -2,423 +2,728 @@
 
 # Custom Table Properties
 
-key: string;
+## key
 
+- Type: string
 - Unique identifier for the column, used to bind data.
 
-title?: string;
+## title
 
+- Type: string (optional)
 - Optional title displayed as the column header.
 
-order?: number;
+## order
 
+- Type: number (optional)
 - Defines the display order of the columns.
 
-type?: 'text' | 'image' | 'video' | 'multi';
+## type
 
+- Type: 'text' | 'image' | 'video' | 'multi' (optional)
 - Specifies the content type in the column (text, image, video, or multiple).
 
-minWidth?: string;
+## minWidth
 
+- Type: string (optional)
 - Minimum width of the column.
 
-maxWidth?: string;
+## maxWidth
 
+- Type: string (optional)
 - Maximum width of the column.
 
-alignment?: 'left' | 'center' | 'right' | 'top' | 'bottom';
+## alignment
 
+- Type: 'left' | 'center' | 'right' | 'top' | 'bottom' (optional)
 - Sets the content alignment within the column (left, center, right, top, or bottom).
 
 # Table Config Properties
 
-isHeader: boolean;
+## isHeader
 
+- Type: boolean
 - Determines if the table's header should be displayed.
 
-columns: TableColumn[];
+## columns
 
+- Type: TableColumn[]
 - List of column configurations defined by the TableColumn interface.
 
-itemsPerPage: number;
+## tableTitle
 
+- Type: string (optional)
+- Title displayed for the table.
+
+## currentPage
+
+- Type: number
+- The current page being displayed in the table.
+
+## itemsPerPage
+
+- Type: number
 - Number of items displayed per page.
 
-maxItemsOptions: number[];
+## maxItemsOptions
 
+- Type: number[]
 - Array of options for the maximum number of items per page.
 
-buttons?: { [key: string]: () => void };
+## buttons
 
+- Type: { [key: string]: () => void } (optional)
 - Object that defines custom actions triggered by specific buttons.
 
-editableColumns?: string[];
+## editableColumns
 
+- Type: string[] (optional)
 - List of columns that are editable in the table.
 
-actions?: ButtonConfig[];
+## actions
 
+- Type: ButtonConfig[]
 - Array of ButtonConfig objects to define actions like Edit, Delete, etc.
 
-rowHeight?: string;
+## rowHeight
 
+- Type: string (optional)
 - Custom height of each row in the table.
 
-maxRowHeight?: string;
+## maxRowHeight
 
+- Type: string (optional)
 - Maximum height allowed for each row.
 
-columnAlignments?: any;
+## margin
 
-- Custom alignment configurations for columns.
-
-filterWidth?: string;
-
-- Width of the filter input field.
-
-filterAlignment?: 'left' | 'center' | 'right';
-
-- Alignment of the filter input (left, center, right).
-
-showFilter: boolean;
-
-- Controls the visibility of the filter input.
-
-margin : string;
-
+- Type: string (optional)
 - Space between the table and its surroundings.
 
-elementSpacing : string;
+## elementSpacing
 
+- Type: string (optional)
 - Space between elements inside a table cell (e.g., buttons).
 
-# Material Table Properties
+## columnAlignments
 
-key: string;
+- Type: any (optional)
+- Custom alignment configurations for columns.
 
-- Unique identifier for the column, used to bind data.
+## filterWidth
 
-title?: string;
+- Type: string (optional)
+- Width of the filter input field.
 
-- Optional title to be displayed in the table header.
+## filterAlignment
 
-order?: number;
+- Type: 'left' | 'center' | 'right' (optional)
+- Alignment of the filter input (left, center, right).
 
-- Determines the display order of the column.
+## showFilter
 
-type?: 'text' | 'image' | 'video' | 'multi';
-
-- Specifies the content type of the column (text, image, video, or multiple types).
-
-minWidth?: string;
-
-- Minimum width for the column.
-
-maxWidth?: string;
-
-- Maximum width for the column.
-
-alignment?: 'left' | 'center' | 'right' | 'top' | 'bottom';
-
-- Defines content alignment in the column (left, center, right, top, or bottom).
+- Type: boolean
+- Controls the visibility of the filter input.
 
 # Button Config Properties
 
-text: string;
+## id
 
+- Type: string (optional)
+- Unique identifier for the button.
+
+## text
+
+- Type: string (optional)
 - Text label to be displayed on the button.
 
-icon?: string;
+## icon
 
-- Optional icon name to be displayed on the button.
+- Type: string (optional)
+- Icon name to be displayed on the button.
 
-showIcon?: boolean;
+## group
 
+- Type: 'left' | 'right' (optional)
+- Button group alignment (left or right).
+
+## align
+
+- Type: 'left' | 'center' | 'right' (optional)
+- Alignment of the button within its container.
+
+## showIcon
+
+- Type: boolean (optional)
 - Controls whether the icon should be visible.
 
-iconPosition?: 'left' | 'center' | 'right' | 'full';
+## iconPosition
 
-- Defines the position of the icon relative to the text (left, center, right, or full with no text).
+- Type: 'left' | 'center' | 'right' | 'full' | 'top' | 'bottom' (optional)
+- Defines the position of the icon relative to the text.
 
-onClick: (row: any) => void;
+## shape
 
-- Function to be executed when the button is clicked, receiving the current row data.
+- Type: 'circle' | 'square' | 'rectangle' (optional)
+- Defines the button shape.
 
-shape?: 'circle' | 'square' | 'rectangle';
+## corners
 
-- Defines the button shape (circle, square, or rectangle).
-
-corners?: 'rounded' | 'squared';
-
+- Type: 'rounded' | 'squared' (optional)
 - Determines whether the button has rounded or squared corners.
 
-transparent?: boolean;
+## transparent
 
+- Type: boolean (optional)
 - Indicates if the button background should be transparent.
 
-foreground?: string;
+## width
 
-- Sets the text or icon color (foreground color).
+- Type: string (optional)
+- Width of the button.
 
-background?: string;
+## backgroundColor
 
+- Type: string (optional)
 - Sets the button's background color.
 
-shadow?: boolean;
+## foregroundColor
 
+- Type: string (optional)
+- Sets the text or icon color.
+
+## borderColor
+
+- Type: string (optional)
+- Sets the button's border color.
+
+## hasBorder
+
+- Type: boolean
+- Controls whether the button has a border.
+
+## shadow
+
+- Type: boolean (optional)
 - Specifies if a shadow should be applied to the button.
 
-textAlign?: 'left' | 'center' | 'right';
+## navigate
 
-- Defines the alignment of the button text (left, center, or right).
+- Type: boolean (optional)
+- Indicates if clicking the button should navigate to a URL.
 
-validate?: () => boolean;
+## action
 
-- Optional function to validate the button's state before action.
+- Type: () => void (optional)
+- Function to be executed when the button is clicked.
 
-# Card Properties
+## url
 
-header
+- Type: string (optional)
+- URL to navigate to when button is clicked (if navigate is true).
 
-- title: Title text displayed in the card's header.
+## onClick
 
-      align: 'left' | 'center' | 'right';
-      align: Alignment of the title in the header (left, center, or right).
+- Type: (row: any) => void (optional)
+- Function to be executed when the button is clicked, receiving the current row data.
 
-      buttonsAlign: 'left' | 'center' | 'right';
-      buttonsAlign: Alignment of buttons in the header (left, center, or right).
+## validate
 
-      buttons?: ButtonConfig[];
-      buttons: Optional array of ButtonConfig objects for buttons in the header.
+- Type: () => boolean (optional)
+- Function to validate the button's state before action.
 
-layout?: 'grid' | 'list';
+## textAlign
 
-- Defines the layout of the card.
+- Type: 'left' | 'center' | 'right' (optional)
+- Defines the alignment of the button text.
 
-  - grid: Displays the card in a grid layout.
+## menuItems
 
-  - list: Displays the card in a list layout.
+- Type: ButtonConfig[] (optional)
+- Array of button configurations for dropdown menu items.
 
-width?: number;
+## isMenuButton
 
-- Specifies the width of the card.
+- Type: boolean (optional)
+- Indicates if the button displays a dropdown menu.
 
-body
--> type: 'text' | 'text+buttons' | 'table';.
+## class
 
-- type: Defines the type of content in the card body (text, text with buttons, or a table).
+- Type: string (optional)
+- Additional CSS class names to apply to the button.
 
-      align: 'left' | 'center' | 'right';
-      align: Alignment of the content in the body (left, center, or right).
+## isPillButton
 
-      content: string;
-      content: Text content displayed in the body.
+- Type: boolean (optional)
+- Indicates if the button should be styled as a pill (fully rounded rectangle).
 
-      buttons?: ButtonConfig[];
-      buttons: Optional array of ButtonConfig objects for buttons in the body.
+## customStyles
 
-footer
--> type: 'text' | 'buttons';
+- Type: { [key: string]: string } (optional)
+- Object containing custom CSS styles to apply to the button.
 
-- type: Specifies whether the footer contains text or buttons.
+# Card Component Properties
 
-      buttons?: ButtonConfig[];
-      buttons: Optional array of ButtonConfig objects for buttons in the footer.
+The card component system supports both individual cards and collections (grid/list layouts). Here's a complete guide to configuring cards using the available properties.
 
-- align?: 'left' | 'center' | 'right' | 'multi-column';
-  - left: Aligns footer content to the left.
-  - center: Centers footer content.
-  - right: Aligns footer content to the right.
-  - multi-column: Aligns footer content in a multi-column layout.
+## Card Collection Configurations
 
-Image:
+### CardGridConfig
 
-- position?: 'background' | 'top-half' | 'middle' | 'bottom-half' | 'square-under-title' | 'rectangle-under-title' | 'dark-background-title';
+A configuration for displaying multiple cards in a grid layout.
 
-  - Defines the position and style of the image within the card:
+#### gridTitle
 
-    > background: The image is used as the card's background.
+- Type: string (optional)
+- Title displayed above the grid of cards.
 
-    > top-half: The image occupies the top half of the card.
+#### gridTitleTag
 
-    > middle: The image is centered vertically in the card.
+- Type: 'h1' | 'h2' | 'h3' | 'h4' | 'p' (optional)
+- HTML tag used for the grid title.
 
-    > bottom-half: The image occupies the bottom half of the card.
+#### gridTitleStyles
 
-    > square-under-title: A square image placed below the card's title.
+- Type: { [key: string]: string } (optional)
+- Custom CSS styles applied to the grid title.
 
-    > rectangle-under-title: A rectangular image placed below the card's title.
+#### gridSubtitle
 
-    > dark-background-title: The image serves as a darkened background with the -title overlaid.
+- Type: string (optional)
+- Subtitle displayed below the grid title.
 
-  src?: string;
+#### gridSubtitleTag
 
-  - The source URL of the image to be displayed in the card.
+- Type: 'h1' | 'h2' | 'h3' | 'h4' | 'p' (optional)
+- HTML tag used for the grid subtitle.
 
-  hoverEffect?: boolean;
+#### gridSubtitleStyles
 
-  - Determines whether a hover effect is applied to the image.
+- Type: { [key: string]: string } (optional)
+- Custom CSS styles applied to the grid subtitle.
 
-    > true: Enables hover effects like zoom or fade.
+#### layoutType
 
-    > false: No hover effect.
+- Type: 'grid'
+- Specifies that this configuration is for a grid layout.
 
-  title?: string;
+#### gridContainerStyle
 
-  - Optional title displayed over or near the image.
+- Type: { [key: string]: string } (optional)
+- Custom CSS styles applied to the grid container.
 
-  description?: string;
+#### cardConfigs
 
-  - Optional description text associated with the image.
+- Type: CardConfig[]
+- Array of card configurations to be displayed in the grid.
 
-Content:
+### CardListConfig
 
-description?: string;
+A configuration for displaying multiple cards in a list layout.
 
-- Additional descriptive text content for the card.
+#### listTitle
 
-customHtml?: string;
+- Type: string (optional)
+- Title displayed above the list of cards.
 
-- Custom HTML content that can be embedded in the card.
+#### listTitleTag
 
-details?: { align?: 'left' | 'center' | 'right' | 'multi-column'; columns?: 1 | 2 | 3; rows?: 1 | 2 | 3; content?: { text?: string; icon?: string; }[][]; };
+- Type: 'h1' | 'h2' | 'h3' | 'h4' | 'p' (optional)
+- HTML tag used for the list title.
 
-- details: A nested structure for detailed content.
+#### listTitleStyles
 
-  - align: Defines the alignment of the detailed content (left, center, right, or multi-column).
-  - columns: Number of columns for the details (1, 2, or 3).
-  - rows: Number of rows for the details (1, 2, or 3).
-  - content: A 2D array of objects, each containing:
+- Type: { [key: string]: string } (optional)
+- Custom CSS styles applied to the list title.
 
-    > text: Text content.
+#### listSubtitle
 
-    > icon: Icon associated with the text.
+- Type: string (optional)
+- Subtitle displayed below the list title.
+
+#### listSubtitleTag
+
+- Type: 'h1' | 'h2' | 'h3' | 'h4' | 'p' (optional)
+- HTML tag used for the list subtitle.
+
+#### listSubtitleStyles
+
+- Type: { [key: string]: string } (optional)
+- Custom CSS styles applied to the list subtitle.
+
+#### layoutType
+
+- Type: 'list'
+- Specifies that this configuration is for a list layout.
+
+#### listContainerStyle
+
+- Type: { [key: string]: string } (optional)
+- Custom CSS styles applied to the list container.
+
+#### cardConfigs
+
+- Type: CardConfig[]
+- Array of card configurations to be displayed in the list.
+
+## Individual Card Configuration (CardConfig)
+
+### dynamicComponents
+
+- Type: DynamicComponentConfig[] (optional)
+- Array of dynamic components to be rendered within the card.
+
+### iframeUrl
+
+- Type: string (optional)
+- URL to be loaded in an iframe within the card.
+
+### iframeHeight
+
+- Type: string (optional)
+- Height of the iframe within the card.
+
+### iframeWidth
+
+- Type: string (optional)
+- Width of the iframe within the card.
+
+### layout
+
+- Type: 'grid' | 'list' (optional)
+- Layout style of the individual card.
+
+### width
+
+- Type: number (optional)
+- Width of the card.
+
+### imageAlignment
+
+- Type: 'left' | 'right' (optional)
+- Alignment of images within the card.
+
+### sectionWidths
+
+- Type: [number, number] (optional)
+- Widths of different sections within the card.
+
+### hasBorder
+
+- Type: boolean (optional)
+- Whether the card has a border.
+
+### customStyles
+
+- Type: { [key: string]: string } (optional)
+- Custom CSS styles applied to the card.
+
+### hoverStyles
+
+- Type: { [key: string]: string } (optional)
+- Custom CSS styles applied to the card on hover.
+
+### cardActions
+
+- Type: { icon: string; text: string; }[] (optional)
+- Array of action items (with icons and text) displayed in the card.
+
+### header
+
+Card header configuration containing title, description, buttons, and icons.
+
+#### header.headerStyles
+
+- Type: { [key: string]: string } (optional)
+- Custom CSS styles applied to the header section.
+
+#### header.title
+
+- Type: string
+- Title text displayed in the card's header.
+
+#### header.titleTag
+
+- Type: 'h1' | 'h2' | 'h3' | 'h4' | 'p' (optional)
+- HTML tag used for the title.
+
+#### header.titleStyles
+
+- Type: { [key: string]: string } (optional)
+- Custom CSS styles applied to the title.
+
+#### header.titleAlign
+
+- Type: 'left' | 'center' | 'right' (optional)
+- Alignment of the title within the header.
+
+#### header.description
+
+- Type: Array of description objects (optional)
+- Array of description elements to be displayed in the header.
+  - **descriptionText**: Text content for the description.
+  - **descriptionTag**: HTML tag for the description ('h1' | 'h2' | 'h3' | 'h4' | 'p').
+  - **descriptionStyles**: Custom CSS styles for the description.
+  - **descriptionAlign**: Alignment of the description ('left' | 'center' | 'right').
+
+#### header.buttonsAlign
+
+- Type: 'left' | 'center' | 'right' (optional)
+- Alignment of buttons within the header.
+
+#### header.buttons
+
+- Type: ButtonConfig[] (optional)
+- Array of button configurations for the header.
+
+#### header.icons
+
+- Type: Array of icon objects (optional)
+- Icons to be displayed in the header.
+  - **icon**: Icon identifier string.
+  - **iconStyles**: Custom CSS styles for the icon.
+  - **iconPlacement**: Position of the icon ('left' | 'right' | 'top' | 'bottom').
+
+### imagebackgroundShapes
+
+- Type: Array of shape objects (optional)
+- Background shapes to be displayed behind images.
+  - **type**: Shape type ('rectangle' | 'oval' | 'circle' | 'square' | 'triangle' | 'hexagon' | 'pentagon').
+  - **position**: Position of the shape ('top-left' | 'top-right' | 'bottom-left' | 'bottom-right').
+  - **styles**: Custom CSS styles for the shape.
+
+### listForegroundImages
+
+- Type: Array of image objects (optional)
+- Foreground images to be displayed in list layouts.
+  - **src**: Image source URL.
+  - **position**: Position of the image ('top-left' | 'top-right' | 'bottom-left' | 'bottom-right').
+  - **img-class**: CSS class for the image.
+  - **imgStyles**: Custom CSS styles for the image.
+
+### image
+
+- Type: Object (optional)
+- Main image configuration for the card.
+  - **position**: Position and style of the image ('background' | 'top-half' | 'middle' | 'bottom-half' | 'square-under-title' | 'rectangle-under-title' | 'dark-background-title').
+  - **src**: Source URL of the image.
+  - **hoverEffect**: Whether to apply hover effects to the image.
+  - **title**: Optional title for the image.
+  - **description**: Optional description for the image.
+
+### body
+
+- Type: Object (optional)
+- Configuration for the card body.
+  - **type**: Type of content in the body ('text' | 'text+buttons' | 'table').
+  - **align**: Alignment of the content ('left' | 'center' | 'right').
+  - **content**: Text content displayed in the body.
+  - **buttons**: Array of button configurations for the body.
+
+### content
+
+- Type: Object (optional)
+- Additional content configuration.
+  - **description**: Additional descriptive text.
+  - **customHtml**: Custom HTML content.
+  - **details**: Structured detailed content.
+    - **align**: Alignment of details ('left' | 'center' | 'right' | 'multi-column').
+    - **columns**: Number of columns (1 | 2 | 3).
+    - **rows**: Number of rows (1 | 2 | 3).
+    - **content**: 2D array of content objects with text and icons.
+
+### footer
+
+- Type: Object (optional)
+- Configuration for the card footer.
+  - **type**: Type of footer content ('text' | 'buttons').
+  - **buttons**: Array of button configurations for the footer.
+  - **text**: Text content for the footer.
+  - **align**: Alignment of the footer content ('left' | 'center' | 'right' | 'multi-column').
+
+## DynamicComponentConfig
+
+Configuration for dynamic components that can be inserted into cards.
+
+### dynamicComponent
+
+- Type: Type<any>
+- Angular component type to be dynamically loaded.
+
+### dynamicComponentConfig
+
+- Type: { [key: string]: any } (optional)
+- Configuration object passed to the dynamic component.
 
 # User Properties
 
-id: number;
+## id
 
+- Type: number
 - Unique identifier for the user.
 
-name: string;
+## name
 
+- Type: string
 - Name of the user.
 
-email: string;
+## email
 
+- Type: string
 - Email address of the user.
 
-role: string;
+## role
 
+- Type: string
 - Role or designation of the user (e.g., Admin, User).
 
-imageUrl?: string;
+## imageUrl
 
-- Optional URL for the user's profile image.
+- Type: string (optional)
+- URL for the user's profile image.
 
-videoUrl?: string;
+## videoUrl
 
-- Optional URL for the user's profile video.
+- Type: string (optional)
+- URL for the user's profile video.
 
-actions?: ButtonConfig[];
+## actions
 
-- Optional array of ButtonConfig objects for actions related to the user (e.g., Edit, Delete).
+- Type: ButtonConfig[] (optional)
+- Array of ButtonConfig objects for actions related to the user (e.g., Edit, Delete).
 
-contentItems?: { [columnKey: string]: ColumnItem[] };
+## contentItems
 
-- Optional object containing content data for each column, where the key is the column's identifier, and the value is an array of ColumnItem objects.
+- Type: { [columnKey: string]: ColumnItem[] } (optional)
+- Object containing content data for each column, where the key is the column's identifier, and the value is an array of ColumnItem objects.
 
-rowAlignments?: { [key: string]: 'left' | 'center' | 'right' };
+## rowAlignments
 
-- Optional object defining custom alignment for each key in the row (e.g., left, center, right).
+- Type: { [key: string]: 'left' | 'center' | 'right' } (optional)
+- Object defining custom alignment for each key in the row (e.g., left, center, right).
 
-imageLoading?: boolean;
+## imageLoading
 
-- Boolean flag indicating if the user's image is still loading.
+- Type: boolean (optional)
+- Flag indicating if the user's image is still loading.
 
-videoLoading?: boolean;
+## videoLoading
 
-- Boolean flag indicating if the user's video is still loading.
+- Type: boolean (optional)
+- Flag indicating if the user's video is still loading.
 
 # Footer Properties
 
 ## FooterColumn Properties
 
-title?: string;
+### title?: string;
 
 - An optional title displayed in the footer column.
 
-description?: string;
+### description?: string;
 
 - Additional descriptive text for the footer column.
 
-  buttonText?: string;
+### buttonText?: string;
 
 - The text displayed on a button in the footer column.
 
-  buttonUrl?: string;
+### buttonUrl?: string;
 
 - The URL the button redirects to when clicked.
 
-  lineText?: string;
+### lineText?: string;
 
 - Optional text displayed as a line separator or under the column content.
 
-  linkUrl?: string;
+### linkUrl?: string;
 
 - A URL associated with the line text or a link in the footer column.
 
-iconButtons?: { icon: string; url: string }[];
+### iconButtons?: { icon: string; url: string }[];
 
 - An array of icon buttons with the following properties:
-
-  - icon: The icon displayed on the button.
-  - url: The URL the button redirects to when clicked.
+  - **icon**: The icon displayed on the button.
+  - **url**: The URL the button redirects to when clicked.
 
 ## FooterConfig Properties
 
-iframeUrl?: string;
+### footerContainerstyle?: { [key: string]: string };
+
+- A CSS-compatible object to style the footer container.
+
+### isSubscribeShow: boolean;
+
+- Determines whether the subscribe section is displayed.
+
+### subscribeButton?: string;
+
+- The text displayed on the subscribe button.
+
+### subscribeDesc?: string;
+
+- A description text for the subscribe section.
+
+### subscribeText?: string;
+
+- Placeholder text for the subscribe input field.
+
+### contactusButton?: string;
+
+- The text displayed on the contact us button.
+
+### logoUrl: string;
+
+- The URL of the logo displayed in the footer.
+
+### description: string;
+
+- A brief description displayed in the footer.
+
+### usefulLinks: { name: string; url: string }[];
+
+- An array of useful links with the following properties:
+  - **name**: The text displayed for the link.
+  - **url**: The destination URL for the link.
+
+### contact:
+
+- **address**: string; - The contact address displayed in the footer.
+- **email**: string; - The contact email displayed in the footer.
+- **phone**: string; - The contact phone number displayed in the footer.
+
+### columns: FooterColumn[];
+
+- An array of footer columns containing properties defined in `FooterColumn`.
+
+### iframeUrl?: string;
 
 - URL of an embedded iframe displayed in the footer.
 
-iframeWidth?: string;
+### iframeWidth?: string;
 
-- The width of the iframe, specified as a CSS-compatible value (e.g., 100%, 500px).
+- The width of the iframe, specified as a CSS-compatible value (e.g., `100%`, `500px`).
 
-iframeHeight?: string;
+### iframeHeight?: string;
 
 - The height of the iframe, specified as a CSS-compatible value.
 
-bottomBar:
+### bottomBar?:
 
-- logoUrl: string;
-
-  - The URL of the logo displayed in the bottom bar.
-
-- copyrightText: string;
-
-  - The copyright text displayed in the bottom bar.
-
-- year: number;
-
-  - The year displayed in the bottom bar.
-
-- company: string;
-
-  - The name of the company displayed in the bottom bar.
-
-- backgroundColor: string;
-
-  - The background color of the bottom bar, specified as a CSS-compatible value.
-
-- align?: 'left' | 'center' | 'right';
-  - left: Aligns content to the left.
-  - center: Centers content.
-  - right: Aligns content to the right.
-
-margin?: string;
-
-- Optional margin around the bottom bar, specified as a CSS-compatible value (e.g., 16px, 1rem).
+- **logoUrl?**: string; - The URL of the logo displayed in the bottom bar.
+- **copyrightText?**: string; - The copyright text displayed in the bottom bar.
+- **year?**: number; - The year displayed in the bottom bar.
+- **company?**: string; - The name of the company displayed in the bottom bar.
+- **backgroundColor?**: string; - The background color of the bottom bar, specified as a CSS-compatible value.
+- **align?**: 'left' | 'center' | 'right';
+  - **left**: Aligns content to the left.
+  - **center**: Centers content.
+  - **right**: Aligns content to the right.
+- **margin?**: string;
+  - Optional margin around the bottom bar, specified as a CSS-compatible value (e.g., `16px`, `1rem`).
+- **icons?**: { icon: string; url: string }[];
+  - An array of icons displayed in the bottom bar with the following properties:
+    - **icon**: The icon displayed.
+    - **url**: The URL the icon redirects to when clicked.
 
 # Form Properties
 
@@ -586,35 +891,39 @@ inlineStyles?: { [key: string]: string };
 
 ## NavBarConfig Properties
 
-logo?: LogoConfig | null;
+### logo?
 
 - Configuration for the navbar logo, defined by the LogoConfig interface.
   If set to null, no logo will be displayed.
 
-title?: TitleConfig | null;
+### title?
 
 - Configuration for the navbar title, defined by the TitleConfig interface.
   If set to null, no title will be displayed.
 
-buttons?: ButtonGroupConfig[];
+### buttons?
 
 - Array of button group configurations, each defined by the ButtonGroupConfig interface.
 
-banner?: BannerConfig;
+### activeButton?
 
-- Configuration for the banner, defined by the BannerConfig interface.
+- The currently active button's identifier.
 
-carouselButtons?: CarouselButtonsConfig;
+### isBorderTop?
 
-- Configuration for carousel buttons, defined by the CarouselButtonsConfig interface.
+- Boolean indicating if a top border should be displayed.
+
+### isBorderBottom?
+
+- Boolean indicating if a bottom border should be displayed.
 
 ## LogoConfig Properties
 
-url?: string;
+### url?
 
 - The URL of the logo image.
 
-position?: 'left' | 'middle' | 'right';
+### position?
 
 - The position of the logo within the navbar:
   - left: Aligns the logo to the left.
@@ -623,110 +932,295 @@ position?: 'left' | 'middle' | 'right';
 
 ## TitleConfig Properties
 
-text?: string;
+### text?
 
 - The text to be displayed as the navbar's title.
 
-position?: 'left' | 'right';
+### position?
 
 - The position of the title relative to the logo:
   - left: Title appears to the left of the logo.
   - right: Title appears to the right of the logo.
 
-alignWithLogo?: boolean;
+### alignWithLogo?
 
 - true: Title and logo share the same alignment.
 - false: Independent alignment for title and logo.
 
 ## ButtonGroupConfig Properties
 
-position?: 'left' | 'center' | 'right';
+### position?
 
 - The position of the button group within the navbar:
   - left: Buttons appear on the left side.
   - center: Buttons are centered.
   - right: Buttons appear on the right side.
 
-alignWithLogo?: boolean;
+### alignWithLogo?
 
 - true: Button group alignment matches the logo.
 - false: Independent alignment for the button group.
 
-buttonsGroup?: NavButtonConfig[];
+### buttonsGroup?
 
 - Array of button configurations, each defined by the NavButtonConfig interface.
 
 ## NavButtonConfig Properties
 
-text?: string;
+### id?
+
+- A unique identifier for the button.
+
+### text?
 
 - The text displayed on the button.
 
-url?: string;
+### url?
 
 - The URL the button navigates to when clicked.
 
-subMenu?: SubMenuConfig[];
+### subMenu?
 
 - Array of submenu configurations, each defined by the SubMenuConfig interface.
 
+### type?
+
+- Defines the button type:
+  - normal
+  - primary
+  - secondary
+  - bordered
+
+### icon?
+
+- The icon displayed on the button.
+
+### showIcon?
+
+- Boolean indicating if the icon should be shown.
+
+### iconPosition?
+
+- The position of the icon:
+  - left, center, right, full, top, bottom
+
+### shape?
+
+- The shape of the button:
+  - circle, square, rectangle
+
+### corners?
+
+- The corner styling of the button:
+  - rounded, squared
+
+### transparent?
+
+- Boolean indicating if the button has a transparent background.
+
+### foreground?
+
+- The foreground color of the button.
+
+### background?
+
+- The background color of the button.
+
+### shadow?
+
+- Boolean indicating if the button has a shadow.
+
+### border?
+
+- Boolean indicating if the button has a border.
+
+### navigate?
+
+- Boolean indicating if the button triggers navigation.
+
+### onClick?
+
+- Function executed when the button is clicked.
+
+### validate?
+
+- Function executed to validate the button action.
+
+### menuItems?
+
+- Array of NavButtonConfig items representing a menu structure.
+
+### isMenuButton?
+
+- Boolean indicating if the button acts as a menu toggle.
+
 ## SubMenuConfig Properties
 
-text?: string;
+### text?
 
 - The text displayed for the submenu item.
 
-url?: string;
+### url?
 
 - The URL the submenu item navigates to when clicked.
 
-## BannerConfig Properties
+# Carousel Component
 
-position: 'top' | 'bottom' | 'middle';
+This Angular standalone component displays an image carousel using the Swiper library.
 
-- top: Displays the banner at the top.
-- bottom: Displays the banner at the bottom.
-- middle: Displays the banner in the middle.
+## Configuration
 
-slideshow?: boolean;
+The component accepts an `@Input()` property `config`, which allows customization of carousel behavior.
 
-- true: Activates slideshow mode.
-- false: Static images.
+### Config Properties
 
-imageSrc?: string[];
+#### images (array of objects)
 
-- Array of image URLs used in the banner.
+- An array of image objects to be displayed in the carousel.
 
-width?: 'specific' | 'full';
+##### Image Object Properties:
 
-- specific: Banner width is constrained by content or specified dimensions.
-- full: Banner spans the full width of the navbar.
+- **src** (`string`)
 
-iframeUrl?: string;
+  - URL of the image.
 
-- URL for embedding content in an iframe within the banner.
+- **badgeIcon** (`string`)
 
-iframeWidth?: string;
+  - URL of the badge icon displayed on the slide.
 
-- Width of the iframe in the banner (e.g., "600px" or "100%").
+- **badge** (`string`)
 
-iframeHeight?: string;
+  - Badge text displayed next to the icon.
 
-- Height of the iframe in the banner (e.g., "400px" or "100%").
+- **title** (`string`)
 
-forcePagination?: boolean;
+  - Main title text displayed on the slide.
 
-- true: Enables pagination even with a small number of images.
-- false: Pagination depends on the number of images.
+- **highlightedText** (`string`)
 
-## CarouselButtonsConfig Properties
+  - Highlighted portion of the title.
 
-prevIcon?: string;
+- **description** (`string`)
 
-- Icon displayed on the "Previous" button of the carousel.
+  - Slide description text.
 
-nextIcon?: string;
--Icon displayed on the "Next" button of the carousel.
+- **buttonText** (`string`)
+  - Text of the call-to-action button.
+
+#### autoplay (`boolean`)
+
+- Enables or disables autoplay.
+- Default: `true`
+
+#### loop (`boolean`)
+
+- Enables or disables looping of slides.
+- Default: `true`
+
+#### speed (`number`)
+
+- Transition speed in milliseconds.
+- Default: `500`
+
+## Features
+
+- Supports autoplay, looping, and navigation controls.
+- Uses Angular's `@Input()` binding for dynamic configuration.
+- Fully customizable with images, text, and CTA buttons.
+
+## Navigation and Pagination
+
+- Swiper's built-in navigation (`prev` and `next` buttons) and pagination (dots) are included.
+- Navigation buttons use Angular Material icons (`chevron_left` and `chevron_right`).
+
+# Angular Calendar Component
+
+## Overview
+
+The Angular Calendar Component is a dynamic and interactive scheduling tool that allows users to book slots based on available dates and times. It provides both month and week views, with the ability to navigate between them. Users can book slots by filling out a configurable form.
+
+## Features
+
+- Month and week views for booking slots
+- Navigation between weeks and months
+- Configurable booking form
+- Validation for time slots and user inputs
+- Expandable booking details
+- Customizable UI and styles
+
+## Configuration
+
+The `formConfigForCalendar` object defines the structure of the booking form, including fields, validation, and styles.
+
+### `formConfigForCalendar` Properties
+
+| Property             | Type    | Description                                                |
+| -------------------- | ------- | ---------------------------------------------------------- |
+| `formTitle`          | string  | Title of the booking form                                  |
+| `formSubTitle`       | string  | Subtitle of the form                                       |
+| `isImageShow`        | boolean | Determines if an image should be shown in the form         |
+| `formWidth`          | number  | Width of the form in percentage                            |
+| `fields`             | array   | Contains the list of input fields with their configuration |
+| `submitButtonConfig` | object  | Configuration for the submit button                        |
+| `cancelButtonConfig` | object  | Configuration for the cancel button                        |
+
+### `fields` Array Properties
+
+Each field in the form is defined using an object with the following properties:
+
+| Property        | Type    | Description                                                                                         |
+| --------------- | ------- | --------------------------------------------------------------------------------------------------- |
+| `type`          | string  | Type of the input (e.g., `select`, `text`, `number`, `date`, `time`, `switch`, `radio`, `checkbox`) |
+| `label`         | string  | Display label for the field                                                                         |
+| `key`           | string  | Unique identifier for the field                                                                     |
+| `placeholder`   | string  | Placeholder text for the input field                                                                |
+| `width`         | number  | Width of the input field in pixels                                                                  |
+| `required`      | boolean | Whether the field is mandatory                                                                      |
+| `options`       | array   | List of selectable options (only applicable for select, radio, or checkbox fields)                  |
+| `validation`    | object  | Validation rules for the input (e.g., `minLength`, `maxLength`, `minValue`, `maxValue`)             |
+| `errorMessages` | object  | Custom error messages for validation errors                                                         |
+| `showCheckbox`  | boolean | Whether to display a checkbox next to the field                                                     |
+| `style`         | object  | Inline styles for customizing the field appearance                                                  |
+
+### `submitButtonConfig` and `cancelButtonConfig`
+
+These objects define the styling and behavior of the form buttons.
+
+| Property          | Type    | Description                              |
+| ----------------- | ------- | ---------------------------------------- |
+| `text`            | string  | Button text                              |
+| `icon`            | string  | Icon name                                |
+| `showIcon`        | boolean | Whether to show the icon                 |
+| `iconPosition`    | string  | Position of the icon (`left` or `right`) |
+| `hasBorder`       | boolean | Whether the button has a border          |
+| `foregroundColor` | string  | Text color of the button                 |
+| `backgroundColor` | string  | Background color of the button           |
+| `shadow`          | boolean | Whether the button has a shadow effect   |
+| `shape`           | string  | Button shape (`rectangle` or `rounded`)  |
+| `transparent`     | boolean | Whether the button is transparent        |
+
+## How It Works
+
+1. The component displays a calendar with two views: **Month View** and **Week View**.
+2. Users can navigate between weeks or months using the navigation buttons.
+3. Clicking on a day or time slot opens a booking form.
+4. The booking form is dynamically generated based on the `formConfigForCalendar` configuration.
+5. Users fill out the form, and the details are saved upon submission.
+6. Bookings are displayed within the respective date slots, with an edit option.
+7. Clicking on an existing booking allows users to modify the details.
+
+## UI Components
+
+- **Navigation Buttons**: Allow users to switch between weeks and months.
+- **Day and Time Slots**: Represent available slots for booking.
+- **Booking Form**: Pop-up form to enter booking details.
+- **Expandable Booking Details**: Displays detailed information for each booking.
+
+## Customization
+
+- Modify `formConfigForCalendar` to add or remove fields.
+- Update the calendar styles in `calendar.component.css`.
+- Modify booking logic in `calendar.component.ts`.
 
 # Examples:
 

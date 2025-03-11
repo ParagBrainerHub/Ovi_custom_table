@@ -1,0 +1,23 @@
+<app-custom-button
+  [text]="button.text"
+  [icon]="button.icon"
+  [showIcon]="button.showIcon"
+  [iconPosition]="button.iconPosition"
+  [shape]="button.shape"
+  [corners]="button.corners"
+  [hasBorder]="button.hasBorder"
+  [borderColor]="button.borderColor"
+  [foregroundColor]="button.foregroundColor"
+  [backgroundColor]="button.backgroundColor"
+  [transparent]="button.transparent"
+  [shadow]="button.shadow"
+  (buttonClick)="navigateToForm()"
+>
+</app-custom-button>
+
+<app-custom-material-table
+  [data]="apps"
+  [config]="tableConfig"
+  (actionEditClicked)="handleEditActionClicked($event)"
+  (actionDeleteClicked)="handleDeleteActionClicked($event)"
+></app-custom-material-table>

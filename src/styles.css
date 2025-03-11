@@ -56,15 +56,22 @@ body {
 }
 
 .pageContainer {
-  width: 100%;
+  /* width: 100%; */
   max-width: 1320px;
   margin: 0 auto;
-  padding: 0 20px;
+  /* padding: 0 20px; */
 }
 
 .mat-icon {
   font-size: 24px;
   line-height: 18px;
-  display: flex;
+  display: flex !important;
   align-items: center;
+}
+.mat-mdc-text-field-wrapper {
+  background: white;
+}
+
+.microServiceContainer {
+  max-width: 1280px;
 }

@@ -1,0 +1,72 @@
+.subscribe-modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f9dff9;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 620px;
+  text-align: center;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+}
+
+.subscribe-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: white;
+  border-radius: 50%;
+  background: purple;
+  border: none;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.subscribe-modal-title {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 50px;
+  text-align: center;
+  color: #800080;
+  max-width: 350px;
+  margin: auto;
+}
+
+.subscribe-modal-description {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  text-align: center;
+  color: #333333;
+}
+
+.subscribe-input-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.subscribe-email-input {
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  width: 60%;
+  outline: none;
+}
+
+.subscribe-button {
+  border-radius: 20px;
+  padding: 10px 20px;
+  background: purple;
+  color: white;
+  border: none;
+}

@@ -3,10 +3,14 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
+  Output,
   QueryList,
+  SimpleChanges,
   ViewChildren,
 } from '@angular/core';
 import {
@@ -76,10 +80,14 @@ export class FormComponentComponent
   readonly minDate = new Date(this._currentYear - 20, 0, 1);
   readonly maxDate = new Date(this._currentYear + 1, 11, 31);
 
-  selectedImages: string[] = [];
-  selectedFileNames: string[] = [];
+  selectedImages: Record<string, string[]> = {};
+  selectedFileNames: Record<string, string[]> = {};
 
   @Input() formConfig!: FormConfig;
+  @Output() submitClicked = new EventEmitter<any>();
+  @Output() cancelClicked = new EventEmitter<any>();
+  @Output() optionChanged = new EventEmitter<{ key: string; value: any }>();
+
   form: FormGroup = new FormGroup({});
 
   private subscriptions: Subscription[] = [];
@@ -95,6 +103,21 @@ export class FormComponentComponent
     this.buildForm();
     this.subscribeToFormChanges();
   }
+
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   console.log('changes: ', changes);
+  //   if (changes['formData'] && this.formData) {
+  //     this.patchFormData();
+  //   }
+  // }
+
+  // patchFormData() {
+  //   Object.keys(this.formData).forEach((key) => {
+  //     if (this.form.controls[key]) {
+  //       this.form.controls[key].setValue(this.formData[key]);
+  //     }
+  //   });
+  // }
 
   ngAfterViewInit() {
     // Populate pickerRefs after the view is initialized
@@ -120,6 +143,9 @@ export class FormComponentComponent
       const controlValidators = [];
       if (field.required) {
         controlValidators.push(Validators.required);
+      }
+      if (field.validation?.pattern) {
+        controlValidators.push(Validators.pattern(field.validation.pattern));
       }
       if (field.validation?.minLength) {
         controlValidators.push(
@@ -166,21 +192,21 @@ export class FormComponentComponent
         });
       }
 
+      const fieldKey = field.key || field.label;
+
       if (field.type === 'checkbox') {
-        formControls[field.label] = this.fb.array(field.value || []);
-        console.log(
-          `✅ ${field.label} is a FormArray`,
-          formControls[field.label]
-        );
-      } else {
-        const defaultValue = field.value || '';
-        formControls[field.label] = this.fb.control(
+        formControls[fieldKey] = this.fb.array(field.value || []);
+      } else if (field.disabled) {
+        const defaultValue = { value: field.value || '', disabled: true };
+        formControls[fieldKey] = this.fb.control(
           defaultValue,
           controlValidators
         );
-        console.log(
-          `✅ ${field.label} is a FormControl`,
-          formControls[field.label]
+      } else {
+        const defaultValue = field.value || '';
+        formControls[fieldKey] = this.fb.control(
+          defaultValue,
+          controlValidators
         );
       }
     });
@@ -448,7 +474,18 @@ export class FormComponentComponent
       return;
     } else {
       console.log('✅ Form Submitted Successfully!', this.form.value);
+      console.log('✅ Form Submitted Successfully!', this.form.getRawValue());
+      this.submitClicked.emit(this.form.getRawValue());
     }
+  }
+
+  onDropdownChange(fieldKey: string, event: any) {
+    const selectedValue = event.value; // User ka selected value
+    this.optionChanged.emit({ key: fieldKey, value: selectedValue }); // Parent ko value send karo
+  }
+
+  onCancel() {
+    this.cancelClicked.emit(); // Cancel ke liye empty emit
   }
 
   // Validator function:
@@ -464,9 +501,12 @@ export class FormComponentComponent
 
   //Error Messages
   getErrorMessage(field: FormFieldConfig) {
-    const control = this.form.get(field.label);
+    const control = this.form.get(field.key);
     if (control?.hasError('required')) {
-      return field.errorMessages?.required || `${field.label} is required.`;
+      return field?.errorMessages?.required || `${field.label} is required.`;
+    }
+    if (control?.hasError('pattern')) {
+      return field?.errorMessages?.pattern || `Invalid ${field.type} format`;
     }
     if (control?.hasError('minlength')) {
       return (
@@ -517,12 +557,17 @@ export class FormComponentComponent
   onFileSelect(event: Event, field: any): void {
     const input = event.target as HTMLInputElement;
     if (input.files?.length) {
-      this.selectedImages = [];
-      this.selectedFileNames = [];
+      // Ensure selectedImages exists for the specific field
+      if (!this.selectedImages[field.key]) {
+        this.selectedImages[field.key] = [];
+      }
+      if (!this.selectedFileNames[field.key]) {
+        this.selectedFileNames[field.key] = [];
+      }
 
       const files = Array.from(input.files);
       files.forEach((file) => {
-        this.selectedFileNames.push(file.name);
+        this.selectedFileNames[field.key].push(file.name);
 
         if (
           field.fileConfig.allowedTypes.includes(file.type) &&
@@ -530,8 +575,8 @@ export class FormComponentComponent
         ) {
           const reader = new FileReader();
           reader.onload = () => {
-            this.selectedImages.push(reader.result as string);
-            this.form.get(field.label)?.setValue(this.selectedImages);
+            this.selectedImages[field.key].push(reader.result as string);
+            this.form.get(field.key)?.setValue(this.selectedImages[field.key]);
           };
           reader.readAsDataURL(file);
         }
@@ -543,11 +588,11 @@ export class FormComponentComponent
 
   onCheckboxChange(
     event: MatCheckboxChange,
-    fieldLabel: string,
+    fieldKey: string,
     value: any,
     index: number
   ) {
-    const formArray = this.form.get(fieldLabel) as FormArray;
+    const formArray = this.form.get(fieldKey) as FormArray;
     console.log('formArray: ', formArray);
 
     if (event.checked) {
@@ -562,8 +607,18 @@ export class FormComponentComponent
     }
   }
 
-  removeImage(index: number) {
-    this.selectedImages.splice(index, 1);
+  removeImage(fieldKey: string, index: number): void {
+    if (this.selectedImages[fieldKey]) {
+      this.selectedImages[fieldKey].splice(index, 1);
+
+      // Also remove the corresponding file name
+      if (this.selectedFileNames[fieldKey]) {
+        this.selectedFileNames[fieldKey].splice(index, 1);
+      }
+
+      // Update form control value after removal
+      this.form.get(fieldKey)?.setValue(this.selectedImages[fieldKey]);
+    }
   }
 
   ngOnDestroy() {
@@ -573,11 +628,25 @@ export class FormComponentComponent
 
   // /////// styles //////
   getMergedStyles(field: FormFieldConfig) {
-    return {
+    const baseStyles = {
       ...(field.style?.inlineStyles || {}),
-      width: field.width ? `${field.width}px` : '150px',
-      'min-width': '100%',
+      width: field.width
+        ? typeof field.width === 'number'
+          ? `${field.width}px`
+          : field.width
+        : '300px',
+      // 'min-width': '100%',
       'max-width': '100%',
     };
+
+    // ✅ Apply height only if field is textarea
+    if (field.type === 'textarea' && field.textareaConfig?.rows) {
+      return {
+        ...baseStyles,
+        height: `${field.textareaConfig.rows * 30}px`, // Adjust height based on rows
+      };
+    }
+
+    return baseStyles;
   }
 }

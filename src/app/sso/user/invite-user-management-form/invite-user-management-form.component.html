@@ -1,0 +1,7 @@
+<div class="invite-user-form-container">
+  <app-form-component
+    (submitClicked)="onSendInvite($event)"
+    (cancelClicked)="onCancel()"
+    [formConfig]="formConfigForInviteUser"
+  ></app-form-component>
+</div>

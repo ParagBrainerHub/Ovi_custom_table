@@ -1,6 +1,11 @@
 <div class="popup-overlay" (click)="closePopup()">
-  <div class="popup-content"
-    [ngStyle]="{'background-image': 'url(' + popupConfig.backgroundImage + ')', 'background-color': popupConfig.backgroundColor}">
+  <div
+    class="popup-content"
+    [ngStyle]="{
+      'background-image': 'url(' + popupConfig.backgroundImage + ')',
+      'background-color': popupConfig.backgroundColor
+    }"
+  >
     <button class="close-button" (click)="closePopup()">×</button>
 
     <!-- Title -->
@@ -9,21 +14,34 @@
     </ng-container>
 
     <!-- Hook Message -->
-    <ng-container *ngIf="popupConfig.hookMessage && popupConfig.type === 'subscribe'">
-      <h2 class="hook-message" [ngStyle]="popupConfig.hookStyle">{{ popupConfig.hookMessage }}</h2>
+    <ng-container
+      *ngIf="popupConfig.hookMessage && popupConfig.type === 'subscribe'"
+    >
+      <h2 class="hook-message" [ngStyle]="popupConfig.hookStyle">
+        {{ popupConfig.hookMessage }}
+      </h2>
     </ng-container>
 
     <!-- Description -->
     <ng-container *ngIf="popupConfig.description">
-      <p [ngStyle]="popupConfig.descriptionStyle">{{ popupConfig.description }}</p>
+      <p [ngStyle]="popupConfig.descriptionStyle">
+        {{ popupConfig.description }}
+      </p>
     </ng-container>
 
     <!-- Email Section (for subscribe type) -->
     <ng-container *ngIf="popupConfig.type === 'subscribe'">
       <div class="email-section">
-        <input type="email" [(ngModel)]="email" placeholder="Enter your email" (blur)="validateEmail()"
-          class="email-input" />
-        <p *ngIf="!isValidEmail && emailTouched" class="error-message">Please enter a valid email address.</p>
+        <input
+          type="email"
+          [(ngModel)]="email"
+          placeholder="Enter your email"
+          (blur)="validateEmail()"
+          class="email-input"
+        />
+        <p *ngIf="!isValidEmail && emailTouched" class="error-message">
+          Please enter a valid email address.
+        </p>
       </div>
     </ng-container>
 
@@ -39,7 +57,11 @@
     <ng-container *ngIf="popupConfig.type === 'freeForm' && !useFormComponent">
       <div *ngFor="let field of popupConfig.formFields">
         <label>{{ field.label }}</label>
-        <input [type]="field.type" [(ngModel)]="field.value" [placeholder]="field.placeholder" />
+        <input
+          [type]="field.type"
+          [(ngModel)]="field.value"
+          [placeholder]="field.placeholder"
+        />
       </div>
     </ng-container>
 
@@ -47,8 +69,15 @@
     <ng-container *ngIf="popupConfig.actionButtons?.length">
       <div class="action-buttons">
         <ng-container *ngFor="let button of popupConfig.actionButtons">
-          <app-custom-button [text]="button.text" [shape]="'rectangle'" [corners]="'rounded'" [foreground]="'white'"
-            [background]="'#007bff'" [shadow]="true" (click)="button.action()">
+          <app-custom-button
+            [text]="button.text"
+            [shape]="'rectangle'"
+            [corners]="'rounded'"
+            [foregroundColor]="'white'"
+            [backgroundColor]="'#007bff'"
+            [shadow]="true"
+            (click)="button.action()"
+          >
           </app-custom-button>
         </ng-container>
       </div>

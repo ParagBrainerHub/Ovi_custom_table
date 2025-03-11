@@ -9,6 +9,20 @@ export interface FooterColumn {
 }
 
 export interface FooterConfig {
+  footerContainerstyle?: { [key: string]: string };
+  isSubscribeShow: boolean;
+  subscribeButton?: string;
+  subscribeDesc?: string;
+  subscribeText?: string;
+  contactusButton?: string;
+  logoUrl: string;
+  description: string;
+  usefulLinks: { name: string; url: string }[];
+  contact: {
+    address: string;
+    email: string;
+    phone: string;
+  };
   columns: FooterColumn[];
   iframeUrl?: string;
   iframeWidth?: string;

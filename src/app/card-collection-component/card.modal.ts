@@ -1,36 +1,90 @@
-export interface ButtonConfig {
-  text?: string;
-  align?: 'left' | 'center' | 'right';
-  group?: 'left' | 'right';
-  icon?: string;
-  action?: () => void;
-  showIcon?: boolean;
-  iconPosition?: 'left' | 'center' | 'right' | 'full';
-  onClick?: (row: any) => void;
-  shape?: 'circle' | 'square' | 'rectangle';
-  corners?: 'rounded' | 'squared';
-  transparent?: boolean;
-  foreground?: string;
-  background?: string;
-  shadow?: boolean;
-  textAlign?: 'left' | 'center' | 'right';
-  validate?: () => boolean;
+import { Type } from '@angular/core';
+import { ButtonConfig } from '../button-component/button.model';
+
+export interface CardGridConfig {
+  gridTitle?: string;
+  gridTitleTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'p';
+  gridTitleStyles?: { [key: string]: string };
+  gridSubtitle?: string;
+  gridSubtitleTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'p';
+  gridSubtitleStyles?: { [key: string]: string };
+  layoutType: 'grid';
+  gridContainerStyle?: { [key: string]: string };
+  cardConfigs: CardConfig[];
+}
+export interface CardListConfig {
+  listTitle?: string;
+  listTitleTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'p';
+  listTitleStyles?: { [key: string]: string };
+  listSubtitle?: string;
+  listSubtitleTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'p';
+  listSubtitleStyles?: { [key: string]: string };
+  cardConfigs: CardConfig[];
+  listContainerStyle?: { [key: string]: string };
+  layoutType: 'list';
+}
+
+export interface DynamicComponentConfig {
+  dynamicComponent: Type<any>;
+  dynamicComponentConfig?: { [key: string]: any };
 }
 
 export interface CardConfig {
+  dynamicComponents?: DynamicComponentConfig[];
+  iframeHeight?: string | null;
+  iframeWidth?: string | null;
+  iframeUrl?: string | null;
   layout?: 'grid' | 'list';
   width?: number;
-  cardActions: {
+  imageAlignment?: 'left' | 'right';
+  sectionWidths?: [number, number];
+  hasBorder?: boolean;
+  customStyles?: { [key: string]: string };
+  hoverStyles?: {
+    [key: string]: string;
+  };
+  cardActions?: {
     icon: string;
     text: string;
   }[];
   header?: {
+    headerStyles?: { [key: string]: string };
     title: string;
-    align?: 'left' | 'center' | 'right';
+    titleTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'p';
+    titleStyles?: { [key: string]: string };
+    titleAlign?: 'left' | 'center' | 'right';
+    description?: {
+      descriptionText: string;
+      descriptionTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'p';
+      descriptionStyles?: { [key: string]: string };
+      descriptionAlign?: 'left' | 'center' | 'right';
+    }[];
     buttonsAlign?: 'left' | 'center' | 'right';
     buttons?: ButtonConfig[];
+    icons?: {
+      icon: string;
+      iconStyles?: { [key: string]: string };
+      iconPlacement?: 'left' | 'right' | 'top' | 'bottom';
+    }[];
   };
-
+  imagebackgroundShapes?: {
+    type:
+      | 'rectangle'
+      | 'oval'
+      | 'circle'
+      | 'square'
+      | 'triangle'
+      | 'hexagon'
+      | 'pentagon';
+    position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+    styles?: { [key: string]: string };
+  }[];
+  listForegroundImages?: {
+    src: string;
+    position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+    'img-class'?: string;
+    imgStyles?: { [key: string]: string };
+  }[];
   image?: {
     position?:
       | 'background'
@@ -57,8 +111,6 @@ export interface CardConfig {
     description?: string;
     customHtml?: string;
     details?: {
-      // columns?: number; // Number of columns (1, 2, or 3)
-      // rows?: number; // Number of rows (1, 2, or 3)
       align?: 'left' | 'center' | 'right' | 'multi-column';
       columns?: 1 | 2 | 3;
       rows?: 1 | 2 | 3;

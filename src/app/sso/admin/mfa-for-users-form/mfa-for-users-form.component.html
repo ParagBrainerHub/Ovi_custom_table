@@ -1,0 +1,7 @@
+<div class="mfa-for-users-container">
+  <app-form-component
+    (submitClicked)="onSetUserMFAvalue($event)"
+    (cancelClicked)="onCancel()"
+    [formConfig]="formConfig"
+  ></app-form-component>
+</div>

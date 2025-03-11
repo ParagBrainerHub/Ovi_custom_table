@@ -1,0 +1,12 @@
+<div class="contact-modal-container" *ngIf="isOpen">
+  <button mat-icon-button class="contact-close-button" (click)="closeModal()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <div class="input-container">
+    <app-form-component
+      [formConfig]="formConfig"
+      (submitClicked)="onSubmit($event)"
+    >
+    </app-form-component>
+  </div>
+</div>

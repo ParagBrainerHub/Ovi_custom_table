@@ -1,0 +1,13 @@
+<div class="section-wrapper" [ngClass]="customClass" [ngStyle]="customStyles">
+  <ng-content></ng-content>
+  <!-- Content Always Centered -->
+
+  <img
+    *ngFor="let img of images"
+    [src]="img.src"
+    class="image"
+    [ngClass]="img.position"
+    [ngStyle]="img.imgStyles"
+    alt="Section Image"
+  />
+</div>

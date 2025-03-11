@@ -30,11 +30,11 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class CustomButtonComponent implements OnInit {
   hoveredItems: Set<any> = new Set();
-  primaryColor: string = 'var(--primary-color)';
-  secondaryColor: string = 'var(--secondary-color)';
+  // primaryColor: string = 'var(--primary-color)';
+  // secondaryColor: string = 'var(--secondary-color)';
   router = inject(Router);
   @Input() class?: string = '';
-
+  @Input() customStyles: { [key: string]: string } = {};
   @Input() text?: string = '';
   @Input() textAlign?: 'left' | 'center' | 'right' = 'center';
   @Input() width?: string = '';
@@ -54,18 +54,22 @@ export class CustomButtonComponent implements OnInit {
   @Input() shape?: 'circle' | 'square' | 'rectangle' = 'rectangle';
   @Input() corners?: 'rounded' | 'squared' = 'rounded';
 
-  @Input() foreground?: string = '';
-  @Input() background?: string = '';
+  @Input() foregroundColor?: string = 'var(--white-text-color)';
+  @Input() backgroundColor?: string = 'var(--primary-color)';
+  @Input() borderColor?: string | null = null;
+  @Input() hasBorder: boolean = false;
+
   @Input() shadow?: boolean = true;
 
   @Input() isMenuButton?: boolean = false; // Add input for menu button
   @Input() menuItems?: ButtonConfig[];
 
   @Input() transparent?: boolean = false;
-  @Input() border?: boolean = true;
+  // @Input() border?: boolean = true;
   @Input() reverseColorsOnHover: boolean = false;
 
   @Input() navigate: boolean = false;
+  @Input() isPillButton: boolean = false;
   @Input() url: string = '';
   @Input() validate?: () => boolean;
 
@@ -76,10 +80,14 @@ export class CustomButtonComponent implements OnInit {
   isValid: boolean = true;
   isPageLoading: boolean = true;
   hoveredItem: any = null;
-
   hover: boolean = false;
 
   ngOnInit() {
+    console.log('this.text: ', this.text);
+    console.log('this.hasBorder: ', this.hasBorder);
+    console.log('this.borderColor: ', this.borderColor);
+    console.log('this.foregroundColor: ', this.foregroundColor);
+    console.log('this.backgroundColor: ', this.backgroundColor);
     this.validateButton();
     setTimeout(() => {
       this.isPageLoading = false;
@@ -154,9 +162,10 @@ export class CustomButtonComponent implements OnInit {
   getMergedStyles() {
     return {
       ...this.getButtonStyle(),
-      ...(this.hover ? this.getHoverStyle() : {}), // ✅ Hover style conditionally add ho raha hai
+      ...(this.hover ? this.getHoverStyle() : {}),
       'border-radius': this.getBorderRadius(),
-      width: this.width ? this.width : 'auto', // ✅ Width apply ho rahi hai
+      width: this.width ? this.width : 'auto',
+      ...(this.customStyles || {}),
     };
   }
 
@@ -168,59 +177,59 @@ export class CustomButtonComponent implements OnInit {
   }
 
   getButtonStyle() {
-    const borderColor = this.secondaryColor;
+    // const borderColor = this.secondaryColor;
     const borderRadius = this.getBorderRadius();
-
-    const backgroundColor = this.transparent
-      ? 'transparent'
-      : this.primaryColor;
 
     if (this.icon && !this.text) {
       return {
-        backgroundColor: this.secondaryColor,
-        color: this.primaryColor,
+        backgroundColor: this.backgroundColor,
+        color: this.foregroundColor,
         border: 'none',
         borderRadius: borderRadius,
       };
     }
 
-    if (this.transparent && !this.border) {
+    if (this.transparent && !this.hasBorder) {
       return {
         backgroundColor: 'transparent',
-        color: this.primaryColor,
+        color: this.foregroundColor,
         border: 'none',
         borderRadius: borderRadius,
       };
     }
 
-    if (!this.transparent && !this.border) {
+    if (!this.transparent && !this.hasBorder) {
       return {
-        backgroundColor: this.primaryColor,
+        backgroundColor: this.backgroundColor,
         color: 'white',
         border: 'none',
         borderRadius: borderRadius,
       };
     }
-    if (this.transparent && this.border) {
+    if (this.transparent && this.hasBorder) {
       return {
-        backgroundColor: 'transparent',
-        color: this.secondaryColor,
-        border: `2px solid ${borderColor}`,
+        backgroundColor: this.transparent
+          ? 'transparent'
+          : this.backgroundColor,
+        color: this.foregroundColor ? this.foregroundColor : this.borderColor,
+        border: `2px solid ${
+          this.borderColor ? this.borderColor : this.foregroundColor
+        }`,
         borderRadius: borderRadius,
         // padding: '9px 30px',
       };
     }
-    if (!this.transparent && this.border) {
+    if (!this.transparent && this.hasBorder) {
       return {
-        backgroundColor: this.primaryColor,
+        backgroundColor: this.backgroundColor,
         color: 'white',
-        border: `2px solid ${borderColor}`,
+        border: `2px solid ${this.borderColor}`,
         borderRadius: borderRadius,
         // padding: '9px 30px',
       };
     }
     return {
-      backgroundColor: this.primaryColor,
+      backgroundColor: this.backgroundColor,
       color: 'white',
       border: 'none',
       borderRadius: borderRadius,
@@ -228,65 +237,65 @@ export class CustomButtonComponent implements OnInit {
   }
 
   getHoverStyle() {
-    const hoverColor = this.secondaryColor;
+    // const hoverColor = this.secondaryColor;
     const borderRadius = this.getBorderRadius();
     if (this.icon && !this.text) {
       return {
-        backgroundColor: this.primaryColor,
+        backgroundColor: this.backgroundColor,
         color: 'white',
         border: 'none',
         borderRadius: borderRadius,
       };
     }
 
-    if (this.reverseColorsOnHover && !this.transparent && !this.border) {
+    if (this.reverseColorsOnHover && !this.transparent && !this.hasBorder) {
       return {
-        backgroundColor: this.secondaryColor,
-        color: this.primaryColor,
+        backgroundColor: this.backgroundColor,
+        color: this.foregroundColor,
         border: 'none',
         borderRadius: borderRadius,
       };
     }
 
-    if (this.transparent && !this.border) {
+    if (this.transparent && !this.hasBorder) {
       return {
         backgroundColor: 'transparent',
-        color: hoverColor,
+        color: this.backgroundColor,
         border: 'none',
         borderRadius: borderRadius,
       };
     }
 
-    if (!this.transparent && !this.border) {
+    if (!this.transparent && !this.hasBorder) {
       return {
-        backgroundColor: hoverColor,
+        backgroundColor: this.backgroundColor,
         color: 'white',
         border: 'none',
         borderRadius: borderRadius,
       };
     }
 
-    if (this.transparent && this.border) {
+    if (this.transparent && this.hasBorder) {
       return {
-        backgroundColor: this.secondaryColor,
-        border: `2px solid ${this.secondaryColor}`,
+        backgroundColor: this.foregroundColor,
+        border: `2px solid ${this.borderColor}`,
         color: 'var(--white-text-color)',
         borderRadius: borderRadius,
         // padding: '9px 30px',
       };
     }
 
-    if (!this.transparent && this.border) {
+    if (!this.transparent && this.hasBorder) {
       return {
-        backgroundColor: hoverColor,
+        backgroundColor: this.backgroundColor,
         color: 'white',
-        border: `2px solid ${hoverColor}`,
+        border: `2px solid ${this.borderColor}`,
         borderRadius: borderRadius,
         // padding: '9px 30px',
       };
     }
     return {
-      backgroundColor: hoverColor,
+      backgroundColor: this.backgroundColor,
       color: 'white',
       border: 'none',
       borderRadius: borderRadius,

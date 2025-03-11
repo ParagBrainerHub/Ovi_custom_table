@@ -1,14 +1,23 @@
 import { ButtonConfig } from '../button-component/button.model';
 
 export interface FormConfig {
+  formTitle?: string;
+  formTitleStyles?: { [key: string]: string };
+  formSubTitle?: string;
+  formSubTitleStyles?: { [key: string]: string };
+
+  isImageShow: boolean;
   formWidth: number;
   fields: FormFieldConfig[];
   submitButtonConfig?: ButtonConfig;
+  cancelButtonConfig?: ButtonConfig;
+  backgroundColor?: string;
 }
 
 export interface FormFieldConfig {
   type:
     | 'text'
+    | 'email'
     | 'number'
     | 'date'
     | 'file'
@@ -17,12 +26,16 @@ export interface FormFieldConfig {
     | 'switch'
     | 'radio'
     | 'checkbox'
+    | 'password'
+    | 'color'
     | 'select';
   label: string;
+  key: string;
   placeholder?: string;
   showFileIcon?: boolean;
-  width: number;
+  width?: number | string;
   value?: any;
+  isPasswordVisible?: boolean;
   required?: boolean;
   validation?: ValidationConfig;
   fileConfig?: FileConfig;
@@ -30,6 +43,7 @@ export interface FormFieldConfig {
   style?: StyleConfig;
   errorMessages?: ErrorMessagesConfig;
   hide?: boolean;
+  disabled?: boolean;
   showCheckbox?: boolean;
   buttonConfig?: ButtonConfig;
   options?: OptionConfig[];
@@ -45,6 +59,7 @@ export interface ValidationConfig {
   minTime?: string;
   maxTime?: string;
   customErrorMessage?: string;
+  match?: string;
 }
 
 export interface ErrorMessagesConfig {
@@ -56,6 +71,7 @@ export interface ErrorMessagesConfig {
   pattern?: string;
   minTime?: string;
   maxTime?: string;
+  match?: string;
 }
 
 export interface FileConfig {
@@ -73,7 +89,9 @@ export interface ToolbarOption {
     | 'bold'
     | 'italic'
     | 'underline'
+    | 'strike' // Added missing option
     | 'color'
+    | 'background' // Added missing option
     | 'blockquote'
     | 'code-block'
     | 'header'
@@ -83,7 +101,13 @@ export interface ToolbarOption {
     | 'direction'
     | 'size'
     | 'font'
-    | 'align';
+    | 'align'
+    | 'link' // Added missing option
+    | 'image' // Added missing option
+    | 'video' // Added missing option
+    | 'clean'; // Added missing option
+
+  value?: string | number | string[] | boolean;
 }
 
 export interface StyleConfig {
@@ -92,6 +116,8 @@ export interface StyleConfig {
 }
 
 export interface OptionConfig {
+  key: string;
   label: string;
   value: string | number | boolean;
+  status?: 'available' | 'booked';
 }

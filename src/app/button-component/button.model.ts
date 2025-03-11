@@ -1,25 +1,3 @@
-// export interface ButtonConfig {
-//   text?: string;
-//   icon?: string;
-//   showIcon?: boolean;
-//   iconPosition?: 'left' | 'center' | 'right' | 'full' | 'top';
-//   onClick?: (row: any) => void;
-//   shape?: 'circle' | 'square' | 'rectangle';
-//   corners?: 'rounded' | 'squared';
-//   transparent?: boolean;
-//   foreground?: string;
-//   background?: string;
-//   shadow?: boolean;
-//   textAlign?: 'left' | 'center' | 'right';
-//   validate?: () => boolean;
-//   primaryColor?: string;
-//   border?: boolean;
-//   secondaryColor?: string;
-// }
-
-// Common properties that are always optional
-// In button.model.ts
-
 export interface MenuItem {
   label: string;
   url?: string;
@@ -29,26 +7,30 @@ export interface ButtonConfig {
   id?: string;
   text?: string;
   icon?: string;
+  group?: 'left' | 'right';
+  align?: 'left' | 'center' | 'right';
   showIcon?: boolean;
   iconPosition?: 'left' | 'center' | 'right' | 'full' | 'top' | 'bottom';
   shape?: 'circle' | 'square' | 'rectangle';
   corners?: 'rounded' | 'squared';
   transparent?: boolean;
   width?: string;
-  foreground?: string;
-  background?: string;
+  backgroundColor?: string;
+  foregroundColor?: string;
+  borderColor?: string;
+  hasBorder: boolean;
   shadow?: boolean;
-  border?: boolean;
   navigate?: boolean;
+  action?: () => void;
   url?: string;
-  primaryColor?: string;
-  secondaryColor?: string;
   onClick?: (row: any) => void;
   validate?: () => boolean;
   textAlign?: 'left' | 'center' | 'right';
   menuItems?: ButtonConfig[];
   isMenuButton?: boolean;
   class?: string;
+  isPillButton?: boolean;
+  customStyles?: { [key: string]: string };
 }
 
 // Helper validation function for component

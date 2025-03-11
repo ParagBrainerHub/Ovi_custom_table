@@ -1,6 +1,17 @@
-import { Component, Input } from '@angular/core';
-import { CardConfig } from '../card-collection-component/card.modal';
-import { User } from '../app.component';
+import {
+  Component,
+  ComponentFactoryResolver,
+  Input,
+  OnInit,
+  Type,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
+import {
+  CardConfig,
+  DynamicComponentConfig,
+} from '../card-collection-component/card.modal';
+import { User } from '../home-page/home-page.component';
 // import { TableConfig } from '../custom-table/table-column.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -11,7 +22,14 @@ import { CustomButtonComponent } from '../button-component/custom-button.compone
 import { CustomMaterialTableComponent } from '../custom-material-table/custom-material-table.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { TableConfig } from '../custom-material-table/material-table-column.model';
-
+import {
+  DomSanitizer,
+  SafeHtml,
+  SafeResourceUrl,
+} from '@angular/platform-browser';
+import { SafeUrlPipe } from '../safe-url.pipe';
+import { ShapeWrapperComponent } from '../shared/shape-wrapper/shape-wrapper.component';
+import { SectionWrapperComponent } from '../shared/section-wrapper/section-wrapper.component';
 @Component({
   selector: 'app-card-list-component',
   standalone: true,
@@ -23,21 +41,37 @@ import { TableConfig } from '../custom-material-table/material-table-column.mode
     MatIconModule,
     CustomButtonComponent,
     CustomMaterialTableComponent,
+    SafeUrlPipe,
     NgxSkeletonLoaderModule,
+    ShapeWrapperComponent,
+    SectionWrapperComponent,
   ],
   templateUrl: './card-for-list-component.html',
   styleUrl: './card-for-list-component.css',
 })
-export class CardListComponentComponent {
+export class CardListComponentComponent implements OnInit {
   @Input() cards: CardConfig[] = [];
 
   @Input() isGrid?: boolean;
 
   @Input() cardConfig?: CardConfig;
+  @ViewChild('dynamicComponentContainer', { read: ViewContainerRef })
+  container!: ViewContainerRef;
+  safeUrl!: SafeResourceUrl;
+
+  constructor(
+    private sanitizer: DomSanitizer,
+    private componentFactoryResolver: ComponentFactoryResolver
+  ) {}
 
   loading = true;
 
   ngOnInit() {
+    console.log('this.cardConfig: ', this.cardConfig);
+    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      this.cardConfig?.iframeUrl ?? ''
+    );
+    console.log(this.cardConfig, 'papa ki pari ');
     setTimeout(() => {
       this.loading = false;
     }, 2000);
@@ -49,6 +83,64 @@ export class CardListComponentComponent {
     this.validateCardConfig(this.cardConfig!);
   }
 
+  ngAfterViewInit() {
+    if (this.cardConfig?.dynamicComponents?.length) {
+      this.loadDynamicComponents(this.cardConfig.dynamicComponents);
+    }
+  }
+
+  loadDynamicComponents(components: DynamicComponentConfig[]) {
+    this.container.clear();
+    components.forEach(
+      ({ dynamicComponent, dynamicComponentConfig }, index) => {
+        console.log(`Loading component #${index + 1}:`, dynamicComponent);
+        const componentRef = this.container.createComponent(dynamicComponent);
+
+        if (dynamicComponentConfig) {
+          Object.assign(componentRef.instance, dynamicComponentConfig);
+          console.log(
+            `Config applied for component #${index + 1}:`,
+            dynamicComponentConfig
+          );
+        }
+      }
+    );
+  }
+
+  // image alignment
+  getImageAlignmentClass(): string {
+    return this.cardConfig?.imageAlignment === 'right'
+      ? 'image-right'
+      : 'image-left';
+  }
+  // image section width
+  getSectionWidths(): { imageWidth: string; contentWidth: string } {
+    const [imgWidth, contentWidth] = this.cardConfig?.sectionWidths || [30, 70]; // Default 50-50
+    return {
+      imageWidth: `${imgWidth}%`,
+      contentWidth: `${contentWidth}%`,
+    };
+  }
+  // card style
+  get cardStyles(): { [key: string]: string } {
+    return {
+      width: '100%',
+      border: this.cardConfig?.hasBorder ? '1px solid #ccc' : 'none',
+      ...(this.cardConfig?.customStyles || {}),
+    };
+  }
+
+  highlightText(text: string = ''): SafeHtml {
+    if (!text) return '';
+
+    // ✅ Regex for detecting color values inside <span color="...">
+    const updatedText = text.replace(
+      /<span\s+color=["']?(#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})|rgb\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)|\w+)["']?>(.*?)<\/span>/g,
+      `<span style="color: $1; font-weight: bold;">$2</span>`
+    );
+
+    return this.sanitizer.bypassSecurityTrustHtml(updatedText);
+  }
   // Card Width
   get cardWidth(): string {
     if (this.cardConfig?.layout === 'grid') {
@@ -110,18 +202,13 @@ export class CardListComponentComponent {
   //Footer Validation
   validateFooterConfig(footer: any): void {
     if (!footer) {
-      console.error('Footer is not defined in the CardConfig.');
       return;
     }
     if (!footer.type || (footer.type !== 'text' && footer.type !== 'buttons')) {
-      console.error(
-        "Invalid footer type. The 'type' property must be either 'text' or 'buttons'."
-      );
       return;
     }
     if (footer.type === 'text') {
       if (!footer.text || footer.text.trim() === '') {
-        console.error("Footer text cannot be empty when 'type' is 'text'.");
       }
     }
     if (footer.type === 'buttons') {
@@ -130,9 +217,6 @@ export class CardListComponentComponent {
         !Array.isArray(footer.buttons) ||
         footer.buttons.length === 0
       ) {
-        console.error(
-          "Footer must contain at least one button when 'type' is 'buttons'."
-        );
       }
     }
   }
@@ -140,13 +224,9 @@ export class CardListComponentComponent {
   //Body Validation
   validateBodyConfig(body: any): void {
     if (!body) {
-      console.error('Body is not defined in the CardConfig.');
       return;
     }
     if (!body.type) {
-      console.error(
-        "Invalid body configuration. The 'type' property is required."
-      );
       return;
     }
     if (body.type === 'text' && (!body.content || body.content.trim() === '')) {

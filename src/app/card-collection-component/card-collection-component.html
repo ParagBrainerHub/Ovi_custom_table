@@ -1,92 +1,19 @@
-<!-- <mat-slide-toggle
-  class="example-margin"
-  [checked]="isGrid"
-  (change)="onToggleChange()"
->
-  Toggle Layout
-</mat-slide-toggle> -->
-
-<!-- <div style="padding: 0 320px;"> -->
-<!-- <div style="display: flex; flex-wrap: wrap; width: 100%;">
-
-  <ng-container *ngIf="isGrid; else listTemplate">
-    <div *ngFor="let cardConfig of cardConfigs(); trackBy: trackById" [ngStyle]="{'width': width() || '200px'}">
-      <app-card-grid-component [cardConfig]="cardConfig"></app-card-grid-component>
-    </div>
-  </ng-container>
-
-
-  <ng-template #listTemplate>
-    <div *ngFor="let cardConfig of cardConfigs(); trackBy: trackById" style="width: 100%;">
-      <app-card-list-component [cardConfig]="cardConfig"></app-card-list-component>
-    </div>
-  </ng-template>
-</div> -->
-<!-- </div> -->
-
-<!-- <div class="pageContainer">
-  <div class="toggle-wrapper">
-    <mat-button-toggle-group [(value)]="isGrid" class="view-toggle" exclusive>
-      <mat-button-toggle [value]="true" class="toggle-button">
-        <mat-icon class="toggle-icon">grid_view</mat-icon>
-        <span class="toggle-text">Grid View</span>
-      </mat-button-toggle>
-      <mat-button-toggle [value]="false" class="toggle-button">
-        <mat-icon class="toggle-icon">list</mat-icon>
-        <span class="toggle-text">List View</span>
-      </mat-button-toggle>
-    </mat-button-toggle-group>
-  </div>
-
-  <div class="view-container" [ngClass]="isGrid ? 'grid-view' : 'list-view'">
-    <ng-container *ngIf="isGrid; else listTemplate">
-      <div *ngFor="let cardConfig of cardConfigs(); trackBy: trackById">
-        <app-card-grid-component
-          [cardConfig]="cardConfig"
-        ></app-card-grid-component>
-      </div>
-    </ng-container>
-
-    <ng-template #listTemplate>
-      <div *ngFor="let cardConfig of cardConfigs(); trackBy: trackById">
-        <app-card-list-component
-          [cardConfig]="cardConfig"
-        ></app-card-list-component>
-      </div>
-    </ng-template>
-  </div>
-</div> -->
-
-<!-- custom -->
 <div class="pageContainer">
   <app-tab-button
     [options]="tabOptions"
     [isSingleOption]="true"
     (selectedValues)="onTabChange($event)"
-  >
-  </app-tab-button>
+  ></app-tab-button>
 
-  <div
-    class="view-container"
-    [ngClass]="{'grid-view': selectedTabs.includes('grid'), 'list-view': selectedTabs.includes('list')}"
-  >
-    <ng-container *ngIf="selectedTabs.includes('grid')">
-      <div *ngFor="let cardConfig of cardConfigs(); trackBy: trackById">
-        <app-card-grid-component
-          [cardConfig]="cardConfig"
-        ></app-card-grid-component>
-      </div>
-    </ng-container>
+  <ng-container *ngIf="selectedTabs.includes('grid')">
+    <app-grid-view [cardGridConfig]="cardGridConfig"></app-grid-view>
+  </ng-container>
 
-    <ng-container *ngIf="selectedTabs.includes('list')">
-      <div *ngFor="let cardConfig of cardConfigs(); trackBy: trackById">
-        <app-card-list-component
-          [cardConfig]="cardConfig"
-        ></app-card-list-component>
-      </div>
-    </ng-container>
-    <ng-container *ngIf="selectedTabs.includes('settings')">
-      <app-carousel [config]="carouselConfig"></app-carousel>
-    </ng-container>
-  </div>
+  <ng-container *ngIf="selectedTabs.includes('list')">
+    <app-list-view [cardListConfig]="cardListConfig"></app-list-view>
+  </ng-container>
+
+  <ng-container *ngIf="selectedTabs.includes('settings')">
+    <app-carousel [config]="carouselConfig"></app-carousel>
+  </ng-container>
 </div>

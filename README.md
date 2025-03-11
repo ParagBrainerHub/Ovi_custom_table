@@ -725,167 +725,120 @@ Configuration for dynamic components that can be inserted into cards.
     - **icon**: The icon displayed.
     - **url**: The URL the icon redirects to when clicked.
 
-# Form Properties
-
-## FormFieldConfig Properties
-
-type: 'text' | 'number' | 'date' | 'file' | 'textarea';
-
-- Specifies the type of the form field:
-  - text: A plain text input field.
-  - number: A numeric input field.
-  - date: A date picker field.
-  - file: A file input field.
-  - textarea: A multi-line text area.
-
-label: string;
-
-- The label displayed for the field.
-
-placeholder?: string;
-
-- Optional placeholder text displayed inside the field.
-
-value?: any;
-
-- The default or initial value of the field.
-
-required?: boolean;
-
-- true: The field must be filled out.
-- false: The field is optional.
-
-validation?: ValidationConfig;
-
-- Validation rules applied to the field, defined by the ValidationConfig interface.
-
-fileConfig?: FileConfig;
-
-- Configuration for file input fields, defined by the FileConfig interface.
-
-textareaConfig?: TextAreaConfig;
-
-- Configuration for textarea fields, defined by the TextAreaConfig interface.
-
-style?: StyleConfig;
-
-- Custom styling for the field, defined by the StyleConfig interface.
-
-errorMessages?: ErrorMessagesConfig;
-
-- Custom error messages for validation errors, defined by the ErrorMessagesConfig interface.
-
-hide?: boolean;
-
-- true: The field is not visible.
-- false: The field is displayed.
-
-showCheckbox?: boolean;
-
-- true: Checkbox is displayed to control visibility.
-- false: No checkbox is displayed.
-
-## ValidationConfig Properties
-
-minLength?: number;
-
-- Minimum length for text input fields.
-
-maxLength?: number;
-
-- Maximum length for text input fields.
-
-minValue?: number;
-
-- Minimum value for numeric input fields.
-
-maxValue?: number;
-
-- Maximum value for numeric input fields.
-
-pattern?: string;
-
-- Regular expression pattern to validate the field's input.
-
-customErrorMessage?: string;
-
--Custom error message displayed for validation failures.
-
-## ErrorMessagesConfig Properties
-
-required?: string;
-
-- Custom error message for required field validation.
-
-minLength?: string;
-
-- Custom error message for minLength validation.
-
-maxLength?: string;
-
-- Custom error message for maxLength validation.
-
-minValue?: string;
-
-- Custom error message for minValue validation.
-
-maxValue?: string;
-
-- Custom error message for maxValue validation.
-
-pattern?: string;
--Custom error message for pattern validation.
-
-## FileConfig Properties
-
-allowedTypes?: string[];
-
-- List of allowed file types (e.g., ['image/png', 'application/pdf']).
-
-## ErrorMessagesConfig Properties
-
-rows: number;
-
-- Number of rows displayed in the textarea by default.
-
-toolbarOptions: ToolbarOption[];
-
-- List of toolbar options for text formatting, defined by the ToolbarOption interface.
-
-modules?: any;
-
-- Additional configuration for the toolbar or editor (e.g., custom modules).
-
-## ToolbarOption Properties
-
-type: 'bold' | 'italic' | 'underline' | 'color' | 'blockquote' | 'code-block' | 'header' | 'list' | 'script' | 'indent' | 'direction' | 'size' | 'font' | 'align';
-
-- Specifies the type of formatting tool available in the textarea toolbar:
-  - bold: Makes text bold.
-  - italic: Makes text italic.
-  - underline: Underlines text.
-  - color: Changes text color.
-  - blockquote: Adds block quotes.
-  - code-block: Formats text as a code block.
-  - header: Adds headers.
-  - list: Creates lists.
-  - script: Formats text as superscript or subscript.
-  - indent: Indents text.
-  - direction: Sets text direction (e.g., left-to-right or right-to-left).
-  - size: Adjusts text size.
-  - font: Changes the font.
-  - align: Aligns text (e.g., left, center, right).
-
-## StyleConfig Properties
-
-class?: string;
-
-- Optional CSS class applied to the field for styling.
-
-inlineStyles?: { [key: string]: string };
-
-- Inline CSS styles applied directly to the field.
-  Example: { 'color': 'red', 'font-size': '14px' }.
+# Form Component
+
+## Overview
+
+This Angular form component provides a dynamic and configurable form system with validation, styling, and various field types. It supports multiple input types, validation rules, and customizable styling.
+
+---
+
+## Table of Properties
+
+### `FormConfig`
+
+| Property             | Type                                   | Description                                             |
+| -------------------- | -------------------------------------- | ------------------------------------------------------- |
+| `formTitle`          | `string` (optional)                    | The title of the form.                                  |
+| `formTitleStyles`    | `{ [key: string]: string }` (optional) | Custom CSS styles for the form title.                   |
+| `formSubTitle`       | `string` (optional)                    | Subtitle of the form.                                   |
+| `formSubTitleStyles` | `{ [key: string]: string }` (optional) | Custom CSS styles for the form subtitle.                |
+| `isImageShow`        | `boolean`                              | Determines if an image should be displayed in the form. |
+| `formWidth`          | `number`                               | The width of the form.                                  |
+| `fields`             | `FormFieldConfig[]`                    | Array of form fields with configurations.               |
+| `submitButtonConfig` | `ButtonConfig` (optional)              | Configuration for the submit button.                    |
+| `cancelButtonConfig` | `ButtonConfig` (optional)              | Configuration for the cancel button.                    |
+| `backgroundColor`    | `string` (optional)                    | Background color of the form.                           |
+
+### `FormFieldConfig`
+
+| Property            | Type                             | Description                                              |
+| ------------------- | -------------------------------- | -------------------------------------------------------- | ------------------------------------------- | ------ | ------ | ---------- | ------ | -------- | ------- | ---------- | ---------- | ------- | --------- | -------------------------------------- |
+| `type`              | `'text'                          | 'email'                                                  | 'number'                                    | 'date' | 'file' | 'textarea' | 'time' | 'switch' | 'radio' | 'checkbox' | 'password' | 'color' | 'select'` | Specifies the type of the input field. |
+| `label`             | `string`                         | The label displayed for the field.                       |
+| `key`               | `string`                         | Unique identifier for the field.                         |
+| `placeholder`       | `string` (optional)              | Placeholder text for the input field.                    |
+| `showFileIcon`      | `boolean` (optional)             | Whether to show a file icon for file inputs.             |
+| `width`             | `number                          | string` (optional)                                       | Width of the field in pixels or percentage. |
+| `value`             | `any` (optional)                 | Default value for the field.                             |
+| `isPasswordVisible` | `boolean` (optional)             | Determines if password fields should be visible.         |
+| `required`          | `boolean` (optional)             | Whether the field is required.                           |
+| `validation`        | `ValidationConfig` (optional)    | Validation rules for the field.                          |
+| `fileConfig`        | `FileConfig` (optional)          | Configuration options for file inputs.                   |
+| `textareaConfig`    | `TextAreaConfig` (optional)      | Configuration options for textarea inputs.               |
+| `style`             | `StyleConfig` (optional)         | Custom styles for the field.                             |
+| `errorMessages`     | `ErrorMessagesConfig` (optional) | Custom error messages for validation.                    |
+| `hide`              | `boolean` (optional)             | Whether the field should be hidden.                      |
+| `disabled`          | `boolean` (optional)             | Whether the field should be disabled.                    |
+| `showCheckbox`      | `boolean` (optional)             | Whether to show a checkbox for field visibility control. |
+| `buttonConfig`      | `ButtonConfig` (optional)        | Configuration for buttons inside the form field.         |
+| `options`           | `OptionConfig[]` (optional)      | List of selectable options (for dropdowns, radio, etc.). |
+| `defaultValue`      | `any` (optional)                 | Default value assigned to the field.                     |
+
+### `ValidationConfig`
+
+| Property             | Type                | Description                                                        |
+| -------------------- | ------------------- | ------------------------------------------------------------------ |
+| `minLength`          | `number` (optional) | Minimum length for text inputs.                                    |
+| `maxLength`          | `number` (optional) | Maximum length for text inputs.                                    |
+| `minValue`           | `number` (optional) | Minimum numeric value.                                             |
+| `maxValue`           | `number` (optional) | Maximum numeric value.                                             |
+| `pattern`            | `string` (optional) | Regular expression pattern for validation.                         |
+| `minTime`            | `string` (optional) | Minimum time selection.                                            |
+| `maxTime`            | `string` (optional) | Maximum time selection.                                            |
+| `customErrorMessage` | `string` (optional) | Custom error message for validation failures.                      |
+| `match`              | `string` (optional) | Field that must match another field (e.g., password confirmation). |
+
+### `ErrorMessagesConfig`
+
+| Property    | Type                | Description                                  |
+| ----------- | ------------------- | -------------------------------------------- |
+| `required`  | `string` (optional) | Custom error message for required fields.    |
+| `minLength` | `string` (optional) | Custom error message for minimum length.     |
+| `maxLength` | `string` (optional) | Custom error message for maximum length.     |
+| `minValue`  | `string` (optional) | Custom error message for minimum value.      |
+| `maxValue`  | `string` (optional) | Custom error message for maximum value.      |
+| `pattern`   | `string` (optional) | Custom error message for pattern validation. |
+| `minTime`   | `string` (optional) | Custom error message for minimum time.       |
+| `maxTime`   | `string` (optional) | Custom error message for maximum time.       |
+| `match`     | `string` (optional) | Custom error message for field matching.     |
+
+### `FileConfig`
+
+| Property       | Type                  | Description                                                            |
+| -------------- | --------------------- | ---------------------------------------------------------------------- |
+| `allowedTypes` | `string[]` (optional) | List of allowed file types (e.g., `['image/png', 'application/pdf']`). |
+
+### `TextAreaConfig`
+
+| Property         | Type              | Description                                     |
+| ---------------- | ----------------- | ----------------------------------------------- |
+| `rows`           | `number`          | Number of rows in the textarea.                 |
+| `toolbarOptions` | `ToolbarOption[]` | List of formatting options for the text editor. |
+| `modules`        | `any` (optional)  | Additional editor configurations.               |
+
+### `ToolbarOption`
+
+| Property | Type    | Description |
+| -------- | ------- | ----------- | ----------- | ------------------- | ------------------------------------------- | ------------ | ------------ | ------------ | -------- | ------ | -------- | -------- | ----------- | ------ | ------ | ------- | ------ | ------- | ------- | -------- | ---------------------------------- |
+| `type`   | `'bold' | 'italic'    | 'underline' | 'strike'            | 'color'                                     | 'background' | 'blockquote' | 'code-block' | 'header' | 'list' | 'script' | 'indent' | 'direction' | 'size' | 'font' | 'align' | 'link' | 'image' | 'video' | 'clean'` | Type of toolbar formatting option. |
+| `value`  | `string | number      | string[]    | boolean` (optional) | Configuration value for the toolbar option. |
+
+### `StyleConfig`
+
+| Property       | Type                                   | Description                         |
+| -------------- | -------------------------------------- | ----------------------------------- |
+| `class`        | `string` (optional)                    | CSS class for custom styling.       |
+| `inlineStyles` | `{ [key: string]: string }` (optional) | Inline styles applied to the field. |
+
+### `OptionConfig`
+
+| Property | Type         | Description                   |
+| -------- | ------------ | ----------------------------- | ---------------------------------------------------- | ------------------------------------- |
+| `key`    | `string`     | Unique key for the option.    |
+| `label`  | `string`     | Display label for the option. |
+| `value`  | `string      | number                        | boolean`                                             | The value associated with the option. |
+| `status` | `'available' | 'booked'` (optional)          | Indicates whether the option is available or booked. |
 
 # NavBar Properties
 

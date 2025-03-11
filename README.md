@@ -791,6 +791,186 @@ This Angular form component provides a dynamic and configurable form system with
 
 ---
 
+## Field Types and Examples
+
+### Text Field
+
+```typescript
+{
+  type: 'text',
+  label: 'First Name',
+  key: 'firstName',
+  placeholder: 'Enter your first name',
+  required: true,
+  validation: { minLength: 2, maxLength: 30 },
+  errorMessages: {
+    required: 'First name is required.',
+    minLength: 'First name must be at least 2 characters long.',
+    maxLength: 'First name cannot exceed 30 characters.',
+  }
+}
+```
+
+### Email Field
+
+```typescript
+{
+  type: 'email',
+  label: 'Email',
+  key: 'email',
+  placeholder: 'Enter your email',
+  required: true,
+  validation: { pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$' },
+  errorMessages: {
+    required: 'Email is required.',
+    pattern: 'Enter a valid email address.',
+  }
+}
+```
+
+### Number Field
+
+```typescript
+{
+  type: 'number',
+  label: 'Phone',
+  key: 'phone',
+  placeholder: 'Enter your phone number',
+  validation: { minLength: 10, maxLength: 15 },
+  errorMessages: {
+    minLength: 'Phone number must be at least 10 digits.',
+    maxLength: 'Phone number cannot exceed 15 digits.',
+  }
+}
+```
+
+### Date Field
+
+```typescript
+{
+  type: 'date',
+  label: 'Date of Birth',
+  key: 'dob',
+  required: true,
+  errorMessages: { required: 'Date of Birth is required.' }
+}
+```
+
+### File Upload Field
+
+```typescript
+{
+  type: 'file',
+  label: 'Upload Document',
+  key: 'document',
+  fileConfig: { allowedExtensions: ['pdf', 'docx'], maxSize: 5 },
+  errorMessages: {
+    maxSize: 'File size should not exceed 5MB.',
+    allowedExtensions: 'Only PDF and DOCX files are allowed.',
+  }
+}
+```
+
+### Password Field
+
+```typescript
+{
+  type: 'password',
+  label: 'Password',
+  key: 'password',
+  required: true,
+  validation: { minLength: 8 },
+  errorMessages: {
+    required: 'Password is required.',
+    minLength: 'Password must be at least 8 characters long.',
+  }
+}
+```
+
+### Color Picker
+
+```typescript
+{
+  type: 'color',
+  label: 'Choose Color',
+  key: 'color',
+  value: '#ff0000'
+}
+```
+
+### Select Dropdown
+
+```typescript
+{
+  type: 'select',
+  label: 'Select Country',
+  key: 'country',
+  options: [
+    { key: 'us', label: 'United States', value: 'US' },
+    { key: 'in', label: 'India', value: 'IN' },
+  ],
+  required: true,
+  errorMessages: { required: 'Please select a country.' }
+}
+```
+
+### Radio Buttons
+
+```typescript
+{
+  type: 'radio',
+  label: 'Gender',
+  key: 'gender',
+  options: [
+    { key: 'male', label: 'Male', value: 'male' },
+    { key: 'female', label: 'Female', value: 'female' }
+  ],
+  required: true,
+  errorMessages: { required: 'Please select your gender.' }
+}
+```
+
+### Checkbox
+
+```typescript
+{
+  type: 'checkbox',
+  label: 'Accept Terms & Conditions',
+  key: 'terms',
+  required: true,
+  errorMessages: { required: 'You must accept the terms.' }
+}
+```
+
+### Switch Toggle
+
+```typescript
+{
+  type: 'switch',
+  label: 'Enable Notifications',
+  key: 'notifications',
+  value: true
+}
+```
+
+### Textarea Field
+
+```typescript
+{
+  type: 'textarea',
+  label: 'Message',
+  key: 'message',
+  placeholder: 'Enter your message',
+  textareaConfig: { rows: 5 },
+}
+```
+
+---
+
+## Conclusion
+
+This form component provides a flexible and configurable form-building solution, allowing dynamic field customization, validation, and UI styling.
+
 # NavBar Properties
 
 ## NavBarConfig Properties

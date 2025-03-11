@@ -393,6 +393,7 @@ bottomBar:
 
 - logoUrl: string;
 
+<<<<<<< Updated upstream
   - The URL of the logo displayed in the bottom bar.
 
 - copyrightText: string;
@@ -452,6 +453,40 @@ required?: boolean;
 
 validation?: ValidationConfig;
 
+=======
+# Form Properties
+
+## FormFieldConfig Properties
+
+type: 'text' | 'number' | 'date' | 'file' | 'textarea';
+
+- Specifies the type of the form field:
+  - text: A plain text input field.
+  - number: A numeric input field.
+  - date: A date picker field.
+  - file: A file input field.
+  - textarea: A multi-line text area.
+
+label: string;
+
+- The label displayed for the field.
+
+placeholder?: string;
+
+- Optional placeholder text displayed inside the field.
+
+value?: any;
+
+- The default or initial value of the field.
+
+required?: boolean;
+
+- true: The field must be filled out.
+- false: The field is optional.
+
+validation?: ValidationConfig;
+
+>>>>>>> Stashed changes
 - Validation rules applied to the field, defined by the ValidationConfig interface.
 
 fileConfig?: FileConfig;
@@ -727,6 +762,16 @@ prevIcon?: string;
 
 nextIcon?: string;
 -Icon displayed on the "Next" button of the carousel.
+
+## Conclusion
+
+This Angular Calendar Component provides a flexible and customizable booking system for scheduling appointments. Modify the configurations as needed to tailor it to your project requirements.
+
+For any issues, feel free to contribute or raise a ticket in the repository!
+
+---
+
+🚀 Happy Coding! 🚀
 
 # Examples:
 

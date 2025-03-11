@@ -1012,12 +1012,6 @@ prevIcon?: string;
 nextIcon?: string;
 -Icon displayed on the "Next" button of the carousel.
 
-## Conclusion
-
-This Angular Calendar Component provides a flexible and customizable booking system for scheduling appointments. Modify the configurations as needed to tailor it to your project requirements.
-
-For any issues, feel free to contribute or raise a ticket in the repository!
-
 ---
 
 🚀 Happy Coding! 🚀

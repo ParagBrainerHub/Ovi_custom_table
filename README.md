@@ -934,12 +934,22 @@ This Angular form component provides a dynamic and configurable form system with
 
 ```typescript
 {
-  type: 'checkbox',
-  label: 'Accept Terms & Conditions',
-  key: 'terms',
-  required: true,
-  errorMessages: { required: 'You must accept the terms.' }
-}
+          type: 'checkbox',
+          label: 'Hobbies',
+          key: 'hobbies',
+          width: '100%',
+          value: [],
+          options: [
+            { key: 'reading', label: 'Reading', value: 'reading' },
+            { key: 'traveling', label: 'traveling', value: 'traveling' },
+            { key: 'music', label: 'music', value: 'music' },
+          ],
+          required: true,
+          errorMessages: {
+            required: 'Select at least one hobby.',
+          },
+          showCheckbox: true,
+        }
 ```
 
 ### Switch Toggle

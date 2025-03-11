@@ -967,10 +967,6 @@ This Angular form component provides a dynamic and configurable form system with
 
 ---
 
-## Conclusion
-
-This form component provides a flexible and configurable form-building solution, allowing dynamic field customization, validation, and UI styling.
-
 # NavBar Properties
 
 ## NavBarConfig Properties

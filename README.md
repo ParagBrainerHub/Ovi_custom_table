@@ -733,63 +733,61 @@ This Angular form component provides a dynamic and configurable form system with
 
 ---
 
-## Table of Properties
+## Form Configuration
 
-### `FormConfig`
+### FormConfig
 
-| Property             | Type                                   | Description                                             |
-| -------------------- | -------------------------------------- | ------------------------------------------------------- |
-| `formTitle`          | `string` (optional)                    | The title of the form.                                  |
-| `formTitleStyles`    | `{ [key: string]: string }` (optional) | Custom CSS styles for the form title.                   |
-| `formSubTitle`       | `string` (optional)                    | Subtitle of the form.                                   |
-| `formSubTitleStyles` | `{ [key: string]: string }` (optional) | Custom CSS styles for the form subtitle.                |
-| `isImageShow`        | `boolean`                              | Determines if an image should be displayed in the form. |
-| `formWidth`          | `number`                               | The width of the form.                                  |
-| `fields`             | `FormFieldConfig[]`                    | Array of form fields with configurations.               |
-| `submitButtonConfig` | `ButtonConfig` (optional)              | Configuration for the submit button.                    |
-| `cancelButtonConfig` | `ButtonConfig` (optional)              | Configuration for the cancel button.                    |
-| `backgroundColor`    | `string` (optional)                    | Background color of the form.                           |
+- **formTitle**: (optional) `string` - The title of the form.
+- **formTitleStyles**: (optional) `{ [key: string]: string }` - Custom CSS styles for the form title.
+- **formSubTitle**: (optional) `string` - Subtitle of the form.
+- **formSubTitleStyles**: (optional) `{ [key: string]: string }` - Custom CSS styles for the form subtitle.
+- **isImageShow**: `boolean` - Determines if an image should be displayed in the form.
+- **formWidth**: `number` - The width of the form.
+- **fields**: `FormFieldConfig[]` - Array of form fields with configurations.
+- **submitButtonConfig**: (optional) `ButtonConfig` - Configuration for the submit button.
+- **cancelButtonConfig**: (optional) `ButtonConfig` - Configuration for the cancel button.
+- **backgroundColor**: (optional) `string` - Background color of the form.
 
-### `FormFieldConfig`
+---
 
-| Property            | Type                             | Description                                              |
-| ------------------- | -------------------------------- | -------------------------------------------------------- | ------------------------------------------- | ------ | ------ | ---------- | ------ | -------- | ------- | ---------- | ---------- | ------- | --------- | -------------------------------------- |
-| `type`              | `'text'                          | 'email'                                                  | 'number'                                    | 'date' | 'file' | 'textarea' | 'time' | 'switch' | 'radio' | 'checkbox' | 'password' | 'color' | 'select'` | Specifies the type of the input field. |
-| `label`             | `string`                         | The label displayed for the field.                       |
-| `key`               | `string`                         | Unique identifier for the field.                         |
-| `placeholder`       | `string` (optional)              | Placeholder text for the input field.                    |
-| `showFileIcon`      | `boolean` (optional)             | Whether to show a file icon for file inputs.             |
-| `width`             | `number                          | string` (optional)                                       | Width of the field in pixels or percentage. |
-| `value`             | `any` (optional)                 | Default value for the field.                             |
-| `isPasswordVisible` | `boolean` (optional)             | Determines if password fields should be visible.         |
-| `required`          | `boolean` (optional)             | Whether the field is required.                           |
-| `validation`        | `ValidationConfig` (optional)    | Validation rules for the field.                          |
-| `fileConfig`        | `FileConfig` (optional)          | Configuration options for file inputs.                   |
-| `textareaConfig`    | `TextAreaConfig` (optional)      | Configuration options for textarea inputs.               |
-| `style`             | `StyleConfig` (optional)         | Custom styles for the field.                             |
-| `errorMessages`     | `ErrorMessagesConfig` (optional) | Custom error messages for validation.                    |
-| `hide`              | `boolean` (optional)             | Whether the field should be hidden.                      |
-| `disabled`          | `boolean` (optional)             | Whether the field should be disabled.                    |
-| `showCheckbox`      | `boolean` (optional)             | Whether to show a checkbox for field visibility control. |
-| `buttonConfig`      | `ButtonConfig` (optional)        | Configuration for buttons inside the form field.         |
-| `options`           | `OptionConfig[]` (optional)      | List of selectable options (for dropdowns, radio, etc.). |
-| `defaultValue`      | `any` (optional)                 | Default value assigned to the field.                     |
+### FormFieldConfig
 
-### `ToolbarOption`
+- **type**: `'text' | 'email' | 'number' | 'date' | 'file' | 'textarea' | 'time' | 'switch' | 'radio' | 'checkbox' | 'password' | 'color' | 'select'` - Specifies the type of the input field.
+- **label**: `string` - The label displayed for the field.
+- **key**: `string` - Unique identifier for the field.
+- **placeholder**: (optional) `string` - Placeholder text for the input field.
+- **showFileIcon**: (optional) `boolean` - Whether to show a file icon for file inputs.
+- **width**: (optional) `number | string` - Width of the field in pixels or percentage.
+- **value**: (optional) `any` - Default value for the field.
+- **isPasswordVisible**: (optional) `boolean` - Determines if password fields should be visible.
+- **required**: (optional) `boolean` - Whether the field is required.
+- **validation**: (optional) `ValidationConfig` - Validation rules for the field.
+- **fileConfig**: (optional) `FileConfig` - Configuration options for file inputs.
+- **textareaConfig**: (optional) `TextAreaConfig` - Configuration options for textarea inputs.
+- **style**: (optional) `StyleConfig` - Custom styles for the field.
+- **errorMessages**: (optional) `ErrorMessagesConfig` - Custom error messages for validation.
+- **hide**: (optional) `boolean` - Whether the field should be hidden.
+- **disabled**: (optional) `boolean` - Whether the field should be disabled.
+- **showCheckbox**: (optional) `boolean` - Whether to show a checkbox for field visibility control.
+- **buttonConfig**: (optional) `ButtonConfig` - Configuration for buttons inside the form field.
+- **options**: (optional) `OptionConfig[]` - List of selectable options (for dropdowns, radio, etc.).
+- **defaultValue**: (optional) `any` - Default value assigned to the field.
 
-| Property | Type    | Description |
-| -------- | ------- | ----------- | ----------- | ------------------- | ------------------------------------------- | ------------ | ------------ | ------------ | -------- | ------ | -------- | -------- | ----------- | ------ | ------ | ------- | ------ | ------- | ------- | -------- | ---------------------------------- |
-| `type`   | `'bold' | 'italic'    | 'underline' | 'strike'            | 'color'                                     | 'background' | 'blockquote' | 'code-block' | 'header' | 'list' | 'script' | 'indent' | 'direction' | 'size' | 'font' | 'align' | 'link' | 'image' | 'video' | 'clean'` | Type of toolbar formatting option. |
-| `value`  | `string | number      | string[]    | boolean` (optional) | Configuration value for the toolbar option. |
+---
 
-### `OptionConfig`
+### ToolbarOption
 
-| Property | Type         | Description                   |
-| -------- | ------------ | ----------------------------- | ---------------------------------------------------- | ------------------------------------- |
-| `key`    | `string`     | Unique key for the option.    |
-| `label`  | `string`     | Display label for the option. |
-| `value`  | `string      | number                        | boolean`                                             | The value associated with the option. |
-| `status` | `'available' | 'booked'` (optional)          | Indicates whether the option is available or booked. |
+- **type**: `'bold' | 'italic' | 'underline' | 'strike' | 'color' | 'background' | 'blockquote' | 'code-block' | 'header' | 'list' | 'script' | 'indent' | 'direction' | 'size' | 'font' | 'align' | 'link' | 'image' | 'video' | 'clean'` - Type of toolbar formatting option.
+- **value**: (optional) `string | number | string[] | boolean` - Configuration value for the toolbar option.
+
+---
+
+### OptionConfig
+
+- **key**: `string` - Unique key for the option.
+- **label**: `string` - Display label for the option.
+- **value**: `string | number | boolean` - The value associated with the option.
+- **status**: (optional) `'available' | 'booked'` - Indicates whether the option is available or booked.
 
 ---
 

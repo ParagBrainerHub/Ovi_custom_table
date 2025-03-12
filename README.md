@@ -1202,15 +1202,44 @@ nextIcon?: string;
 
 # Examples:
 
-Showing the table.
+# Custom Material Table
 
-{ key: 'name', title: 'Name', order: 1, type: 'text', minWidth: '150px', maxWidth: '250px', alignment: 'left' },
-{ key: 'email', title: 'Email', order: 2, type: 'text',minWidth: '150px', maxWidth: '250px', alignment: 'left' },
-{ key: 'role', title: 'User Role', order: 3, type: 'text', minWidth: '150px', maxWidth: '250px', alignment: 'left' },
-{ key: 'imageUrl', title: 'Profile Picture', order: 4, type: 'image', minWidth: '150px', maxWidth: '250px', alignment: 'center' },
-{ key: 'videoUrl', title: 'Profile Video', order: 5, type: 'video', minWidth: '150px', maxWidth: '250px',alignment: 'center' }
+This project demonstrates a customizable material table component in Angular.
 
-![alt text](./images/image.png)
+## Configuration & Example
+
+### Table Configuration
+
+```typescript
+const tableConfig: TableConfig = {
+  isHeader: true,
+  tableTitle: "Custom Table By Parag",
+  columns: [
+    { key: "name", title: "Name", type: "text", minWidth: "150px", maxWidth: "250px", alignment: "left" },
+    { key: "email", title: "Email", type: "text", minWidth: "150px", maxWidth: "250px", alignment: "left" },
+    { key: "role", title: "User Role", type: "text", minWidth: "150px", maxWidth: "250px", alignment: "left" },
+    { key: "imageUrl", title: "Profile Picture", type: "image", minWidth: "150px", maxWidth: "250px", alignment: "left" },
+    { key: "videoUrl", title: "Profile Video", type: "video", minWidth: "150px", maxWidth: "250px", alignment: "left" },
+  ],
+  itemsPerPage: 5,
+  actions: [
+    { icon: "✏️", onClick: this.editUser.bind(this), backgroundColor: "#800080" },
+    { icon: "❌", onClick: this.deleteUser.bind(this), backgroundColor: "#000000", transparent: true },
+  ],
+};
+```
+
+### Example Usage
+
+```html
+<app-custom-material-table *ngIf="isNewTable" [data]="users" [config]="tableConfig"></app-custom-material-table>
+```
+
+## Table Preview
+
+Passing the above configuration results in the following table:
+
+![Custom Table](./images/image.png)
 
 ---
 

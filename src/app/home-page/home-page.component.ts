@@ -166,16 +166,7 @@ export class HomePageComponent {
       imageUrl: 'https://picsum.photos/200/300',
       // imageUrl: this.byteArray,
       imageLoading: true,
-      actions: [
-        {
-          text: 'Edit',
-          icon: '✏️',
-          showIcon: true,
-          hasBorder: false,
-          iconPosition: 'left',
-          onClick: this.editUser.bind(this),
-        },
-      ],
+
       rowAlignments: { name: 'center', email: 'right' },
     },
     {
@@ -184,19 +175,8 @@ export class HomePageComponent {
       email: 'jane.smith@example.com',
       role: 'User',
       imageUrl: 'https://picsum.photos/200/300',
-      // imageUrl: this.byteArray,
       imageLoading: true,
       videoUrl: 'path-to-video.mp4',
-      actions: [
-        {
-          text: 'Delete',
-          icon: '❌',
-          hasBorder: false,
-          showIcon: true,
-          iconPosition: 'left',
-          onClick: this.deleteUser.bind(this),
-        },
-      ],
     },
     {
       id: 3,
@@ -296,7 +276,7 @@ export class HomePageComponent {
         shape: 'square',
         hasBorder: false,
         corners: 'rounded',
-        foregroundColor: '#ffffff',
+        foregroundColor: '#000',
         backgroundColor: '#800080',
         shadow: true,
         transparent: false,
@@ -327,14 +307,10 @@ export class HomePageComponent {
     filterAlignment: 'center',
     showFilter: true,
     filterWidth: '500px',
-    // margin: '20px',
     elementSpacing: '10px',
   };
 
   config: any;
-
-  // maxWidth = '500px';
-
   cardGridConfig: CardGridConfig = {
     gridTitle: 'Our Services',
     gridTitleTag: 'h2',

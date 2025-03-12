@@ -1402,7 +1402,7 @@ This document provides details on configuring buttons within the application, in
 **Example:**
 
 ```typescript
-{ icon: '❌', showIcon: true, text: '',}
+{ icon: '❌', showIcon: true}
 ```
 
 **Test Case:** Ensure the button displays only an icon, centered.

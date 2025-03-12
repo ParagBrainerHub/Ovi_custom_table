@@ -1245,35 +1245,38 @@ Passing the above configuration results in the following table:
 
 ## Table Component
 
-Table Column Alignment Scenarios
+# Table Scenarios
 
-Scenario 1: Changing Column Alignment
+## Table Column Alignment Scenarios
 
-> Description: The text or media inside the columns should align as specified.
+### Scenario 1: Changing Column Alignment
 
-Example:
+> **Description:** The text or media inside the columns should align as specified.
+
+**Example:**
+
+```typescript
 { key: 'name', title: 'Name', alignment: 'center' },
 { key: 'email', title: 'Email', alignment: 'right' }
-Test Case: Ensure the name column aligns to the center and the email column aligns to the right.
+```
 
-Scenario 2: Default Alignment
+**Test Case:** Ensure the name column aligns to the center and the email column aligns to the right.
 
-> Description: If no alignment is specified, the default alignment should be 'left'.
+### Scenario 2: Default Alignment
 
-Example:
+> **Description:** If no alignment is specified, the default alignment should be 'left'.
+
+**Example:**
+
+```typescript
 { key: 'role', title: 'User Role' } // No alignment provided
-Test Case: Ensure the text aligns to the left when no alignment is specified.
+```
 
-Scenario 3: Alignment Based on Data Type
+**Test Case:** Ensure the text aligns to the left when no alignment is specified.
 
-> Description: Text columns should default to 'left' alignment, while numerical columns may default to 'right'.
+## Table Preview
 
-Example:
-{ key: 'name', title: 'Name', type: 'text', alignment: 'left' },
-{ key: 'age', title: 'Age', type: 'number', alignment: 'right' }
-Test Case: Verify that text is aligned to the left and numbers to the right.
-
-![alt text](./images/image-5.png)
+![Table Alignment Example](./images/alignment-example.png)
 
 ---
 

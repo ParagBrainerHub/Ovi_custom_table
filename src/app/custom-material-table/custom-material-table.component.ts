@@ -132,7 +132,7 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
     this.selectedColumns = this.config.columns
       .map((column) => column.key)
       .filter((key): key is string => !!key);
-
+    console.log(this.selectedColumns, 'this.selectedColumns');
     this.columnControl.setValue(this.selectedColumns);
     this.setupDataSource();
   }
@@ -326,6 +326,14 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
       default:
         return 'flex-start';
     }
+  }
+
+  getHeaderAlignment(columnKey: string): string {
+    return (
+      this.config.columns.find((col) => col.key === columnKey)?.alignment ||
+      this.config.columnAlignments?.[columnKey] ||
+      'left'
+    );
   }
 
   handleActionClick(action: any, element: any): void {

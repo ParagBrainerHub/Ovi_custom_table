@@ -234,7 +234,7 @@ export class HomePageComponent {
         type: 'text',
         minWidth: '150px',
         maxWidth: '250px',
-        alignment: 'left',
+        alignment: 'center',
       },
       {
         key: 'role',
@@ -243,7 +243,7 @@ export class HomePageComponent {
         type: 'text',
         minWidth: '150px',
         maxWidth: '250px',
-        alignment: 'left',
+        alignment: 'right',
       },
       {
         key: 'imageUrl',

@@ -56,7 +56,15 @@
         *ngFor="let columnKey of selectedColumns"
         [matColumnDef]="columnKey"
       >
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header-container
+          [ngStyle]="{
+            'text-align': getHeaderAlignment(columnKey),
+            borderRight: '2px solid #fff'
+          }"
+        >
           {{ getColumnTitle(columnKey) }}
         </th>
         <td mat-cell *matCellDef="let row; let i = index">

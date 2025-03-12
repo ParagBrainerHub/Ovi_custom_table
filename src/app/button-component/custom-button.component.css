@@ -13,6 +13,7 @@
   position: relative;
   font-weight: 700;
   font-family: var(--font-family) !important;
+  background-color: #000;
 }
 .custom-button.active {
   transform: translateY(0);
@@ -127,6 +128,7 @@
   font-size: 20px;
   color: inherit;
   line-height: 26px;
+  display: flex;
 }
 
 /* Button content alignment */
@@ -194,7 +196,6 @@
 
 .flat {
   box-shadow: none;
-  background-color: #f0f0f0;
 }
 
 .skeleton-loader {
@@ -287,3 +288,22 @@
   display: flex;
   justify-content: center;
 }
+
+.only-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%; /* Ensures full button width usage */
+}
+
+.only-icon .button-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+/* 
+.only-icon mat-icon {
+  font-size: 24px;
+} */

@@ -8,7 +8,6 @@
   [ngClass]="{
     active: active,
     elevated: shadow,
-    flat: !shadow,
     transparent: transparent,
     hover: hover,
     'pill-button': isPillButton
@@ -36,10 +35,16 @@
     </span>
 
     <!-- Button text -->
-    <span *ngIf="iconPosition !== 'full' && !isMenuButton" class="button-text">
+    <span
+      *ngIf="iconPosition !== 'full' && !isMenuButton && text !== ''"
+      class="button-text"
+    >
       {{ text }}
     </span>
-    <span *ngIf="iconPosition !== 'full' && isMenuButton" class="button-text">
+    <span
+      *ngIf="iconPosition !== 'full' && isMenuButton && text !== ''"
+      class="button-text"
+    >
       {{ text }}
     </span>
 
@@ -92,8 +97,16 @@
           >
             <mat-icon>{{ item.icon }}</mat-icon>
           </span>
+          <span
+            *ngIf="item.icon && item.iconPosition === 'center'"
+            class="only-center"
+          >
+            <mat-icon>{{ item.icon }}</mat-icon>
+          </span>
 
-          <span class="menu-text">{{ item.text }}</span>
+          <span *ngIf="item.text !== ''" class="menu-text">{{
+            item.text
+          }}</span>
 
           <span
             *ngIf="item.icon && item.iconPosition === 'right'"

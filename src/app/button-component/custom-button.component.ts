@@ -54,9 +54,9 @@ export class CustomButtonComponent implements OnInit {
   @Input() shape?: 'circle' | 'square' | 'rectangle' = 'rectangle';
   @Input() corners?: 'rounded' | 'squared' = 'rounded';
 
-  @Input() foregroundColor?: string = 'var(--white-text-color)';
-  @Input() backgroundColor?: string = 'var(--primary-color)';
-  @Input() borderColor?: string | null = null;
+  @Input() foregroundColor?: string = 'black';
+  @Input() backgroundColor?: string = 'white';
+  @Input() borderColor?: string | null = '2px solid black';
   @Input() hasBorder: boolean = false;
 
   @Input() shadow?: boolean = true;
@@ -229,10 +229,10 @@ export class CustomButtonComponent implements OnInit {
       };
     }
     return {
-      backgroundColor: this.backgroundColor,
       color: 'white',
       border: 'none',
       borderRadius: borderRadius,
+      background: this.backgroundColor,
     };
   }
 

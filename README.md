@@ -1371,37 +1371,196 @@ maxRowHeight: "200px";
 
 ---
 
-Button Configuration Scenarios
+# Button Configuration Guide
 
-Scenario 10: Default Button with Text Only
-Description: Show a button with only text, no icon.
-Example:
+## Overview
+
+This document provides details on configuring buttons within the application, including various display scenarios such as text-only buttons, icon-only buttons, and buttons with both icons and text. Below are different configuration scenarios, their descriptions, examples, and test cases.
+
+## Button Configuration Scenarios
+
+### Scenario 10: Default Button with Text Only
+
+> **Description:** Displays a button with only text, without an icon.
+
+**Example:**
+
+```typescript
 { text: 'Edit', showIcon: false }
-Test Case: Ensure the button displays only text and no icon.
+```
 
-![alt text](images/1.png)
+**Test Case:** Ensure the button displays only text and no icon.
 
-Scenario 11: Button with Icon Only
-Description: Show a button with only an icon, no text.
-Example:
-{ icon: '❌', showIcon: true, text: '', iconPosition: 'center' }
-Test Case: Ensure the button displays only an icon, centered.
-![alt text](images/2.png)
+![Default Button with Text Only](images/1.png)
 
-Scenario 12: Button with Both Icon and Text
-Description: Display a button with both an icon and text.
-Example:
+---
+
+### Scenario 11: Button with Icon Only
+
+> **Description:** Displays a button with only an icon, without any text.
+
+**Example:**
+
+```typescript
+{ icon: '❌', showIcon: true, text: '',}
+```
+
+**Test Case:** Ensure the button displays only an icon, centered.
+
+![Button with Icon Only](images/2.png)
+
+---
+
+### Scenario 12: Button with Both Icon and Text
+
+> **Description:** Displays a button with both an icon and text.
+
+**Example:**
+
+```typescript
 { text: 'Delete', icon: '❌', showIcon: true, iconPosition: 'left' }
-Test Case: Verify that both the text and the icon appear as configured.
-![alt text](images/3.png)
+```
 
-Scenario 13: Changing Button Icon Position
-Description: Allow the icon to be positioned left, center, or right.
-Example:
+**Test Case:** Verify that both the text and the icon appear as configured.
+
+![Button with Both Icon and Text](images/3.png)
+
+---
+
+### Scenario 13: Changing Button Icon Position
+
+> **Description:** Allows the icon to be positioned on the left, center, or right of the text.
+
+**Example:**
+
+```typescript
 { text: 'Edit', icon: '✏️', showIcon: true, iconPosition: 'right' }
-Test Case: Check that the icon appears on the right side of the text.
+```
 
-![alt text](./images/image-8.png)
+**Test Case:** Check that the icon appears on the right side of the text.
+
+![Changing Button Icon Position](./images/image-8.png)
+
+---
+
+### Scenario 14: Button with Custom Background and Foreground Colors
+
+> **Description:** Allows setting custom background and foreground colors.
+
+**Example:**
+
+```typescript
+{ text: 'Save', backgroundColor: '#008000', foregroundColor: '#FFFFFF' }
+```
+
+**Test Case:** Ensure the button appears with the correct colors.
+
+![Button with Custom Colors](images/4.png)
+
+---
+
+### Scenario 15: Button with Shadow Effect
+
+> **Description:** Adds a shadow to the button for a 3D effect.
+
+**Example:**
+
+```typescript
+{ text: 'Shadow Button', shadow: true }
+```
+
+**Test Case:** Verify that the button displays with a shadow.
+
+![Button with Shadow Effect](images/5.png)
+
+---
+
+### Scenario 16: Transparent Button
+
+> **Description:** Allows making the button background transparent.
+
+**Example:**
+
+```typescript
+{ text: 'Transparent', transparent: true }
+```
+
+**Test Case:** Ensure the button appears with a transparent background.
+
+![Transparent Button](images/6.png)
+
+---
+
+### Scenario 17: Button with Rounded Corners
+
+> **Description:** Applies rounded corners to the button.
+
+**Example:**
+
+```typescript
+{ text: 'Rounded', corners: 'rounded' }
+```
+
+**Test Case:** Check if the button corners are rounded.
+
+![Button with Rounded Corners](images/7.png)
+
+---
+
+### Scenario 18: Button with Square Shape
+
+> **Description:** Ensures the button has a square shape.
+
+**Example:**
+
+```typescript
+{ icon: '✏️', showIcon: true, shape: 'square' }
+```
+
+**Test Case:** Verify the button appears as a square.
+
+![Square Button](images/8.png)
+
+---
+
+### Scenario 19: Button with Navigation
+
+> **Description:** Navigates to a URL when clicked.
+
+**Example:**
+
+```typescript
+{ text: 'Go to Page', navigate: true, url: 'https://example.com' }
+```
+
+**Test Case:** Ensure clicking the button redirects to the given URL.
+
+![Navigation Button](images/9.png)
+
+---
+
+### Scenario 20: Menu Button with Dropdown
+
+> **Description:** Displays a button that opens a menu with options.
+
+**Example:**
+
+```typescript
+{
+  text: 'Options',
+  isMenuButton: true,
+  menuItems: [
+    { text: 'Settings' },
+    { text: 'Logout' }
+  ]
+}
+```
+
+**Test Case:** Verify that clicking the button shows the menu options.
+
+![Menu Button](images/10.png)
+
+---
 
 ---
 

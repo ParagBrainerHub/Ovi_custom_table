@@ -18,7 +18,7 @@ export interface ButtonConfig {
   backgroundColor?: string;
   foregroundColor?: string;
   borderColor?: string;
-  hasBorder: boolean;
+  hasBorder?: boolean;
   shadow?: boolean;
   navigate?: boolean;
   action?: () => void;

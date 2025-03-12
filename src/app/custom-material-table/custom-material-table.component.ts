@@ -32,6 +32,7 @@ import { TableColumn, TableConfig } from './material-table-column.model';
 import { MatIconModule } from '@angular/material/icon';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ButtonConfig } from '../button-component/button.model';
+import { User } from '../modals';
 // import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
@@ -113,8 +114,6 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
   @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit() {
-    console.log(this.config, 'config123456789');
-    console.log('data: ', this.data);
     var filteredData = this.data.map(
       (user) =>
         Object.fromEntries(
@@ -182,13 +181,11 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
       );
       this.updateDisplayedColumns(updatedDisplayArray);
     } else {
-      // If it doesn't exist in columnControl, return or handle accordingly
       console.log('Dragged column is not allowed for drag operation');
       return;
     }
   }
 
-  // Add method for drag and drop
   dropTable(event: CdkDragDrop<any[]>) {
     const previousIndex = this.dataSource.data.findIndex(
       (row: any) => row === event.item.data
@@ -215,13 +212,7 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
       (a, b) => (a.order || 0) - (b.order || 0)
     );
 
-    // this.displayedColumns = sortedColumns.map((column) => column.key);
-
-    // if (this.config.actions && this.config.actions.length > 0) {
-    //   this.displayedColumns.push('actions');
-    // }
     this.displayedColumns = [...sortedColumns.map((column) => column.key)];
-
     if (this.config.actions && this.config.actions.length > 0) {
       this.displayedColumns.push('actions');
     }
@@ -244,7 +235,6 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['data'] && changes['data'].currentValue) {
-      // Jab bhi data update ho, table ko refresh karna
       this.updateTableData();
     }
 
@@ -334,6 +324,22 @@ export class CustomMaterialTableComponent implements OnInit, OnChanges {
       this.config.columnAlignments?.[columnKey] ||
       'left'
     );
+  }
+  getHeaderMinWidth(columnKey: string): string {
+    return (
+      this.config.columns.find((col) => col.key === columnKey)?.minWidth ||
+      '150px'
+    );
+  }
+  getHeaderMaxWidth(columnKey: string): string {
+    return (
+      this.config.columns.find((col) => col.key === columnKey)?.maxWidth ||
+      '300px'
+    );
+  }
+
+  getRowAlignment(row: User, columnKey: string): string {
+    return row.rowAlignments?.[columnKey] || 'left';
   }
 
   handleActionClick(action: any, element: any): void {

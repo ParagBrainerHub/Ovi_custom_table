@@ -1269,7 +1269,7 @@ Passing the above configuration results in the following table:
 **Example:**
 
 ```typescript
-{ key: 'role', title: 'User Role' } // No alignment provided
+{ key: 'email', title: 'Email' }
 ```
 
 **Test Case:** Ensure the text aligns to the left when no alignment is specified.
@@ -1280,59 +1280,92 @@ Passing the above configuration results in the following table:
 
 ---
 
-Table Column Width Scenarios
+## Table Column Width Scenarios
 
-Scenario 4: Minimum and Maximum Width
+### Scenario 4: Minimum and Maximum Width
 
-> Description: Columns should adjust based on the minWidth and maxWidth properties.
+> **Description:** Columns should adjust based on the minWidth and maxWidth properties.
 
-Example:
+**Example:**
+
+```typescript
 { key: 'name', title: 'Name', minWidth: '150px', maxWidth: '250px' }
-Test Case: Ensure the name column is within the width range and does not exceed the defined width.
+```
 
-Scenario 5: Auto Width
+**Test Case:** Ensure the name column is within the width range and does not exceed the defined width.
 
-> Description: When no minWidth or maxWidth is specified, the column should adjust based on its content.
-
-Example:
-{ key: 'email', title: 'Email' } // No width constraints
-Test Case: Verify that the column adjusts naturally based on content.
-
-![alt text](./images/image-4.png)
+![alt text](./images/widthAdjustment.png)
 
 ---
 
-Table Row Height Scenarios
+### Scenario 5: Auto Width
 
-Scenario 6: Fixed Row Height
-Description: Set a fixed row height for all rows.
-Example:
-rowHeight: '100px'
-Test Case: Ensure all rows are of fixed height, regardless of content.
+> **Description:** When no minWidth or maxWidth is specified, the column should adjust based on its content.
 
-Scenario 7: Variable Row Height Based on Content
-Description: Rows should dynamically expand based on their content, especially for images or videos.
-Example:
+**Example:**
+
+```typescript
+{ key: 'email', title: 'Email' }
+```
+
+**Test Case:** Verify that the column adjusts naturally based on content.
+
+## Table Row Height Scenarios
+
+### Scenario 6: Fixed Row Height
+
+> **Description:** Set a fixed row height for all rows.
+
+**Example:**
+
+```typescript
+rowHeight: "50px";
+maxRowHeight: "200px";
+```
+
+**Test Case:** Ensure all rows are of fixed height, regardless of content.
+
+### Scenario 7: Variable Row Height Based on Content
+
+> **Description:** Rows should dynamically expand based on their content, especially for images or videos.
+
+**Example:**
+
+```typescript
 { key: 'imageUrl', title: 'Image', type: 'image' } // Rows adjust based on image size
-Test Case: Ensure rows expand as needed when an image is loaded.
+```
+
+**Test Case:** Ensure rows expand as needed when an image is loaded.
 
 ![alt text](./images/image-6.png)
 
 ---
 
-Image and Video Loading States
+## Image and Video Loading States
 
-Scenario 8: Handling Loading State for Images
-Description: Display a loader until the image is fully loaded.
-Example:
+### Scenario 8: Handling Loading State for Images
+
+> **Description:** Display a loader until the image is fully loaded.
+
+**Example:**
+
+```typescript
 { imageUrl: 'https://picsum.photos/200/300', imageLoading: true } // Show loader
-Test Case: Verify that the loader appears while the image is loading and disappears after it's fully loaded.
+```
 
-Scenario 9: Handling Loading State for Videos
-Description: Display a loader until the video is fully loaded or ready to play.
-Example:
-{ videoUrl: 'path-to-video.mp4', videoLoading: true } // Show loader
-Test Case: Ensure the loader is displayed while the video is loading.
+**Test Case:** Verify that the loader appears while the image is loading and disappears after it's fully loaded.
+
+### Scenario 9: Handling Loading State for Videos
+
+> **Description:** Display a loader until the video is fully loaded or ready to play.
+
+**Example:**
+
+```typescript
+{ videoUrl: 'https://www.learningcontainer.com/wp-content/uploads/2020/05/sample-mp4-file.mp4', videoLoading: true } // Show loader
+```
+
+**Test Case:** User can play pause expand and download video.
 
 ![alt text](./images/6.png)
 

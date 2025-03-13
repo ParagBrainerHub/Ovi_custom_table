@@ -4684,6 +4684,267 @@ return this.popupType === 'subscribe'
 
 ---
 
+# Calendar Component
+
+## Overview
+
+The Calendar Component is an Angular-based UI module that allows users to book time slots with configurable form fields. The form includes options such as selecting start time, duration, entering user details, and choosing preferences.
+
+---
+
+## ✨ Features
+
+✔ **Configurable form fields** (Dropdowns, Checkboxes, Text Inputs, etc.)  
+✔ **Month & Week View Switching** via a `select` dropdown  
+✔ **Next/Previous Navigation** for both **months & weeks**  
+✔ **Input Validations** for required fields  
+✔ **Dynamic Button Customization** (Submit/Cancel)  
+✔ **Supports multiple input types** (text, select, radio, checkbox, etc.)  
+✔ **Add & Remove Dynamic Fields**
+
+---
+
+## 📸 Screenshots
+
+### 📅 Default Calendar View
+
+![Default Calendar View](./images/calendar-1.png)
+
+### 🔄 Switch Between **Month & Week**
+
+![Month & Week Switch](./images/select-view.png)
+
+### ⏪ Previous & Next Buttons (Based on Selection)
+
+![Navigation Buttons](./images/cal-nav-1.png)  
+![Navigation Buttons](./images/cal-nav-2.png)
+
+---
+
+## Usage
+
+To integrate the Calendar Component into your Angular application, import it into your module and use the component tag in your template:
+
+```html
+<app-calendar-component [formConfig]="formConfigForCalendar"></app-calendar-component>
+```
+
+### Example Configuration
+
+Below is a sample configuration object used to customize the form fields in the calendar component:
+
+```typescript
+this.formConfigForCalendar = {
+  formTitle: "Book Slot",
+  formSubTitle: "",
+  isImageShow: false,
+  formWidth: 100,
+  fields: [
+    {
+      type: "select",
+      label: "Start Time",
+      key: "startTime",
+      placeholder: "Select start time",
+      width: 300,
+      required: true,
+      options: [],
+      errorMessages: {
+        required: "Start Time is required.",
+      },
+      showCheckbox: true,
+    },
+    {
+      type: "select",
+      label: "Duration",
+      key: "duration",
+      placeholder: "Select duration",
+      width: 300,
+      required: true,
+      options: [],
+      errorMessages: {
+        required: "Duration is required.",
+      },
+      showCheckbox: true,
+    },
+    {
+      type: "text",
+      label: "Placeholder",
+      key: "placeholder",
+      placeholder: "Enter placeholder text",
+      width: 300,
+      required: true,
+      validation: {
+        minLength: 3,
+        maxLength: 50,
+      },
+      errorMessages: {
+        required: "Placeholder is required.",
+        minLength: "Placeholder must be at least 3 characters.",
+        maxLength: "Placeholder cannot exceed 50 characters.",
+      },
+      showCheckbox: true,
+    },
+    {
+      type: "text",
+      label: "Name",
+      key: "name",
+      placeholder: "Enter your name",
+      width: 300,
+      required: true,
+      validation: {
+        minLength: 3,
+        maxLength: 30,
+      },
+      style: {
+        inlineStyles: {
+          "font-size": "16px",
+          "font-weight": "bold",
+          "min-width": "80%",
+        },
+      },
+      errorMessages: {
+        required: "Name is required.",
+        minLength: "Name must be at least 3 characters long.",
+        maxLength: "Name cannot exceed 30 characters.",
+      },
+      showCheckbox: true,
+    },
+    {
+      type: "number",
+      label: "Age",
+      key: "age",
+      placeholder: "Enter your age",
+      width: 300,
+      validation: {
+        minValue: 18,
+        maxValue: 60,
+        customErrorMessage: "Age must be between 18 and 60.",
+      },
+      errorMessages: {
+        required: "Age is required.",
+        minValue: "Age must be at least 18.",
+        maxValue: "Age must be 60 or less.",
+      },
+      showCheckbox: true,
+    },
+    {
+      type: "date",
+      label: "Date of Birth",
+      key: "dob",
+      placeholder: "Pick a date",
+      width: 300,
+      required: true,
+      showCheckbox: true,
+    },
+    {
+      type: "time",
+      label: "Select Time",
+      key: "time",
+      placeholder: "Pick a time",
+      width: 300,
+      required: true,
+      validation: {
+        minTime: "08:00",
+        maxTime: "18:00",
+        customErrorMessage: "Time must be between 08:00 and 18:00.",
+      },
+      errorMessages: {
+        required: "Time is required.",
+        minTime: "Time cannot be earlier than 08:00 AM.",
+        maxTime: "Time cannot be later than 06:00 PM.",
+      },
+      showCheckbox: true,
+    },
+    {
+      type: "switch",
+      label: "Enable Notifications",
+      key: "notifications",
+      width: 300,
+      defaultValue: false,
+      showCheckbox: true,
+    },
+    {
+      type: "select",
+      key: "country",
+      label: "Country",
+      width: 300,
+      placeholder: "Select a country",
+      options: [
+        { key: "india", label: "India", value: "IN" },
+        { key: "united_states", label: "United States", value: "US" },
+        { key: "canada", label: "Canada", value: "CA" },
+      ],
+      required: true,
+      errorMessages: {
+        required: "Country selection is required.",
+      },
+      showCheckbox: true,
+    },
+    {
+      type: "radio",
+      label: "Gender",
+      key: "gender",
+      width: 500,
+      options: [
+        { key: "male", label: "Male", value: "male" },
+        { key: "female", label: "Female", value: "female" },
+        { key: "other", label: "Other", value: "other" },
+      ],
+      required: true,
+      errorMessages: {
+        required: "Gender is required.",
+      },
+      showCheckbox: true,
+    },
+    {
+      type: "checkbox",
+      label: "Hobbies",
+      key: "hobbies",
+      width: 600,
+      value: [],
+      options: [
+        { key: "reading", label: "Reading", value: "reading" },
+        { key: "traveling", label: "traveling", value: "traveling" },
+        { key: "music", label: "music", value: "music" },
+      ],
+      required: true,
+      errorMessages: {
+        required: "Select at least one hobby.",
+      },
+      showCheckbox: true,
+    },
+  ],
+  submitButtonConfig: {
+    text: "Submit",
+    icon: "send",
+    showIcon: true,
+    iconPosition: "right",
+    hasBorder: false,
+    foregroundColor: "#ffffff",
+    backgroundColor: "#800080",
+    shadow: true,
+    shape: "rectangle",
+    corners: "rounded",
+    transparent: false,
+  },
+  cancelButtonConfig: {
+    text: "cancel",
+    icon: "cancel",
+    showIcon: true,
+    hasBorder: false,
+    iconPosition: "right",
+    foregroundColor: "#ffffff",
+    backgroundColor: "#800080",
+    shadow: true,
+    shape: "rectangle",
+    corners: "rounded",
+    transparent: false,
+  },
+};
+```
+
+---
+
 # Shape Wrapper Component
 
 The `ShapeWrapperComponent` is an Angular component designed to dynamically position and style various geometric shapes around a content section. It allows customization of shape type, position, and styles, making it ideal for creative UI designs.

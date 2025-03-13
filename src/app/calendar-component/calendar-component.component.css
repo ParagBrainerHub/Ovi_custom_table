@@ -568,9 +568,6 @@ mat-panel-description label {
   height: 100%;
 }
 
-.dynamic-field-array-container {
-}
-
 .dynamic-field-box > label {
   display: block;
   color: purple;

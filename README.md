@@ -4684,6 +4684,107 @@ return this.popupType === 'subscribe'
 
 ---
 
+# Section Wrapper Component
+
+The `SectionWrapperComponent` is an Angular component designed to wrap content while allowing dynamic positioning of images around the section. It enables custom styling and flexible image placement for various UI needs.
+
+## Features
+
+- Allows images to be positioned at the four corners: `top-left`, `top-right`, `bottom-left`, `bottom-right`
+- Supports custom styling and class names
+- Maintains centered content while providing an elegant layout
+
+## Installation
+
+Ensure you have Angular set up in your project. Then, add this component to your module or use it as a standalone component.
+
+## Usage
+
+### Basic Example
+
+```html
+<app-section-wrapper
+  [images]="[
+  { src: 'assets/image1.png', position: 'top-left' },
+  { src: 'assets/image2.png', position: 'bottom-right' }
+]"
+>
+  <h2>Centered Content</h2>
+</app-section-wrapper>
+```
+
+### Example with Custom Styles
+
+```html
+<app-section-wrapper
+  [customClass]="'custom-wrapper'"
+  [customStyles]="{ backgroundColor: '#f8f9fa', padding: '20px' }"
+  [images]="[
+    { src: 'assets/decor1.png', position: 'top-left', imgStyles: { width: '50px' } },
+    { src: 'assets/decor2.png', position: 'bottom-right', imgStyles: { width: '70px' } }
+  ]"
+>
+  <p>Content inside the wrapper</p>
+</app-section-wrapper>
+```
+
+## Properties
+
+- **`images`**: Array of objects containing image details:
+  - `src`: Image source URL
+  - `position`: Image position (`top-left`, `top-right`, `bottom-left`, `bottom-right`)
+  - `img-class` (optional): Custom CSS class for the image
+  - `imgStyles` (optional): Inline styles for the image
+- **`customClass`**: Custom CSS class for the wrapper
+- **`customStyles`**: Inline styles for the wrapper
+
+## Screenshots
+
+Below are sample images demonstrating how images can be positioned within the section wrapper:
+
+### Example Layout with Images:
+
+![Section Wrapper Example](./images/section-wrapper-example.png)
+
+## Styling
+
+### Default Styles (CSS)
+
+```css
+.section-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.image {
+  position: absolute;
+  width: auto;
+  height: auto;
+  z-index: 300;
+}
+
+.top-left {
+  top: 0;
+  left: 0;
+}
+.top-right {
+  top: 0;
+  right: 0;
+}
+.bottom-left {
+  bottom: 0;
+  left: 0;
+}
+.bottom-right {
+  bottom: 0;
+  right: 0;
+}
+```
+
+---
+
 # Footer Component Documentation
 
 ## Overview

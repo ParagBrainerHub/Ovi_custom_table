@@ -2748,7 +2748,9 @@ navbarConfig: NavBarConfig = {
 - **Button Groups**: At least one button group should be present.
 
 ![Example](./images/nav-1.png)
+
 ![Example](./images/nav-2.png)
+
 ![Example](./images/nav-3.png)
 
 # Card Component Properties

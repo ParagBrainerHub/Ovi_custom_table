@@ -1924,404 +1924,318 @@ actions: [
 
 ---
 
-## Card Component
+---
 
-Card with header, body and footer
+# Card Component Configuration
 
-Scenario 48: Card with header, body and footer
-Description: Showing the card component with all the details.
-Example:
-cardConfig: CardConfig = {
-header: {
-title: 'Chihuahua',
-align: 'center',
-buttonsAlign: 'left',
-buttons: [
-{ text: 'Edit', align: 'left', icon: '✏️', action: this.onEdit, },
-{ text: 'Delete', align: 'right', icon: '✏️', action: this.onDelete }
-]
-},
-body: {
-type: 'table',
-align: 'center',
-content: `The Chihuahua is a Mexican breed of toy dog. It is among the smallest of all dog breeds.`,
-buttons: [
-{ text: 'More Info', align: 'center', action: this.onMoreInfo }
-]
-},
-footer: {
-type: 'buttons',
-buttons: [
-{
-text: 'Edit',
-align: 'left',
-group: 'left',
-action: this.onEdit,
+This document provides configuration details for the **Card Component**, which supports **grid** and **list** layouts.
 
-          icon: '✏️',
-          showIcon: true,
-          iconPosition: 'left',
-          shape: 'square',
-          corners: 'rounded',
-          foreground: '#ffffff',
-          background: '#1976d2',
-          shadow: true,
-          transparent: false
-        },
-        { text: 'Cancel', align: 'left', group: 'left', action: this.onCancel },
-        { text: 'Submit', align: 'right', group: 'right', action: this.onSubmit }
-      ]
-    }
+## Card Layout Types
 
+The card component can be displayed in two different layouts:
+
+- **Grid Layout** (`layoutType: 'grid'`)
+- **List Layout** (`layoutType: 'list'`)
+
+---
+
+## 📌 Grid Configuration
+
+### **gridTitle**
+
+- **Type:** `string`
+- **Description:** Title of the grid section.
+
+### **gridTitleTag**
+
+- **Type:** `'h1' | 'h2' | 'h3' | 'h4' | 'p'`
+- **Description:** HTML tag for the grid title.
+
+### **gridTitleStyles**
+
+- **Type:** `{ [key: string]: string }`
+- **Description:** Custom styles for the grid title.
+
+### **gridSubtitle**
+
+- **Type:** `string`
+- **Description:** Subtitle for the grid section.
+
+### **gridSubtitleTag**
+
+- **Type:** `'h1' | 'h2' | 'h3' | 'h4' | 'p'`
+- **Description:** HTML tag for the grid subtitle.
+
+### **gridSubtitleStyles**
+
+- **Type:** `{ [key: string]: string }`
+- **Description:** Custom styles for the grid subtitle.
+
+### **gridContainerStyle**
+
+- **Type:** `{ [key: string]: string }`
+- **Description:** Custom styles for the grid container.
+
+### **cardConfigs**
+
+- **Type:** `CardConfig[]`
+- **Description:** List of card configurations inside the grid.
+
+---
+
+## 📌 List Configuration
+
+### **listTitle**
+
+- **Type:** `string`
+- **Description:** Title of the list section.
+
+### **listTitleTag**
+
+- **Type:** `'h1' | 'h2' | 'h3' | 'h4' | 'p'`
+- **Description:** HTML tag for the list title.
+
+### **listTitleStyles**
+
+- **Type:** `{ [key: string]: string }`
+- **Description:** Custom styles for the list title.
+
+### **listSubtitle**
+
+- **Type:** `string`
+- **Description:** Subtitle for the list section.
+
+### **listSubtitleTag**
+
+- **Type:** `'h1' | 'h2' | 'h3' | 'h4' | 'p'`
+- **Description:** HTML tag for the list subtitle.
+
+### **listSubtitleStyles**
+
+- **Type:** `{ [key: string]: string }`
+- **Description:** Custom styles for the list subtitle.
+
+### **listContainerStyle**
+
+- **Type:** `{ [key: string]: string }`
+- **Description:** Custom styles for the list container.
+
+### **cardConfigs**
+
+- **Type:** `CardConfig[]`
+- **Description:** List of card configurations inside the list.
+
+---
+
+## 📌 Card Configuration
+
+### **layout**
+
+- **Type:** `'grid' | 'list'`
+- **Description:** Defines the layout type for the card.
+
+### **width**
+
+- **Type:** `number`
+- **Description:** Width of the card.
+
+### **imageAlignment**
+
+- **Type:** `'left' | 'right'`
+- **Description:** Defines the alignment of the image inside the card.
+
+### **sectionWidths**
+
+- **Type:** `[number, number]`
+- **Description:** Defines the width distribution of sections within the card.
+
+### **hasBorder**
+
+- **Type:** `boolean`
+- **Description:** Whether the card has a border or not.
+
+### **customStyles**
+
+- **Type:** `{ [key: string]: string }`
+- **Description:** Custom styles for the card.
+
+### **hoverStyles**
+
+- **Type:** `{ [key: string]: string }`
+- **Description:** Styles applied when hovering over the card.
+
+### **cardActions**
+
+- **Type:** `{ icon: string; text: string; }[]`
+- **Description:** List of actions that can be performed on the card.
+
+### **header**
+
+- **Type:** `{ title: string; titleTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'p'; titleStyles?: { [key: string]: string }; }`
+- **Description:** Header configuration for the card.
+
+### **image**
+
+- **Type:** `{ src?: string; position?: 'background' | 'top-half' | 'middle' | 'bottom-half'; }`
+- **Description:** Image settings for the card.
+
+### **body**
+
+- **Type:** `{ type: 'text' | 'text+buttons' | 'table'; content: string; }`
+- **Description:** Body content of the card.
+
+### **footer**
+
+- **Type:** `{ type: 'text' | 'buttons'; text: string; }`
+- **Description:** Footer configuration for the card.
+
+## Usage Example
+
+```html
+<app-card-component [cardGridConfig]="cardGridConfig" [cardListConfig]="cardListConfig" [isGrid]="checked" [carouselConfig]="carouselConfig"></app-card-component>
+```
+
+### Grid View Screenshot
+
+![Grid View](./images/grid-view.png)
+
+---
+
+### List View Screenshot
+
+![List View](./images/list-view.png)
+
+---
+
+# Cart List Component
+
+The `Cart List Component` is a reusable, dynamic card-based UI component designed to display various content layouts. It supports configurable sections such as images, text, actions, shapes, and buttons.
+
+## Features
+
+- **Dynamic Image Integration**: Supports multiple positions and styles.
+- **Shape Customization**: Use various shapes for aesthetic enhancements.
+- **Configurable Sections**: Header, Body, Actions, and Footer customization.
+- **Skeleton Loader**: Enhances the user experience during data fetching.
+- **Dynamic Buttons & Actions**: Interactive buttons with navigation and actions.
+- **IFrame Support**: Embed external content seamlessly.
+
+## Sections & Usage
+
+### 1. List Section
+
+The List Section displays content in a structured way. It can include:
+
+- **Header**: Title, Description, and Custom Styling.
+- **Body**: Text-based content with buttons.
+- **Actions**: Interactive buttons or icons.
+- **Footer**: Additional buttons or information.
+
+Example Configuration:
+
+```typescript
+cardConfig = {
+  header: {
+    title: "Product Name",
+    description: "Brief description about the product",
+    titleAlign: "center",
+    titleTag: "h2",
+  },
+  body: {
+    type: "text+buttons",
+    content: "This is the body content.",
+    buttons: [{ text: "Buy Now", action: () => alert("Clicked!") }],
+  },
+  footer: {
+    type: "buttons",
+    buttons: [{ text: "More Info", action: () => console.log("More Info") }],
+  },
 };
+```
 
-![alt text](./images/7.png)
+![List component 1](./images/list-1.png)
+![List component 2](./images/list-2.png)
 
----
+### 2. Shape Wrapper
 
-### Image Properties
+The Shape Wrapper is used to add decorative shapes to enhance the UI experience.
 
-Scenario 49: Full Background Image
-Description: Image fills the entire card as a background.
-On hover, the image fades slightly and the description "This is a background image with hover description" is displayed.
+- Supports multiple shape types: `rectangle`, `oval`, `circle`, `square`, `triangle`, `hexagon`, `pentagon`.
+- Shapes can be positioned in different corners: `top-left`, `top-right`, `bottom-left`, `bottom-right`.
 
-Example:
+Example Configuration:
 
-`image: {
-  position: 'background',
-  src: 'https://media.istockphoto.com/id/1934523700/photo/close-up-on-man-hand-using-mobile-phone.jpg?s=1024x1024&w=is&k=20&c=8rb1PLOQMgOY52356fBOBjWfVknpGT-uxfeJk_h3ols=',
-  title: 'Sample Background Title',
-  description: 'This is a background image with hover description.',
-  hoverEffect: true
-}`
+```typescript
+shapes = [
+  { type: "circle", position: "top-left", styles: { width: "50px", height: "50px", backgroundColor: "red" } },
+  { type: "rectangle", position: "bottom-right", styles: { width: "100px", height: "50px", backgroundColor: "blue" } },
+];
+```
 
-![alt text](images/47.png)
+![shape View 1](./images/shape-1.png)
+![shape View 2](./images/shape-2.png)
 
----
+### 3. Section Wrapper
 
-Scenario 50: Image Positioned in Top Half of Card
-Description: Image is displayed in the top half of the card with the title "Top Half Image" overlaid.
+The Section Wrapper allows for better organization of content with optional image overlays.
 
-Example:
+- Supports images with positions: `top-left`, `top-right`, `bottom-left`, `bottom-right`.
+- Custom styling is available.
 
-`image: {
-  position: 'top-half',
-  src: 'https://media.istockphoto.com/id/1934523700/photo/close-up-on-man-hand-using-mobile-phone.jpg?s=1024x1024&w=is&k=20&c=8rb1PLOQMgOY52356fBOBjWfVknpGT-uxfeJk_h3ols=',
-  title: 'Top Half Image',
-  hoverEffect: false
-}`
+Example Configuration:
 
-![alt text](images/48.png)
+```typescript
+images = [{ src: "assets/sample.png", position: "top-left", imgStyles: { width: "50px", height: "50px" } }];
+```
 
----
+![section View 1](./images/section-1.png)
 
-Scenario 51: Image Positioned in the Middle of the Card
-Description: Image is centered vertically in the card.
+## Possible Scenarios
 
-Example:
+### 1. Product Card
 
-image: {
-position: 'middle',
-src: 'https://media.istockphoto.com/id/1934523700/photo/close-up-on-man-hand-using-mobile-phone.jpg?s=1024x1024&w=is&k=20&c=8rb1PLOQMgOY52356fBOBjWfVknpGT-uxfeJk_h3ols=',
-title: 'Middle Positioned Image',
-description: 'This description appears on hover.',
-hoverEffect: true
-}
+- **Use Case**: Displaying product details with an image, description, and purchase buttons.
+- **Components Used**: `Image`, `Header`, `Body`, `Footer`.
 
-![alt text](images/49.png)
+### 2. User Profile Card
 
----
+- **Use Case**: Show user details along with an avatar and action buttons.
+- **Components Used**: `Image`, `Header`, `Actions`.
 
-Scenario 52: Image Positioned in Bottom Half of Card
-Description: The image appears in the bottom half of the card.
+### 3. Information Card with Shapes
 
-Example:
+- **Use Case**: Display text-based information enhanced with shapes.
+- **Components Used**: `Shape Wrapper`, `Body`, `Footer`.
 
-image: {
-position: 'bottom-half',
-src: 'https://media.istockphoto.com/id/1934523700/photo/close-up-on-man-hand-using-mobile-phone.jpg?s=1024x1024&w=is&k=20&c=8rb1PLOQMgOY52356fBOBjWfVknpGT-uxfeJk_h3ols=',
-title: 'Bottom Half Image',
-hoverEffect: false
-}
+### 4. Promotional Card
 
-![alt text](images/50.png)
+- **Use Case**: Highlight discounts and offers with vibrant shapes and buttons.
+- **Components Used**: `Shape Wrapper`, `Image`, `Buttons`.
 
----
+## Usage Example
 
-Scenario 53: Square Image Under Title
-Description: A square image is displayed under the title.
+Import and use the component in your project:
 
-Example:
+```typescript
+import { CartListComponent } from 'cart-list-component';
 
-image: {
-position: 'square-under-title',
-src: 'https://media.istockphoto.com/id/1934523700/photo/close-up-on-man-hand-using-mobile-phone.jpg?s=1024x1024&w=is&k=20&c=8rb1PLOQMgOY52356fBOBjWfVknpGT-uxfeJk_h3ols=',
-title: 'Square Image Below Title',
-hoverEffect: false
-}
+<CartListComponent [config]="cardConfig" />
+```
 
-![alt text](images/51.png)
+## Configuration Options
+
+| Property  | Type   | Description                                   |
+| --------- | ------ | --------------------------------------------- |
+| `header`  | Object | Defines the title, description, and alignment |
+| `body`    | Object | Specifies content type and actions            |
+| `footer`  | Object | Configures footer buttons and information     |
+| `shapes`  | Array  | Defines decorative shapes with styles         |
+| `images`  | Array  | Embeds images with positions                  |
+| `section` | Array  | Embeds additional images with positions       |
 
 ---
 
-Scenario 54: Rectangle Image Under Title
-Description: A rectangular image is displayed under the title "Rectangle Image Below Title".
-
-Example:
-
-image: {
-position: 'rectangle-under-title',
-src: 'https://media.istockphoto.com/id/1934523700/photo/close-up-on-man-hand-using-mobile-phone.jpg?s=1024x1024&w=is&k=20&c=8rb1PLOQMgOY52356fBOBjWfVknpGT-uxfeJk_h3ols=',
-title: 'Rectangle Image Below Title',
-hoverEffect: false
-}
-
-![alt text](images/52.png)
-
----
-
-Scenario 55: Dark Background with Image Title
-Description: Image is displayed with a dark overlay background.
-
-Example:
-
-image: {
-position: 'dark-background-title',
-src: 'https://media.istockphoto.com/id/1934523700/photo/close-up-on-man-hand-using-mobile-phone.jpg?s=1024x1024&w=is&k=20&c=8rb1PLOQMgOY52356fBOBjWfVknpGT-uxfeJk_h3ols=',
-title: 'Dark Background Image Title',
-description: 'Description on hover',
-hoverEffect: true
-}
-
-![alt text](images/53.png)
-
----
-
-Scenario 56: Image Hover Effect with Title and Description
-Description: Image is displayed with title "Hover to See Description".
-
-Example:
-
-image: {
-position: 'background',
-src: 'https://media.istockphoto.com/id/1934523700/photo/close-up-on-man-hand-using-mobile-phone.jpg?s=1024x1024&w=is&k=20&c=8rb1PLOQMgOY52356fBOBjWfVknpGT-uxfeJk_h3ols=',
-title: 'Hover to See Description',
-description: 'This description is shown on hover.',
-hoverEffect: true
-}
-
-![alt text](images/54.png)
-
----
-
-Scenario 57: Full Background Image
-Description: Image fills the entire card as a background.
-
-Example:
-
-image: {
-position: 'background',
-src: 'https://media.istockphoto.com/id/1934523700/photo/close-up-on-man-hand-using-mobile-phone.jpg?s=1024x1024&w=is&k=20&c=8rb1PLOQMgOY52356fBOBjWfVknpGT-uxfeJk_h3ols=',
-title: 'Sample Background Title',
-description: 'This is a background image with hover description.',
-hoverEffect: true
-}
-
-![alt text](images/55.png)
-
----
-
-### Card Properties
-
-Scenario 58: Content with Description
-Description: This test case ensures that a simple text description is displayed inside the content section of the card.
-
-Example:
-content: {
-description: 'This is a sample card description for testing purposes.'
-}
-
-![Image: 39](images/39.png)
-
----
-
-Scenario 59: Content with Custom HTML
-Description: This test case validates that custom HTML content can be injected into the card’s content section.
-
-Example:
-content: {
-customHtml: '<div><strong>Custom HTML Content For Card Section</strong></div>'
-}
-
-![Image: 40](images/40.png)
-
----
-
-Scenario 60: Left-aligned Text in Details Section
-Description: The text in the details section should be aligned to the left, and each row should contain one text item that is left-aligned.
-
-Example:
-content: {
-details: {
-align: 'left',
-content: [
-[{ text: 'Left Aligned Item 1' }],
-[{ text: 'Left Aligned Item 2' }],
-[{ text: 'Left Aligned Item 3' }]
-]
-}
-}
-
-![Image: 41](images/41.png)
-
----
-
-Scenario 61: Center-aligned Text with Icons in Details Section
-Description: The details section should display icons followed by text, all center-aligned. Each row should contain one item with an icon on the left and the text next to it.
-
-Example:
-content: {
-details: {
-align: 'center',
-content: [
-[{ icon: '🔧', text: 'Settings' }],
-[{ icon: '📧', text: 'Email' }],
-[{ icon: '⚙️', text: 'Configuration' }]
-]
-}
-}
-
-![Image: 42](images/42.png)
-
----
-
-Scenario 62: Right-aligned Text with Multiple Rows
-Description: The text in the details section should be aligned to the right, with each row containing one item that is right-aligned.
-
-Example:
-content: {
-details: {
-align: 'right',
-content: [
-[{ text: 'Right Aligned Item 1' }],
-[{ text: 'Right Aligned Item 2' }],
-[{ text: 'Right Aligned Item 3' }]
-]
-}
-}
-
-![alt text](images/43.png)
-
----
-
-Scenario 63: Multi-column Layout with Text in Details Section
-Description: The details section should display content in a two-row, three-column layout. Each row should contain three text items distributed evenly across the columns.
-
-Example:
-content: {
-details: {
-align: 'multi-column',
-content: [
-[
-{ text: 'Column 1, Row 1' },
-{ text: 'Column 2, Row 1' },
-{ text: 'Column 3, Row 1' }
-],
-[
-{ text: 'Column 1, Row 2' },
-{ text: 'Column 2, Row 2' },
-{ text: 'Column 3, Row 2' }
-]
-]
-}
-}
-
-![alt text](images/44.png)
-
----
-
-Scenario 64: Multi-column Layout with Icons and Text
-Description: The details section should display a two-row, three-column layout with each item containing an icon on the left followed by text. All content should be evenly distributed across the rows and columns.
-
-Example:
-content: {
-details: {
-align: 'multi-column',
-content: [
-[
-{ icon: '🏠', text: 'Home' },
-{ icon: '💻', text: 'Work' },
-{ icon: '📚', text: 'Library' }
-],
-[
-{ icon: '🎨', text: 'Design' },
-{ icon: '✍️', text: 'Write' },
-{ icon: '🎤', text: 'Speak' }
-]
-]
-}
-}
-
-![Image: 45](images/45.png)
-
----
-
-Scenario 65: Multi-column Layout with Icons and Text
-Description: The details section should display a two-row, three-column layout with each item containing an icon on the left followed by text. All content should be evenly distributed across the rows and columns.
-
-Example:
-`content: {
-  details: {
-    align: 'multi-column',
-    content: [
-      [
-        { icon: '🏠', text: 'Home' },
-        { icon: '💻', text: 'Work' },
-        { icon: '📚', text: 'Library' }
-      ],
-      [
-        { icon: '🎨', text: 'Design' },
-        { icon: '✍️', text: 'Write' },
-        { icon: '🎤', text: 'Speak' }
-      ]
-    ]
-  }
-}`
-
-![Image: 45](images/45.png)
-
----
-
-Scenario 66: Multi-column Layout with Icons and Text, description and customHtml
-Description: All the detaild added for the Card Section.
-
-Example:
-
-`content: {
-  description: 'This is the main content description.',
-  customHtml: '<p>Custom HTML content here</p>',
-  details: {
-    align: 'multi-column',
-    columns: 2,
-    rows: 2,
-    content: [
-      [
-        { text: 'Detail 1', icon: '🔍' },
-        { text: 'Detail 2', icon: '📅' }
-      ],
-      [
-        { text: 'Detail 3', icon: '💼' },
-        { text: 'Detail 4', icon: '🌍' }
-      ]
-    ]
-  }
-}`
-
-![alt text](images/46.png)
-
----
-
-## Form Component Properties
+# Form Component Properties
 
 Scenario 67: Required Validation for Text Field (Name)
 

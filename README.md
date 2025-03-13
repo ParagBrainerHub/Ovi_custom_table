@@ -2238,329 +2238,298 @@ import { CartListComponent } from 'cart-list-component';
 
 ---
 
-# Form Component Properties
+# Form Configuration Guide
 
-Scenario 67: Required Validation for Text Field (Name)
+This document provides details on how to configure forms using the provided `FormConfig` and `FormFieldConfig` interfaces.
 
-Description: Test the behavior when the "Name" field is left blank, which is required.
+## FormConfig Structure
 
-Example:
-
-`formConfig: FormConfig = {
-  fields: [
-    {
-      type: 'text',
-      label: 'Name',
-      placeholder: 'Enter your name',
-      required: true,
-      validation: {
-        minLength: 3,
-        maxLength: 30
-      },
-      errorMessages: {
-        required: 'Name is required.'
-      }
-    }
-  ]
-};`
-
-![alt text](images/60.png)
+```typescript
+export interface FormConfig {
+  formTitle?: string;
+  formTitleStyles?: { [key: string]: string };
+  formSubTitle?: string;
+  formSubTitleStyles?: { [key: string]: string };
+  isImageShow: boolean;
+  formWidth: number;
+  fields: FormFieldConfig[];
+  submitButtonConfig?: ButtonConfig;
+  cancelButtonConfig?: ButtonConfig;
+  backgroundColor?: string;
+}
+```
 
 ---
 
-Scenario 68: MinLength Validation for Text Field (Name)
+## Field Types and Examples
 
-Description: Test the behavior when fewer than 3 characters are entered in the "Name" field.
+### Text Field
 
-Example:
-
-`fields: [
-    {
-      type: 'text',
-      label: 'Name',
-      placeholder: 'Enter your name',
-      required: true,
-      validation: {
-        minLength: 3,
-        maxLength: 30
-      },
-      errorMessages: {
-        minLength: 'Name must be at least 3 characters long.'
-      }
-    }
-  ];`
-
-![alt text](images/61.png)
-
----
-
-Scenario 69: MaxLength Validation for Text Field (Name)
-
-Description: Test the behavior when more than 30 characters are entered in the "Name" field.
-
-Example:
-
-`fields: [
-  {
-    type: 'text',
-    label: 'Name',
-    placeholder: 'Enter your name',
-    required: true,
-    validation: {
-      minLength: 3,
-      maxLength: 30
-    },
-    errorMessages: {
-      maxLength: 'Name cannot exceed 30 characters.'
-    }
+```typescript
+{
+  type: 'text',
+  label: 'Name',
+  key: 'name',
+  placeholder: 'Enter your name',
+  required: true,
+  validation: {
+    minLength: 3,
+    maxLength: 50
   }
-]`
+}
+```
 
-![alt text](images/62.png)
+![Example](./images/text-type.png)
 
 ---
 
-Scenario 70: Number Field Validation (Age)
+### Email Field
 
-Description: Test the behavior when an invalid number is entered for the "Age" field, with the minimum value of 18 and maximum value of 60.
-
-Example:
-
-`fields: [
-  {
-    type: 'number',
-    label: 'Age',
-    placeholder: 'Enter your age',
-    validation: {
-      minValue: 18,
-      maxValue: 60
-    },
-    errorMessages: {
-      minValue: 'Age must be at least 18.',
-      maxValue: 'Age must be 60 or less.'
-    }
+```typescript
+{
+  type: 'email',
+  label: 'Email',
+  key: 'email',
+  placeholder: 'Enter your email',
+  required: true,
+  validation: {
+    pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
   }
-]`
+}
+```
 
-![alt text](images/63.png)
+![Example](./images/email-type.png)
 
 ---
 
-Scenario 71: Textarea Field with Custom Toolbar (Bio)
+### Number Field
 
-Description: Test the textarea field with a custom toolbar, ensuring that the text styling options (bold, italic, color) work as expected.
+```typescript
+{
+  type: 'number',
+  label: 'Age',
+  key: 'age',
+  placeholder: 'Enter your age',
+  required: true,
+  validation: {
+    minValue: 18,
+    maxValue: 100
+  }
+}
+```
+
+![Example](./images/num-type.png)
+
+---
+
+### Date Field
+
+```typescript
+{
+  type: 'date',
+  label: 'Date of Birth',
+  key: 'dob',
+  required: true
+}
+```
+
+![Example](./images/date-type.png)
+
+---
+
+### File Upload
+
+```typescript
+{
+  type: 'file',
+  label: 'Upload Profile Picture',
+  key: 'profilePic',
+  fileConfig: {
+    allowedTypes: ['image/png', 'image/jpeg']
+  }
+}
+```
+
+![Example](./images/file-type.png)
+
+---
+
+### Textarea
+
+```typescript
+{
+  type: 'textarea',
+  label: 'Description',
+  key: 'description',
+  textareaConfig: {
+    rows: 5
+  }
+}
+```
+
+![Example](./images/text-area-type.png)
+
+---
+
+### Password Field
+
+```typescript
+{
+  type: 'password',
+  label: 'Password',
+  key: 'password',
+  required: true,
+  validation: {
+    minLength: 6
+  }
+}
+```
+
+![Example](./images/password-hide-type.png)
+![Example](./images/password-show-type.png)
+
+---
+
+### Checkbox
+
+```typescript
+{
+  type: 'checkbox',
+  label: 'Accept Terms',
+  key: 'terms',
+  required: true
+}
+```
+
+![Example](./images/check-box-type.png)
+
+---
+
+---
+
+### Color
+
+```typescript
+{
+  type: 'color',
+  label: 'Brand Color',
+  key: 'color',
+  required: true
+}
+```
+
+![Example](./images/color-type.png)
+
+---
+
+### Radio Button
+
+```typescript
+{
+  type: 'radio',
+  label: 'Gender',
+  key: 'gender',
+  options: [
+    { key: 'male', label: 'Male', value: 'male' },
+    { key: 'female', label: 'Female', value: 'female' }
+  ]
+}
+```
+
+![Example](./images/radio-type.png)
+
+---
+
+### Select Dropdown
+
+```typescript
+{
+  type: 'select',
+  label: 'Country',
+  key: 'country',
+  options: [
+    { key: 'india', label: 'India', value: 'IN' },
+    { key: 'usa', label: 'USA', value: 'US' }
+  ]
+}
+```
+
+![Example](./images/drop-down-type.png)
+
+---
+
+### Switch Toggle
+
+```typescript
+{
+  type: 'switch',
+  label: 'Enable Notifications',
+  key: 'notifications'
+}
+```
+
+![Example](./images/toggle-type.png)
+
+---
+
+## Validation Configuration
+
+```typescript
+export interface ValidationConfig {
+  minLength?: number;
+  maxLength?: number;
+  minValue?: number;
+  maxValue?: number;
+  pattern?: string;
+  minTime?: string;
+  maxTime?: string;
+  customErrorMessage?: string;
+  match?: string;
+}
+```
+
+### Example Validation Messages
+
+```typescript
+{
+  errorMessages: {
+    required: 'This field is required',
+    minLength: 'Minimum length is 3 characters',
+    maxLength: 'Maximum length is 50 characters',
+    pattern: 'Invalid format'
+  }
+}
+```
+
+---
+
+## Styling Configuration
+
+```typescript
+export interface StyleConfig {
+  class?: string;
+  inlineStyles?: { [key: string]: string };
+}
+```
 
 Example:
 
-`formConfig: FormConfig = {
-  fields: [
-    {
-      type: 'textarea',
-      label: 'Bio',
-      placeholder: 'Write your bio',
-      textareaConfig: {
-        rows: 5,
-        toolbarOptions: [
-          { type: 'bold' },
-          { type: 'italic' },
-          { type: 'color' }
-        ]
-      },
-      validation: {
-        minLength: 10,
-        maxLength: 200
-      },
-      style: {
-        inlineStyles: { 'background-color': '#db0f0f', 'color': '#15763d', 'font-size': '30px' }
-      }
-    }
-  ]
-};`
-
-![alt text](images/64.png)
+```typescript
+{
+  style: {
+    class: 'custom-input',
+    inlineStyles: { color: 'blue', fontSize: '14px' }
+  }
+}
+```
 
 ---
 
-Scenario 72: Required Date Field (Date of Birth)
+## Conclusion
 
-Description: Test the required validation for the "Date of Birth" field to ensure that the field cannot be left empty.
+This guide provides a detailed overview of configuring form fields with various types, validations, and styling options. Replace `path_to_image` with actual image paths for a complete documentation experience.
 
-Example:
-
-`formConfig: FormConfig = {
-  fields: [
-    {
-      type: 'date',
-      label: 'Date of Birth',
-      placeholder: 'Pick a date',
-      required: true,
-      errorMessages: {
-        required: 'Date of Birth is required.'
-      }
-    }
-  ]
-};`
-
-![alt text](images/65.png)
-
----
-
-Scenario 73: Valid Form Submission
-
-Description: Test a scenario where all form fields are filled with valid input, ensuring that the form can be submitted without errors.
-
-Example:
-
-`formConfig: FormConfig = {
-  fields: [
-    {
-      type: 'text',
-      label: 'Name',
-      placeholder: 'Enter your name',
-      required: true,
-      validation: {
-        minLength: 3,
-        maxLength: 30
-      }
-    },
-    {
-      type: 'number',
-      label: 'Age',
-      validation: {
-        minValue: 18,
-        maxValue: 60
-      }
-    },
-    {
-      type: 'date',
-      label: 'Date of Birth',
-      required: true
-    },
-    {
-      type: 'file',
-      label: 'Profile Picture',
-      fileConfig: {
-        allowedTypes: ['image/png']
-      }
-    },
-    {
-      type: 'textarea',
-      label: 'Bio',
-      validation: {
-        minLength: 10,
-        maxLength: 200
-      }
-    }
-  ]
-};`
-
-![alt text](images/66.png)
-
----
-
-Scenario 74: Textarea Field Min and Max Length Validation (Bio)
-
-Description: Test the behavior when the input text for the "Bio" field does not meet the minimum or exceeds the maximum character length.
-
-Example:
-
-`formConfig: FormConfig = {
-  fields: [
-    {
-      type: 'textarea',
-      label: 'Bio',
-      placeholder: 'Write your bio',
-      validation: {
-        minLength: 10,
-        maxLength: 200
-      },
-      errorMessages: {
-        minLength: 'Bio must be at least 10 characters long.',
-        maxLength: 'Bio cannot exceed 200 characters.'
-      }
-    }
-  ]
-};`
-
-![alt text](images/67.png)
-
----
-
-Scenario 75: Custom Inline Styles for Text Field (Name)
-
-Description: Test the application of custom inline styles for the "Name" field.
-
-Example:
-
-`formConfig: FormConfig = {
-  fields: [
-    {
-      type: 'text',
-      label: 'Name',
-      placeholder: 'Enter your name',
-      required: true,
-      style: {
-        inlineStyles: {
-          'font-size': '18px',
-          'font-weight': 'bold',
-          'color': '#333'
-        }
-      }
-    }
-  ]
-};`
-
-![alt text](images/68.png)
-
----
-
-Scenario 76: Optional Text Field without Validation (Middle Name)
-
-Description: Test the behavior of an optional text field that does not require validation.
-
-Example:
-
-`formConfig: FormConfig = {
-  fields: [
-    {
-      type: 'text',
-      label: 'Middle Name',
-      placeholder: 'Enter your middle name',
-      required: false
-    }
-  ]
-};`
-
-![alt text](images/69.png)
-
----
-
-Scenario 77: Dynamic Error Messages for Custom Validation
-
-Description: Test a custom validation rule for the "Age" field, which displays a specific error message when the input is outside the valid range.
-
-Example:
-
-`formConfig: FormConfig = {
-  fields: [
-    {
-      type: 'number',
-      label: 'Age',
-      placeholder: 'Enter your age',
-      validation: {
-        minValue: 18,
-        maxValue: 60,
-        customErrorMessage: 'Age must be between 18 and 60.'
-      }
-    }
-  ]
-};`
-
-![alt text](images/70.png)
-
----
-
-## Nav Bar Component Properties
+# Nav Bar Component Properties
 
 Scenario 78: Default Configuration
 

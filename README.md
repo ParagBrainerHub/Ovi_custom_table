@@ -1412,6 +1412,8 @@ Test Case: Ensure the title changes appropriately based on the dynamic update.
 
 ---
 
+---
+
 filering Columns
 
 Scenario 18: filering Columns
@@ -1420,6 +1422,10 @@ Example:
 Test Case: Verify that the column appears and hide after checked and unchecked.
 ![alt text](images/custom-table-filter-column.png)
 ![alt text](images/custom-table-filter-column-1.png)
+
+---
+
+---
 
 Scenario 19: Global Search
 Description: here you can see the example of search.
@@ -1550,7 +1556,7 @@ This document provides details on configuring buttons within the application, in
 
 ### Scenario 17: Button with Rounded Corners
 
-> **Description:** Applies rounded corners to the button.
+**Description:** Applies rounded corners to the button.
 
 **Example:**
 

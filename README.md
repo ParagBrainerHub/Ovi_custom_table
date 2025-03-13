@@ -1407,8 +1407,8 @@ Example:
 { key: 'name', title: 'Nombre' } // Changing title to Spanish
 Test Case: Ensure the title changes appropriately based on the dynamic update.
 
-![alt text](./images/dynamic-header-1.png)
-![alt text](./images/dynamic-header-2.png)
+![alt text 1](./images/dynamic-header-1.png)
+![alt text 2](./images/dynamic-header-2.png)
 
 ---
 
@@ -1420,8 +1420,8 @@ Scenario 18: filering Columns
 Description: Dynamically change columns Hide/Show.
 Example:
 Test Case: Verify that the column appears and hide after checked and unchecked.
-![alt text](images/custom-table-filter-column.png)
-![alt text](images/custom-table-filter-column-1.png)
+![alt text 1](images/custom-table-filter-column.png)
+![alt text 2](images/custom-table-filter-column-1.png)
 
 ---
 

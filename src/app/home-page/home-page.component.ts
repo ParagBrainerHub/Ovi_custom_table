@@ -269,8 +269,8 @@ export class HomePageComponent {
     maxItemsOptions: [5, 10, 15],
     actions: [
       {
-        text: 'Edit',
-        icon: 'edit',
+        text: '',
+        icon: '',
         showIcon: true,
         iconPosition: 'left',
         onClick: this.editUser.bind(this),

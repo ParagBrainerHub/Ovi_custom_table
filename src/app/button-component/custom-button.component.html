@@ -1,5 +1,7 @@
 <div *ngIf="isPageLoading" class="skeleton-loader"></div>
-
+<div *ngIf="!text && !icon" class="validation-error">
+  Error: Either an icon or text is required.
+</div>
 <button
   type="button"
   *ngIf="!isPageLoading"

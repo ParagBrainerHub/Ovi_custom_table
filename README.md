@@ -1913,35 +1913,38 @@ Ensure buttons have text or an icon; otherwise, show an error.
 ```typescript
 actions: [
   {
-    text: "Edit",
-    icon: "✏️",
+    text: "",
+    icon: "",
     showIcon: true,
     iconPosition: "left",
     onClick: this.editUser.bind(this),
     shape: "square",
+    hasBorder: false,
     corners: "rounded",
-    foreground: "#ffffff",
-    background: "#1976d2",
+    foregroundColor: "#fff",
+    backgroundColor: "#800080",
     shadow: true,
     transparent: false,
   },
   {
-    text: "",
-    icon: "",
+    text: "Delete",
+    icon: "delete",
     showIcon: true,
     iconPosition: "right",
     onClick: this.deleteUser.bind(this),
+    hasBorder: false,
     shape: "square",
-    corners: "squared",
-    foreground: "#ff0000",
-    background: "#000000",
+    corners: "rounded",
+    foregroundColor: "#ff0000",
+    backgroundColor: "#black",
+    borderColor: "2px solid red",
     shadow: false,
-    transparent: false,
+    transparent: true,
   },
 ];
 ```
 
-![Validation Example](./images/image_31.png)
+![Validation Example](./images/button-validation.png)
 
 ---
 

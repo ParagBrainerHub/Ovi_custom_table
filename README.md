@@ -1534,7 +1534,7 @@ This document provides details on configuring buttons within the application, in
 
 **Test Case:** Verify that the button displays with a shadow.
 
-![Button with Shadow Effect](images/5.png)
+![Button with Shadow Effect](images/box-shadow-example.png)
 
 ---
 
@@ -1632,30 +1632,6 @@ Test Case: Check that the loader replaces the icon on button click and reverts a
 The **Button Component** is a customizable UI element that allows users to trigger actions such as navigation, form submission, or UI changes. It supports various shapes, styles, and interaction behaviors.
 
 ---
-
-## **Button Properties**
-
-| Property          | Type                        | Description                                    |
-| ----------------- | --------------------------- | ---------------------------------------------- | -------------------------------------- | -------------------------------- |
-| `shape`           | `'circle'                   | 'square'                                       | 'rectangle'`                           | Defines the shape of the button. |
-| `text`            | `string`                    | Button label text.                             |
-| `icon`            | `string`                    | Icon to be displayed inside the button.        |
-| `showIcon`        | `boolean`                   | Whether to show an icon or not.                |
-| `iconPosition`    | `'left'                     | 'right'`                                       | Position of the icon relative to text. |
-| `corners`         | `'rounded'                  | 'squared'`                                     | Defines button corner styling.         |
-| `hasBorder`       | `boolean`                   | Enables or disables button border.             |
-| `borderColor`     | `string`                    | Defines the color of the border.               |
-| `foregroundColor` | `string`                    | Text color of the button.                      |
-| `backgroundColor` | `string`                    | Background color of the button.                |
-| `transparent`     | `boolean`                   | Whether the button has a transparent style.    |
-| `shadow`          | `boolean`                   | Enables or disables button shadow effect.      |
-| `navigate`        | `boolean`                   | Whether the button should navigate on click.   |
-| `url`             | `string`                    | URL to navigate to when `navigate` is `true`.  |
-| `onClick`         | `function`                  | Function to be triggered on button click.      |
-| `menuItems`       | `Array<object>`             | Dropdown menu options if the button is a menu. |
-| `isMenuButton`    | `boolean`                   | Indicates if the button has a menu.            |
-| `customStyles`    | `{ [key: string]: string }` | Custom CSS styles for button customization.    |
-| `isPillButton`    | `boolean`                   | Enables a pill-shaped button style.            |
 
 ---
 

@@ -4945,6 +4945,52 @@ this.formConfigForCalendar = {
 
 ---
 
+## 📌 Card 1: Modal Functionality (Book Slot)
+
+### 📌 Opening the Modal
+
+- A **"+" button** is available to open the **"Book Slot"** form in a modal.
+- The modal appears as a pop-up, allowing users to enter booking details.
+
+### 📌 Modal Form Features
+
+- Contains fields like **Start Time, Duration, Name, Age, Date of Birth, Time Selection, Country, Gender, and Hobbies**.
+- Form fields are configurable and dynamically generated based on requirements.
+- Includes **Submit** and **Cancel** buttons.
+
+### 📌 Submitting the Form
+
+- Upon submission, an **event is created** and displayed in the calendar.
+- Validations ensure all required fields are properly filled.
+
+### 📸 Book Slot Modal Opened
+
+![Book Slot Modal](./images/calendar-form.png)
+
+---
+
+## 📌 Card 2: Editing an Event
+
+### 📌 Editing an Existing Event
+
+- Clicking on an event **reopens the modal** with pre-filled details.
+- Users can **modify details** and save changes.
+
+### 📌 Update Process
+
+- The updated event reflects on the calendar after saving changes.
+- Ensures smooth **modification and management** of booked slots.
+
+### 📸 Event Created in Calendar
+
+![Event Created](./images/cal-event.png)
+
+### 📸 Editing an Event in Modal
+
+![Edit Event](./images/calendar-edit.png)
+
+---
+
 # Shape Wrapper Component
 
 The `ShapeWrapperComponent` is an Angular component designed to dynamically position and style various geometric shapes around a content section. It allows customization of shape type, position, and styles, making it ideal for creative UI designs.

@@ -4684,6 +4684,140 @@ return this.popupType === 'subscribe'
 
 ---
 
+# Shape Wrapper Component
+
+The `ShapeWrapperComponent` is an Angular component designed to dynamically position and style various geometric shapes around a content section. It allows customization of shape type, position, and styles, making it ideal for creative UI designs.
+
+## Features
+
+- Supports multiple geometric shapes: `rectangle`, `oval`, `circle`, `square`, `triangle`, `hexagon`, `pentagon`.
+- Allows positioning at four corners: `top-left`, `top-right`, `bottom-left`, `bottom-right`.
+- Fully customizable with custom styles and class names.
+- Ensures centered content while adding visual elements.
+
+## Usage
+
+### Basic Example
+
+```html
+<app-shape-wrapper
+  [shapes]="[
+  { type: 'circle', position: 'top-left' },
+  { type: 'hexagon', position: 'bottom-right' }
+]"
+>
+  <h2>Content in the Center</h2>
+</app-shape-wrapper>
+```
+
+### Example with Custom Styles
+
+```html
+<app-shape-wrapper
+  [customClass]="'custom-shape-wrapper'"
+  [customStyles]="{ backgroundColor: '#f8f9fa', padding: '20px' }"
+  [shapes]="[
+    { type: 'triangle', position: 'top-right', styles: { borderBottomColor: 'green' } },
+    { type: 'pentagon', position: 'bottom-left', styles: { backgroundColor: 'blue' } }
+  ]"
+>
+  <p>Shapes dynamically placed around this content.</p>
+</app-shape-wrapper>
+```
+
+## Properties
+
+- **`shapes`**: An array of shape objects with the following properties:
+  - `type`: Defines the shape (`rectangle`, `oval`, `circle`, `square`, `triangle`, `hexagon`, `pentagon`).
+  - `position`: Placement of the shape (`top-left`, `top-right`, `bottom-left`, `bottom-right`).
+  - `styles`: Optional object containing custom CSS styles.
+- **`customClass`**: A custom CSS class for the wrapper.
+- **`customStyles`**: Inline styles for the wrapper.
+
+## Screenshots
+
+Example of how shapes are positioned dynamically:
+![Shape Wrapper Example](./images/shape-wrapper-example.png)
+
+## Styling
+
+### Default Styles (CSS)
+
+```css
+.shape-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shape {
+  position: absolute;
+}
+
+.rectangle {
+  width: 100px;
+  height: 50px;
+  background-color: red;
+}
+.oval {
+  width: 100px;
+  height: 50px;
+  background-color: blue;
+  border-radius: 50%;
+}
+.circle {
+  width: 50px;
+  height: 50px;
+  background-color: #edc58c;
+  border-radius: 50%;
+}
+.square {
+  width: 50px;
+  height: 50px;
+  background-color: yellow;
+}
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 50px solid purple;
+}
+.hexagon {
+  width: 50px;
+  height: 50px;
+  background-color: orange;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+.pentagon {
+  width: 50px;
+  height: 50px;
+  background-color: pink;
+  clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+}
+
+.top-left {
+  top: 0;
+  left: 0;
+}
+.top-right {
+  top: 0;
+  right: 0;
+}
+.bottom-left {
+  bottom: 0;
+  left: 0;
+}
+.bottom-right {
+  bottom: 0;
+  right: 0;
+}
+```
+
+---
+
 # Section Wrapper Component
 
 The `SectionWrapperComponent` is an Angular component designed to wrap content while allowing dynamic positioning of images around the section. It enables custom styling and flexible image placement for various UI needs.
@@ -4693,10 +4827,6 @@ The `SectionWrapperComponent` is an Angular component designed to wrap content w
 - Allows images to be positioned at the four corners: `top-left`, `top-right`, `bottom-left`, `bottom-right`
 - Supports custom styling and class names
 - Maintains centered content while providing an elegant layout
-
-## Installation
-
-Ensure you have Angular set up in your project. Then, add this component to your module or use it as a standalone component.
 
 ## Usage
 

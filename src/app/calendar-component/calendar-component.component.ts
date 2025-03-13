@@ -27,15 +27,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { v4 as uuidv4 } from 'uuid';
 import { FormComponentComponent } from '../form-component/form-component.component';
-// interface Booking {
-//   id?: string;
-//   date: Date;
-//   startTime: string;
-//   duration: number;
-//   placeholder: string;
-//   customerName?: string;
-//   attribute2?: string;
-// }
 
 @Component({
   selector: 'app-calendar-component',

@@ -269,6 +269,7 @@ export class HomePageComponent {
     maxItemsOptions: [5, 10, 15],
     actions: [
       {
+        text: 'Edit',
         icon: 'edit',
         showIcon: true,
         iconPosition: 'left',
@@ -282,6 +283,7 @@ export class HomePageComponent {
         transparent: false,
       },
       {
+        text: 'Delete',
         icon: 'delete',
         showIcon: true,
         iconPosition: 'right',
@@ -2232,7 +2234,7 @@ export class HomePageComponent {
             transparent: true,
             hasBorder: true,
             borderColor: 'var(--primary-text-color)',
-            shadow: false,
+            shadow: true,
             navigate: true,
             url: '/login',
             onClick: (event: Event) => this.handleClick(event),

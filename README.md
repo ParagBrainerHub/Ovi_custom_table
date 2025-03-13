@@ -1625,299 +1625,323 @@ Test Case: Check that the loader replaces the icon on button click and reverts a
 
 ---
 
----
+# **Button Component Documentation**
 
-## Button Component
+## **Overview**
 
-Change the shape for the button
-
-shape?: 'circle' | 'square' | 'rectangle';
-
-Scenario 25: Change the Table
-Description: Changing the Table By clicking on the button.
-Example:
-<app-custom-button
-\*ngFor="let action of (element.actions || config.actions)"
-[ngStyle]="{ 'margin-right': config.elementSpacing || '0px' }"
-[text]="action.text"
-[icon]="action.icon || ''"
-[showIcon]="action.showIcon !== undefined ? action.showIcon : true"
-[iconPosition]="action.iconPosition || 'left'"
-[shape]="action.shape"
-[corners]="action.corners"
-[foreground]="action.foreground"
-[background]="action.background"
-[shadow]="action.shadow"
-[transparent]="action.transparent"
-(click)="action.text === 'Edit' ? startEditing(i) : handleActionClick(action, element)">
-</app-custom-button>
-actions : [
-{
-text: 'Edit',
-icon: '✏️',
-showIcon: true,
-iconPosition: 'left',
-onClick: this.editUser.bind(this),
-shape: 'square',
-corners: 'rounded',
-foreground: '#ffffff',
-background: '#1976d2',
-shadow: true,
-transparent: false
-},
-{
-text: 'Delete',
-icon: '❌',
-showIcon: true,
-iconPosition: 'right',
-onClick: this.deleteUser.bind(this),
-shape: 'square',
-corners: 'squared',
-foreground: '#ff0000',
-background: '#000000',
-shadow: false,
-transparent: true
-},
-],
-
-![alt text](./images/image_25.png)
+The **Button Component** is a customizable UI element that allows users to trigger actions such as navigation, form submission, or UI changes. It supports various shapes, styles, and interaction behaviors.
 
 ---
 
-Change the corners for the button
+## **Button Properties**
 
-corners?: 'rounded' | 'squared';
-
-Scenario 26: Change the Table
-Description: Changing the Table By clicking on the button.
-Example:
-actions : [
-{
-text: 'Edit',
-icon: '✏️',
-showIcon: true,
-iconPosition: 'left',
-onClick: this.editUser.bind(this),
-shape: 'square',
-corners: 'rounded',
-foreground: '#ffffff',
-background: '#1976d2',
-shadow: true,
-transparent: false
-},
-{
-text: 'Delete',
-icon: '❌',
-showIcon: true,
-iconPosition: 'right',
-onClick: this.deleteUser.bind(this),
-shape: 'square',
-corners: 'squared',
-foreground: '#ff0000',
-background: '#000000',
-shadow: false,
-transparent: true
-},
-],
-
-![alt text](./images/image_26.png)
+| Property          | Type                        | Description                                    |
+| ----------------- | --------------------------- | ---------------------------------------------- | -------------------------------------- | -------------------------------- |
+| `shape`           | `'circle'                   | 'square'                                       | 'rectangle'`                           | Defines the shape of the button. |
+| `text`            | `string`                    | Button label text.                             |
+| `icon`            | `string`                    | Icon to be displayed inside the button.        |
+| `showIcon`        | `boolean`                   | Whether to show an icon or not.                |
+| `iconPosition`    | `'left'                     | 'right'`                                       | Position of the icon relative to text. |
+| `corners`         | `'rounded'                  | 'squared'`                                     | Defines button corner styling.         |
+| `hasBorder`       | `boolean`                   | Enables or disables button border.             |
+| `borderColor`     | `string`                    | Defines the color of the border.               |
+| `foregroundColor` | `string`                    | Text color of the button.                      |
+| `backgroundColor` | `string`                    | Background color of the button.                |
+| `transparent`     | `boolean`                   | Whether the button has a transparent style.    |
+| `shadow`          | `boolean`                   | Enables or disables button shadow effect.      |
+| `navigate`        | `boolean`                   | Whether the button should navigate on click.   |
+| `url`             | `string`                    | URL to navigate to when `navigate` is `true`.  |
+| `onClick`         | `function`                  | Function to be triggered on button click.      |
+| `menuItems`       | `Array<object>`             | Dropdown menu options if the button is a menu. |
+| `isMenuButton`    | `boolean`                   | Indicates if the button has a menu.            |
+| `customStyles`    | `{ [key: string]: string }` | Custom CSS styles for button customization.    |
+| `isPillButton`    | `boolean`                   | Enables a pill-shaped button style.            |
 
 ---
 
-Change the transparency for the button
+### **Example Usage**
 
-transparent?: boolean;
-
-Scenario 27: Change the transparent
-Description: Used for the transparent the background.
-Example:
-actions : [
-{
-text: 'Edit',
-icon: '✏️',
-showIcon: true,
-iconPosition: 'left',
-onClick: this.editUser.bind(this),
-shape: 'square',
-corners: 'rounded',
-foreground: '#ffffff',
-background: '#1976d2',
-shadow: true,
-transparent: false
-},
-{
-text: 'Delete',
-icon: '❌',
-showIcon: true,
-iconPosition: 'right',
-onClick: this.deleteUser.bind(this),
-shape: 'square',
-corners: 'squared',
-foreground: '#ff0000',
-background: '#000000',
-shadow: false,
-transparent: false
-},
-],
-
-![alt text](./images/image_27.png)
-
----
-
-Change the Foreground Color
-
-foreground?: string;
-
-Scenario 28: Change the Foreground Color
-Description: Used for the change the foreground color for the button component.
-Example:
-actions : [
-{
-text: 'Edit',
-icon: '✏️',
-showIcon: true,
-iconPosition: 'left',
-onClick: this.editUser.bind(this),
-shape: 'square',
-corners: 'rounded',
-foreground: '#ffffff',
-background: '#1976d2',
-shadow: true,
-transparent: false
-},
-{
-text: 'Delete',
-icon: '❌',
-showIcon: true,
-iconPosition: 'right',
-onClick: this.deleteUser.bind(this),
-shape: 'square',
-corners: 'squared',
-foreground: '#ff0000',
-background: '#000000',
-shadow: false,
-transparent: false
-},
-],
-
-![alt text](./images/image_28.png)
-
----
-
-`background?: string;`
-
-Scenario 29: Change the Background of the button
-Description: Used for the change the background color for the button component.
-Example:
-
-```JSON
-actions : [
-    {
-    text: 'Edit',
-    icon: '✏️',
-    showIcon: true,
-    iconPosition: 'left',
-    onClick: this.editUser.bind(this),
-    shape: 'square',
-    corners: 'rounded',
-    foreground: '#ffffff',
-    background: '#1976d2',
-    shadow: true,
-    transparent: false
-  },
-  {
-    text: 'Delete',
-    icon: '❌',
-    showIcon: true,
-    iconPosition: 'right',
-    onClick: this.deleteUser.bind(this),
-    shape: 'square',
-    corners: 'squared',
-    foreground: '#ff0000',
-    background: '#000000',
-    shadow: false,
-    transparent: false
-  }
-]
+```html
+<app-custom-button [text]="button.text" [icon]="button.icon" [showIcon]="button.showIcon" [iconPosition]="button.iconPosition" [shape]="button.shape" [corners]="button.corners" [hasBorder]="button.hasBorder ?? false" [borderColor]="button.borderColor" [foregroundColor]="button.foregroundColor" [backgroundColor]="button.backgroundColor" [transparent]="button.transparent" [shadow]="button.shadow" [navigate]="button.navigate ?? false" [url]="button.url ?? ''" [id]="button.id ?? ''" (buttonClick)="button.action?.()" [onClick]="button.onClick" [menuItems]="button.menuItems" [isMenuButton]="button.isMenuButton" [customStyles]="button.customStyles ?? {}" [isPillButton]="button.isPillButton ?? false"> </app-custom-button>
 ```
 
-![alt text](./images/image_28.png)
+---
+
+## **Action Buttons Example**
+
+```typescript
+actions: [
+  {
+    text: "Edit",
+    icon: "edit",
+    showIcon: true,
+    iconPosition: "left",
+    onClick: this.editUser.bind(this),
+    shape: "square",
+    hasBorder: false,
+    corners: "rounded",
+    foregroundColor: "#fff",
+    backgroundColor: "#800080",
+    shadow: true,
+    transparent: false,
+  },
+  {
+    text: "Delete",
+    icon: "delete",
+    showIcon: true,
+    iconPosition: "right",
+    onClick: this.deleteUser.bind(this),
+    hasBorder: false,
+    shape: "square",
+    corners: "rounded",
+    foregroundColor: "#ff0000",
+    backgroundColor: "#black",
+    borderColor: "2px solid red",
+    shadow: true,
+    transparent: true,
+  },
+];
+```
 
 ---
 
-shadow?: boolean;
+## **Button in Action**
 
-Scenario 30: Showing the shadow
-Description: Used for the showing the shadow for the button.
-Example:
-actions : [
-{
-text: 'Edit',
-icon: '✏️',
-showIcon: true,
-iconPosition: 'left',
-onClick: this.editUser.bind(this),
-shape: 'square',
-corners: 'rounded',
-foreground: '#ffffff',
-background: '#1976d2',
-shadow: true,
-transparent: false
-},
-{
-text: 'Delete',
-icon: '❌',
-showIcon: true,
-iconPosition: 'right',
-onClick: this.deleteUser.bind(this),
-shape: 'square',
-corners: 'squared',
-foreground: '#ff0000',
-background: '#000000',
-shadow: false,
-transparent: false
-},
-],
-
-![alt text](./images/image_28.png)
+![Button Example](./images/image_25.png)
 
 ---
 
-validate?: () => boolean;
+## **Overview**
 
-Scenario 31: Validate message
-Description: Used for the show the error message or validate when there are no text or icon available.
-Example:
-actions : [
-{
-text: 'Edit',
-icon: '✏️',
-showIcon: true,
-iconPosition: 'left',
-onClick: this.editUser.bind(this),
-shape: 'square',
-corners: 'rounded',
-foreground: '#ffffff',
-background: '#1976d2',
-shadow: true,
-transparent: false
-},
-{
-text: '',
-icon: '',
-showIcon: true,
-iconPosition: 'right',
-onClick: this.deleteUser.bind(this),
-shape: 'square',
-corners: 'squared',
-foreground: '#ff0000',
-background: '#000000',
-shadow: false,
-transparent: false
-},
-],
+The **Button Component** allows customization of shape, color, transparency, and actions such as validation and navigation.
 
-![alt text](./images/image_31.png)
+---
+
+## **Scenario 26: Change the Corners of the Button**
+
+### **Description**
+
+Modify the button's corner styling to be `rounded` or `squared`.
+
+### **Example**
+
+```typescript
+actions: [
+  {
+    text: "Edit",
+    icon: "edit",
+    showIcon: true,
+    iconPosition: "left",
+    onClick: this.editUser.bind(this),
+    shape: "square",
+    corners: "rounded",
+    foreground: "#ffffff",
+    background: "#1976d2",
+    shadow: true,
+    transparent: false,
+  },
+  {
+    text: "Delete",
+    icon: "delete",
+    showIcon: true,
+    iconPosition: "right",
+    onClick: this.deleteUser.bind(this),
+    shape: "square",
+    corners: "squared",
+    foreground: "#ff0000",
+    background: "#000000",
+    shadow: false,
+    transparent: true,
+  },
+];
+```
+
+![Button Corners square](./images/square-button.png)
+![Button Corners rounded](./images/rounded-button.png)
+
+---
+
+## **Scenario 27: Make the Button Transparent**
+
+### **Description**
+
+Enable or disable button transparency.
+
+### **Example**
+
+```typescript
+actions: [
+  {
+    text: "Edit",
+    icon: "edit",
+    showIcon: true,
+    iconPosition: "left",
+    onClick: this.editUser.bind(this),
+    shape: "square",
+    corners: "rounded",
+    foreground: "#ffffff",
+    background: "#1976d2",
+    shadow: true,
+    transparent: false,
+  },
+  {
+    text: "Delete",
+    icon: "delete",
+    showIcon: true,
+    iconPosition: "right",
+    onClick: this.deleteUser.bind(this),
+    shape: "square",
+    corners: "squared",
+    foreground: "#ff0000",
+    background: "#000000",
+    shadow: false,
+    transparent: false,
+  },
+];
+```
+
+![Button Transparency](./images/image_25.png)
+
+---
+
+## **Scenario 28: Change the Foreground Color**
+
+### **Description**
+
+Modify the text color of the button.
+
+### **Example**
+
+```typescript
+{
+            id: 'schedule-a-call',
+            text: 'Schedule A Call',
+            icon: 'wifi_calling',
+            showIcon: true,
+            iconPosition: 'right',
+            shape: 'rectangle',
+            corners: 'rounded',
+            foregroundColor: '#DD8208',
+            transparent: true,
+            hasBorder: true,
+            borderColor: '#DD8208',
+            shadow: false,
+            navigate: true,
+            url: '/call',
+            isPillButton: true,
+            // onClick: (event: Event) => this.handleClick(event),
+          },
+```
+
+![Foreground Color](./images/change-foreground.png)
+
+---
+
+## **Scenario 29: Change the Background Color**
+
+### **Description**
+
+Modify the background color of the button.
+
+### **Example**
+
+```typescript
+buttons: [
+        {
+          text: 'Get a Free Consultation',
+          hasBorder: false,
+          isPillButton: true,
+          backgroundColor: '#15A46E',
+          customStyles: {
+            padding: '16px 24px',
+          },
+        },
+        {
+          text: 'See My Work',
+          hasBorder: false,
+          isPillButton: true,
+          backgroundColor: '#DD8208',
+          customStyles: {
+            padding: '16px 24px',
+          },
+        },
+      ],
+```
+
+![Background Color](./images/background-change.png)
+
+---
+
+## **Scenario 30: Show Button Shadow**
+
+### **Description**
+
+Enable or disable the shadow effect on the button.
+
+### **Example**
+
+```typescript
+{
+            id: 'login',
+            text: 'Login',
+            icon: '',
+            showIcon: false,
+            shape: 'rectangle',
+            corners: 'rounded',
+            foregroundColor: 'var(--primary-text-color)',
+            transparent: true,
+            hasBorder: true,
+            borderColor: 'var(--primary-text-color)',
+            shadow: true,
+            navigate: true,
+            url: '/login',
+          }
+```
+
+![Button Shadow](./images/box-shadow-example.png)
+
+---
+
+## **Scenario 31: Validate Button Content**
+
+### **Description**
+
+Ensure buttons have text or an icon; otherwise, show an error.
+
+### **Example**
+
+```typescript
+actions: [
+  {
+    text: "Edit",
+    icon: "✏️",
+    showIcon: true,
+    iconPosition: "left",
+    onClick: this.editUser.bind(this),
+    shape: "square",
+    corners: "rounded",
+    foreground: "#ffffff",
+    background: "#1976d2",
+    shadow: true,
+    transparent: false,
+  },
+  {
+    text: "",
+    icon: "",
+    showIcon: true,
+    iconPosition: "right",
+    onClick: this.deleteUser.bind(this),
+    shape: "square",
+    corners: "squared",
+    foreground: "#ff0000",
+    background: "#000000",
+    shadow: false,
+    transparent: false,
+  },
+];
+```
+
+![Validation Example](./images/image_31.png)
 
 ---
 

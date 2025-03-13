@@ -2954,7 +2954,7 @@ group: 'right'
 },
 },
 {
-//layout: 'list', //Use the list layout
+//layout: 'list',
 // width: 100,
 header: {
 title: 'Chihuahua 2',
@@ -3049,7 +3049,7 @@ group: 'right'
 },
 },
 {
-//layout: 'list', //Use the list layout
+//layout: 'list',
 // width: 100,
 header: {
 title: 'Chihuahua 2',
@@ -4681,5 +4681,135 @@ return this.popupType === 'subscribe'
 }`
 
 ![alt text](images/120.png)
+
+---
+
+# Footer Component Documentation
+
+## Overview
+
+The `FooterComponent` is a dynamic and customizable Angular component that provides a structured and interactive footer section. It includes features like subscription forms, contact details, useful links, and a customizable bottom bar.
+
+---
+
+## Features
+
+✅ **Dynamic Content:** Configurable footer with customizable sections.
+✅ **Subscription Form:** Optional subscription form modal.
+✅ **Contact Us Modal:** Integrated contact form for user interactions.
+✅ **Useful Links Section:** List of useful links with customizable labels and URLs.
+✅ **Responsive Design:** Optimized for different screen sizes.
+✅ **Social Media Icons:** Supports icons with corresponding links.
+✅ **Embedded Iframe:** Allows adding an iframe (e.g., Google Maps).
+✅ **Theme Customization:** Apply styles dynamically.
+
+---
+
+## Installation & Setup
+
+1. **Import the Component:**
+
+```typescript
+import { FooterComponent } from "path-to-footer/footer.component";
+```
+
+2. **Add to Template:**
+
+```html
+<app-footer [footerConfig]="footerData" [contactFormConfig]="contactFormConfig" [subscribeFormConfig]="subscribeFormConfig"></app-footer>
+```
+
+3. **Provide Configuration Data:**
+
+```typescript
+footerData: FooterConfig = {
+  isSubscribeShow: true,
+  subscribeText: "Stay Updated",
+  subscribeDesc: "Subscribe to our newsletter for updates.",
+  subscribeButton: "Subscribe",
+  contactusButton: "Contact Us",
+  logoUrl: "assets/logo.png",
+  description: "Your trusted partner.",
+  usefulLinks: [
+    { name: "Home", url: "/" },
+    { name: "About", url: "/about" },
+  ],
+  contact: {
+    address: "123 Street, City",
+    email: "info@example.com",
+    phone: "+1234567890",
+  },
+  bottomBar: {
+    year: new Date().getFullYear(),
+    company: "Your Company",
+    copyrightText: "All rights reserved.",
+    backgroundColor: "#222",
+    icons: [{ icon: "assets/facebook-icon.png", url: "https://facebook.com" }],
+  },
+};
+```
+
+---
+
+## Component Structure
+
+### 1️⃣ **Top Section (Subscription & Contact Us)**
+
+- Displays a **subscription prompt** and **contact us button**.
+- Opens a modal when clicked.
+
+### 2️⃣ **Middle Section (Logo, Links, Contact Info)**
+
+- Displays **company logo & description**.
+- **Useful links** (dynamically configured).
+- **Contact details** with clickable icons for email, phone, and address.
+
+### 3️⃣ **Iframe Section (Optional)**
+
+- Used for embedding external content like Google Maps.
+
+### 4️⃣ **Bottom Bar (Copyright & Social Links)**
+
+- Displays copyright text and **social media icons**.
+
+---
+
+## Screenshots 📸
+
+### Default Footer View
+
+![Footer Preview](./images/footer-default.png)
+
+### Subscription Modal
+
+![Subscription Modal](./images/footer-subscribe.png)
+
+### Contact Us Modal
+
+![Contact Us Modal](./images/footer-contact.png)
+
+---
+
+## Event Handling
+
+| Event                      | Description                   |
+| -------------------------- | ----------------------------- |
+| `openSubscriptionModal()`  | Opens the subscription modal  |
+| `openContactusModal()`     | Opens the contact form modal  |
+| `closeSubscriptionModal()` | Closes the subscription modal |
+| `closeContactModal()`      | Closes the contact form modal |
+
+---
+
+## Styling (CSS)
+
+You can customize the styling using the `footerConfig.footerContainerstyle` object.
+
+```typescript
+footerContainerstyle: {
+  backgroundColor: '#f8f8f8',
+  padding: '20px',
+};
+```
 
 ---

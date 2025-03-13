@@ -2222,16 +2222,19 @@ import { CartListComponent } from 'cart-list-component';
 <CartListComponent [config]="cardConfig" />
 ```
 
+![shape View 2](./images/injectDynamicComponent.png)
+
 ## Configuration Options
 
-| Property  | Type   | Description                                   |
-| --------- | ------ | --------------------------------------------- |
-| `header`  | Object | Defines the title, description, and alignment |
-| `body`    | Object | Specifies content type and actions            |
-| `footer`  | Object | Configures footer buttons and information     |
-| `shapes`  | Array  | Defines decorative shapes with styles         |
-| `images`  | Array  | Embeds images with positions                  |
-| `section` | Array  | Embeds additional images with positions       |
+| Property           | Type      | Description                                   |
+| ------------------ | --------- | --------------------------------------------- |
+| `header`           | Object    | Defines the title, description, and alignment |
+| `body`             | Object    | Specifies content type and actions            |
+| `footer`           | Object    | Configures footer buttons and information     |
+| `shapes`           | Array     | Defines decorative shapes with styles         |
+| `images`           | Array     | Embeds images with positions                  |
+| `section`          | Array     | Embeds additional images with positions       |
+| `DynamicComponent` | Component | Inject components inside list Component       |
 
 ---
 

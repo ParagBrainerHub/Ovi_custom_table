@@ -4989,6 +4989,10 @@ this.formConfigForCalendar = {
 
 ![Edit Event](./images/calendar-edit.png)
 
+### 📸 View Event in Modal
+
+![Edit Event](./images/cal-bookings.png)
+
 ---
 
 # Shape Wrapper Component

@@ -1371,6 +1371,63 @@ maxRowHeight: "200px";
 
 ---
 
+---
+
+Actions in Table Scenarios
+
+Scenario 14: Multiple Action Buttons in a Row
+Description: Show multiple action buttons (e.g., Edit, Delete) in a single row.
+Example:
+actions: [
+{ text: 'Edit', icon: 'edit', showIcon: true, iconPosition: 'left' },
+{ text: 'Delete', icon: 'delete', showIcon: true, iconPosition: 'left' }
+]
+Test Case: Ensure both buttons are rendered in the actions column.
+![alt text](images/action-button.png)
+
+---
+
+Dynamic Row Alignments
+
+Scenario 16: Set Dynamic Alignments for Individual Rows
+Description: Allow different rows to have different alignment settings based on conditions.
+Example:
+{ rowAlignments: { name: 'center', email: 'right' } }
+Test Case: Verify that individual row alignments can differ from column alignments.
+
+![alt text](./images/image.png)
+
+---
+
+Changing Table Column Titles Dynamically
+
+Scenario 17: Dynamic Column Title Updates
+Description: Dynamically change the title of a column based on certain conditions (e.g., localization).
+Example:
+{ key: 'name', title: 'Nombre' } // Changing title to Spanish
+Test Case: Ensure the title changes appropriately based on the dynamic update.
+
+![alt text](./images/dynamic-header-1.png)
+![alt text](./images/dynamic-header-2.png)
+
+---
+
+filering Columns
+
+Scenario 18: filering Columns
+Description: Dynamically change columns Hide/Show.
+Example:
+Test Case: Verify that the column appears and hide after checked and unchecked.
+![alt text](images/custom-table-filter-column.png)
+![alt text](images/custom-table-filter-column-1.png)
+
+Scenario 19: Global Search
+Description: here you can see the example of search.
+Test Case: Ensure the image where I am searching "Jane".
+![alt text](./images/table-search.png)
+
+---
+
 # Button Configuration Guide
 
 ## Overview
@@ -1455,7 +1512,7 @@ This document provides details on configuring buttons within the application, in
 
 **Test Case:** Ensure the button appears with the correct colors.
 
-![Button with Custom Colors](images/4.png)
+![Button with Custom Colors](images/image-8.png)
 
 ---
 
@@ -1487,7 +1544,7 @@ This document provides details on configuring buttons within the application, in
 
 **Test Case:** Ensure the button appears with a transparent background.
 
-![Transparent Button](images/6.png)
+![Transparent Button](images/transparent-button.png)
 
 ---
 
@@ -1503,23 +1560,7 @@ This document provides details on configuring buttons within the application, in
 
 **Test Case:** Check if the button corners are rounded.
 
-![Button with Rounded Corners](images/7.png)
-
----
-
-### Scenario 18: Button with Square Shape
-
-> **Description:** Ensures the button has a square shape.
-
-**Example:**
-
-```typescript
-{ icon: '✏️', showIcon: true, shape: 'square' }
-```
-
-**Test Case:** Verify the button appears as a square.
-
-![Square Button](images/8.png)
+![Button with Rounded Corners](images/rounded-border.png)
 
 ---
 
@@ -1535,7 +1576,7 @@ This document provides details on configuring buttons within the application, in
 
 **Test Case:** Ensure clicking the button redirects to the given URL.
 
-![Navigation Button](images/9.png)
+![Navigation Button](images/navigation-button.png)
 
 ---
 
@@ -1558,73 +1599,9 @@ This document provides details on configuring buttons within the application, in
 
 **Test Case:** Verify that clicking the button shows the menu options.
 
-![Menu Button](images/10.png)
+![Menu Button](images/option-button.png)
 
 ---
-
----
-
-Actions in Table Scenarios
-
-Scenario 14: Multiple Action Buttons in a Row
-Description: Show multiple action buttons (e.g., Edit, Delete) in a single row.
-Example:
-actions: [
-{ text: 'Edit', icon: '✏️', showIcon: true, iconPosition: 'left' },
-{ text: 'Delete', icon: '❌', showIcon: true, iconPosition: 'left' }
-]
-Test Case: Ensure both buttons are rendered in the actions column.
-![alt text](images/4.png)
-
-Scenario 15: Conditionally Show Action Buttons
-Description: Display buttons conditionally based on row data (e.g., show 'Edit' for Admin users only).
-Example:
-{ role: 'Admin', actions: [ { text: 'Edit', showIcon: true } ] }
-Test Case: Check that only Admin rows display the Edit button.
-
-![alt text](./images/image-10.png)
-
----
-
-Dynamic Row Alignments
-
-Scenario 16: Set Dynamic Alignments for Individual Rows
-Description: Allow different rows to have different alignment settings based on conditions.
-Example:
-{ rowAlignments: { name: 'center', email: 'right' } }
-Test Case: Verify that individual row alignments can differ from column alignments.
-
-![alt text](./images/image.png)
-
----
-
-Changing Table Column Titles Dynamically
-
-Scenario 17: Dynamic Column Title Updates
-Description: Dynamically change the title of a column based on certain conditions (e.g., localization).
-Example:
-{ key: 'name', title: 'Nombre' } // Changing title to Spanish
-Test Case: Ensure the title changes appropriately based on the dynamic update.
-
-![alt text](./images/image-13.png)
-
----
-
-Sorting and Ordering Columns
-
-Scenario 18: Reordering Columns
-Description: Dynamically change the order of columns.
-Example:
-{ key: 'email', order: 1 }, { key: 'name', order: 2 }
-Test Case: Verify that the email column appears first after changing the order.
-![alt text](images/5.png)
-
-Scenario 19: Disabling Sorting for Specific Columns
-Description: Disable sorting for columns that shouldn't allow sorting (e.g., images, videos).
-Example:
-{ key: 'imageUrl', sortable: false }
-Test Case: Ensure the image column cannot be sorted while others can.
-![alt text](./images/image-14.png)
 
 ---
 
@@ -1641,50 +1618,6 @@ Test Case: Check that the loader replaces the icon on button click and reverts a
 ![alt text](./images/image-15.png)
 
 ---
-
-Row Expansion
-
-Scenario 21: Expandable Rows
-Description: Allow rows to expand to show additional details.
-Example:
-expandable: true, expandedContent: '<p>Extra details here</p>'
-Test Case: Verify that clicking the row expands it to show additional content.
-
----
-
-Filter Alignment
-
-Scenario 22: Search Bar Alignment
-Description: Change the Searching filter alignment
-Example:
-filterAlignment: true, expandedContent: '<p>Extra details here</p>'
-Test Case: Verify that clicking the row expands it to show additional content.
-
-![alt text](./images/image-16.png)
-
----
-
-Change the Table
-
-Scenario 23: Change the Table
-Description: Changing the Table By clicking on the button.
-Example:
-<app-custom-table *ngIf="!isNewTable" [data]="users" [config]="tableConfig"></app-custom-table>
-<app-custom-material-table *ngIf="isNewTable" [data]="users" [config]="tableConfig"></app-custom-material-table>
-
-![alt text](./images/image-17.png)
-
----
-
-Change the Shape
-
-Scenario 24: Change the Shape
-Description: Changeing the shape of the button.
-Example:
-<app-custom-table *ngIf="!isNewTable" [data]="users" [config]="tableConfig"></app-custom-table>
-<app-custom-material-table *ngIf="isNewTable" [data]="users" [config]="tableConfig"></app-custom-material-table>
-
-![alt text](./images/image-17.png)
 
 ---
 

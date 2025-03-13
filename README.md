@@ -2525,752 +2525,233 @@ Example:
 
 ---
 
-## Conclusion
+# Navbar Component
 
-This guide provides a detailed overview of configuring form fields with various types, validations, and styling options. Replace `path_to_image` with actual image paths for a complete documentation experience.
+## Overview
 
-# Nav Bar Component Properties
+The `NavbarComponent` is a customizable navigation bar that supports logos, titles, buttons, and menus. It is designed to be flexible and can be used in various applications requiring navigation elements.
 
-Scenario 78: Default Configuration
+## Features
 
-Description: Logo is displayed on the left, Title is aligned to the right of the logo
+- Supports logo with configurable position.
+- Customizable title alignment.
+- Multiple button groups with various styles.
+- Menu and submenu functionality.
+- Configurable navbar styling (border, color, position, etc.).
 
-Example:
+## Configuration Options
 
-`navbarConfig: NavBarConfig = {
-    logo: {
-      url: 'https://picsum.photos/75/75',
-      position: 'left'
-    },
-    title: {
-      text: 'My Application',
-      position: 'right',
-      alignWithLogo: true,
-    },
-  };`
+### `NavBarConfig` Interface
 
-![alt text](images/71.png)
+```ts
+export interface NavBarConfig {
+  style?: Partial<CSSStyleDeclaration>;
+  logo?: LogoConfig | null;
+  title?: TitleConfig | null;
+  buttons?: ButtonGroupConfig[];
+  activeButton?: string;
+  isBorderTop?: boolean;
+  isBorderBottom?: boolean;
+}
+```
 
----
+### `LogoConfig`
 
-Scenario 79: Buttons on the Left
+```ts
+export interface LogoConfig {
+  url?: string;
+  position?: "left" | "middle" | "right";
+}
+```
 
-Description: Logo is on the left, and the title is on the right of the logo, The "Settings" button is positioned on the left without aligning to the logo.
+- **Example:**
 
-Example:
+```ts
+logo: {
+  url: './assets/logo.png',
+  position: 'left'
+}
+```
 
-`navbarConfig: NavBarConfig = {
-    logo: {
-    url: 'https://picsum.photos/100/100',
-    position: 'left'
-    },
-    title: {
-      text: 'My Application',
-      position: 'right',
-      alignWithLogo: true,
-    },
-    buttons: [
-      {
-        position: 'left',
-        alignWithLogo: false,
-        buttonsGroup: [
-          {
-            text: 'Settings',
-            subMenu: [
-              { text: 'Profile', url: '/profile' },
-              { text: 'Account', url: '/account' }
-            ]
-          }
-        ]
-      }
-    ]
-  };`
+### `TitleConfig`
 
-![alt text](images/72.png)
+```ts
+export interface TitleConfig {
+  text?: string;
+  position?: "left" | "right";
+  alignWithLogo?: boolean;
+}
+```
 
----
+- **Example:**
 
-Scenario 80: Default Configuration
+```ts
+title: {
+  text: 'My Application',
+  position: 'left',
+  alignWithLogo: true
+}
+```
 
-Description: Logo is displayed on the left, Title is aligned to the right of the logo
+### `ButtonGroupConfig`
 
-Example:
+```ts
+export interface ButtonGroupConfig {
+  position?: "left" | "center" | "right";
+  alignWithLogo?: boolean;
+  buttonsGroup?: ButtonConfig[];
+}
+```
 
-`navbarConfig: NavBarConfig = {
-    logo: {
-      url: 'https://picsum.photos/75/75',
-      position: 'left'
-    },
-    title: {
-      text: 'My Application',
-      position: 'right',
-      alignWithLogo: true,
-    },
-    buttons: [
-      {
-        position: 'right',
-        alignWithLogo: true,
-        buttonsGroup: [
-          {
-            text: 'Home',
-            url: 'https://www.google.com/',
-          },
-          {
-            text: 'About',
-            subMenu: [
-              { text: 'Option 1' },
-              { text: 'Option 2' }
-            ],
-            url: 'https://www.google.com/'
-          },
-          {
-            text: 'More',
-            subMenu: [
-              { text: 'Option 1' },
-              { text: 'Option 2' }
-            ]
-          }
-        ],
-      }
-    ],
-  };`
+- **Example:**
 
-![alt text](images/73.png)
-
----
-
-Scenario 81: No Logo and Title
-
-Description: No logo or title is displayed, The "Help" button appears in the center with its submenu items
-
-Example:
-
-`navbarConfig: NavBarConfig = {
-    logo: null,
-    title: null,
-    buttons: [
-      {
-        position: 'center',
-        alignWithLogo: false,
-        buttonsGroup: [
-          {
-            text: 'Help',
-            subMenu: [
-              { text: 'FAQ', url: '/faq' },
-              { text: 'Contact', url: '/contact' }
-            ]
-          }
-        ]
-      }
-    ],
-  };`
-
-![alt text](images/74.png)
-
----
-
-Scenario 82: Multiple Button Groups
-
-Description: The logo appears on the left with the title next to it, A "Home" button appears on the left with a submenu for "Dashboard", A "Logout" button appears on the right with no submenu.
-
-Example:
-
-`navbarConfig: NavBarConfig = {
-    logo: {
-    url: 'https://picsum.photos/100/100',
-    position: 'left'
-    },
-    title: {
-      text: 'My Application',
-      position: 'left',
-      alignWithLogo: true,
-    },
-    buttons: [
-      {
-        position: 'left',
-        alignWithLogo: true,
-        buttonsGroup: [
-          {
-            text: 'Home',
-            subMenu: [
-              { text: 'Dashboard', url: '/dashboard' }
-            ]
-          }
-        ]
-      },
-      {
-        position: 'right',
-        alignWithLogo: false,
-        buttonsGroup: [
-          {
-            text: 'Logout',
-            subMenu: []
-          }
-        ]
-      }
-    ]
-  };`
-
-![alt text](images/75.png)
-
----
-
-Scenario 83: Submenu Without URL
-
-Description: The "More" button displays correctly, The submenu for "More" shows "Option 1" without a link and "Option 2" with a link.
-
-Example:
-
-`navbarConfig: NavBarConfig = {
-    logo: {
-    url: 'https://picsum.photos/100/100',
-    position: 'left'
-    },
-    title: {
-      text: 'My Application',
-      position: 'right',
-      alignWithLogo: true,
-    },
-    buttons: [
-      {
-        position: 'right',
-        alignWithLogo: false,
-        buttonsGroup: [
-          {
-            text: 'More',
-            subMenu: [
-              { text: 'Option 1' }, // No URL
-              { text: 'Option 2', url: '/option2' }
-            ]
-          }
-        ]
-      }
-    ]
-  };`
-
-![alt text](images/76.png)
-
----
-
-Scenario 84: Complete Empty Configuration
-
-Description: No elements are displayed in the navbar.
-
-Example:
-
-`navbarConfig: NavBarConfig = {
-    logo: null,
-    title: null,
-    buttons: [],
-    banner: {
-      position: 'middle',
-      imageSrc: [
-        'https://picsum.photos/id/237/600/300',
-        'https://picsum.photos/id/238/600/300',
-        'https://picsum.photos/id/239/600/300'
-      ],
-      width: 'full',
-      iframeUrl: 'https://www.example.com',
-      iframeWidth: '100%',
-      iframeHeight: '100px',
-      slideshow: true,
-    }
-  };`
-
-![alt text](images/77.png)
-
----
-
-Scenario 85: Banner Positioned in the Middle with Images.
-
-Description: No elements are displayed in the navbar.
-
-Example:
-
-`navbarConfig: NavBarConfig = {
-  logo: {
-    url: 'https://picsum.photos/75/75',
-    position: 'left'
-  },
-  title: {
-    text: 'My Application',
-    position: 'right',
+```ts
+buttons: [
+  {
+    position: "center",
     alignWithLogo: true,
+    buttonsGroup: [
+      { id: "home", text: "Home", navigate: true, url: "/" },
+      { id: "about", text: "About Us", navigate: true, url: "/about" },
+    ],
+  },
+];
+```
+
+### `NavButtonConfig`
+
+```ts
+export interface NavButtonConfig {
+  id?: string;
+  text?: string;
+  url?: string;
+  subMenu?: SubMenuConfig[];
+  type?: "normal" | "primary" | "secondary" | "bordered";
+  icon?: string;
+  showIcon?: boolean;
+  iconPosition?: "left" | "center" | "right" | "full" | "top" | "bottom";
+  shape?: "circle" | "square" | "rectangle";
+  corners?: "rounded" | "squared";
+  transparent?: boolean;
+  foreground?: string;
+  background?: string;
+  shadow?: boolean;
+  border?: boolean;
+  navigate?: boolean;
+  onClick?: (row: any) => void;
+  validate?: () => boolean;
+  menuItems?: NavButtonConfig[];
+  isMenuButton?: boolean;
+}
+```
+
+- **Example:**
+
+```ts
+{
+  id: 'contact',
+  text: 'Contact Us',
+  shape: 'rectangle',
+  corners: 'rounded',
+  foreground: '#333333',
+  background: '#800080',
+  navigate: true,
+  url: '/contact'
+}
+```
+
+### `SubMenuConfig`
+
+```ts
+export interface SubMenuConfig {
+  text?: string;
+  url?: string;
+}
+```
+
+- **Example:**
+
+```ts
+{
+  text: 'Support',
+  url: '/support'
+}
+```
+
+## Example Navbar Configuration
+
+```ts
+navbarConfig: NavBarConfig = {
+  isBorderTop: false,
+  isBorderBottom: true,
+  style: {
+    maxWidth: "1280px",
+    position: "fixed",
+    padding: "12px 40px",
+    top: "55px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    borderRadius: "80px",
+    borderBottomColor: "#15A46E",
+    zIndex: "500",
+  },
+  logo: {
+    url: "./assets/logo.png",
+    position: "left",
   },
   buttons: [
     {
-      position: 'right',
+      position: "center",
       alignWithLogo: true,
       buttonsGroup: [
         {
-          text: 'Home',
-          url: 'https://www.google.com/'
+          id: "home",
+          text: "Home",
+          shape: "rectangle",
+          corners: "rounded",
+          foreground: "#333333",
+          background: "#800080",
+          navigate: true,
+          url: "/",
         },
         {
-          text: 'About',
-          subMenu: [
-            { text: 'Option 1' },
-            { text: 'Option 2' }
-          ],
-          url: 'https://www.google.com/'
+          id: "services",
+          text: "Services",
+          shape: "rectangle",
+          corners: "rounded",
+          foreground: "#333333",
+          background: "var(--primary-color)",
+          navigate: true,
+          url: "/services",
         },
         {
-          text: 'More',
-          subMenu: [
-            { text: 'Option 1' },
-            { text: 'Option 2' }
-          ]
-        }
+          id: "contact",
+          text: "Contact Us",
+          shape: "rectangle",
+          corners: "rounded",
+          foreground: "#333333",
+          background: "#800080",
+          navigate: true,
+          url: "/contact",
+        },
       ],
-    }
+    },
   ],
-  banner: {
-    position: 'middle',
-    imageSrc: [
-      'https://picsum.photos/id/237/600/300',
-      'https://picsum.photos/id/238/600/300',
-      'https://picsum.photos/id/239/600/300'
-    ],
-    width: 'full',
-    slideshow: true,
-  }
-};`
+};
+```
 
-![alt text](images/78.png)
+## Validations
 
----
+- **Required Fields**: Ensure `id`, `text`, and `url` are provided for each button.
+- **Navigation**: If `navigate` is true, `url` should be valid.
+- **Styling**: Ensure color codes are in proper format (`#RRGGBB` or CSS color names).
+- **Button Groups**: At least one button group should be present.
 
-Scenario 86: Banner with Iframe Embed in Middle
+![Example](./images/nav-1.png)
+![Example](./images/nav-2.png)
+![Example](./images/nav-3.png)
 
-Description: The banner displays an embedded iframe in the middle of the navbar, The iframe occupies 100% width and has a height of 100px., No images are shown since imageSrc is not provided.
-
-Example:
-
-`navbarConfig: NavBarConfig = {
-    logo: {
-      url: 'https://picsum.photos/75/75',
-      position: 'left'
-    },
-    title: {
-      text: 'My Application',
-      position: 'right',
-      alignWithLogo: true,
-    },
-    buttons: [
-      {
-        position: 'right',
-        alignWithLogo: true,
-        buttonsGroup: [
-          {
-            text: 'Home',
-            url: 'https://www.google.com/'
-          },
-          {
-            text: 'About',
-            subMenu: [
-              { text: 'Option 1' },
-              { text: 'Option 2' }
-            ],
-            url: 'https://www.google.com/'
-          },
-          {
-            text: 'More',
-            subMenu: [
-              { text: 'Option 1' },
-              { text: 'Option 2' }
-            ]
-          }
-        ],
-      }
-    ],
-    banner: {
-      position: 'middle',
-      iframeUrl: 'https://www.example.com',
-      iframeWidth: '100%',
-      iframeHeight: '100px',
-    }
-  };`
-
-![alt text](images/79.png)
-
----
-
-Scenario 87: Full-Width Banner with Static Image
-
-Description: A single static image appears in the middle of the navbar with full width, No slideshow functionality is active since slideshow is set to false.
-
-Example:
-
-`navbarConfig: NavBarConfig = {
-    logo: {
-      url: 'https://picsum.photos/75/75',
-      position: 'left'
-    },
-    title: {
-      text: 'My Application',
-      position: 'right',
-      alignWithLogo: true,
-    },
-    buttons: [
-      {
-        position: 'right',
-        alignWithLogo: true,
-        buttonsGroup: [
-          {
-            text: 'Home',
-            url: 'https://www.google.com/'
-          },
-          {
-            text: 'About',
-            subMenu: [
-              { text: 'Option 1' },
-              { text: 'Option 2' }
-            ],
-            url: 'https://www.google.com/'
-          },
-          {
-            text: 'More',
-            subMenu: [
-              { text: 'Option 1' },
-              { text: 'Option 2' }
-            ]
-          }
-        ],
-      }
-    ],
-    banner: {
-      position: 'middle',
-      imageSrc: ['https://picsum.photos/id/237/600/300'],
-      width: 'full',
-      slideshow: false,
-    }
-  };`
-
-![alt text](images/80.png)
-
----
-
-Scenario 88: Left-Aligned Banner with Slideshow and No Iframe
-
-Description: The banner displays a slideshow positioned on the left side of the navbar, The banner width is half of the navbar width, with images rotating every few seconds.
-
-Example:
-
-`navbarConfig: NavBarConfig = {
-    logo: {
-      url: 'https://picsum.photos/75/75',
-      position: 'left'
-    },
-    title: {
-      text: 'My Application',
-      position: 'right',
-      alignWithLogo: true,
-    },
-    buttons: [
-      {
-        position: 'right',
-        alignWithLogo: true,
-        buttonsGroup: [
-          {
-            text: 'Home',
-            url: 'https://www.google.com/'
-          },
-          {
-            text: 'About',
-            subMenu: [
-              { text: 'Option 1' },
-              { text: 'Option 2' }
-            ],
-            url: 'https://www.google.com/'
-          },
-          {
-            text: 'More',
-            subMenu: [
-              { text: 'Option 1' },
-              { text: 'Option 2' }
-            ]
-          }
-        ],
-      }
-    ],
-    banner: {
-      position: 'left',
-      imageSrc: [
-        'https://picsum.photos/id/237/600/300',
-        'https://picsum.photos/id/238/600/300'
-      ],
-      width: 'half',
-      slideshow: true,
-    }
-  };`
-
-![alt text](images/81.png)
-
----
-
-Scenario 89: Change the height and width for iframe.
-
-Description: Change the height and width for iframe.
-
-Example:
-
-`navbarConfig: NavBarConfig = {
-    logo: {
-      url: 'https://picsum.photos/75/75',
-      position: 'left'
-    },
-    title: {
-      text: 'My Application',
-      position: 'right',
-      alignWithLogo: true,
-    },
-    buttons: [
-      {
-        position: 'right',
-        alignWithLogo: true,
-        buttonsGroup: [
-          {
-            text: 'Home',
-            url: 'https://www.google.com/'
-          },
-          {
-            text: 'About',
-            subMenu: [
-              { text: 'Option 1' },
-              { text: 'Option 2' }
-            ],
-            url: 'https://www.google.com/'
-          },
-          {
-            text: 'More',
-            subMenu: [
-              { text: 'Option 1' },
-              { text: 'Option 2' }
-            ]
-          }
-        ],
-      }
-    ],
-    banner: {
-      position: 'middle',
-      imageSrc: [
-        'https://picsum.photos/id/237/600/300',
-        'https://picsum.photos/id/238/600/300',
-        'https://picsum.photos/id/239/600/300'
-      ],
-      width: 'full',
-      iframeUrl: 'https://www.example.com',
-      iframeWidth: '100%',
-      iframeHeight: '500px',
-      slideshow: true,
-    }
-  };`
-
-![alt text](images/82.png)
-
----
-
-Scenario 90: Change the Force Pagination.
-
-Description: Change the Force Pagination as true when we have more then 10 images for the image carousel.
-
-Example:
-
-`navbarConfig: NavBarConfig = {
-    logo: {
-      url: 'https://picsum.photos/75/75',
-      position: 'left'
-    },
-    title: {
-      text: 'My Application',
-      position: 'right',
-      alignWithLogo: true,
-    },
-    buttons: [
-      {
-        position: 'right',
-        alignWithLogo: true,
-        buttonsGroup: [
-          {
-            text: 'Home',
-            url: 'https://www.google.com/'
-          },
-          {
-            text: 'About',
-            subMenu: [
-              { text: 'Option 1' },
-              { text: 'Option 2' }
-            ],
-            url: 'https://www.google.com/'
-          },
-          {
-            text: 'More',
-            subMenu: [
-              { text: 'Option 1' },
-              { text: 'Option 2' }
-            ]
-          }
-        ],
-      }
-    ],
-    banner: {
-      position: 'middle',
-      imageSrc: [
-        'https://picsum.photos/id/237/600/300',
-        'https://picsum.photos/id/238/600/300',
-        'https://picsum.photos/id/239/600/300',
-        'https://picsum.photos/id/237/600/300',
-        'https://picsum.photos/id/237/600/300',
-        'https://picsum.photos/id/237/600/300',
-        'https://picsum.photos/id/237/600/300',
-        'https://picsum.photos/id/237/600/300',
-        'https://picsum.photos/id/237/600/300',
-        'https://picsum.photos/id/237/600/300',
-        'https://picsum.photos/id/237/600/300',
-        'https://picsum.photos/id/237/600/300',
-      ],
-      width: 'full',
-      iframeUrl: 'https://www.example.com',
-      iframeWidth: '100%',
-      iframeHeight: '300px',
-      slideshow: true,
-      forcePagination: true,
-    },
-  };`
-
-![alt text](images/83.png)
-
----
-
-Scenario 91: Change the Force Pagination.
-
-Description: Change the Force Pagination as false when we have more then 10 images for the image carousel.
-
-Example:
-
-`navbarConfig: NavBarConfig = {
-    logo: {
-      url: 'https://picsum.photos/75/75',
-      position: 'left'
-    },
-    title: {
-      text: 'My Application',
-      position: 'right',
-      alignWithLogo: true,
-    },
-    buttons: [
-      {
-        position: 'right',
-        alignWithLogo: true,
-        buttonsGroup: [
-          {
-            text: 'Home',
-            url: 'https://www.google.com/'
-          },
-          {
-            text: 'About',
-            subMenu: [
-              { text: 'Option 1' },
-              { text: 'Option 2' }
-            ],
-            url: 'https://www.google.com/'
-          },
-          {
-            text: 'More',
-            subMenu: [
-              { text: 'Option 1' },
-              { text: 'Option 2' }
-            ]
-          }
-        ],
-      }
-    ],
-    banner: {
-      position: 'middle',
-      imageSrc: [
-        'https://picsum.photos/id/237/600/300',
-        'https://picsum.photos/id/238/600/300',
-        'https://picsum.photos/id/239/600/300',
-        'https://picsum.photos/id/237/600/300',
-      ],
-      width: 'full',
-      iframeUrl: 'https://www.example.com',
-      iframeWidth: '100%',
-      iframeHeight: '300px',
-      slideshow: true,
-      forcePagination: false,
-    },
-  };`
-
-![alt text](images/84.png)
-
----
-
-Scenario 92: Set the button icon for previous and next.
-
-Description: Set the button when the forcePagination true for the previous and next button.
-
-Example:
-
-`navbarConfig: NavBarConfig = {
-    logo: {
-      url: 'https://picsum.photos/75/75',
-      position: 'left'
-    },
-    title: {
-      text: 'My Application',
-      position: 'right',
-      alignWithLogo: true,
-    },
-    buttons: [
-      {
-        position: 'right',
-        alignWithLogo: true,
-        buttonsGroup: [
-          {
-            text: 'Home',
-            url: 'https://www.google.com/'
-          },
-          {
-            text: 'About',
-            subMenu: [
-              { text: 'Option 1' },
-              { text: 'Option 2' }
-            ],
-            url: 'https://www.google.com/'
-          },
-          {
-            text: 'More',
-            subMenu: [
-              { text: 'Option 1' },
-              { text: 'Option 2' }
-            ]
-          }
-        ],
-      }
-    ],
-    banner: {
-      position: 'middle',
-      imageSrc: [
-        'https://picsum.photos/id/237/600/300',
-        'https://picsum.photos/id/238/600/300',
-        'https://picsum.photos/id/239/600/300',
-        'https://picsum.photos/id/237/600/300',
-      ],
-      width: 'full',
-      iframeUrl: 'https://www.example.com',
-      iframeWidth: '100%',
-      iframeHeight: '300px',
-      slideshow: true,
-      forcePagination: true,
-    },
-  };`
-
-![alt text](images/85.png)
-
----
-
-## Card Component Properties
+# Card Component Properties
 
 Scenario 93: Change the width of the Cards.
 

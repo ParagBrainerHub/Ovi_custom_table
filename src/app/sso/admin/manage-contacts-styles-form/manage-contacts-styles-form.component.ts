@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormComponentComponent } from '../../../form-component/form-component.component';
 import { Router } from '@angular/router';
-
 import { Location } from '@angular/common';
 import { FormConfig } from '../../../form-component/form-modal';
 import { ContactStyle } from '../admin-manage-contacts-style-table/admin-manage-contacts-style-table.model';

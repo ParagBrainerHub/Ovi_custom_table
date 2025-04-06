@@ -50,10 +50,10 @@ export const routes: Routes = [
     path: 'blog',
     component: CustomMaterialTableComponent,
   },
-  {
-    path: 'contact',
-    component: CustomMaterialTableComponent,
-  },
+  // {
+  //   path: 'contact',
+  //   component: CustomMaterialTableComponent,
+  // },
   {
     path: 'login',
     component: LoginFormComponent,

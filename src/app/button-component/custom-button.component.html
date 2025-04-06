@@ -8,12 +8,12 @@
   (click)="handleClick($event)"
   class="custom-button mat-button"
   [ngClass]="{
-    active: active,
     flat: !shadow,
     elevated: shadow,
     transparent: transparent,
     hover: hover,
-    'pill-button': isPillButton
+    'pill-button': isPillButton,
+    active: active,
   }"
   [ngStyle]="getMergedStyles()"
   (mouseenter)="hover = true"

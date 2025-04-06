@@ -97,74 +97,68 @@
         <ng-container [ngSwitch]="cardConfig?.header?.titleTag || 'h2'">
           <h1
             *ngSwitchCase="'h1'"
-            [ngStyle]="cardConfig?.header?.titleStyles"
+            [ngStyle]="cardConfig?.header?.titleStyles ?? {} "
             [innerHTML]="highlightText(cardConfig?.header?.title || '')"
           ></h1>
           <h2
             *ngSwitchCase="'h2'"
-            [ngStyle]="cardConfig?.header?.titleStyles"
+            [ngStyle]="cardConfig?.header?.titleStyles ?? {}"
             [innerHTML]="highlightText(cardConfig?.header?.title || '')"
           ></h2>
           <h3
             *ngSwitchCase="'h3'"
-            [ngStyle]="cardConfig?.header?.titleStyles"
+            [ngStyle]="cardConfig?.header?.titleStyles ?? {}"
             [innerHTML]="highlightText(cardConfig?.header?.title || '')"
           ></h3>
           <h4
             *ngSwitchCase="'h4'"
-            [ngStyle]="cardConfig?.header?.titleStyles"
+            [ngStyle]="cardConfig?.header?.titleStyles ?? {} "
             [innerHTML]="highlightText(cardConfig?.header?.title || '')"
           ></h4>
           <p
             *ngSwitchDefault
-            [ngStyle]="cardConfig?.header?.titleStyles"
+            [ngStyle]="cardConfig?.header?.titleStyles ?? {}"
             [innerHTML]="highlightText(cardConfig?.header?.title || '')"
           ></p>
         </ng-container>
       </mat-card-title>
 
       <!-- ✅ Dynamic Description -->
-      <ng-container *ngIf="cardConfig?.header?.description">
-        <ng-container *ngFor="let desc of cardConfig?.header?.description">
-          <ng-container [ngSwitch]="desc.descriptionTag || 'p'">
-            <h1
-              *ngSwitchCase="'h1'"
-              [ngStyle]="desc.descriptionStyles"
-              [ngClass]="desc.descriptionAlign"
-            >
-              {{ desc.descriptionText }}
-            </h1>
-            <h2
-              *ngSwitchCase="'h2'"
-              [ngStyle]="desc.descriptionStyles"
-              [ngClass]="desc.descriptionAlign"
-            >
-              {{ desc.descriptionText }}
-            </h2>
-            <h3
-              *ngSwitchCase="'h3'"
-              [ngStyle]="desc.descriptionStyles"
-              [ngClass]="desc.descriptionAlign"
-            >
-              {{ desc.descriptionText }}
-            </h3>
-            <h4
-              *ngSwitchCase="'h4'"
-              [ngStyle]="desc.descriptionStyles"
-              [ngClass]="desc.descriptionAlign"
-            >
-              {{ desc.descriptionText }}
-            </h4>
-            <p
-              *ngSwitchDefault
-              [ngStyle]="desc.descriptionStyles"
-              [ngClass]="desc.descriptionAlign"
-            >
-              {{ desc.descriptionText }}
-            </p>
-          </ng-container>
+      <ng-container *ngFor="let desc of cardConfig?.header?.description">
+        <ng-container [ngSwitch]="desc.descriptionTag || 'p'">
+          <h1
+            *ngSwitchCase="'h1'"
+            [ngStyle]="desc.descriptionStyles"
+            [ngClass]="desc.descriptionAlign"
+            [innerHTML]="highlightText(desc.descriptionText || '')"
+          ></h1>
+          <h2
+            *ngSwitchCase="'h2'"
+            [ngStyle]="desc.descriptionStyles"
+            [ngClass]="desc.descriptionAlign"
+            [innerHTML]="highlightText(desc.descriptionText || '')"
+          ></h2>
+          <h3
+            *ngSwitchCase="'h3'"
+            [ngStyle]="desc.descriptionStyles"
+            [ngClass]="desc.descriptionAlign"
+            [innerHTML]="highlightText(desc.descriptionText || '')"
+          ></h3>
+          <h4
+            *ngSwitchCase="'h4'"
+            [ngStyle]="desc.descriptionStyles"
+            [ngClass]="desc.descriptionAlign"
+            [innerHTML]="highlightText(desc.descriptionText || '')"
+          ></h4>
+          <p
+            *ngSwitchDefault
+            [ngStyle]="desc.descriptionStyles"
+            [ngClass]="desc.descriptionAlign"
+            [innerHTML]="highlightText(desc.descriptionText || '')"
+          ></p>
         </ng-container>
       </ng-container>
+
       <div #dynamicComponentContainer></div>
 
       <div class="header-buttons" [ngClass]="cardConfig?.header?.buttonsAlign">
@@ -192,6 +186,7 @@
             [isMenuButton]="button.isMenuButton"
             [customStyles]="button.customStyles ?? {}"
             [isPillButton]="button.isPillButton ?? false"
+            [opacityOnHover]="button.opacityOnHover"
           >
           </app-custom-button>
         </ng-container>
@@ -294,6 +289,7 @@
               [shadow]="button.shadow !== undefined ? button.shadow : true"
               [transparent]="button.transparent || false"
               (buttonClick)="button.action?.()"
+              [opacityOnHover]="button.opacityOnHover"
             ></app-custom-button>
           </ng-container>
         </div>
@@ -312,6 +308,7 @@
               [shadow]="button.shadow !== undefined ? button.shadow : true"
               [transparent]="button.transparent || false"
               (buttonClick)="button.action?.()"
+              [opacityOnHover]="button.opacityOnHover"
             ></app-custom-button>
           </ng-container>
         </div>

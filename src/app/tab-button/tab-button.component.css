@@ -5,12 +5,14 @@
 
 .tab-button-container {
   display: flex;
-  border: 2px solid #800080;
+  border: 2px solid var(--primary-text-color);
+  padding: 5px;
   border-radius: 30px;
+  gap: 10px;
   overflow: hidden;
 }
 
-.tab-button {
+/* .tab-button {
   flex: 1;
   padding: 5px 10px;
   font-size: 16px;
@@ -24,19 +26,19 @@
   justify-content: center;
   margin: 4px 4px;
   transition: all 0.2s ease-in-out;
-}
+} */
 
-.tab-button.selected {
+/* .tab-button.selected {
   background: #800080;
   color: white;
   border-radius: 30px;
   padding: 5px;
-}
+} */
 
-.tab-button.selected + .tab-button {
+/* .tab-button.selected + .tab-button {
   margin-left: 4px;
-}
+} */
 
-.tab-button:hover {
+/* .tab-button:hover {
   opacity: 0.8;
-}
+} */

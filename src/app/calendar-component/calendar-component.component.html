@@ -131,6 +131,7 @@
               class="time-slot"
               [class.has-booking]="timeSlot.booking"
               [class.disabled]="timeSlot.disabled"
+              (click)="addBooking(day.date, timeSlot.time)"
             >
               {{ timeSlot.time }}
               <div *ngIf="timeSlot.booking" class="booking-details">

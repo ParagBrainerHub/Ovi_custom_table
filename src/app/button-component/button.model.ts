@@ -22,6 +22,10 @@ export interface ButtonConfig {
   shadow?: boolean;
   navigate?: boolean;
   action?: () => void;
+  opacityOnHover?: {
+    opacity: number;
+    isOpacityEnabled: boolean;
+  };
   url?: string;
   onClick?: (row: any) => void;
   validate?: () => boolean;
@@ -31,6 +35,9 @@ export interface ButtonConfig {
   class?: string;
   isPillButton?: boolean;
   customStyles?: { [key: string]: string };
+}
+export interface TabButtonConfig extends ButtonConfig {
+  value: string;
 }
 
 // Helper validation function for component

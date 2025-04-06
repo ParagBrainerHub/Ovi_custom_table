@@ -364,31 +364,72 @@ export class CalendarComponentComponent implements OnInit, AfterViewInit {
   }
 
   // Updated `addBooking`
-  addBooking(date: Date) {
+  addBooking(date: Date, timeSlotTime?: string) {
+    console.log(this.formConfig, 'form1234');
     this.expandDayBookingModal = false;
+
     this.availableTimeSlots = this.getAvailableSlots(date);
-    this.formConfig.fields.find(
+
+    let filteredSlots = this.availableTimeSlots;
+    if (timeSlotTime) {
+      filteredSlots = this.availableTimeSlots.filter(
+        (slot) => slot.time === timeSlotTime
+      );
+
+      if (filteredSlots.length === 0) {
+        console.warn('Requested time slot is not available:', timeSlotTime);
+        filteredSlots = this.availableTimeSlots;
+      }
+    }
+
+    // Set startTime options
+    const startTimeField = this.formConfig.fields.find(
       (field: any) => field.key === 'startTime'
-    ).options = this.availableTimeSlots.map((slot) => ({
-      label: slot.time,
-      key: slot.time,
-      value: slot.time,
-      status: slot.status,
-    }));
-    this.availableDurations = this.getAvailableDurations(
-      this.availableTimeSlots[0].time
     );
-    this.formConfig.fields.find(
+    if (startTimeField) {
+      startTimeField.options = filteredSlots.map((slot) => ({
+        label: slot.time,
+        key: slot.time,
+        value: slot.time,
+        status: slot.status,
+      }));
+
+      if (timeSlotTime && filteredSlots.length > 0) {
+        startTimeField.value = timeSlotTime;
+      }
+    }
+
+    // Set durations
+    const durationField = this.formConfig.fields.find(
       (field: any) => field.key === 'duration'
-    ).options = this.availableDurations.map((duration) => ({
-      label: `${duration} minutes`,
-      key: duration,
-      value: duration,
-    }));
+    );
+    if (durationField) {
+      if (timeSlotTime && filteredSlots.length > 0) {
+        // If specific time is selected, fix duration to 30 min
+        durationField.options = [
+          {
+            label: '30 minutes',
+            key: 30,
+            value: 30,
+          },
+        ];
+        durationField.value = 30;
+      } else {
+        // Default behavior
+        const selectedTime = this.availableTimeSlots[0]?.time;
+        this.availableDurations = this.getAvailableDurations(selectedTime);
+        durationField.options = this.availableDurations.map((duration) => ({
+          label: `${duration} minutes`,
+          key: duration,
+          value: duration,
+        }));
+      }
+    }
+
+    // Set date field
     const dateField = this.formConfig.fields.find(
       (field: any) => field.key === 'date'
     );
-
     if (dateField) {
       dateField.value = date;
     } else {
@@ -400,6 +441,7 @@ export class CalendarComponentComponent implements OnInit, AfterViewInit {
         disabled: true,
       });
     }
+
     this.isSlotSelected = true;
   }
 

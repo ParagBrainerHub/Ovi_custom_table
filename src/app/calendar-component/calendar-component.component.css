@@ -436,7 +436,8 @@
 }
 
 .time-slot:hover {
-  background-color: #e0e0e0;
+  background-color: purple;
+  color: #fff;
   transform: scale(1.05);
 }
 

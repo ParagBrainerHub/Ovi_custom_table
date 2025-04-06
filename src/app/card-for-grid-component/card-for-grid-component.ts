@@ -44,7 +44,7 @@ export class CardGridComponentComponent {
   loading = true;
 
   ngOnInit() {
-    console.log('this.cardConfig: ', this.cardConfig);
+    console.log('this.cardConfig:1234 ', this.cardConfig);
     setTimeout(() => {
       this.loading = false;
     }, 2000);

@@ -3,8 +3,10 @@ import {
   EventEmitter,
   inject,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonConfig, MenuItem, validateButtonProps } from './button.model';
@@ -28,7 +30,7 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './custom-button.component.html',
   styleUrls: ['./custom-button.component.css'],
 })
-export class CustomButtonComponent implements OnInit {
+export class CustomButtonComponent implements OnInit, OnChanges {
   hoveredItems: Set<any> = new Set();
   // primaryColor: string = 'var(--primary-color)';
   // secondaryColor: string = 'var(--secondary-color)';
@@ -50,6 +52,10 @@ export class CustomButtonComponent implements OnInit {
     | 'bottom' = 'left';
   @Output() buttonClick = new EventEmitter<string>();
   @Input() loadingData?: boolean = false;
+  @Input() opacityOnHover?: ButtonConfig['opacityOnHover'] = {
+    opacity: 1,
+    isOpacityEnabled: false,
+  };
 
   @Input() shape?: 'circle' | 'square' | 'rectangle' = 'rectangle';
   @Input() corners?: 'rounded' | 'squared' = 'rounded';
@@ -81,6 +87,10 @@ export class CustomButtonComponent implements OnInit {
   isPageLoading: boolean = true;
   hoveredItem: any = null;
   hover: boolean = false;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes['opacityOnHover'], '4444444444');
+  }
 
   ngOnInit() {
     console.log('this.text: ', this.text);
@@ -179,7 +189,16 @@ export class CustomButtonComponent implements OnInit {
   getButtonStyle() {
     // const borderColor = this.secondaryColor;
     const borderRadius = this.getBorderRadius();
-
+    if (this.active) {
+      return {
+        backgroundColor: this.backgroundColor || 'purple',
+        color: '#ffffff',
+        borderRadius,
+        border: this.hasBorder
+          ? `2px solid ${this.borderColor || this.foregroundColor || '#007bff'}`
+          : 'none',
+      };
+    }
     if (this.icon && !this.text) {
       return {
         backgroundColor: this.backgroundColor,
@@ -237,14 +256,22 @@ export class CustomButtonComponent implements OnInit {
   }
 
   getHoverStyle() {
-    // const hoverColor = this.secondaryColor;
     const borderRadius = this.getBorderRadius();
+    const opacity = this.opacityOnHover?.isOpacityEnabled
+      ? this.opacityOnHover.opacity
+      : undefined;
+
+    const baseStyle = {
+      borderRadius,
+      ...(opacity !== undefined ? { opacity } : {}),
+    };
+
     if (this.icon && !this.text) {
       return {
         backgroundColor: this.backgroundColor,
         color: 'white',
         border: 'none',
-        borderRadius: borderRadius,
+        ...baseStyle,
       };
     }
 
@@ -253,7 +280,7 @@ export class CustomButtonComponent implements OnInit {
         backgroundColor: this.backgroundColor,
         color: this.foregroundColor,
         border: 'none',
-        borderRadius: borderRadius,
+        ...baseStyle,
       };
     }
 
@@ -262,7 +289,7 @@ export class CustomButtonComponent implements OnInit {
         backgroundColor: 'transparent',
         color: this.backgroundColor,
         border: 'none',
-        borderRadius: borderRadius,
+        ...baseStyle,
       };
     }
 
@@ -271,7 +298,7 @@ export class CustomButtonComponent implements OnInit {
         backgroundColor: this.backgroundColor,
         color: 'white',
         border: 'none',
-        borderRadius: borderRadius,
+        ...baseStyle,
       };
     }
 
@@ -280,8 +307,7 @@ export class CustomButtonComponent implements OnInit {
         backgroundColor: this.foregroundColor,
         border: `2px solid ${this.borderColor}`,
         color: 'var(--white-text-color)',
-        borderRadius: borderRadius,
-        // padding: '9px 30px',
+        ...baseStyle,
       };
     }
 
@@ -290,15 +316,15 @@ export class CustomButtonComponent implements OnInit {
         backgroundColor: this.backgroundColor,
         color: 'white',
         border: `2px solid ${this.borderColor}`,
-        borderRadius: borderRadius,
-        // padding: '9px 30px',
+        ...baseStyle,
       };
     }
+
     return {
       backgroundColor: this.backgroundColor,
       color: 'white',
       border: 'none',
-      borderRadius: borderRadius,
+      ...baseStyle,
     };
   }
 }

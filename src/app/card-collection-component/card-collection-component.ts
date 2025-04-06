@@ -23,6 +23,7 @@ import { CarouselButtonsConfig } from '../image-carousel/image-carousel.modal';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { GridViewComponent } from '../grid-view/grid-view.component';
 import { ListViewComponent } from '../list-view/list-view.component';
+import { TabButtonConfig } from '../button-component/button.model';
 
 @Component({
   selector: 'app-card-component',
@@ -62,13 +63,46 @@ export class CardComponentComponent implements OnChanges, OnInit {
   loading = true;
 
   // tab change start
-
-  tabOptions = [
-    { label: 'Grid View', value: 'grid', icon: 'grid_view' },
-    { label: 'List View', value: 'list', icon: 'list' },
-    { label: 'Settings', value: 'settings' },
-    // { label: 'Notifications', value: 'notifications' },
-    // { label: 'Help', value: 'help' },
+  tabOptions: TabButtonConfig[] = [
+    {
+      id: 'grid_view',
+      text: 'Grid View',
+      value: 'grid',
+      icon: 'grid_view',
+      isPillButton: true,
+      iconPosition: 'left',
+      showIcon: true,
+      hasBorder: true,
+      foregroundColor: 'var(--primary-text-color)',
+      borderColor: 'var(--primary-text-color)',
+      transparent: true,
+    },
+    {
+      id: 'list_view',
+      text: 'List View',
+      value: 'list',
+      icon: 'list',
+      iconPosition: 'left',
+      isPillButton: true,
+      showIcon: true,
+      hasBorder: true,
+      foregroundColor: 'var(--primary-text-color)',
+      borderColor: 'var(--primary-text-color)',
+      transparent: true,
+    },
+    {
+      id: 'settings',
+      text: 'Settings',
+      value: 'settings',
+      icon: 'settings',
+      iconPosition: 'left',
+      isPillButton: true,
+      showIcon: true,
+      hasBorder: true,
+      foregroundColor: 'var(--primary-text-color)',
+      borderColor: 'var(--primary-text-color)',
+      transparent: true,
+    },
   ];
 
   selectedTabs: string[] = ['grid'];

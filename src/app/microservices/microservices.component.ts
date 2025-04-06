@@ -837,7 +837,7 @@ export class MicroservicesComponent {
             flexDirection: 'column',
             // rowGap: '20px',
           },
-          title: 'Enterprise-Level Deployment Optimization',
+          title: 'Monolith to Microservices & Microfrontends',
           titleTag: 'p',
           titleStyles: {
             color: '#DD8208',
@@ -849,7 +849,7 @@ export class MicroservicesComponent {
           description: [
             {
               descriptionText:
-                'We helped Wolters Kluwer (Healthcare) and National Instruments (Test & Measurement Systems, now Emerson) modernize their legacy applications by migrating from monolithic architectures to microservices and microfrontends. This transformation improved system scalability, modularity, and long-term maintainability, allowing for faster development cycles and more efficient data processing.',
+                "We helped <span color='#000'>Wolters Kluwer (Healthcare) </span> and <span color='#000'>National Instruments (Test & Measurement Systems, now Emerson)</span> modernize their legacy applications by migrating from monolithic architectures to microservices and microfrontends.This transformation improved <span color='#000'>system scalability, modularity, and long-term maintainability, allowing for faster development cycles</span> and <span color='#000'>more efficient data processing.</span>",
               descriptionTag: 'p',
               descriptionAlign: 'right',
               descriptionStyles: {
@@ -884,7 +884,7 @@ export class MicroservicesComponent {
             flexDirection: 'column',
             // rowGap: '20px',
           },
-          title: 'Enterprise-Level Deployment Optimization',
+          title: 'Secure Single Sign-On (SSO) Integration',
           titleTag: 'p',
           titleStyles: {
             color: '#DD8208',
@@ -896,7 +896,7 @@ export class MicroservicesComponent {
           description: [
             {
               descriptionText:
-                'A startup reduced their deployment time by 50% with our automated CI/CD pipeline solutions.',
+                "As part of the migration, we implemented an <span color='#000'>authentication and authorization</span> framework with <span color='#000'>Single Sign-On (SSO)</span> to streamline user access across multiple systems securely.",
               descriptionTag: 'p',
               descriptionAlign: 'left',
               descriptionStyles: {
@@ -931,7 +931,7 @@ export class MicroservicesComponent {
             flexDirection: 'column',
             // rowGap: '20px',
           },
-          title: 'Enterprise-Level Deployment Optimization',
+          title: 'High-Performance API Strategy with REST & gRPC',
           titleTag: 'p',
           titleStyles: {
             color: '#DD8208',
@@ -943,7 +943,7 @@ export class MicroservicesComponent {
           description: [
             {
               descriptionText:
-                'A startup reduced their deployment time by 50% with our automated CI/CD pipeline solutions.',
+                "We worked with <span color='#000'>Siemens Energy</span> to design <span color='#000'>scalable, high-performance APIs</span> that combine <span color='#000'>REST for standard operations</span> and <span color='#000'>gRPC for real-time, high-throughput communication.</span>To further enhance system resilience and efficiency, we integrated <span color='#000'>event queuing</span> for asynchronous data processing, enabling seamless communication across distributed energy systems.This approach ensured <span color='#000'>low-latency data exchange between critical energy infrastructure</span> while maintaining high availability and fault tolerance.",
               descriptionTag: 'p',
               descriptionAlign: 'right',
               descriptionStyles: {
@@ -1151,7 +1151,7 @@ export class MicroservicesComponent {
       company: 'My Company',
       backgroundColor: 'transparent',
       align: 'left',
-      margin: '10px 10px',
+      // margin: '10px 10px',
       icons: [
         {
           icon: 'https://cdn-icons-png.flaticon.com/512/733/733579.png',
@@ -1164,10 +1164,6 @@ export class MicroservicesComponent {
         {
           icon: 'https://cdn-icons-png.flaticon.com/512/733/733558.png',
           url: 'https://instagram.com',
-        },
-        {
-          icon: 'https://cdn-icons-png.flaticon.com/512/733/733609.png',
-          url: 'https://github.com',
         },
       ],
     },

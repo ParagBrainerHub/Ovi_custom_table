@@ -213,6 +213,7 @@
           [isMenuButton]="button.isMenuButton"
           [customStyles]="button.customStyles ?? {}"
           [isPillButton]="button.isPillButton ?? false"
+          [opacityOnHover]="button.opacityOnHover"
         >
         </app-custom-button>
       </ng-container>
@@ -311,6 +312,7 @@
             [shadow]="button.shadow !== undefined ? button.shadow : true"
             [transparent]="button.transparent || false"
             (buttonClick)="button.action?.()"
+            [opacityOnHover]="button.opacityOnHover"
           ></app-custom-button>
         </ng-container>
       </div>
@@ -331,6 +333,7 @@
             [shadow]="button.shadow !== undefined ? button.shadow : true"
             [transparent]="button.transparent || false"
             (buttonClick)="button.action?.()"
+            [opacityOnHover]="button.opacityOnHover"
           ></app-custom-button>
         </ng-container>
       </div>

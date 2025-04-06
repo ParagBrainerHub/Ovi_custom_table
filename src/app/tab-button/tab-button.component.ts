@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CustomButtonComponent } from '../button-component/custom-button.component';
+import { TabButtonConfig } from '../button-component/button.model';
 
 @Component({
   selector: 'app-tab-button',
@@ -10,13 +11,15 @@ import { CustomButtonComponent } from '../button-component/custom-button.compone
   styleUrl: './tab-button.component.css',
 })
 export class TabButtonComponent {
-  @Input() options: { label: string; value: string; icon?: string }[] = [];
+  @Input() options: TabButtonConfig[] = [];
   @Input() isSingleOption: boolean = false;
   @Output() selectedValues = new EventEmitter<string[]>();
 
   selected: string[] = ['grid'];
 
   toggleSelection(value: string) {
+    console.log(this.selected, 'selected');
+
     if (this.isSingleOption) {
       // Single selection mode
       this.selected = [value];

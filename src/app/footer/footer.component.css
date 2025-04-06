@@ -1,7 +1,7 @@
 .footer-content {
   background: purple;
   color: white;
-  padding: 100px 0px;
+  padding: 100px 320px;
 }
 
 .footer-container {
@@ -52,18 +52,20 @@
 .middle-section {
   display: flex;
   justify-content: space-between;
+  gap: 204px;
 }
 
 .logo-section {
   text-align: left;
 }
 .logo-section p {
-  width: 245px;
+  max-width: 400px;
   margin-top: 24px;
 }
 
 .links-section {
   text-align: left;
+  max-width: 208px;
 }
 
 .links-section h4,
@@ -94,7 +96,7 @@
   display: flex;
   flex-direction: column;
   align-items: left;
-  max-width: 250px;
+  max-width: 275px;
 }
 .contact-section mat-icon {
   flex: 24px 0 0;
@@ -198,9 +200,9 @@
 }
 
 .bottom-bar-text {
-  font-size: 14px;
+  font-size: 16px;
   color: white;
-  opacity: 0.8;
+  /* opacity: 0.8; */
 }
 
 .bottom-bar-icons {

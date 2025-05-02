@@ -24,14 +24,43 @@
 
       <div class="middle-section">
         <div class="logo-section">
-          <img [src]="footerConfig.logoUrl" alt="Logo" />
+          <a [routerLink]="['/']">
+          <img
+            [src]="footerConfig.logoUrl"
+            alt="Logo"
+            (click)="footerConfig.logoOnClick && footerConfig.logoOnClick()"
+            style="cursor: pointer;"
+          />
+        </a>
           <p>{{ footerConfig.description }}</p>
         </div>
         <div class="links-section">
           <h4>Use Full Links</h4>
 
           <div *ngFor="let link of footerConfig.usefulLinks">
-            <a [href]="link.url">{{ link.name }}</a>
+            <app-custom-button
+              [text]="link.text"
+              [icon]="link.icon"
+              [showIcon]="link.showIcon"
+              [iconPosition]="link.iconPosition"
+              [shape]="link.shape"
+              [corners]="link.corners"
+              [hasBorder]="link.hasBorder ?? false"
+              [borderColor]="link.borderColor"
+              [foregroundColor]="link.foregroundColor"
+              [backgroundColor]="link.backgroundColor"
+              [transparent]="link.transparent"
+              [shadow]="link.shadow"
+              [navigate]="link.navigate ?? false"
+              [url]="link.url ?? ''"
+              [id]="link.id ?? ''"
+              (buttonClick)="link.action && link.action()"
+              [menuItems]="link.menuItems"
+              [isMenuButton]="link.isMenuButton"
+              [customStyles]="link.customStyles ?? {}"
+              [isPillButton]="link.isPillButton ?? false"
+              [opacityOnHover]="link.opacityOnHover"
+            ></app-custom-button>
           </div>
         </div>
         <div class="contact-section">
@@ -81,7 +110,7 @@
       >
         <!-- Copyright Text on the Left -->
         <div class="bottom-bar-text">
-          © {{ footerConfig.bottomBar?.year }}
+          {{ footerConfig.bottomBar?.year }}
           {{ footerConfig.bottomBar?.company }}.
           {{ footerConfig.bottomBar?.copyrightText }}
         </div>
@@ -155,7 +184,7 @@
     <img *ngIf="footerConfig.bottomBar?.logoUrl" [src]="footerConfig.bottomBar?.logoUrl" alt="Logo"
       class="bottom-bar-logo" />
     <span class="copyright">
-      © {{ footerConfig.bottomBar?.year }} {{ footerConfig.bottomBar?.company }}. All rights reserved.
+      {{ footerConfig.bottomBar?.year }} {{ footerConfig.bottomBar?.company }}. All rights reserved.
     </span>
   </div> -->
     </div>

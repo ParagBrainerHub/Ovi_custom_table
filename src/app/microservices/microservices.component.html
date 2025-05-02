@@ -28,7 +28,7 @@
   ]"
     customClass="custom-container"
   >
-    <div class="microServiceContainer">
+    <div class="microServiceContainer"  id="home">
       <app-navbar
         class="microservices-navbar keyframe-navbar"
         [config]="navbarConfig"
@@ -46,13 +46,14 @@
     [images]="[{ src: './double_anda.png', position: 'bottom-right' }]"
     [customStyles]="{ backgroundColor: '#F5F5F5', height: '1250px' }"
   > -->
-  <div class="microServiceContainer" style="margin: auto; padding: 100px 0px">
+  <div class="microServiceContainer" style="margin: auto; padding: 100px 0px" id="whoWeAreSection">
     <app-card-list-component
       [cardConfig]="whoWeAreSection"
     ></app-card-list-component>
   </div>
 
   <app-shape-wrapper
+  id="services"
     [customStyles]="{
       width: '100%',
       background: '#F5F5F5',
@@ -76,6 +77,7 @@
   </app-shape-wrapper>
   <!-- </app-section-wrapper> -->
   <app-section-wrapper
+    id="case-studies"
     [customStyles]="{ backgroundColor: '#ffffff', padding: '100px 0px' }"
   >
     <div class="microServiceContainer">
@@ -84,6 +86,7 @@
   </app-section-wrapper>
   <!-- Form Section -->
   <app-section-wrapper
+  id="contact-section"
     [images]="[
       { src: './shap.png', position: 'bottom-left' },
       { src: './particles.png', position: 'bottom-right' }
@@ -98,6 +101,7 @@
       [style.padding]="'60px'"
       [style.background]="'#fff'"
       class="microServiceContainer"
+      
     >
       <app-form-component
         [formConfig]="formConfigForContact"

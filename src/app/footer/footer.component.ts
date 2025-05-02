@@ -23,9 +23,10 @@ import { ContactUsComponent } from '../contact-us/contact-us.component';
     RouterModule,
     SubscribeComponent,
     ContactUsComponent,
+    CustomButtonComponent,
   ],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css',
+  styleUrls: ['./footer.component.css'],
 })
 export class FooterComponent {
   @Input() footerConfig!: FooterConfig;

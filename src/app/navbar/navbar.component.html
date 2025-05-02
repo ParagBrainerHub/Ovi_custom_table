@@ -9,9 +9,11 @@
 <mat-toolbar [ngStyle]="getToolbarStyle()" color="primary">
   <div class="logo-title-container">
     <ng-container *ngIf="config.logo">
+      <a [routerLink]="['/']">
       <div class="logo" [ngClass]="getLogoClass()">
         <img [src]="config.logo.url" alt="Logo" />
       </div>
+      </a>
     </ng-container>
 
     <ng-container *ngIf="config.title">

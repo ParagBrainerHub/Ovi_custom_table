@@ -1,6 +1,5 @@
 import { CustomMaterialTableComponent } from '../custom-material-table/custom-material-table.component';
 import { Component, inject, Input } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgIf } from '@angular/common';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
@@ -71,7 +70,6 @@ export interface User {
     PopupComponent,
     CustomButtonComponent,
     CalendarComponentComponent,
-    RouterOutlet,
     CarouselComponent,
   ],
   templateUrl: './home-page.component.html',
@@ -1401,15 +1399,6 @@ export class HomePageComponent {
     ],
   };
 
-  // card layout with toggle
-  // onToggleChange(event: MatSlideToggleChange) {
-  //   this.checked = event.checked;
-  //   //this.cardConfig.layout = this.checked ? 'grid' : 'list'; // Update layout based on toggle
-  //   this.cardConfigs.forEach(config => {
-  //     config.layout = this.checked ? 'grid' : 'list';
-  //   });
-  // }
-
   //Form Config
   constructor(private fb: FormBuilder) {
     this.formConfig = {
@@ -2290,10 +2279,66 @@ export class HomePageComponent {
       'OurStudio is a digital agency UI / UX Design and Website Development located in Ohio, United States of America',
 
     usefulLinks: [
-      { name: 'Home', url: '/home' },
-      { name: 'About Us', url: '/about' },
-      { name: 'Blog', url: '/blog' },
-      { name: 'Contact Us', url: '/contact' },
+      {
+        text: 'Home',
+        shape: 'rectangle',
+        corners: 'rounded',
+        foregroundColor: '#333333',
+        backgroundColor: '#800080',
+        transparent: true,
+        hasBorder: false,
+        shadow: false,
+        navigate: false,
+        action: () => this.scrollToSection('home'),
+        customStyles: {},
+        isPillButton: false,
+        opacityOnHover: { opacity: 0.8, isOpacityEnabled: true },
+      },
+      {
+        text: 'About Us',
+        shape: 'rectangle',
+        corners: 'rounded',
+        foregroundColor: '#333333',
+        backgroundColor: '#800080',
+        transparent: true,
+        hasBorder: false,
+        shadow: false,
+        navigate: false,
+        action: () => this.scrollToSection('about'),
+        customStyles: {},
+        isPillButton: false,
+        opacityOnHover: { opacity: 0.8, isOpacityEnabled: true },
+      },
+      {
+        text: 'Blog',
+        shape: 'rectangle',
+        corners: 'rounded',
+        foregroundColor: '#333333',
+        backgroundColor: '#800080',
+        transparent: true,
+        hasBorder: false,
+        shadow: false,
+        navigate: false,
+        action: () => this.scrollToSection('blog'),
+        customStyles: {},
+        isPillButton: false,
+        opacityOnHover: { opacity: 0.8, isOpacityEnabled: true },
+      },
+      {
+        text: 'Contact Us',
+        shape: 'rectangle',
+        corners: 'rounded',
+        foregroundColor: '#333333',
+        backgroundColor: '#800080',
+        transparent: true,
+        hasBorder: false,
+        shadow: false,
+        navigate: false,
+        action: () => this.scrollToSection('contact'),
+        customStyles: {},
+        isPillButton: false,
+        opacityOnHover: { opacity: 0.8, isOpacityEnabled: true },
+      },
     ],
 
     contact: {
@@ -2392,7 +2437,7 @@ export class HomePageComponent {
   //     { icon: 'fa-github', url: 'https://github.com' },
   //   ],
 
-  //   copyright: '© Copyright 2024, All Rights Reserved'
+  //   copyright: '  Copyright 2024, All Rights Reserved'
   // };
 
   isPopupVisible = false;
@@ -2502,5 +2547,12 @@ export class HomePageComponent {
         user.videoLoading = false;
       });
     }, 2000);
+  }
+
+  scrollToSection(sectionId: string): void {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 }

@@ -1,3 +1,5 @@
+import { ButtonConfig } from '../button-component/button.model';
+
 export interface FooterColumn {
   title?: string;
   description?: string;
@@ -16,8 +18,9 @@ export interface FooterConfig {
   subscribeText?: string;
   contactusButton?: string;
   logoUrl: string;
+  logoOnClick?: () => void;
   description: string;
-  usefulLinks: { name: string; url: string }[];
+  usefulLinks: ButtonConfig[];
   contact: {
     address: string;
     email: string;

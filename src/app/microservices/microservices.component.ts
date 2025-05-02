@@ -42,6 +42,15 @@ export class MicroservicesComponent {
   onWindowScroll() {
     this.scrollPosition = Math.min(window.scrollY, 200); // Max 200px
   }
+  
+  scrollToSection(sectionId: string): void {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+
   navbarConfig: NavBarConfig = {
     isBorderTop: false,
     isBorderBottom: true,
@@ -79,24 +88,21 @@ export class MicroservicesComponent {
             transparent: true,
             hasBorder: false,
             shadow: false,
-            navigate: true,
-            url: '/',
+            navigate: false,
+            onClick: () => this.scrollToSection('home'),
           },
           {
-            id: 'forms',
-            text: 'Forms',
-            icon: 'forms_add_on',
-            showIcon: true,
-            iconPosition: 'left',
+            id: 'whoWeAreSection',
+            text: 'Who We Are',
             shape: 'rectangle',
             corners: 'rounded',
             foregroundColor: '#333333',
-            backgroundColor: 'var(--primary-color)',
+            backgroundColor: '#800080',
             transparent: true,
             hasBorder: false,
             shadow: false,
-            navigate: true,
-            url: '/forms',
+            navigate: false,
+            onClick: () => this.scrollToSection('whoWeAreSection'),
           },
           {
             id: 'services',
@@ -107,12 +113,12 @@ export class MicroservicesComponent {
             shape: 'rectangle',
             corners: 'rounded',
             foregroundColor: '#333333',
-            backgroundColor: 'var(--primary-color)',
+            backgroundColor: '#800080',
             transparent: true,
             hasBorder: false,
             shadow: false,
-            navigate: true,
-            url: '/services',
+            navigate: false,
+            onClick: () => this.scrollToSection('services'),
           },
           {
             id: 'case-studies',
@@ -123,12 +129,12 @@ export class MicroservicesComponent {
             shape: 'rectangle',
             corners: 'rounded',
             foregroundColor: '#333333',
-            backgroundColor: 'var(--primary-color)',
+            backgroundColor: '#800080',
             transparent: true,
             hasBorder: false,
             shadow: false,
-            navigate: true,
-            url: '/case-studies',
+            navigate: false,
+            onClick: () => this.scrollToSection('case-studies'),
           },
           {
             id: 'contact-us',
@@ -140,8 +146,8 @@ export class MicroservicesComponent {
             transparent: true,
             hasBorder: false,
             shadow: false,
-            navigate: true,
-            url: '/contact',
+            navigate: false,
+            onClick: () => this.scrollToSection('contact-section'),
           },
 
           {
@@ -157,10 +163,9 @@ export class MicroservicesComponent {
             hasBorder: true,
             borderColor: '#DD8208',
             shadow: false,
-            navigate: true,
-            url: '/call',
+            navigate: false,
+            onClick: () => this.scrollToSection('contact-section'),
             isPillButton: true,
-            // onClick: (event: Event) => this.handleClick(event),
           },
         ],
       },
@@ -217,6 +222,8 @@ export class MicroservicesComponent {
           hasBorder: false,
           isPillButton: true,
           backgroundColor: '#15A46E',
+          navigate: false,
+          onClick: () => this.scrollToSection('contact-section'),
           customStyles: {
             padding: '16px 24px',
           },
@@ -226,6 +233,8 @@ export class MicroservicesComponent {
           hasBorder: false,
           isPillButton: true,
           backgroundColor: '#DD8208',
+          navigate: false,
+          onClick: () => this.scrollToSection('services'),
           customStyles: {
             padding: '16px 24px',
           },
@@ -355,6 +364,8 @@ export class MicroservicesComponent {
           hasBorder: false,
           isPillButton: true,
           backgroundColor: '#15A46E',
+          navigate: false,
+          onClick: () => this.scrollToSection('services'),
           customStyles: {
             padding: '16px 24px',
             width: '224px',
@@ -746,6 +757,8 @@ export class MicroservicesComponent {
               text: 'Learn More',
               backgroundColor: '#DD8208',
               foregroundColor: '#fff',
+              navigate: false,
+              onClick: () => this.scrollToSection('contact-section'),
             },
           ],
         },
@@ -1099,10 +1112,66 @@ export class MicroservicesComponent {
       "Cycolis Software specializes in scalable microservices, high-performance APIs, and cloud-native solutions. We empower startups and mid-sized businesses in Germany and the UK with secure architectures, CI/CD pipelines, and modular microfrontends to future-proof their software systems. Let's build together.",
 
     usefulLinks: [
-      { name: 'Home', url: '/home' },
-      { name: 'Services', url: '/services' },
-      { name: 'Case Studies', url: '/case_studies' },
-      { name: 'Contact Us', url: '/contact' },
+      {
+        text: 'Home',
+        shape: 'rectangle',
+        corners: 'rounded',
+        foregroundColor: '#fff',
+        backgroundColor: '#000',
+        transparent: true,
+        hasBorder: false,
+        shadow: false,
+        navigate: false,
+        action: () => this.scrollToSection('home'),
+        customStyles: {},
+        isPillButton: false,
+        opacityOnHover: { opacity: 0.8, isOpacityEnabled: true }
+      },
+      {
+        text: 'Services',
+        shape: 'rectangle',
+        corners: 'rounded',
+        foregroundColor: '#fff',
+        backgroundColor: '#000',
+        transparent: true,
+        hasBorder: false,
+        shadow: false,
+        navigate: false,
+        action: () => this.scrollToSection('services'),
+        customStyles: {},
+        isPillButton: false,
+        opacityOnHover: { opacity: 0.8, isOpacityEnabled: true }
+      },
+      {
+        text: 'Case Studies',
+        shape: 'rectangle',
+        corners: 'rounded',
+        foregroundColor: '#fff',
+        backgroundColor: '#000',
+        transparent: true,
+        hasBorder: false,
+        shadow: false,
+        navigate: false,
+        action: () => this.scrollToSection('case-studies'),
+        customStyles: {},
+        isPillButton: false,
+        opacityOnHover: { opacity: 0.8, isOpacityEnabled: true }
+      },
+      {
+        text: 'Contact Us',
+        shape: 'rectangle',
+        corners: 'rounded',
+        foregroundColor: '#fff',
+        backgroundColor: '#000',
+        transparent: true,
+        hasBorder: false,
+        shadow: false,
+        navigate: false,
+        action: () => this.scrollToSection('contact-section'),
+        customStyles: {},
+        isPillButton: false,
+        opacityOnHover: { opacity: 0.8, isOpacityEnabled: true }
+      }
     ],
 
     contact: {

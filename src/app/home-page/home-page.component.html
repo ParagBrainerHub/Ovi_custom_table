@@ -46,46 +46,49 @@
   </div>
 
   <ng-template #tableTemplate>
-    <app-navbar [config]="navbarConfig"></app-navbar>
-    <app-carousel [config]="carouselConfig"></app-carousel>
+    <div id="home">
+      <app-navbar [config]="navbarConfig"></app-navbar>
+      <app-carousel [config]="carouselConfig"></app-carousel>
+    </div>
 
-    <app-form-component [formConfig]="formConfig"></app-form-component>
+    <div id="about">
+      <app-form-component [formConfig]="formConfig"></app-form-component>
+    </div>
 
-    <div class="row">
-      <div class="col-12 text-center">
-        <div class="btn-group">
-          <button type="button" (click)="isNewTable = false" class="btn">
-            Old Component
-          </button>
-          <button type="button" (click)="isNewTable = true" class="btn">
-            New Component
-          </button>
+    <div id="blog">
+      <div class="row">
+        <div class="col-12 text-center">
+          <div class="btn-group">
+            <button type="button" (click)="isNewTable = false" class="btn">
+              Old Component
+            </button>
+            <button type="button" (click)="isNewTable = true" class="btn">
+              New Component
+            </button>
+          </div>
         </div>
       </div>
+
+      <app-custom-material-table
+        *ngIf="isNewTable"
+        [data]="users"
+        [config]="tableConfig"
+      ></app-custom-material-table>
+
+      <app-card-component
+        [cardGridConfig]="cardGridConfig"
+        [cardListConfig]="cardListConfig"
+        [isGrid]="checked"
+        [carouselConfig]="carouselConfig"
+      ></app-card-component>
     </div>
-    <!-- <app-custom-table
-      *ngIf="!isNewTable"
-      [data]="users"
-      [config]="tableConfig"
-    ></app-custom-table> -->
 
-    <app-custom-material-table
-      *ngIf="isNewTable"
-      [data]="users"
-      [config]="tableConfig"
-    ></app-custom-material-table>
-
-    <app-card-component
-      [cardGridConfig]="cardGridConfig"
-      [cardListConfig]="cardListConfig"
-      [isGrid]="checked"
-      [carouselConfig]="carouselConfig"
-    ></app-card-component>
-    <div>
+    <div id="contact">
       <app-calendar-component
         [formConfig]="formConfigForCalendar"
       ></app-calendar-component>
     </div>
+
     <app-footer
       [footerConfig]="footerConfig"
       [contactFormConfig]="formConfigForContact"
